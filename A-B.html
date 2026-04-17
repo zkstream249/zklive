@@ -1,1483 +1,773 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KzStream — Match en direct</title>
-  <link rel="canonical" href="https://kzontop.site/watch"/>
-  <link rel="icon" id="kzFavicon" href="img/kz-favicon.svg?v=2" type="image/svg+xml" sizes="any"/>
-  <link rel="alternate icon" href="img/kz-favicon.svg?v=2" type="image/svg+xml"/>
-  <link rel="apple-touch-icon" href="img/kz-favicon.svg?v=2"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>ZK + - Lens - Toulouse</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0a0a0a; --bg2: #111111; --bg3: #1a1a1a;
-      --green: #00e676; --text: #ffffff; --muted: #888;
-      --border: rgba(255,255,255,0.05);
-      accent-color: #00e676;
+      --bg: #000000;
+      --border: rgba(255,255,255,.08);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,.45);
+      --green-iptv: #22c55e;
+      --discord: #5865f2;
     }
-    html {
-      height: 100%; margin: 0;
-      background: #0a0a0a;
-    }
-    body {
-      height: 100%; margin: 0;
-      font-family: 'Outfit', 'Inter', sans-serif;
+    html, body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      overflow-x: hidden;
-      background: #0a0a0a;
       min-height: 100vh;
+      overflow-x: hidden;
     }
+    a { color: inherit; text-decoration: none; }
 
-    .glass {
-      background: var(--bg2);
-      border: 1px solid var(--border);
+    /* ── HEADER ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-
-    /* ── NAVBAR ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: #0d0d0d;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 0 1.5rem;
-    }
-    .nav-inner {
-      max-width: 1536px; margin: 0 auto;
-      display: flex; align-items: center; height: 60px; gap: 0.75rem;
-    }
-    .back-btn {
-      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
-      color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500;
-      transition: color 0.15s;
-    }
-    .back-btn:hover { color: var(--text); }
-    .back-btn svg { width: 18px; height: 18px; }
-    .brand {
-      font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800;
-      letter-spacing: 1px; color: var(--text); text-decoration: none; flex-shrink: 0;
-    }
-    .brand em { font-style: normal; color: var(--green); }
-    .nav-right {
-      display: flex; align-items: center; gap: 0.5rem;
-      margin-left: auto; flex-shrink: 0;
-    }
-    .nav-btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 7px; flex-shrink: 0;
-      height: 36px; min-height: 36px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--muted);
-      font-size: 0.78rem; font-weight: 600; line-height: 1;
-      padding: 0 14px;
-      border-radius: 999px;
-      white-space: nowrap;
-      text-decoration: none; transition: all 0.25s ease; cursor: pointer;
-      font-family: 'Outfit', 'Inter', sans-serif;
-    }
-    .nav-btn:hover { border-color: rgba(255,255,255,0.25); color: #fff; background: rgba(255,255,255,0.06); }
-    .nav-btn.iptv {
-      background: transparent; border: 1.5px solid var(--green); color: var(--green);
-      font-weight: 700; padding: 0 18px; font-size: 0.75rem; letter-spacing: 0.5px;
-    }
-    .nav-btn.iptv:hover { background: rgba(0,230,118,0.1); }
-    .iptv-short { display: none; }
-    .iptv-full { display: inline; }
-    .nav-icon {
-      width: 36px; height: 36px; padding: 0;
-      border-radius: 50%; background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .nav-icon:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); color: #fff; }
-    .nav-btn svg { flex-shrink: 0; }
-    .visitors-badge {
-      display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex-shrink: 0;
-      height: 36px; min-height: 36px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      color: var(--text); font-size: 0.78rem; font-weight: 600; line-height: 1;
-      padding: 0 13px;
-      border-radius: 999px;
-    }
-    .nav-spectateurs-badge { display: none; }
-    .nav-spectateurs-badge .nav-spectateur-count { color: var(--green); }
-    @media (max-width: 900px) {
-      .nav-spectateurs-badge { display: inline-flex !important; }
-      /* Pub IPTV déjà présente sur la page watch : masquer le bouton nav mobile */
-      .nav-btn.iptv { display: none !important; }
-    }
-    @media (max-width: 700px) {
-      .nav-right { gap: 0.35rem; }
-      .brand { font-size: 1.15rem; }
-      .visitors-badge { padding: 0 10px; }
-      .nav-icon { width: 32px; height: 32px; }
-    }
-
-    /* ── PAGE LAYOUT ── */
-    .page {
-      max-width: 1536px; margin: 0 auto; padding: 2rem 1.5rem;
-      display: grid; grid-template-columns: 1fr 420px;
-      gap: 1.5rem; align-items: start;
-      min-height: calc(100vh - 60px);
-    }
-    .ad-casino-banner-mobile { display: none; }
-    @media (max-width: 1100px) {
-      .page { grid-template-columns: 1fr; gap: 0.5rem; padding: 1rem; }
-      .chat-col { display: flex !important; order: 1; }
-      .ad-slot-desktop { display: none !important; }
-      .ad-slot-mobile { display: block !important; width: 100%; border-radius: 14px; overflow: hidden; }
-      .ad-casino-banner-mobile { display: block !important; }
-    }
-
-    /* ── AD SLOTS ── */
-    .ad-iptv-title { font-size: clamp(1.5rem, 8vw, 2.2rem); font-weight: 800; color: #c0c8d0; text-shadow: 0 0 20px rgba(255,255,255,0.2); letter-spacing: 4px; text-align: center; margin-bottom: 0.25rem; position: relative; }
-    .ad-iptv-tagline { text-align: center; margin-bottom: 0.75rem; position: relative; }
-    .ad-iptv-tagline .line1 { font-size: 0.6rem; font-weight: 700; color: #fff; letter-spacing: 2px; }
-    .ad-iptv-tagline .line2 { font-size: 0.65rem; font-weight: 700; color: #ff8c00; letter-spacing: 1px; }
-    .ad-iptv-cards { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; position: relative; }
-    .ad-iptv-card { flex: 1; min-width: 85px; max-width: 110px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
-    .ad-iptv-card.featured { box-shadow: 0 0 20px rgba(255,140,0,0.25); border-color: rgba(255,140,0,0.3); }
-    .ad-iptv-card-badge { background: #ff8c00; color: #fff; font-size: 0.55rem; font-weight: 800; letter-spacing: 1px; padding: 0.35rem 0.4rem; text-align: center; }
-    .ad-iptv-card-body { padding: 0.45rem 0.5rem; font-size: 0.5rem; color: #ccc; }
-    .ad-iptv-card-body.dark { background: rgba(0,0,0,0.35); }
-    .ad-iptv-card-body.orange { background: rgba(255,140,0,0.2); }
-    .ad-iptv-card-body .accès { color: #888; margin-bottom: 0.2rem; }
-    .ad-iptv-card-body .feature { color: #fff; font-weight: 700; line-height: 1.35; }
-    .ad-iptv-card-price { text-align: center; padding: 0.35rem 0.5rem; margin: 0.25rem 0.4rem; background: #ff8c00; border-radius: 999px; color: #ffeb3b; font-size: 0.85rem; font-weight: 800; }
-    .ad-iptv-cta-wrap { text-align: center; margin-top: 0.6rem; position: relative; }
-    .ad-iptv-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: #ff8c00; color: #000; font-size: 0.7rem; font-weight: 800; padding: 0.5rem 1rem; border-radius: 10px; text-decoration: none; letter-spacing: 1px; transition: background 0.2s; }
-    .ad-iptv-cta:hover { background: #ff9f1a; }
-    .ad-iptv-cta svg { width: 14px; height: 14px; }
-    .ad-pub-cta {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0.35rem;
-      width: 100%; padding: 0.85rem 1rem;
-      background: var(--bg2);
-      border: 1.5px solid rgba(0,230,118,0.5); border-radius: 14px;
-      color: #fff; font-size: 0.85rem; font-weight: 600;
-      text-decoration: none; cursor: pointer;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-shadow: 0 0 16px rgba(0,230,118,0.15);
-      flex-wrap: wrap;
-    }
-    .ad-pub-cta:hover { border-color: var(--green); box-shadow: 0 0 24px rgba(0,230,118,0.25); }
-    .ad-pub-cta .cart { opacity: 0.8; }
-    .ad-pub-cta .highlight { color: var(--green); }
-    .ad-casino-banner {
-      display: block; width: 100%; margin-bottom: 0.5rem; border-radius: 14px;
-      overflow: hidden; cursor: pointer; flex-shrink: 0;
-      border: 1.5px solid rgba(0,230,118,0.2);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
-    }
-    .ad-casino-banner:hover {
-      border-color: rgba(0,230,118,0.5);
-      box-shadow: 0 4px 28px rgba(0,230,118,0.2);
-      transform: translateY(-1px);
-    }
-    .ad-casino-banner img { display: block; width: 100%; height: auto; }
-    .promo-bar {
-      display: flex; align-items: center; gap: 0.75rem;
-      margin: 0; padding: 0.5rem 1rem;
-      background: var(--bg2);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px;
-      text-decoration: none; color: #fff;
-      transition: border-color 0.3s, background 0.2s;
-      flex-shrink: 0;
-    }
-    .promo-bar:hover { border-color: rgba(0,230,118,0.25); background: rgba(30,30,30,0.9); }
-    .promo-bar-left { display: flex; align-items: center; gap: 0.85rem; }
-    .promo-bar-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: var(--bg3); display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; flex-shrink: 0;
-    }
-    .promo-bar-text { font-size: 0.85rem; font-weight: 700; }
-    .promo-bar-sub { font-size: 0.7rem; color: var(--muted); font-weight: 400; }
-    .promo-bar-cta {
-      flex-shrink: 0; padding: 0.5rem 1rem;
-      background: var(--bg3); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px; font-size: 0.75rem; font-weight: 700;
-      color: var(--text); text-decoration: none;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .promo-bar:hover .promo-bar-cta { border-color: rgba(0,230,118,0.4); color: var(--green); }
-    .ad-slot-mobile { display: none; }
-    .ad-slot-mobile-chat { display: none; }
-    @media (max-width: 900px) {
-      .page { grid-template-columns: 1fr; padding: 1rem; gap: 1rem; }
-      .watch-bar { display: none !important; }
-      .promo-bar { display: none !important; }
-      .player-col .stream-info { display: none !important; }
-      .ad-slot-mobile-top { display: none !important; }
-      .ad-casino-banner-mobile { display: none !important; }
-      .ad-slot-mobile-chat {
-        display: block !important; width: 100%; border-radius: 14px;
-        overflow: hidden; margin-bottom: 0.5rem; flex-shrink: 0;
-        border: 1px solid rgba(255,255,255,0.08);
-      }
-      .chat-col { display: flex !important; order: 1; margin-top: 0.25rem; }
-      .chat-col .chat-box { height: 480px; min-height: 400px; border-radius: 14px; display: flex; flex-direction: column; }
-      .chat-col .ad-slot-desktop,
-      .chat-col #adSlotDesktop { display: block !important; visibility: visible !important; width: 100%; min-height: 44px; flex-shrink: 0; margin-bottom: 0.5rem; border-radius: 14px; overflow: hidden; }
-    }
-    @media (max-width: 900px) {
-      nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(13,13,13,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-      body { padding-top: 60px; }
-      .chat-col .chat-box { height: 480px; min-height: 400px; display: flex; flex-direction: column; }
-    }
-    @media (max-width: 700px) {
-      .page { padding: 0.75rem; }
-      .chat-col { margin-top: 0.2rem; }
-      .chat-col .chat-box { height: 460px; min-height: 380px; }
-    }
-
-    /* ── PLAYER COL ── */
-    .player-col {
-      display: flex; flex-direction: column; gap: 1rem;
-      align-items: stretch; width: 100%; margin: 0;
-      animation: fadeInUp 0.5s ease-out both;
-    }
-    .chat-col { animation: fadeInUp 0.5s ease-out 0.15s both; }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .player-col .player-block,
-    .player-col .stream-info { width: 100%; }
-
-    /* ── PLAYER BLOCK ── */
-    .player-block {
-      background: var(--bg2);
-      border: 1px solid rgba(0,230,118,0.1);
-      border-radius: 18px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 0 40px rgba(0,230,118,0.06), 0 20px 60px rgba(0,0,0,0.4);
-      transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-    .player-block:hover {
-      box-shadow: 0 0 50px rgba(0,230,118,0.1), 0 24px 70px rgba(0,0,0,0.5);
-      border-color: rgba(0,230,118,0.18);
-    }
-    .player-wrap {
-      position: relative; width: 100%; padding-top: 56.25%;
-      background: #000;
-    }
-    #playerMediaWrap {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      background: #000;
-    }
-    #jwPlayerContainer {
-      position: absolute; inset: 0; width: 100% !important; height: 100% !important;
-      background: #000;
-    }
-    #playerMediaWrap video#mainPlayer {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
-      background: #000; object-fit: contain;
-    }
-    .player-wrap iframe#embedPlayer {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
-      background: #000;
-    }
-    .embed-ads-notice {
-      display: none; margin: 0; padding: 0.5rem 1rem;
-      font-size: 0.82rem; color: #f87171;
-      text-align: center; line-height: 1.45;
-    }
-    .embed-ads-notice svg { vertical-align: -2px; margin-right: 5px; stroke: #f87171; opacity: 0.8; }
-    .player-reconnect-msg {
-      display: none; position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-      z-index: 4; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(14px); border-radius: 999px; padding: 10px 22px;
-      color: #fff; font-size: 0.8rem; font-weight: 600;
-      align-items: center; gap: 10px; pointer-events: none;
-      font-family: 'Outfit', sans-serif;
-    }
-    .player-reconnect-msg.show { display: flex; }
-    .reconnect-spinner {
-      width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.25);
-      border-top-color: #fff; border-radius: 50%;
-      animation: kz-spin 0.7s linear infinite;
-    }
-    @keyframes kz-spin { to { transform: rotate(360deg); } }
-    .player-error-msg {
-      display: none; position: absolute; inset: 0; z-index: 3;
-      background: rgba(0,0,0,0.9);
-      color: var(--muted); font-size: 0.85rem;
-      flex-direction: column; align-items: center; justify-content: center;
-      gap: 0.75rem; text-align: center; padding: 1.5rem;
-    }
-    .player-error-msg.show { display: flex; }
-    .player-error-msg .err-title { color: #fff; font-size: 1rem; font-weight: 700; }
-    .player-error-msg .err-hint { max-width: 320px; line-height: 1.5; }
-    .player-error-msg .err-retry { padding: 8px 24px; background: var(--green); color: #000; border: none; border-radius: 999px; font-weight: 700; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 0.85rem; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 0 16px rgba(0,230,118,0.25); }
-    .player-error-msg .err-retry:hover { background: #00c853; box-shadow: 0 0 24px rgba(0,230,118,0.4); }
-
-    /* ── SOURCES (pilules sous le player, hors du player-block) ── */
-    .sources-wrap {
-      margin-top: 1rem;
-      display: flex; flex-wrap: wrap; gap: 0.75rem;
-      align-items: center; justify-content: space-between;
-    }
-    .sources-list {
-      display: flex; flex-direction: row; flex-wrap: wrap; gap: 0.75rem;
-    }
-    .src-btn {
+    .logo {
+      display: inline-flex;
+      align-items: center;
       height: 40px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 12px;
-      font-family: 'Outfit', 'Inter', sans-serif;
-      cursor: pointer;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0 1.1rem;
-      transition: all 0.25s ease;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.04);
-      color: rgba(255,255,255,0.7);
     }
-    .src-btn:hover {
-      border-color: rgba(0,230,118,0.25);
-      background: rgba(255,255,255,0.08);
+    .logo img {
+      display: block;
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-back:hover { background: rgba(255,255,255,.12); }
+
+    /* ── LAYOUT (panneau lecteur | vidéo | chat) ── */
+    .shell {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 300px);
+      height: calc(100vh - 56px);
+      min-height: 0;
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+        @media (max-width: 1100px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+      .col-left {
+        order: 2;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        max-height: none;
+        position: static;
+      }
+      .col-center { order: 1; min-height: 45vh; }
+      .col-right { order: 3; }
+      .live-player-wrap {
+        aspect-ratio: 16 / 9;
+        height: auto;
+        max-height: none;
+      }
+    }
+
+    /* ── COL GAUCHE (infos stream + lecteurs) ── */
+    .col-left { display: none; }
+    .sidebar-panel {
+      padding: 16px 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .sb-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .sb-title {
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+    .sb-live {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,.88);
+    }
+    .sb-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 0 2px rgba(239,68,68,.35);
+      animation: sbPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes sbPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .5; }
+    }
+    .sb-share {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sb-share:hover { background: rgba(255,255,255,.1); }
+    .sb-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,.9);
+    }
+    .sb-player-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .sb-pbtn {
+      padding: 12px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: #1f1f1f;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, transform .1s;
+    }
+    .sb-pbtn:hover { background: #2a2a2a; }
+    .sb-pbtn.active {
+      background: linear-gradient(180deg, #9333ea 0%, #7c3aed 100%);
+      border-color: rgba(167,139,250,.5);
+      box-shadow: 0 4px 16px rgba(124,58,237,.35);
+    }
+    .sb-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sb-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #171717;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .sb-card-k {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .sb-card-v {
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      text-align: right;
+      word-break: break-all;
+    }
+    .sb-promo {
+      display: block;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(160deg, #1e3a5f 0%, #0f2744 40%, #2563eb 100%);
+      text-decoration: none;
+      color: #fff;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .sb-promo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(37,99,235,.25);
+    }
+    .sb-promo-inner {
+      padding: 18px 14px 16px;
+      text-align: center;
+    }
+    .sb-promo-crown { font-size: 28px; line-height: 1; margin-bottom: 4px; }
+    .sb-promo-brand {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      margin-bottom: 12px;
+    }
+    .sb-promo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    .sb-promo-tag {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .sb-promo-cta {
+      background: rgba(255,255,255,.95);
+      color: #0f172a;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 8px;
+      margin-top: 4px;
+    }
+    .sb-promo-hint {
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 8px;
+      opacity: .85;
+    }
+    .sb-help {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 10px;
+      background: transparent;
+      color: rgba(255,255,255,.7);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: left;
+    }
+    .sb-help:hover { color: #fff; background: rgba(255,255,255,.05); }
+    .sb-help-panel {
+      display: none;
+      font-size: 11px;
+      line-height: 1.55;
+      color: var(--muted);
+      padding: 0 4px 8px;
+    }
+    .sb-help-panel.open { display: block; }
+
+    /* ── CENTRE ── */
+    .col-center {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      background: var(--bg);
+    }
+    .player-shell {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      padding: 0;
+    }
+        .live-player-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      min-height: 0;
+      max-height: calc(100vh - 150px);
+      border-radius: 0;
+      overflow: hidden;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      background: #000;
+      box-shadow: none;
+      flex: 0 0 auto;
+    }
+            .live-player-inner {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      display: block !important;
+      background: #000 !important;
+    }
+    .live-player-inner iframe {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-width: 100% !important;
+      min-height: 100% !important;
+      display: block !important;
+      border: 0 !important;
+      background: #000 !important;
+    }
+
+    .player-footer {
+      flex-shrink: 0;
+      width: 100%;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      min-height: 96px;
+      padding: 14px 20px 16px;
+      margin-top: 0;
+      margin-left: 0;
+      margin-right: 0;
+      background: #000000;
+      border-top: 1px solid var(--border);
+    }
+    .player-footer .match-inline {
+      font-size: clamp(15px, 2.2vw, 18px);
+      font-weight: 800;
+      margin-right: 0;
+      max-width: min(340px, 42vw);
+      min-width: 0;
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      white-space: normal;
+      word-break: break-word;
+      grid-column: 1;
+    }
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      grid-column: 2;
+      justify-self: center;
+    }
+    .stream-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 11px;
+      font-size: 20px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      line-height: 1;
+      white-space: nowrap;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    .stream-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+      z-index: 1;
+    }
+    .stream-btn:hover::before {
+      left: 100%;
+    }
+    .stream-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 20px currentColor;
+    }
+    .stream-btn:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+    .stream-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .stream-btn .btn-label {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+    .btn-discord-sm {
+      background: #5964f2;
+      border-color: rgba(255,255,255,.08);
+    }
+    .btn-x-sm {
+      background: #070707;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .btn-telegram-sm {
+      background: #289cd8;
+      border-color: rgba(255,255,255,.08);
+    }
+    .btn-iptv {
+      background: #12bb57;
+      border-color: rgba(255,255,255,.08);
+      min-height: 40px;
+      padding: 0 18px;
+      border-radius: 11px;
       color: #fff;
     }
-    .src-btn.active {
-      background: var(--green);
-      color: #000;
-      border-color: var(--green);
-      box-shadow: 0 0 18px rgba(0,230,118,0.3);
+    .viewer-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #f87171;
+      font-size: 15px;
       font-weight: 800;
+      margin-left: 0;
+      grid-column: 3;
+      justify-self: end;
     }
-    .src-btn.active:hover {
-      background: #00c853;
-      box-shadow: 0 0 24px rgba(0,230,118,0.4);
-    }
-    .src-icon { font-size: 0.85rem; }
-    .src-quality {
-      font-size: 0.6rem; font-weight: 700;
-      background: rgba(0,0,0,0.3); padding: 2px 6px;
-      border-radius: 4px; color: var(--muted);
-    }
-    .src-btn.active .src-quality { color: rgba(0,0,0,0.6); background: rgba(0,0,0,0.12); }
+    .viewer-mini svg { width: 18px; height: 18px; }
 
-    /* ── WATCH BAR (barre "Vous regardez") ── */
-    .watch-bar {
-      border-radius: 16px;
-      padding: 14px 18px;
-      display: flex; align-items: center; justify-content: space-between; gap: 14px;
-      margin-top: 1rem;
-      border-left: 3px solid var(--green);
-      transition: border-color 0.3s ease;
-    }
-    .watch-left { display: flex; align-items: center; gap: 12px; }
-    .watch-text .small { font-size: 0.7rem; color: var(--green); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
-    .watch-text .big { font-size: 1rem; font-weight: 700; color: var(--text); margin-top: 2px; }
-    .watch-right { display: flex; align-items: center; gap: 10px; }
-    .stream-info-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.75rem; font-weight: 600; color: var(--muted);
-      background: var(--bg3); padding: 5px 10px;
-      border-radius: 8px; border: 1px solid var(--border);
-    }
-    .stream-info-tag.channel { color: var(--text); }
-    .stream-info-tag.spectateurs {
-      background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
-      color: #00e676 !important; border-radius: 999px;
-      border: 1px solid rgba(0,230,118,0.25);
-    }
-    .stream-info-tag.spectateurs svg { width: 14px; height: 14px; stroke: #00e676; color: #00e676; }
-
-    /* ── CHAT COL ── */
-    .chat-col { display: flex; flex-direction: column; gap: 1rem; }
-    @media (min-width: 1101px) {
-      .chat-col {
-        position: sticky; top: calc(60px + 2rem);
-        height: calc(100vh - 60px - 4rem);
-      }
-      .chat-col .ad-slot-desktop,
-      .chat-col #adSlotDesktop,
-      .ad-slot-desktop {
-        display: none !important;
-      }
-    }
-
-    /* ── CHAT BOX ── */
-    .chat-box {
-      background: var(--bg2);
-      border: 1px solid rgba(0,230,118,0.06);
-      border-radius: 18px;
+    /* ── COL DROITE CHAT ── */
+    .col-right {
+      border-left: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
       overflow: hidden;
-      display: flex; flex-direction: column;
-      min-height: 520px;
-      position: relative;
-      box-shadow: 0 0 30px rgba(0,230,118,0.04), 0 16px 50px rgba(0,0,0,0.3);
-      transition: border-color 0.3s ease;
     }
-    @media (min-width: 1101px) {
-      .chat-box { flex: 1 1 0; min-height: 0; }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 700;
     }
-    .chat-box iframe { width: 100%; height: 100%; border: none; }
-    .chat-box iframe { width: 100%; height: 100%; border: none; }
-
-    /* ── PREMATCH ── */
-    .prematch {
-      position: absolute; inset: 0;
-      display: none; align-items: center; justify-content: center;
-      flex-direction: column; gap: 1rem;
-      z-index: 2; text-align: center; overflow: hidden; isolation: isolate;
+    .chat-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: .7;
     }
-    .prematch.hidden { display: none; }
-    .prematch-poster {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      background-color: #0a0a0a; z-index: 0;
-      transform: translateZ(0) scale(1.05);
-      filter: blur(14px); -webkit-filter: blur(14px); opacity: 0.5;
+    .chat-banner {
+      height: 72px;
+      background: linear-gradient(135deg, #14532d 0%, #052e16 50%, #0a0a0a 100%);
+      border-bottom: 1px solid var(--border);
     }
-    .prematch::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 100%);
-      z-index: 0;
+    .chat-body {
+      flex: 1;
+      padding: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 200px;
     }
-    .prematch-content {
-      position: absolute; inset: 0; z-index: 1;
-      text-align: center; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 0.5rem;
-      background: rgba(14, 18, 16, 0.94);
-      padding: 2rem 2.5rem; border-radius: 20px;
-      width: 100%; height: 100%; box-sizing: border-box;
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    .chat-input-wrap {
+      padding: 12px 14px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
-    .prematch-label {
-      font-size: 0.75rem; color: var(--muted);
-      letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+    .chat-input-wrap input {
+      flex: 1;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #111;
+      color: var(--text);
+      padding: 0 12px;
+      font-size: 13px;
+      outline: none;
     }
-    .prematch-event {
-      margin-top: 0.4rem; font-size: 1.4rem; font-weight: 800;
-      color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .prematch-timer {
-      font-family: 'Outfit', 'Inter', sans-serif;
-      font-size: clamp(3.5rem, 10vw, 5.5rem);
-      font-weight: 700; color: #fff;
-      letter-spacing: 0.08em; font-variant-numeric: tabular-nums;
-    }
-    .prematch-sub {
-      font-size: 0.8rem; color: var(--muted);
-      max-width: 320px; text-align: center; line-height: 1.5;
-      margin-top: 0.35rem;
-    }
-    .prematch-iptv-btn {
-      margin-top: 1rem;
-      background: rgba(0,230,118,0.15); color: var(--green);
-      border: 1px solid rgba(0,230,118,0.4);
-      font-size: 0.95rem; font-weight: 600;
-      padding: 12px 24px; border-radius: 10px;
-      cursor: pointer; transition: background 0.2s, border-color 0.2s;
-    }
-    .prematch-iptv-btn:hover { background: rgba(0,230,118,0.25); border-color: var(--green); }
-    @media (max-width: 700px) {
-      .prematch { padding: 0; box-sizing: border-box; }
-      .prematch-content { max-width: 100%; padding: 0.75rem 1rem; border-radius: 14px; gap: 0.2rem; }
-      .prematch-timer { font-size: clamp(1.8rem, 9vw, 2.5rem); }
-      .prematch-label { font-size: 0.55rem; letter-spacing: 0.15em; }
-      .prematch-event { font-size: 0.95rem; margin-top: 0.15rem; }
-      .prematch-sub { font-size: 0.65rem; max-width: 240px; margin-top: 0.1rem; }
-      .prematch-iptv-btn { margin-top: 0.4rem; padding: 7px 14px; font-size: 0.7rem; }
+    .chat-input-wrap input::placeholder { color: var(--muted); }
+    .btn-chat-send {
+      height: 40px;
+      padding: 0 14px;
+      border-radius: 8px;
+      background: #2563eb;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
     }
 
-    /* ── MODALS ── */
-
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
-      z-index: 999; align-items: center; justify-content: center; padding: 1rem;
-      overflow-y: auto;
-    }
-    .modal-overlay.open { display: flex; }
-    .iptv-modal {
-      background: #111; border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px; width: 100%; max-width: 900px;
-      overflow: hidden; animation: modalIn 0.25s ease;
-      max-height: 90vh; overflow-y: auto; margin: auto;
-    }
-    @keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
-
-    .support-popup-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      z-index: 1000; align-items: center; justify-content: center; padding: 1rem;
-    }
-    .support-popup-overlay.open { display: flex; }
-    .support-popup {
-      position: relative; background: #111;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: 2.5rem 2.2rem 2rem; max-width: 420px; width: 100%;
-      text-align: center; animation: modalIn 0.25s ease;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    }
-    .support-popup-badge {
-      display: inline-block; background: transparent;
-      color: var(--green); font-size: 0.65rem; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase;
-      padding: 6px 16px; border-radius: 999px;
-      margin-bottom: 1.5rem;
-      border: 1.5px solid var(--green);
-    }
-    .support-popup-title {
-      font-size: 1.7rem; font-weight: 900; color: #fff;
-      margin-bottom: 0.75rem; letter-spacing: 0.5px; line-height: 1.2;
-    }
-    .support-popup-title span { color: var(--green); }
-    .support-popup-text {
-      color: rgba(255,255,255,0.55); font-size: 0.88rem; line-height: 1.65;
-      margin-bottom: 1.75rem; max-width: 340px; margin-left: auto; margin-right: auto;
-    }
-    .support-popup-text strong { color: #fff; font-weight: 700; }
-    .support-popup-cta {
-      display: block;
-      background: var(--green);
-      color: #000; font-size: 0.85rem; font-weight: 800;
-      letter-spacing: 0.5px; text-transform: uppercase;
-      padding: 16px 28px; border-radius: 999px;
-      text-decoration: none; margin-bottom: 1.25rem;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-    .support-popup-cta:hover { opacity: 0.9; transform: translateY(-1px); }
-    .support-popup-thanks {
-      color: rgba(255,255,255,0.35); font-size: 0.8rem;
-    }
-    .modal-top {
-      text-align: center; padding: 3rem 2rem 2rem;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,230,118,0.08) 0%, transparent 70%);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .modal-top h1 { font-family:'Bebas Neue',cursive; font-size:clamp(2.5rem,6vw,4rem); letter-spacing:3px; }
-    .modal-top h1 em { font-style:normal; color:#00e676; }
-    .modal-top p { color:#888; font-size:0.9rem; margin-top:0.5rem; line-height:1.7; }
-    .modal-top p strong { color:#fff; }
-    .modal-body { display:grid; grid-template-columns:1fr 1fr; gap:0; }
-    .modal-plans { padding:2rem; border-right:1px solid rgba(255,255,255,0.08); }
-    .modal-plans h3 { font-size:1rem; font-weight:700; margin-bottom:1.2rem; display:flex; align-items:center; gap:0.5rem; }
-    .plan-item {
-      display:flex; align-items:center; justify-content:space-between;
-      background:#1a1a1a; border:2px solid rgba(255,255,255,0.08);
-      border-radius:10px; padding:0.9rem 1.2rem; margin-bottom:0.5rem;
-      cursor:pointer; position:relative;
-      transition: border-color 0.08s ease-out, background 0.08s ease-out;
-    }
-    .plan-item:hover { border-color:rgba(0,230,118,0.3); background:rgba(0,230,118,0.04); }
-    .plan-item.selected { border-color:#00e676; background:rgba(0,230,118,0.08); }
-    .plan-popular {
-      position:absolute; top:-10px; left:50%; transform:translateX(-50%);
-      background:#00e676; color:#000; font-size:0.6rem; font-weight:800;
-      padding:2px 10px; border-radius:99px; letter-spacing:1px; white-space:nowrap;
-    }
-    .plan-name { font-size:0.9rem; font-weight:500; }
-    .plan-price { font-family:'Bebas Neue',cursive; font-size:1.3rem; color:#00e676; letter-spacing:1px; }
-    .subscribe-btn {
-      display:block; width:100%; margin-top:1.2rem;
-      background:#00e676; color:#000; font-weight:700; font-size:0.95rem;
-      padding:13px; border-radius:10px; text-align:center;
-      text-decoration:none; border:none; cursor:pointer;
-      font-family:'Outfit','Inter',sans-serif; transition:background 0.2s;
-    }
-    .subscribe-btn:hover { background:#00c853; }
-    .modal-features { padding:2rem; }
-    .modal-features h3 { font-size:1rem; font-weight:700; margin-bottom:1.2rem; display:flex; align-items:center; gap:0.5rem; }
-    .feature-item { display:flex; align-items:center; gap:0.6rem; padding:0.5rem 0; font-size:0.88rem; color:#ccc; border-bottom:1px solid rgba(255,255,255,0.05); }
-    .feature-item:last-child { border:none; }
-    .feature-item::before { content:'✓'; color:#00e676; font-weight:700; font-size:0.9rem; flex-shrink:0; }
-    .modal-close-btn {
-      position:absolute; top:1rem; right:1rem;
-      background:#1e1e1e; border:1px solid rgba(255,255,255,0.1);
-      color:#888; width:34px; height:34px; border-radius:8px;
-      font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
-      transition:all 0.2s;
-    }
-    .modal-close-btn:hover { color:#fff; border-color:#fff; }
-    @media(max-width:600px) { .modal-body{grid-template-columns:1fr} .modal-plans{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08)} }
-
-    @media (min-width: 1101px) {
-      #adSlotDesktop { display: block !important; visibility: visible !important; opacity: 1 !important; }
-      .ad-casino-banner-mobile { display: none !important; }
+    @media (max-width: 760px) {
+      .player-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 14px 12px 16px;
+        min-height: 0;
+      }
+      .player-footer .match-inline {
+        grid-column: auto;
+        max-width: 100%;
+        margin: 0;
+        font-size: 24px;
+        line-height: 1.25;
+        word-break: normal;
+        overflow-wrap: anywhere;
+      }
+      .btn-group {
+        grid-column: auto;
+        justify-self: auto;
+        justify-content: flex-start;
+        gap: 8px;
+      }
+      .stream-btn {
+        height: 38px;
+        padding: 0 12px;
+      }
+      .stream-btn .btn-label {
+        font-size: 11px;
+      }
+      .viewer-mini {
+        grid-column: auto;
+        justify-self: auto;
+        align-self: flex-end;
+        font-size: 28px;
+      }
     }
   </style>
-  <script>
-  (function () {
-    function purgeForeignFavicons() {
-      document.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"]').forEach(function (l) {
-        var u = (l.getAttribute('href') || '') + (l.href || '');
-        if (/youtube\.com|ytimg\.com|googlevideo\.com|ggpht\.com/i.test(u)) l.remove();
-      });
-    }
-    purgeForeignFavicons();
-    document.addEventListener('DOMContentLoaded', purgeForeignFavicons);
-    try {
-      new MutationObserver(function () { purgeForeignFavicons(); }).observe(document.head, { childList: true, subtree: true });
-    } catch (e) {}
-  })();
-  </script>
 </head>
 <body>
-<script src="kz-guard.js?v=1"></script>
 
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="back-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+  <header class="topbar">
+    <a href="index.html" class="logo" aria-label="IMFTX+">
+      <img src="https://cdn.discordapp.com/attachments/1486807952340947065/1492225061380296895/image.png?ex=69e07d22&is=69df2ba2&hm=a334cfab49a1a197b381c372edb664b43dd81b1a868ad0af3920d9a3e8de08d3&" alt="IMFTX+">
+    </a>
+    <a href="index.html" class="btn-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
       Retour
     </a>
-    <a href="/" class="brand">Kz<em>Stream</em><span style="color:var(--green);font-size:0.7em;vertical-align:super;margin-left:1px">+</span></a>
-    <div class="nav-right">
-      <span class="visitors-badge nav-spectateurs-badge" id="navSpectateursBadge" style="display:none" aria-label="Spectateurs en direct">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span id="navSpectateurCount">0</span>
-      </span>
-      <a href="shop" class="nav-btn iptv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> <span class="iptv-full">OBTENEZ UN IPTV À PARTIR DE 9,99€</span><span class="iptv-short">IPTV 9,99€</span></a>
-      <a href="https://discord.gg/ycz9zZmTRW" target="_blank" class="nav-btn nav-icon" title="Discord">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-      </a>
-      <a href="https://x.com/KZ2026_" target="_blank" class="nav-btn nav-icon" title="X">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-    </div>
-  </div>
-</nav>
+  </header>
 
-<div class="page">
+  <div class="shell">
 
-  <!-- PLAYER -->
-  <div class="player-col">
-    <div class="ad-slot-mobile ad-slot-mobile-top" id="adSlotMobile">
-      <a href="shop" class="ad-pub-cta" title="IPTV à partir de 9,99€">
-        <span class="cart">🛒</span>
-        <span class="highlight">IPTV</span> À PARTIR DE <strong>9,99€</strong> <span class="highlight">ICI</span>
-      </a>
-    </div>
-    <div class="player-block">
-      <div class="player-wrap">
-        <div class="prematch" id="prematch">
-          <div class="prematch-poster" id="prematchPoster"></div>
-          <div class="prematch-content">
-            <div class="prematch-label">Diffusion à venir</div>
-            <div class="prematch-event" id="prematchEvent"></div>
-            <div class="prematch-timer" id="prematchTimer">--:--:--</div>
-            <div class="prematch-sub">Le lecteur s'affichera automatiquement au lancement.</div>
-              <a href="shop" class="prematch-iptv-btn" style="text-decoration:none;display:inline-block;text-align:center;">
-              Je réserve mon IPTV
-            </a>
+    <aside class="col-left">
+      <div class="sidebar-panel">
+        <div class="sb-head">
+          <div>
+            <h2 class="sb-title" id="sidebarMatchTitle">Lens vs Toulouse</h2>
+            <div class="sb-live"><span class="sb-dot" aria-hidden="true"></span> En direct</div>
+          </div>
+          <button type="button" class="sb-share" id="sbShare" title="Partager" aria-label="Partager">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+          </button>
+        </div>
+
+        <div class="sb-lecteur">
+          <div class="sb-label">Lecteur :</div>
+          <div class="sb-player-btns">
+            <button type="button" class="sb-pbtn active" data-engine="clappr" id="sbBtnClappr">Clappr</button>
+            <button type="button" class="sb-pbtn" data-engine="jw" id="sbBtnJw">JW Player</button>
           </div>
         </div>
-        <div id="playerMediaWrap">
-          <div id="jwPlayerContainer" style="width:100%;height:100%;display:none"></div>
-          <video id="mainPlayer" playsinline controls preload="metadata" style="display:none"></video>
-          <iframe id="embedPlayer" src="" title="Lecteur intégré" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-            style="display:none"></iframe>
+
+        <div class="sb-cards">
+          <div class="sb-card"><span class="sb-card-k">Qualité</span><span class="sb-card-v" id="sbQuality">HIGH</span></div>
+          <div class="sb-card"><span class="sb-card-k">Latence</span><span class="sb-card-v" id="sbLatency">—</span></div>
+          <div class="sb-card"><span class="sb-card-k">Source</span><span class="sb-card-v" id="sbSource">—</span></div>
         </div>
-        <div class="player-reconnect-msg" id="playerReconnect">
-          <div class="reconnect-spinner"></div>
-          <span>Reconnexion en cours...</span>
-        </div>
-        <div class="player-error-msg" id="playerError">
-          <div class="err-title">Source indisponible</div>
-          <div class="err-hint">La source n'a pas pu charger. Si vous êtes hors de France, essayez un VPN. Sinon, essayez une autre source.</div>
-          <button class="err-retry" id="playerRetryBtn">Réessayer</button>
+
+        <a href="shop.html" class="sb-promo">
+          <div class="sb-promo-inner">
+            <div class="sb-promo-crown" aria-hidden="true">👑</div>
+            <div class="sb-promo-brand">IKZ</div>
+            <div class="sb-promo-tags">
+              <span class="sb-promo-tag">100% FOOTBALL &amp; SPORTS</span>
+              <span class="sb-promo-tag">+20 000 FILMS</span>
+              <span class="sb-promo-tag">+5000 CHAÎNES</span>
+              <span class="sb-promo-tag">CHAÎNES FR</span>
+            </div>
+            <div class="sb-promo-cta">IPTV DÈS 20€</div>
+            <div class="sb-promo-hint">Clique sur l’image pour la boutique</div>
+          </div>
+        </a>
+
+        <div>
+          <button type="button" class="sb-help" id="sbHelpToggle" aria-expanded="false">
+            <span aria-hidden="true">▼</span> Informations &amp; aide
+          </button>
+          <div class="sb-help-panel" id="sbHelpPanel">
+            Change de lecteur si le flux coupe. Qualité et latence peuvent varier selon ta connexion. Pour l’IPTV, utilise le bloc ci-dessus ou les boutons sous la vidéo.
+          </div>
         </div>
       </div>
-    </div>
+    </aside>
 
-    <p class="embed-ads-notice" id="embedAdsNotice"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Ce lecteur peut contenir des pubs — fermez les onglets indésirables (MAX 2 PUB), le flux finit par se lancer.</p>
+    <main class="col-center">
+      <div class="player-shell">
+        <div class="live-player-wrap" id="livePlayerWrap">
+          <div class="live-player-inner"><iframe src="https://zonalive.click/player/3/20" allowfullscreen referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe></div>
+        </div>
 
-    <!-- Bannière casino visible quand le chat est masqué (tablette) -->
-    <a href="https://www.lolly-bet888.com?faff=755" target="_blank" rel="noopener" class="ad-casino-banner ad-casino-banner-mobile" title="25% Boost sur vos dépôts — Champions League & Europa League">
-      <img src="img/casino-pub.png?v=4" alt="LollyBet — 25% Boost sur vos dépôts Champions League" loading="lazy" />
-    </a>
-    <div class="sources-wrap">
-      <div class="sources-list" id="sourcesList"></div>
-    </div>
-
-    <!-- Watch bar -->
-    <div class="watch-bar glass">
-      <div class="watch-left">
-        <div class="watch-text">
-          <div class="small">Vous regardez</div>
-          <div class="big" id="streamInfoTitle"></div>
+        <div class="player-footer">
+          <span class="match-inline" id="matchFooter">ARSENAL VS SPORTING</span>
+          <div class="btn-group">
+            <a href="https://x.com/zkstream_tv" class="stream-btn btn-x-sm" aria-label="Twitter / X">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.455L22.5 22h-6.91l-5.41-7.046L4.18 22H1.42l7.01-8.02L1.5 2h7.09l4.89 6.34L18.244 2Zm-1.21 18h1.53L7.76 3.89H6.12L17.03 20Z"/></svg>
+              <span class="btn-label">Twitter / X</span>
+            </a>
+            <a href="https://t.me/zk_stream1" class="stream-btn btn-telegram-sm" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.42 4.34a1.5 1.5 0 0 0-1.54-.19L3.2 11.22a1.5 1.5 0 0 0 .13 2.81l4.34 1.41 1.41 4.34a1.5 1.5 0 0 0 2.81.13l7.07-16.68a1.5 1.5 0 0 0-.54-1.89ZM9.2 14.8l-.76 2.35-.86-2.64 7.7-5.03-6.08 5.32Z"/></svg>
+              <span class="btn-label">Telegram</span>
+            </a>
+            <a href="https://discord.com/invite/fWjBW8pwCU" class="stream-btn btn-discord-sm" aria-label="Discord">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
+              <span class="btn-label">Discord</span>
+            </a>
+            <button type="button" class="stream-btn btn-iptv">
+              <span style="font-size: 16px;">📺</span>
+              <span class="btn-label">COFFRE TON IPTV DÈS 10€</span>
+            </button>
+          </div>
+          <span class="viewer-mini" title="Spectateurs">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span id="counterMatch1" data-viewer-counter="rma-girona">0</span>
+          </span>
         </div>
       </div>
-      <div class="watch-right">
-        <span class="stream-info-tag channel" id="streamInfoChannel">—</span>
-        <span class="stream-info-tag spectateurs" id="streamInfoSpectateurs"></span>
+    </main>
+
+    <aside class="col-right">
+      <div class="chat-header">
+        <span>Chat du stream</span>
+        <div class="chat-header-actions">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
       </div>
-    </div>
+      <div class="chat-banner" aria-hidden="true"><img src="https://cdn.discordapp.com/attachments/1486807952340947065/1492224022086156420/image.png?ex=69e07c2b&is=69df2aab&hm=f8bd9e1562a5b295cdd59f6a29ddc89c6566e3c3854b87432878dbb36dfed78e&" alt="Chat banner" style="width: 100%; height: 100%; object-fit: cover;"></div>
+      <div class="chat-body">
+        <p>Bienvenue dans le chat !</p>
+      </div>
+      <div class="chat-input-wrap">
+        <input type="text" placeholder="Envoyer un message" autocomplete="off">
+        <button type="button" class="btn-chat-send">Chat</button>
+      </div>
+    </aside>
 
   </div>
+  <script>
+    (function () {
+function formatFooterTwoLines(full) {
+        var m = String(full).split(/\s+vs\s+/i);
+        if (m.length < 2) return full;
+        var home = m[0].trim();
+        var away = m.slice(1).join(" vs ").trim();
+        var w = away.split(/\s+/);
+        if (w.length <= 1) return home + "<br>" + away;
+        var last = w[w.length - 1];
+        var rest = w.slice(0, -1).join(" ");
+        return home + " vs " + rest + "<br>" + last;
+      }
 
-  <!-- CHAT KZSTREAM -->
-  <div class="chat-col">
-    <a href="https://www.lolly-bet888.com?faff=755" target="_blank" rel="noopener" class="ad-casino-banner" title="25% Boost sur vos dépôts — Champions League & Europa League">
-      <img src="img/casino-pub.png?v=4" alt="LollyBet — 25% Boost sur vos dépôts Champions League" loading="lazy" />
-    </a>
-    <div class="ad-slot-desktop ad-slot-mobile-chat" id="adSlotDesktop">
-      <a href="shop" class="ad-pub-cta" title="IPTV à partir de 9,99€">
-        <span class="cart">🛒</span>
-        <span class="highlight">IPTV</span> À PARTIR DE <strong>9,99€</strong> <span class="highlight">ICI</span>
-      </a>
-    </div>
-    <div class="chat-box" id="kzstreamChatBox" style="padding:0;overflow:hidden;">
-      <iframe src="https://www.twitch.tv/embed/jemangepersonne/chat?parent=kzontop.cc&parent=kzontop.site&darkpopout" width="100%" height="100%" frameborder="0" style="border:none;display:block;"></iframe>
-    </div>
-  </div>
+      function applyTitleFromQuery() {
+        var params = new URLSearchParams(window.location.search);
+        var title = params.get("match");
+        var footer = document.getElementById("matchFooter");
+        if (!footer) return;
 
-</div>
+        if (title) {
+          try { title = decodeURIComponent(title); } catch (e) {}
+          footer.innerHTML = formatFooterTwoLines(title);
+          document.title = "IMFTX - " + title;
+        } else {
+          footer.innerHTML = formatFooterTwoLines(footer.textContent);
+        }
+      }
+);
+      }
 
-<!-- Popup Soutenez KzStream (à l'entrée sur un match, timer 8s) -->
-<div class="support-popup-overlay" id="supportPopupOverlay">
-  <div class="support-popup" onclick="event.stopPropagation()">
-    <span class="support-popup-badge">ACCÈS GRATUIT</span>
-    <h2 class="support-popup-title">SOUTENEZ <span>KZSTREAM</span></h2>
-    <p class="support-popup-text">Le site est <strong>100% gratuit</strong> et grandit grâce à vous. Un simple Follow + Like + RT nous aide à <strong>continuer</strong> et à agrandir la communauté 🙏</p>
-    <a href="https://x.com/KZ2026_" target="_blank" rel="noopener" class="support-popup-cta" id="supportPopupCta">FOLLOW + LIKE + RT POUR REGARDER LE MATCH</a>
-    <p class="support-popup-thanks">Merci pour votre soutien !</p>
-  </div>
-</div>
+      var pageSlug = "rma-girona";
 
+      function getSessionId() {
+        var sessionId = localStorage.getItem("live_session_id");
+        if (!sessionId) {
+          sessionId = "sess_" + Math.random().toString(36).slice(2) + Date.now();
+          localStorage.setItem("live_session_id", sessionId);
+        }
+        return sessionId;
+      }
 
-<div class="modal-overlay" id="iptvModal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="iptv-modal" style="position:relative">
-    <button class="modal-close-btn" onclick="document.getElementById('iptvModal').classList.remove('open')">✕</button>
-    <div class="modal-top">
-      <h1>Kz<em>Stream</em> IPTV</h1>
-      <p>Plus de <strong>25.000 chaînes</strong> dont toutes les chaînes de sports en <strong>Full HD+</strong> et <strong>4K</strong>.<br>
-      Une VOD 4K complète avec plus de <strong>130.000 films</strong> et près de <strong>40.000 séries</strong> partout dans le monde !</p>
-    </div>
-    <div class="modal-body">
-      <div class="modal-plans">
-        <h3>📺 Nos Abonnements</h3>
-        <div class="plan-item selected" onclick="selectPlan(this)"><span class="plan-name">1 mois</span><span class="plan-price">9,99€</span></div>
-        <div class="plan-item" onclick="selectPlan(this)"><span class="plan-name">3 mois</span><span class="plan-price">20€</span></div>
-        <div class="plan-item" onclick="selectPlan(this)" style="margin-top:1rem">
-          <span class="plan-popular">⭐ LE PLUS ACHETÉ</span>
-          <span class="plan-name">6 mois</span><span class="plan-price">35€</span>
-        </div>
-        <div class="plan-item" onclick="selectPlan(this)"><span class="plan-name">12 mois</span><span class="plan-price">50€</span></div>
-        <a href="https://discord.gg/mQJD3GPGvb" target="_blank" class="subscribe-btn">Je réserve mon IPTV</a>
-      </div>
-      <div class="modal-features">
-        <h3>✨ Contenu Premium</h3>
-        <div class="feature-item">25.000+ chaînes</div>
-        <div class="feature-item">130.000+ Films</div>
-        <div class="feature-item">40.000+ Séries</div>
-        <div class="feature-item">Qualité SD, HD, FHD, 4K</div>
-        <div class="feature-item">Disponible sur tous vos appareils</div>
-        <div class="feature-item">Assistance 24/7</div>
-      </div>
-    </div>
-  </div>
-</div>
+      async function sendViewer(action) {
+        action = action || "ping";
+        var formData = new FormData();
+        formData.append("page_slug", pageSlug);
+        formData.append("session_id", getSessionId());
+        formData.append("action", action);
 
-<script src="mysql-config.js?v=16"></script>
-<script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script>
-<script src="mysql-api.js?v=16"></script>
-<script>
-(async function() {
-  var IMG_PROXY = 'https://wsrv.nl/?url=';
-  var CDN_BLOCKED = ['empire-sport.art','empire-sport.sbs','empire-sport.live','empire-sport.fit','empire-sport.tv'];
-  function proxyImg(url) {
-    if (!url || !url.trim()) return '';
-    if (CDN_BLOCKED.some(function(d){ return url.indexOf(d) >= 0; })) return IMG_PROXY + encodeURIComponent(url);
-    return url;
-  }
-
-  var kzIntervals = [];
-  window.addEventListener('pagehide', function() { kzIntervals.forEach(clearInterval); kzIntervals.length = 0; });
-
-  var MATCHES = { today: [], tomorrow: [] };
-  const urlParams = new URLSearchParams(window.location.search);
-  const slug = urlParams.get('m');
-  const hasSlug = Boolean(slug && slug.trim());
-
-  function _normalizeSlugKey(s) {
-    if (s == null || typeof s !== 'string') return '';
-    return s.trim().replace(/[\u2013\u2014–—]/g, '-').replace(/\s+/g, ' ').toLowerCase();
-  }
-  function _kebabSlugKey(s) {
-    return _normalizeSlugKey(s).replace(/\s*-\s*/g, '-').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-  }
-  function findMatchBySlugParam(param, list) {
-    if (!param || !String(param).trim()) return null;
-    var arr = (list || []).filter(Boolean);
-    var p = String(param).trim();
-    var i, m;
-    for (i = 0; i < arr.length; i++) {
-      m = arr[i];
-      if (m && m.slug === p) return m;
-    }
-    var pk = _kebabSlugKey(p);
-    var pn = _normalizeSlugKey(p);
-    for (i = 0; i < arr.length; i++) {
-      m = arr[i];
-      if (!m || !m.slug) continue;
-      if (_kebabSlugKey(m.slug) === pk || _normalizeSlugKey(m.slug) === pn) return m;
-    }
-    for (i = 0; i < arr.length; i++) {
-      m = arr[i];
-      if (!m || !m.home || !m.away) continue;
-      var h = (m.home.name || '').trim();
-      var a = (m.away.name || '').trim();
-      if (!h || !a) continue;
-      var label = h + ' - ' + a;
-      if (_kebabSlugKey(label) === pk || _normalizeSlugKey(label) === pn) return m;
-    }
-    return null;
-  }
-  function slugStillMatches(storedSlug, urlParam) {
-    if (!storedSlug || !urlParam) return storedSlug === urlParam;
-    if (storedSlug === urlParam) return true;
-    return _kebabSlugKey(storedSlug) === _kebabSlugKey(urlParam) || _normalizeSlugKey(storedSlug) === _normalizeSlugKey(urlParam);
-  }
-
-  function _applyMatchData(d) {
-    if (d && (Array.isArray(d.today) || Array.isArray(d.tomorrow))) {
-      if (Array.isArray(d.today)) MATCHES.today = d.today;
-      if (Array.isArray(d.tomorrow)) MATCHES.tomorrow = d.tomorrow;
-    }
-  }
-
-  try {
-    var _cached = sessionStorage.getItem('kzstream_matches_cache');
-    if (_cached) _applyMatchData(JSON.parse(_cached));
-  } catch(e) {}
-
-  let ALL = [...MATCHES.today, ...MATCHES.tomorrow];
-  let match = slug ? findMatchBySlugParam(slug, ALL) : null;
-
-  if (!match && window.KzApi) {
-    try {
-      var _fetchPromise = window.KzApi.getMatches(true);
-      var _timeout = new Promise(function(resolve) { setTimeout(resolve, 3000, null); });
-      var _result = await Promise.race([_fetchPromise, _timeout]);
-      if (_result) _applyMatchData(_result);
-    } catch(e) {}
-    ALL = [...MATCHES.today, ...MATCHES.tomorrow];
-    match = slug ? findMatchBySlugParam(slug, ALL) : null;
-  }
-
-  function selectPlan(el) {
-    const prev = document.querySelector('.plan-item.selected');
-    if (prev && prev !== el) prev.classList.remove('selected');
-    el.classList.add('selected');
-  }
-  const streamAtParam = urlParams.get('streamAt');
-
-  if (!match) {
-    document.title = 'Match introuvable — KzStream';
-    const col = document.querySelector('.player-col');
-    if (col) col.innerHTML = '<div style="padding:3rem 2rem;text-align:center;"><h2 style="margin-bottom:0.5rem;">Match introuvable</h2><p style="color:var(--muted);margin-bottom:1.5rem;">Ce match n\'existe pas ou a été supprimé.</p><a href="/" class="nav-btn btn-primary">← Retour à l\'accueil</a></div>';
-  } else {
-  document.title = `${(match.home && match.home.name) || '—'} vs ${(match.away && match.away.name) || '—'} — KzStream`;
-
-  const setStreamInfo = () => {
-    const t = document.getElementById('streamInfoTitle');
-    const c = document.getElementById('streamInfoChannel');
-    const pe = document.getElementById('prematchEvent');
-    const title = `${(match.home && match.home.name) || '—'} vs ${(match.away && match.away.name) || '—'}`;
-    if (t) {
-      var _home = document.createElement('span'); _home.textContent = (match.home && match.home.name) || '—';
-      var _vs = document.createElement('span'); _vs.className = 'vs'; _vs.textContent = 'VS';
-      var _away = document.createElement('span'); _away.textContent = (match.away && match.away.name) || '—';
-      t.textContent = ''; t.appendChild(_home); t.appendChild(document.createTextNode(' ')); t.appendChild(_vs); t.appendChild(document.createTextNode(' ')); t.appendChild(_away);
-    }
-    if (c) c.textContent = match.channel || '—';
-    if (pe) pe.textContent = title;
-  };
-  setStreamInfo();
-
-  // Calcul streamStart (pour popup + prematch) — pas de popup si prematch affiché
-  function parseHeureParis(dateStr, timeStr) {
-    if (!dateStr || !timeStr) return new Date(NaN);
-    var ds = dateStr.toString().trim();
-    var dateParts;
-    if (ds.indexOf('/') !== -1) {
-      var p = ds.split('/').map(Number);
-      dateParts = p.length >= 3 ? [p[2], p[1], p[0]] : p;
-    } else {
-      dateParts = ds.split('-').map(Number);
-    }
-    const timeParts = timeStr.toString().trim().split(':').map(Number);
-    if (dateParts.length < 3 || isNaN(dateParts[0])) return new Date(NaN);
-    const y = dateParts[0], mo = dateParts[1], d = dateParts[2];
-    const hh = timeParts[0] || 0, mm = timeParts[1] || 0;
-    if (y < 2000 || mo < 1 || mo > 12 || d < 1 || d > 31) return new Date(NaN);
-    const lastSunMarch = 31 - ((new Date(y, 2, 31).getDay() + 7) % 7);
-    const lastSunOct = 31 - ((new Date(y, 9, 31).getDay() + 7) % 7);
-    const inSummer = (mo > 3 && mo < 10) || (mo === 3 && d >= lastSunMarch) || (mo === 10 && d < lastSunOct);
-    const offset = inSummer ? '+02:00' : '+01:00';
-    const iso = `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}T${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:00${offset}`;
-    return new Date(iso);
-  }
-  function getStreamStart(m) {
-    if (!m || !m.date || !m.time) return new Date(NaN);
-    const coupDenvoi = parseHeureParis(m.date, m.time);
-    if (isNaN(coupDenvoi.getTime())) return new Date(NaN);
-    return new Date(coupDenvoi.getTime() - 30 * 60000);
-  }
-  const streamAtNum = streamAtParam ? Number(String(streamAtParam).trim()) : NaN;
-  const useUrlStreamAt = Number.isFinite(streamAtNum) && streamAtNum > 0;
-  const streamStart = useUrlStreamAt ? new Date(streamAtNum) : getStreamStart(match);
-  const streamHasStarted = !isNaN(streamStart.getTime()) && streamStart.getTime() - Date.now() <= 0;
-
-  // Popup Discord — stream en cours, 1x par session, 8s
-  (function() {
-    if (!streamHasStarted) return;
-    try {
-      if (sessionStorage.getItem('kzstream_support_popup_seen')) return;
-    } catch (e) {}
-    const overlay = document.getElementById('supportPopupOverlay');
-    if (!overlay) return;
-    overlay.classList.add('open');
-    try { sessionStorage.setItem('kzstream_support_popup_seen', '1'); } catch (e) {}
-    setTimeout(function() {
-      overlay.classList.remove('open');
-    }, 8000);
-  })();
-
-  let currentSrcUrl = '';
-  let jwInstance = null;
-  let _retryCount = 0;
-  let _retryTimer = null;
-  var MAX_AUTO_RETRY = 5;
-  var RETRY_DELAY_MS = 4000;
-
-  function destroyJw() {
-    if (jwInstance) {
-      try { jwInstance.remove(); } catch (e) {}
-      jwInstance = null;
-    }
-    var jwEl = document.getElementById('jwPlayerContainer');
-    if (jwEl) jwEl.style.display = 'none';
-  }
-  /**
-   * Si l’autoplay est refusé par le navigateur (souvent la 1ère visite ou profil strict),
-   * un clic / toucher n’importe où sur la zone lecteur relance play() avec « geste utilisateur ».
-   */
-  function installJwUserGesturePlay() {
-    var wrap = document.getElementById('playerMediaWrap');
-    if (!wrap || wrap.dataset.jwGestureInstalled) return;
-    wrap.dataset.jwGestureInstalled = '1';
-    wrap.addEventListener('pointerdown', function() {
-      if (!jwInstance) return;
-      var jwEl = document.getElementById('jwPlayerContainer');
-      if (!jwEl || jwEl.style.display !== 'block') return;
-      try {
-        jwInstance.setMute(true);
-        jwInstance.play(true);
-      } catch (e) {}
-    }, true);
-  }
-  installJwUserGesturePlay();
-  /** JW HLS — utilisé pour Flux m3u8 et pour Embed dont l’URL est un .m3u8 */
-  function setupJwHlsPlayer(finalUrl) {
-    var iframe = document.getElementById('embedPlayer');
-    var video = document.getElementById('mainPlayer');
-    var jwEl = document.getElementById('jwPlayerContainer');
-    if (iframe) {
-      iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-presentation');
-      iframe.removeAttribute('scrolling');
-      iframe.style.display = 'none';
-      iframe.src = 'about:blank';
-    }
-    if (video) video.style.display = 'none';
-    destroyJw();
-    if (jwEl) jwEl.style.display = 'block';
-    jwInstance = jwplayer('jwPlayerContainer').setup({
-      file: finalUrl,
-      type: 'hls',
-      width: '100%',
-      height: '100%',
-      autostart: true,
-      mute: true,
-      primary: 'html5',
-      hlshtml: true,
-      stretching: 'fill',
-      preload: 'metadata',
-      controls: true,
-      displaytitle: false,
-      displaydescription: false
-    });
-    jwInstance.on('ready', function() {
-      try {
-        jwInstance.setMute(true);
-        jwInstance.play(true);
-      } catch (e) {}
-      setTimeout(function() {
         try {
-          if (!jwInstance || !jwInstance.getState) return;
-          if (jwInstance.getState() !== 'playing') jwInstance.play(true);
-        } catch (e2) {}
-      }, 450);
-    });
-    jwInstance.on('error', function() { _autoRetry(); });
-    jwInstance.on('setupError', function() { _autoRetry(); });
-  }
-  function _clearRetry() {
-    if (_retryTimer) { clearTimeout(_retryTimer); _retryTimer = null; }
-  }
-  function _showReconnecting(show) {
-    var el = document.getElementById('playerReconnect');
-    if (!el) return;
-    if (show) { el.classList.add('show'); } else { el.classList.remove('show'); }
-  }
-  function _autoRetry() {
-    if (_retryCount >= MAX_AUTO_RETRY) {
-      _showReconnecting(false);
-      var errMsg = document.getElementById('playerError');
-      if (errMsg) errMsg.classList.add('show');
-      return;
-    }
-    _retryCount++;
-    _showReconnecting(true);
-    _retryTimer = setTimeout(function() {
-      _showReconnecting(false);
-      var activeBtn = document.querySelector('.src-btn.active');
-      if (activeBtn && currentSrcUrl) loadSrc(activeBtn, activeBtn.getAttribute('data-src') || currentSrcUrl, true);
-    }, RETRY_DELAY_MS);
-  }
-  function isHlsStreamUrl(url) {
-    if (!url || typeof url !== 'string') return false;
-    var u = url.toLowerCase();
-    if (u.indexOf('.m3u8') !== -1) return true;
-    if (u.indexOf('format=m3u8') !== -1 || u.indexOf('type=m3u8') !== -1) return true;
-    if (u.indexOf('/hls/') !== -1 && (u.indexOf('.ts') !== -1 || u.indexOf('m3u') !== -1)) return true;
-    return false;
-  }
-  /** Comme StreamTime : mobile = petite largeur OU tactile (choix iembed vs hembed) */
-  function isStreamTimeMobileView() {
-    return (window.innerWidth <= 768) || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-  }
-  /** URL iembed / mobile (admin) — attribut explicite + repli dataset */
-  function getEmbedMobileUrl(btn) {
-    if (!btn) return '';
-    var a = btn.getAttribute('data-embed-mobile');
-    if (a && a.trim()) return a.trim();
-    if (btn.dataset && btn.dataset.embedMobile) return String(btn.dataset.embedMobile).trim();
-    return '';
-  }
-  /** true / false / null (legacy) — JSON MySQL peut envoyer "true" ou "1" en chaîne */
-  function coalesceIframeNoSandbox(s) {
-    if (!s || typeof s !== 'object') return null;
-    var v = s.iframeNoSandbox;
-    if (v === true || v === 'true' || v === 1 || v === '1') return true;
-    if (v === false || v === 'false' || v === 0 || v === '0') return false;
-    return null;
-  }
-  function coalesceEmbedMobileOnDesktop(s) {
-    if (!s || typeof s !== 'object') return null;
-    var v = s.embedMobileOnDesktop;
-    if (v === true || v === 'true' || v === 1 || v === '1') return true;
-    if (v === false || v === 'false' || v === 0 || v === '0') return false;
-    return null;
-  }
-  /** JSON type « ucaster » avec pc_url / mobile_url (comme StreamTime) → embed + url + embedMobile */
-  function normalizeStreamSource(s) {
-    if (!s || typeof s !== 'object') return null;
-    var t = (s.type && String(s.type).toLowerCase()) || '';
-    var ucasterLike = t === 'ucaster' || s.pc_url || s.mobile_url;
-    if (!ucasterLike) return s;
-    var pc = s.pc_url != null ? String(s.pc_url).trim() : '';
-    var mob = s.mobile_url != null ? String(s.mobile_url).trim() : '';
-    var url = pc || (s.url != null ? String(s.url).trim() : '');
-    if (!mob && s.embedMobile != null) mob = String(s.embedMobile).trim();
-    var o = { label: s.label, url: url, embed: true };
-    var insU = coalesceIframeNoSandbox(s);
-    if (insU !== null) o.iframeNoSandbox = insU;
-    if (mob) o.embedMobile = mob;
-    var im = coalesceEmbedMobileOnDesktop(s);
-    if (im !== null) o.embedMobileOnDesktop = im;
-    return o;
-  }
-  /** Sandbox / scrolling / avertissement Ucaster : data-iframe-no-sandbox (admin). Legacy : embed sans champ → sans sandbox. */
-  function applyIframeChromeFromBtn(btn) {
-    if (!btn) btn = document.querySelector('.src-btn.active');
-    var iframe = document.getElementById('embedPlayer');
-    if (!iframe) return;
-    var raw;
-    if (btn) {
-      var attr = btn.getAttribute('data-iframe-no-sandbox');
-      if (attr !== null && attr !== '') raw = attr;
-      else raw = btn.dataset && btn.dataset.iframeNoSandbox;
-    }
-    var noSandbox;
-    if (raw === '1' || raw === 1) noSandbox = true;
-    else if (raw === '0' || raw === 0) noSandbox = false;
-    else noSandbox = (btn && btn.dataset.embed === '1');
-    if (noSandbox) {
-      iframe.removeAttribute('sandbox');
-      iframe.setAttribute('scrolling', 'no');
-    } else {
-      iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-presentation');
-      iframe.removeAttribute('scrolling');
-    }
-  }
-  function loadSrc(btn, url, isRetry) {
-    if (!url || url === '#') return;
-    try {
-      var finalUrl = url;
-      if (btn && btn.dataset.embed === '1') {
-        var em = getEmbedMobileUrl(btn);
-        var adminIembedPc = btn.dataset.embedMobileDesktop === '1';
-        var sessionIembed = false;
-        try { sessionIembed = sessionStorage.getItem('kz_force_iembed') === '1'; } catch (e) {}
-        if (em && (isStreamTimeMobileView() || adminIembedPc || sessionIembed)) finalUrl = em;
-      }
-      currentSrcUrl = finalUrl;
-      _clearRetry();
-      if (!isRetry) _retryCount = 0;
-      document.querySelectorAll('.src-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      var video = document.getElementById('mainPlayer');
-      var iframe = document.getElementById('embedPlayer');
-      var jwEl = document.getElementById('jwPlayerContainer');
-      var errMsg = document.getElementById('playerError');
-      if (errMsg) errMsg.classList.remove('show');
-      _showReconnecting(false);
-
-      /* Embed : URL m3u8 → JW ; sinon iframe Ucaster */
-      if (btn && btn.dataset.embed === '1') {
-        if (isHlsStreamUrl(finalUrl)) {
-          setupJwHlsPlayer(finalUrl);
-          return;
-        }
-        destroyJw();
-        if (video) { video.style.display = 'none'; }
-        if (jwEl) jwEl.style.display = 'none';
-        if (iframe) {
-          applyIframeChromeFromBtn(btn);
-          iframe.style.display = 'block';
-          iframe.onerror = function() { if (errMsg) errMsg.classList.add('show'); };
-          iframe.src = finalUrl;
-        }
-        return;
-      }
-
-      if (isHlsStreamUrl(finalUrl)) {
-        setupJwHlsPlayer(finalUrl);
-      } else {
-        destroyJw();
-        if (video) { video.style.display = 'none'; }
-        if (iframe) {
-          applyIframeChromeFromBtn(btn);
-          iframe.style.display = 'block';
-          iframe.onerror = function() { if (errMsg) errMsg.classList.add('show'); };
-          iframe.src = finalUrl;
-        }
-      }
-    } catch (e) {} finally {
-      updateEmbedAdsNotice();
-    }
-  }
-  function updateEmbedAdsNotice() {
-    var el = document.getElementById('embedAdsNotice');
-    if (!el) return;
-    var iframe = document.getElementById('embedPlayer');
-    var jwEl = document.getElementById('jwPlayerContainer');
-    var active = document.querySelector('.src-btn.active');
-    var iframeOn = iframe && iframe.style.display === 'block';
-    var jwOn = jwEl && jwEl.style.display === 'block';
-    var noSandbox = active && active.getAttribute('data-iframe-no-sandbox') === '1';
-    el.style.display = iframeOn && !jwOn && noSandbox && !isStreamTimeMobileView() ? 'block' : 'none';
-  }
-  window.loadSrc = loadSrc;
-  var _lastStreamTimeMobile = isStreamTimeMobileView();
-  window.addEventListener('resize', function() {
-    var active = document.querySelector('.src-btn.active');
-    var nowMobile = isStreamTimeMobileView();
-    if (active && active.dataset.embed === '1' && getEmbedMobileUrl(active)) {
-      if (nowMobile !== _lastStreamTimeMobile) {
-        _lastStreamTimeMobile = nowMobile;
-        loadSrc(active, active.getAttribute('data-src'));
-        return;
-      }
-    }
-    _lastStreamTimeMobile = nowMobile;
-    if (active && active.dataset.embed === '1') {
-      var jwBox = document.getElementById('jwPlayerContainer');
-      if (!(jwInstance && jwBox && jwBox.style.display === 'block')) applyIframeChromeFromBtn(active);
-    }
-  });
-  const retryBtn = document.getElementById('playerRetryBtn');
-  if (retryBtn) retryBtn.addEventListener('click', function() {
-    const errMsg = document.getElementById('playerError');
-    if (errMsg) errMsg.classList.remove('show');
-    if (!currentSrcUrl) return;
-    var activeBtn = document.querySelector('.src-btn.active');
-    var base = activeBtn && activeBtn.getAttribute('data-src');
-    loadSrc(activeBtn, base || currentSrcUrl);
-  });
-
-  const sl = document.getElementById('sourcesList');
-  if (sl) {
-    if (match.sources && match.sources.length) {
-      sl.innerHTML = '';
-      match.sources.forEach((raw, i) => {
-        var s = normalizeStreamSource(raw);
-        if (!s) return;
-        const url = (s && s.url) ? String(s.url) : '';
-        if (url && !/^https?:\/\//i.test(url)) return;
-        const label = (s && s.label) ? String(s.label) : 'Source';
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'src-btn' + (i === 0 ? ' active' : '');
-        btn.dataset.src = url || '#';
-        if (s && s.embed === true) {
-          btn.dataset.embed = '1';
-          if (s.embedMobile) {
-            var mobU = String(s.embedMobile);
-            btn.setAttribute('data-embed-mobile', mobU);
+          var res = await fetch("/viewer_ping.php", {
+            method: "POST",
+            body: formData
+          });
+          var data = await res.json();
+          var el = document.getElementById("counterMatch1");
+          if (el && typeof data.viewers !== "undefined") {
+            el.textContent = data.viewers;
           }
-          var imd = coalesceEmbedMobileOnDesktop(s);
-          if (imd === true) btn.setAttribute('data-embed-mobile-desktop', '1');
+        } catch (e) {
+          console.error(e);
         }
-        var ins = coalesceIframeNoSandbox(s);
-        var sb = ins === true ? '1' : (ins === false ? '0' : ((s && s.embed === true) ? '1' : '0'));
-        btn.setAttribute('data-iframe-no-sandbox', sb);
-        btn.dataset.iframeNoSandbox = sb;
-        const icon = document.createElement('span');
-        icon.className = 'src-icon';
-        icon.textContent = '\uD83D\uDCE1';
-        btn.appendChild(icon);
-        btn.appendChild(document.createTextNode(label));
-        sl.appendChild(btn);
-      });
-      sl.addEventListener('click', (e) => {
-        const btn = e.target.closest('button[data-src]');
-        if (btn) loadSrc(btn, btn.getAttribute('data-src'));
-      });
-      const firstBtn = sl.querySelector('.src-btn');
-      var _pendingFirstBtn = firstBtn;
-    } else {
-      sl.innerHTML = '<div style="padding:1rem;color:var(--muted);font-size:0.85rem">Aucune source disponible</div>';
-    }
-  }
-
-  function _startPlayer() {
-    if (typeof _pendingFirstBtn !== 'undefined' && _pendingFirstBtn) {
-      loadSrc(_pendingFirstBtn, _pendingFirstBtn.getAttribute('data-src'));
-    }
-  }
-  function _mutePlayer() {
-    if (jwInstance) try { jwInstance.setMute(true); jwInstance.pause(); } catch(e) {}
-    var f = document.getElementById('embedPlayer');
-    if (f) try { f.contentWindow.postMessage('{"method":"setVolume","value":0}', '*'); } catch(e) {}
-  }
-  function _unmutePlayer() {
-    if (jwInstance) try { jwInstance.setMute(false); } catch(e) {}
-  }
-
-  // PREMATCH OVERLAY — compte à rebours = DÉBUT DU STREAM (streamStart déjà calculé au-dessus)
-  const prematchEl = document.getElementById('prematch');
-  const prematchTimerEl = document.getElementById('prematchTimer');
-  const prematchPosterEl = document.getElementById('prematchPoster');
-  const playerMediaWrapEl = document.getElementById('playerMediaWrap');
-  if (prematchPosterEl && match.poster) {
-    const posterEsc = proxyImg(String(match.poster))
-      .replace(/\\/g, '\\\\')
-      .replace(/'/g, "\\'")
-      .trim();
-    prematchPosterEl.style.backgroundImage = `url('${posterEsc}')`;
-  }
-  var _prematchActive = false;
-  if (prematchEl && prematchTimerEl) {
-    const hasValidStreamStart = !isNaN(streamStart.getTime());
-    if (!hasValidStreamStart) {
-      prematchEl.style.display = 'flex';
-      prematchTimerEl.textContent = 'Horaire à confirmer';
-      prematchTimerEl.style.fontSize = 'clamp(1rem, 4vw, 1.5rem)';
-      if (playerMediaWrapEl) playerMediaWrapEl.style.opacity = '0';
-      _prematchActive = true;
-    } else {
-      var _prematchDone = false;
-      var _prematchInterval = null;
-      function updatePrematch() {
-        const diff = streamStart.getTime() - Date.now();
-        if (diff <= 0) {
-          if (_prematchDone) return;
-          _prematchDone = true;
-          _prematchActive = false;
-          if (_prematchInterval) { clearInterval(_prematchInterval); _prematchInterval = null; }
-          prematchEl.style.display = 'none';
-          prematchTimerEl.textContent = '00:00:00';
-          if (playerMediaWrapEl) playerMediaWrapEl.style.opacity = '1';
-          _startPlayer();
-          _unmutePlayer();
-          return;
-        }
-        _prematchActive = true;
-        prematchEl.style.display = 'flex';
-        if (playerMediaWrapEl) playerMediaWrapEl.style.opacity = '0';
-        _mutePlayer();
-        const h = Math.floor(diff / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-        prematchTimerEl.textContent =
-          `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
       }
-      updatePrematch();
-      if (!_prematchDone) {
-        _prematchInterval = setInterval(updatePrematch, 1000);
-        kzIntervals.push(_prematchInterval);
+
+      function boot() {
+        applyTitleFromQuery();
+        sendViewer("ping");
+        setInterval(function () { sendViewer("ping"); }, 15000);
+
+        window.addEventListener("beforeunload", function () {
+          var data = new URLSearchParams();
+          data.append("page_slug", pageSlug);
+          data.append("session_id", getSessionId());
+          data.append("action", "leave");
+          navigator.sendBeacon("/viewer_ping.php", data);
+        });
       }
-    }
-  } else if (prematchEl) {
-    prematchEl.classList.add('hidden');
-    if (playerMediaWrapEl) playerMediaWrapEl.style.opacity = '1';
-  }
-  if (!_prematchActive) {
-    _startPlayer();
-  }
 
-function generateFingerprint(vid) {
-  var parts = [];
-  parts.push(navigator.userAgent || '');
-  parts.push(navigator.language || '');
-  parts.push(screen.width + 'x' + screen.height + 'x' + screen.colorDepth);
-  parts.push(new Date().getTimezoneOffset());
-  parts.push(navigator.hardwareConcurrency || 0);
-  parts.push(navigator.maxTouchPoints || 0);
-  if (vid) parts.push(vid);
-  try {
-    var canvas = document.createElement('canvas');
-    canvas.width = 200; canvas.height = 50;
-    var ctx = canvas.getContext('2d');
-    ctx.textBaseline = 'top';
-    ctx.font = '14px Arial';
-    ctx.fillStyle = '#f60';
-    ctx.fillRect(0, 0, 200, 50);
-    ctx.fillStyle = '#069';
-    ctx.fillText('KzStream fp', 2, 15);
-    ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
-    ctx.fillText('KzStream fp', 4, 17);
-    parts.push(canvas.toDataURL());
-  } catch(e) {}
-  var str = parts.join('|||');
-  var hash = 0;
-  for (var i = 0; i < str.length; i++) {
-    hash = ((hash << 5) - hash) + str.charCodeAt(i);
-    hash = hash & hash;
-  }
-  return Math.abs(hash).toString(36);
-}
-
-if (match) {
-  let visitorId = localStorage.getItem('kzstream_vid');
-  if (!visitorId) { visitorId = Math.random().toString(36).slice(2); localStorage.setItem('kzstream_vid', visitorId); }
-  var browserFingerprint = generateFingerprint(visitorId);
-  try { sessionStorage.setItem('kzstream_fp', browserFingerprint); } catch(e) {}
-
-  if (window.KzApi) {
-    window.KzApi.incrementViews(match.slug).catch(function() {});
-
-    var _lastViewerCount = null;
-    var _viewerUpdating = false;
-    function updateSpectateurs() {
-      if (document.visibilityState !== 'visible' || _viewerUpdating) return;
-      _viewerUpdating = true;
-      window.KzApi.getViewersCountFast(match.slug).then(function(n) {
-        if (n > 0) _lastViewerCount = n;
-        var display = _lastViewerCount || n;
-        var el = document.getElementById('streamInfoSpectateurs');
-        if (el && display) {
-          el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> ' + display;
-        }
-        var navCount = document.getElementById('navSpectateurCount');
-        var navBadge = document.getElementById('navSpectateursBadge');
-        if (navCount) navCount.textContent = display || '';
-        if (navBadge) navBadge.style.display = display ? '' : 'none';
-      }).catch(function() {}).finally(function() { _viewerUpdating = false; });
-    }
-
-    var _heartbeatPending = false;
-    function doHeartbeat() {
-      if (document.visibilityState !== 'visible' || _heartbeatPending) return;
-      _heartbeatPending = true;
-      window.KzApi.heartbeatViewer(match.slug, visitorId).catch(function() {}).finally(function() { _heartbeatPending = false; });
-    }
-
-    doHeartbeat();
-    updateSpectateurs();
-    kzIntervals.push(setInterval(updateSpectateurs, 20000));
-    kzIntervals.push(setInterval(doHeartbeat, 30000));
-
-    var _tabReturnTimer = null;
-    document.addEventListener('visibilitychange', function() {
-      if (document.visibilityState === 'visible') {
-        if (_tabReturnTimer) clearTimeout(_tabReturnTimer);
-        _tabReturnTimer = setTimeout(function() {
-          doHeartbeat();
-          updateSpectateurs();
-        }, 300);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", boot);
+      } else {
+        boot();
       }
-    });
-  }
-}
-
-  if (match && slug && window.KzApi) {
-    var _matchGone = false;
-    function _checkMatchExists() {
-      if (_matchGone || document.visibilityState !== 'visible') return;
-      try { sessionStorage.removeItem('kzstream_matches_cache'); } catch(e) {}
-      window.KzApi.getMatches(true).then(function(d) {
-        if (!d || _matchGone) return;
-        var all = [].concat(d.today || [], d.tomorrow || []);
-        var found = all.some(function(m) { return m && match && slugStillMatches(m.slug, match.slug); });
-        if (!found) {
-          _matchGone = true;
-          clearInterval(_matchCheckInterval);
-          destroyJw();
-          var v = document.getElementById('mainPlayer');
-          if (v) { try { v.pause(); v.removeAttribute('src'); v.load(); } catch(e) {} }
-          var f = document.getElementById('embedPlayer');
-          if (f) { f.src = 'about:blank'; f.style.display = 'none'; }
-          var col = document.querySelector('.player-col');
-          if (col) col.innerHTML = '<div style="padding:3rem 2rem;text-align:center;"><h2 style="margin-bottom:0.5rem;">Match supprimé</h2><p style="color:var(--muted);margin-bottom:1.5rem;">Ce match a été retiré par l\'administrateur.</p><a href="/" class="nav-btn" style="display:inline-flex">← Retour à l\'accueil</a></div>';
-          var chatCol = document.querySelector('.chat-col');
-          if (chatCol) chatCol.style.display = 'none';
-          kzIntervals.forEach(clearInterval);
-        }
-      }).catch(function() {});
-    }
-    var _matchCheckInterval = setInterval(_checkMatchExists, 15000);
-    kzIntervals.push(_matchCheckInterval);
-  }
-
-  window.open = () => null;
-  const obs = new MutationObserver(muts => {
-    muts.forEach(m => m.addedNodes.forEach(n => {
-      if (!n.tagName) return;
-      if (n.tagName.toLowerCase() === 'iframe' && n.id !== 'embedPlayer') n.remove();
-    }));
-  });
-  obs.observe(document.body, { childList: true, subtree: true });
-
-  window.selectPlan = selectPlan;
-} // ferme else { de if(!match)
-})();
-
-(function() {
-  var overlay = document.getElementById('supportPopupOverlay');
-  if (!overlay) return;
-  function closePopup() { overlay.classList.remove('open'); }
-  var cta = document.getElementById('supportPopupCta');
-  if (cta) cta.addEventListener('click', function() { setTimeout(closePopup, 10); });
-})();
-
-</script>
+    })();
+  </script>
+<script type="module" src="./js/viewerCounter.js"></script>
 </body>
 </html>
