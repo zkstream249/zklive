@@ -604,14 +604,231 @@
 <script>
   /* ═══ DONNÉES ═══ */
   var MATCHES_TODAY = [
-    {
-      title:   "Lens - Toulouse",
-      channel: "Ligue 1",
-      time:    "21:00",
-      banner:  "https://image.discovery.indazn.com/ca/v2/ca/image?id=a6z8ycrdjruoexgsfmge8qf6g_image-header_pRow_1775584024000&quality=50",
-      href:    "A-B.html"
+   {
+    title:"Brentford - Fulham", time:"13:30",
+    banner:"https://empire-sport.sbs/upload/events/kyrnmusdpwobkvlek5hja9tqmbvlcb.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/pnorsrshxkxjwrkhoqg59b4gzglqyl.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/kovyrtfgaf3qzkb5zluj5r9g107yil.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/mydp5gdzdvbxcvkc9laqmu0zyvlimg.png",
+    href:"Brentford-Fulham.html"
+  },
+  {
+    title:"Stade de Reims - Red Star", time:"14:00",
+    banner:"https://empire-sport.sbs/upload/events/mlzrgrjaunif2komne31k47q4y5uft.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/7svpdtweqevasqmrll7o2thbcdftah.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/aek4y2fgje9ii944cazuiorueuseyg.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/ydd64grtyfz9lqz465f0u5kcidnxog.png",
+    href:"reims-redstar.html"
+  },
+  {
+    title:"Troyes - Boulogne", time:"14:00",
+    banner:"https://empire-sport.sbs/upload/events/z4biuz8x83jjypvnz7wxvxpkgbukh8.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/rsxaqgwzzuzmni6bnhn476tferjsfp.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/tuhi6ieenhe54ig4t8mf0ldwom6nya.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/ydd64grtyfz9lqz465f0u5kcidnxog.png",
+    href:"troyes-boulogne.html"
     },
-  ];
+  {
+    title:"Stade Rochelais - Union Bordeaux Bègles", time:"14:30",
+    banner:"https://empire-sport.sbs/upload/events/4ltjgp6zvepq0wjepsqix3evnujlkf.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/i5idtx1bky6jsuqwtos7ruoujqbifj.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/gwnlvvyq2aa2hxvnuwj07inod9pgx0.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/1aju8pbsr6j2kip6gjtuun0fldqmcs.png",
+    href:"StadeRochelais-UnionBordeauxBègles.html"
+     },
+  {
+    title:"Udinese - Parma", time:"15:00",
+    banner:"https://empire-sport.sbs/upload/events/vrec0bcgs4vdxfdtxc213obtvhhf05.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/4nbx93aqgzfapkel3fotjhbbfxwty3.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/kfwqtpa5vxglrdvqyiv0d2gzktmbyv.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/dzgp29vldk3lr0xjwscjbyi6eqenm8.png",
+    href:"Udinese-Parma.html"
+  },
+  {
+    title:"Hoffenheim - Borussia Dortmund", time:"15:30",
+    banner:"https://empire-sport.sbs/upload/teambanks/djj2j8cg1nwamyc44nye0olnube1mx.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/rrim1cw2paqok9tvezbaasjnseoaun.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/ikwhf9se2yp73lxc5s4vh4qvhwjnec.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/gazvdx7x9mijtgdsbjxlnfuc6cr5uz.png",
+    href:"hoffenheim-bvb.html"
+  },
+  {
+    title:"Werder Bremen - Hamburg", time:"15:30",
+    banner:"https://empire-sport.sbs/upload/teambanks/bajhwarp9a3mtcrmg49gkhz0zelzqn.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/mg0nagdf3vps9sxlrk1f0jfo2g7ueb.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/nfcdswmgpdcavqcotzxqkaoqfyvx1x.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/gazvdx7x9mijtgdsbjxlnfuc6cr5uz.png",
+    href:"WerderBremen-Hamburg.html"
+  },
+  {
+    title:"Bayer Leverkusen - FC Augsburg", time:"15:30",
+    banner:"https://empire-sport.sbs/upload/teambanks/5xj4np6wt3clqh2pioqsxcki56nsy1.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/hbx63xj78c5emdkxh7wmfoknajaqoa.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/fgodyb41jtkctr3ogvw1ekxyrxplot.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/gazvdx7x9mijtgdsbjxlnfuc6cr5uz.png",
+    href:"Bayer%20Leverkusen-FCAugsburg.html"
+  },
+  {
+    title:"Newcastle United - Bournemouth", time:"16:00",
+    banner:"https://empire-sport.sbs/upload/teambanks/tghql7uwg3twug0nalwvpkk0gyjzhg.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/rcgqdydup9msdf6oafeok831beo6ur.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/ipwqxj2erywxkpbp87b0qcgyw8iqoo.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/mydp5gdzdvbxcvkc9laqmu0zyvlimg.png",
+    href:"Newcastle%20United-Bournemouth.html"
+       },
+  {
+    title:"Nacional de Madeira - Alverca", time:"16:30",
+    banner:"https://empire-sport.sbs/upload/events/f3ck5ebsjuf0a5iqry0utms4vyimdl.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/6vxnorzvukdxdv8lir8mpycxsh7aiq.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/b6beccby1fcna9fv5xxnw0du4lgxx4.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/dilmdvjb9jdwxoa8crrblksc9uvtty.png",
+    href:"NacionaldeMadeira-Alverca.html"
+  },
+  {
+    title:"Lorient - Marseille", time:"17:00",
+    banner:"https://empire-sport.sbs/upload/teambanks/edmzxupzeqsdjtwsxmbpswkkkfchvk.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/l6tjesaxd015u6vjj8ybv6l5k78fqm.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/5box72sxig3lzrlh1xkj44xqfw9j41.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/xdyjxerqlfl6fdgghbaev5cxxmnp2r.png",
+    href:"Lorient-Marseille.html"
+  },
+  {
+    title:"Napoli - Lazio", time:"18:00",
+    banner:"https://empire-sport.sbs/upload/teambanks/hd6kb1rzofjc13ghneluhiemmygjsr.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/e9ibu14ynhyggw7cjydjpwfial6xha.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/a1tng3okaurq1lb99aqaxcg4hlhenz.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/dzgp29vldk3lr0xjwscjbyi6eqenm8.png",
+    href:"napolie-lazio.html"
+  },
+  {
+    title:"Tottenham  - Brighton", time:"18:30",
+    banner:"https://empire-sport.sbs/upload/teambanks/qefmysjbg5qcfovxcgmob6ptpe56wg.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/nq6xsqf5odoqosdvpfgeyr1b2z1gtb.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/pidrlq9nincxbgnpenvu1g5qxox8dg.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/mydp5gdzdvbxcvkc9laqmu0zyvlimg.png",
+    href:"Tottenham-Brighton.html"
+     },
+  {
+    title:"Eintracht Frankfurt - RB Leipzig", time:"18:30",
+    banner:"https://empire-sport.sbs/upload/events/6lto2gafpoli8kd00i6z63fca1xcbp.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/sqapwggeh0uay1mm9oocfs1yhztqon.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/zzqggqbc7zcin219xhtwmxpychqs3d.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/gazvdx7x9mijtgdsbjxlnfuc6cr5uz.png",
+    href:"Eintracht%20Frankfurt-RB%20Leipzig.html"
+    },
+  {
+    title:"Cleveland Cavaliers - Toronto Raptors", time:"19:00",
+    banner:"https://empire-sport.sbs/upload/teambanks/jyxglmj2ult63pfyfbps7dd2cfdfsu.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/my12mbh7wohjeatxhjnvcxb3aucuqy.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/chj9b1np52qzqnhkivvococ8m59hnx.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/d7kddtuhbjaf23fgdnj8wiulccahfc.png",
+    href:"leveland%20Cavaliers-Toronto%20Raptors.html"
+  },
+  {
+    title:"Gençlerbirliği - Galatasaray", time:"19:00",
+    banner:"https://empire-sport.sbs/upload/teambanks/fn08kive2hbjkxc3atooz6dpgfw08g.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/mfgumhngwivpsl2j4pe4usy7ulf14c.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/9fvdgr8wbnuk3j5teocgsp7f1icuvk.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/ge3kieqimcw5ljm5xklyyhlhg9ywdk.png",
+    href:"Gençlerbirliği-Galatasaray.html"
+  },
+  {
+    title:"Casa Pia - Santa Clara", time:"19:00",
+    banner:"https://empire-sport.sbs/upload/events/que4vvhvw2jsumrvaoqhanhs4zcqwe.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/minazxxd5hwovp0dq0b1mckq70uhuq.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/uk2w3r9qgogg5s8a1nlaqfi7clhniu.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/dilmdvjb9jdwxoa8crrblksc9uvtty.png",
+    href:"CasaPia-SantaClara.html"
+  },
+  {
+    title:"Angers - Le Havre", time:"19:00",
+    banner:"https://empire-sport.sbs/upload/events/ckbwmtybtkbvn7qubhxgt1ot2t7dlz.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/bhdsn0frfe5qlieltcjjhwb8h3rzab.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/poyamdm2uaxrxrbgqmfpm1dr1meyon.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/xdyjxerqlfl6fdgghbaev5cxxmnp2r.png",
+    href:"Angers-LeHavre.html"
+  },
+  {
+    title:"Bastia - St Etienne", time:"20:00",
+    banner:"https://empire-sport.sbs/upload/events/gbsc0ztru3xcw2rqp6vhk1fdscq6k0.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/xoyo0hcscbyllqdgppsksu8mcy4frb.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/vid1wbo86rqr6hxmi33nxf56syvnst.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/ydd64grtyfz9lqz465f0u5kcidnxog.png",
+    href:"Bastia-St-Etienne.html"
+  },
+  {
+    title:"Roma - Atalanta", time:"20:45",
+    banner:"https://empire-sport.sbs/upload/teambanks/cfouh9jqp903xgkqw6w80j8dgonm9l.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/zpnuspg97icikleby6tuqnsjwoqbap.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/vy6zoxxejgnc4yesfiuic45rndpgne.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/dzgp29vldk3lr0xjwscjbyi6eqenm8.png",
+    href:"Roma-Atalanta.html"
+  },
+  {
+    title:"Chelsea - Manchester United", time:"21:00",
+    banner:"https://empire-sport.sbs/upload/teambanks/o6hv8yxkvwbm7knkj0mwxedp3fcttu.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/8ut7uxa2csqdcpq7dpdez1f9dmfoj6.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/mosfyquovho2tfyvalgqtbzjnhmcv5.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/mydp5gdzdvbxcvkc9laqmu0zyvlimg.png",
+    href:"Chelsea-Manchester-United.html"
+  },
+  {
+    title:"Castres Olympique - Stade Toulousain", time:"21:00",
+    banner:"https://empire-sport.sbs/upload/events/pweis48uz6fc8yvaj3r9ui1lwf8hhp.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/raw9uugwyawlj6f696gpwk6ttqoip8.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/djfeisqfw3xwd2lu8u90szlgapdqve.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/1aju8pbsr6j2kip6gjtuun0fldqmcs.png",
+    href:"Castres Olympique-StadeToulousain.html"
+    },
+  {
+    title:"Atlético Madrid - Real Sociedad", time:"21:00",
+    banner:"https://empire-sport.sbs/upload/teambanks/qpwvi2cxhcladiu6ln8qlscrmnqidf.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/smp4oeizppz2hw9fbmb9dznhohcwly.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/af86p7hb76osspj1bzkfdszzth7jro.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/ifm4fzw0zm4vfe7xf0pzviqo0cchbv.png",
+    href:"AtléticoMadrid-RealSociedad.html"
+  },
+  {
+    title:"France - Pays-Bas", time:"21:00",
+    banner:"https://empire-sport.sbs/upload/sports_img/g1cv9fvmtbg0bb3dljn1n0scwhgmdr.jpeg",
+    aLogo:"https://upload.wikimedia.org/wikipedia/fr/thumb/f/f2/Logo_%C3%89quipe_France_Football_F%C3%A9minine_2014.svg/960px-Logo_%C3%89quipe_France_Football_F%C3%A9minine_2014.svg.png",
+    bLogo:"https://upload.wikimedia.org/wikipedia/fr/7/76/Logo_%C3%89quipe_Football_Pays_Bas.svg",
+    compLogo:"https://upload.wikimedia.org/wikipedia/fr/thumb/9/99/Logo_Coupe_du_Monde_F%C3%A9minine_de_la_FIFA_2027.svg/langfr-250px-Logo_Coupe_du_Monde_F%C3%A9minine_de_la_FIFA_2027.svg.png",
+    href:"France-Pays-Bas.html"
+  },
+  {
+    title:"Lille - Nice", time:"21:00",
+    banner:"https://empire-sport.sbs/upload/teambanks/xuehysbxpq8cg1iabmeemelbwxme8g.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/8cjgq2dnsdbrdb1bfdfor9qrqp3o1f.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/jhe4floxvwpovm1mexcuq4jnzrhwnp.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/xdyjxerqlfl6fdgghbaev5cxxmnp2r.png",
+    href:"Lille-Nice.html"
+  },
+  {
+    title:"Denver Nuggets - Minnesota Timberwolves", time:"21:30",
+    banner:"https://empire-sport.sbs/upload/teambanks/neotravngposjyrpalgakhhbseueyf.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/k29ojzcjd2tq7onk1h12q6jby0rhqn.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/anvvozo74vg60ycfsak56jb7jdub3z.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/d7kddtuhbjaf23fgdnj8wiulccahfc.png",
+    href:"Denver Nuggets-Minnesota-Timberwolves.html"
+  },
+  {
+    title:"Gil Vicente - Vitória de Guimarães", time:"21:30",
+    banner:"https://empire-sport.sbs/upload/events/8tct3carbu1yweegjeootmxrmsclla.jpg",
+    aLogo:"https://empire-sport.sbs/upload/teams/vlj0jinqyzedfw2wpmyw8baslsjmcm.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/ig39q2f0q5hhxiwovgo07smdmhsdeg.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/dilmdvjb9jdwxoa8crrblksc9uvtty.png",
+    href:"Gil Vicente-VitóriadeGuimarães.html"
+  },
+  {
+    title:"Colorado Rapids - Inter Miami", time:"22:30",
+    banner:"https://empire-sport.sbs/upload/teambanks/k3yyf2whh7r7sqxdhh1mu34itptpnm.png",
+    aLogo:"https://empire-sport.sbs/upload/teams/czwd29jbz3ecwrysxmfjhgjqne3evr.png",
+    bLogo:"https://empire-sport.sbs/upload/teams/nnsorqmfiarnaarl8rycdqchcr6h4o.png",
+    compLogo:"https://empire-sport.sbs/upload/leagues/fxfdoptpci5qkrz0n1g4otcsv9rqgk.png",
+    href:"Colorado Rapids-inter Miami.html"
+  }
+];
   var MATCHES_TOMORROW = [];
 
   const DAYS   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
