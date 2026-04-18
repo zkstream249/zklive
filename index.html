@@ -1,1144 +1,771 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KZ STREAM</title>
-  <meta name="description" content="KZ STREAM : matchs, scores et resultats en direct."/>
-  <link rel="canonical" href="https://kzontop.site/"/>
-  <link rel="icon" href="img/kz-favicon.svg?v=2" type="image/svg+xml" sizes="any"/>
-  <link rel="apple-touch-icon" href="img/kz-favicon.svg?v=2"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://kzontop.site/"/>
-  <meta property="og:title" content="KZ STREAM"/>
-  <meta property="og:description" content="KZ STREAM : matchs, scores et resultats en direct."/>
-  <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="KZ STREAM"/>
-  <meta name="twitter:description" content="KZ STREAM : matchs, scores et resultats en direct."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+  <title>ZK +</title>
+  <meta name="description" content="ZK + — Streaming sport en direct">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="https://media.discordapp.net/attachments/1485253416098730054/1485288633903878214/image.png?ex=69c15255&is=69c000d5&hm=262101bc0e714f2b00e571bd0f480c6dfe22058aabaace2dc06db1af010e6a34&=&format=webp&quality=lossless&width=469&height=384">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ZK STREAM — 100% Des Matchs en direct">
+  <meta property="og:description" content="ZK STREAM: matchs, scores et résultats en direct.">
+  <meta property="og:url" content="https://hiboux.vercel.app/">
+  <meta property="og:image" content="https://pbs.twimg.com/profile_banners/1490316829109239810/1770049817/1500x500">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ZK STREAM — 100% Des Matchs en direct">
+  <meta name="twitter:description" content="ZK STREAM : matchs, scores et résultats en direct.">
+  <meta name="twitter:image" content="https://pbs.twimg.com/profile_banners/1490316829109239810/1770049817/1500x500">
+
+  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest" url="https://google.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nprogress/nprogress.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/nprogress/nprogress.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    (function(){
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if(saved === 'dark' || (!saved && prefersDark)){
+        document.documentElement.setAttribute('data-theme','dark');
+      } else {
+        document.documentElement.setAttribute('data-theme','light');
+      }
+    })();
+  </script>
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0a0a0a;
-      --bg2: #111111;
-      --bg3: #1a1a1a;
-      --green: #00e676;
-      --text: #ffffff;
-      --muted: #888;
-      --border: rgba(255,255,255,0.05);
+    :root[data-theme="dark"] {
+      --bg-page:    #0d0d0d;
+      --bg-nav:     rgba(0,0,0,0.40);
+      --bg-card:    #111;
+      --bg-overlay: rgba(0,0,0,0.78);
+      --text-main:  #fff;
+      --text-muted: rgba(255,255,255,.35);
+      --text-dim:   rgba(255,255,255,.32);
+      --text-faint: rgba(255,255,255,.22);
+      --border:     rgba(255,255,255,.07);
+      --border-h:   rgba(255,255,255,.16);
+      --sep-line:   rgba(255,255,255,.08);
+      --sep-label:  rgba(255,255,255,.45);
+      --nav-link-bg:   rgba(255,255,255,.04);
+      --nav-link-bdr:  rgba(255,255,255,.08);
+      --nav-link-clr:  rgba(255,255,255,.65);
+      --nav-link-h-bg: rgba(255,255,255,.08);
+      --nav-link-h-bdr:rgba(255,255,255,.15);
+      --scroll-thumb:  rgba(255,255,255,.1);
+      --scroll-thumb-h:rgba(255,255,255,.2);
+      --badge-bg:  rgba(8,8,8,.72);
+      --badge-bdr: rgba(255,255,255,.1);
+      --empty-bdr: rgba(255,255,255,.07);
+      --empty-clr: rgba(255,255,255,.22);
+      --mob-menu-bg:  rgba(8,8,8,.97);
+      --mob-menu-bdr: rgba(255,255,255,.07);
+      --mob-link-clr: rgba(255,255,255,.65);
+      --mob-link-bdr: rgba(255,255,255,.06);
+      --shop-card-bg: #181818;
+      --shop-card-bdr:rgba(255,255,255,.09);
+      --plan-bg:   #222;
+      --plan-bdr:  rgba(255,255,255,.1);
+      --device-bg: #222;
+      --device-bdr:rgba(255,255,255,.08);
+      --step-desc: rgba(255,255,255,.65);
+      --modal-bg:  #0f0f0f;
+      --modal-bdr: rgba(255,255,255,.1);
     }
-    html { background: var(--bg); min-height: 100%; }
+    :root[data-theme="light"] {
+      --bg-page:    #f0f0ee;
+      --bg-nav:     rgba(255,255,255,0.80);
+      --bg-card:    #fff;
+      --bg-overlay: rgba(240,240,238,0.0);
+      --text-main:  #111;
+      --text-muted: rgba(0,0,0,.45);
+      --text-dim:   rgba(0,0,0,.4);
+      --text-faint: rgba(0,0,0,.25);
+      --border:     rgba(0,0,0,.09);
+      --border-h:   rgba(0,0,0,.18);
+      --sep-line:   rgba(0,0,0,.1);
+      --sep-label:  rgba(0,0,0,.4);
+      --nav-link-bg:   rgba(0,0,0,.04);
+      --nav-link-bdr:  rgba(0,0,0,.09);
+      --nav-link-clr:  rgba(0,0,0,.6);
+      --nav-link-h-bg: rgba(0,0,0,.07);
+      --nav-link-h-bdr:rgba(0,0,0,.16);
+      --scroll-thumb:  rgba(0,0,0,.12);
+      --scroll-thumb-h:rgba(0,0,0,.22);
+      --badge-bg:  rgba(255,255,255,.88);
+      --badge-bdr: rgba(0,0,0,.12);
+      --empty-bdr: rgba(0,0,0,.1);
+      --empty-clr: rgba(0,0,0,.28);
+      --mob-menu-bg:  rgba(248,248,246,.98);
+      --mob-menu-bdr: rgba(0,0,0,.09);
+      --mob-link-clr: rgba(0,0,0,.6);
+      --mob-link-bdr: rgba(0,0,0,.07);
+      --shop-card-bg: #fff;
+      --shop-card-bdr:rgba(0,0,0,.1);
+      --plan-bg:   #f5f5f3;
+      --plan-bdr:  rgba(0,0,0,.1);
+      --device-bg: #f5f5f3;
+      --device-bdr:rgba(0,0,0,.08);
+      --step-desc: rgba(0,0,0,.6);
+      --modal-bg:  #f8f8f6;
+      --modal-bdr: rgba(0,0,0,.12);
+    }
+
+    #nprogress .bar { top: 64px !important; }
+    #nprogress .spinner { top: 75px !important; }
+
+    html, body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      transition: background-color .25s, color .25s;
+    }
     body {
-      background: #0a0a0a;
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-    }
-
-    nav, .hero, .content {
-      opacity: 1 !important;
-      visibility: visible !important;
-      transform: translateY(0);
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-    }
-
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: #0d0d0d;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 0 2rem;
-    }
-    .nav-inner {
-      max-width: 1300px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; height: 60px;
-    }
-    .brand { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; color: var(--text); text-decoration: none; }
-    .brand em { font-style: normal; color: var(--green); }
-    .nav-right { display: flex; align-items: center; gap: 0.6rem; }
-    .nav-btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 7px; flex-shrink: 0;
-      height: 36px; min-height: 36px; box-sizing: border-box;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--muted);
-      font-size: 0.78rem; font-weight: 600; line-height: 1;
-      padding: 0 14px;
-      border-radius: 999px;
-      text-decoration: none; transition: all 0.25s ease; cursor: pointer;
-      font-family: 'Outfit', sans-serif;
-    }
-    .nav-btn:hover { border-color: rgba(255,255,255,0.25); color: #fff; background: rgba(255,255,255,0.06); }
-    .nav-btn.iptv {
-      background: transparent; border: 1.5px solid var(--green); color: var(--green);
-      font-weight: 700; padding: 0 18px; font-size: 0.75rem; letter-spacing: 0.5px;
-    }
-    .nav-btn.iptv:hover { background: rgba(0,230,118,0.1); }
-    .iptv-short { display: none; }
-    .iptv-full { display: inline; }
-    .nav-icon {
-      width: 36px; height: 36px; padding: 0;
-      border-radius: 50%; background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .nav-icon:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); color: #fff; }
-    .nav-btn svg { flex-shrink: 0; }
-    /* Index mobile : même texte IPTV que PC ; taille / padding adaptés pour tout faire tenir */
-    @media (max-width: 900px) {
-      .iptv-full { display: inline !important; }
-      .iptv-short { display: none !important; }
-      .nav-btn.iptv {
-        padding: 0 6px 0 7px;
-        font-size: clamp(0.45rem, 2.05vw, 0.72rem);
-        letter-spacing: 0;
-        line-height: 1.1;
-        gap: 4px;
-        max-height: 34px;
-      }
-      .nav-btn.iptv svg { width: 11px; height: 11px; }
-    }
-    @media (max-width: 700px) {
-      .nav-btn.iptv {
-        padding: 0 4px 0 5px;
-        font-size: clamp(0.4rem, 2.35vw, 0.65rem);
-        gap: 3px;
-      }
-      .nav-btn.iptv svg { width: 9px; height: 9px; }
-      .nav-right { gap: 0.3rem; }
-      .brand { font-size: 1.1rem; }
-      .hero { padding: 2.5rem 1rem 2rem; }
-      .hero-logo { font-size: clamp(3rem, 16vw, 5rem); }
-      .content { padding: 0 1rem 3rem; }
-      .matches-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-      .card-thumb { height: 120px; }
-      .card-body { padding: 0.6rem 0.75rem; }
-      .card-name { font-size: 0.78rem; }
-      .card-watch { font-size: 0.7rem; }
-      .badge-timer { font-size: 0.6rem; padding: 3px 7px; }
-      .badge-viewers { font-size: 0.6rem; padding: 2px 6px; }
-      .badge-live { font-size: 0.58rem; padding: 2px 7px; }
-      .card-dt { font-size: 0.6rem; }
-      .nav-icon { width: 32px; height: 32px; }
-    }
-    @media (max-width: 400px) {
-      nav { padding: 0 0.5rem; }
-      .nav-btn.iptv svg { display: none; }
-      .nav-btn.iptv { padding: 0 5px; font-size: clamp(0.5rem, 2.4vw, 0.62rem); }
-      .brand { font-size: 1rem !important; }
-    }
-
-    .hero {
-      text-align: center; padding: 4rem 2rem 3rem;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,230,118,0.07) 0%, transparent 70%);
-      animation: heroIn 0.8s ease-out both;
-    }
-    @keyframes heroIn {
-      from { opacity: 0; transform: scale(0.96) translateY(12px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .hero-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(0,230,118,0.1); border: 1px solid rgba(0,230,118,0.3);
-      color: var(--green); font-size: 0.75rem; font-weight: 600;
-      padding: 6px 16px; border-radius: 999px; margin-bottom: 1.5rem;
-      font-family: 'Outfit', sans-serif; letter-spacing: 0.5px;
-    }
-    .hero-pill .hdot {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
-      animation: heroDotPulse 1.5s ease-out infinite;
-    }
-    @keyframes heroDotPulse {
-      0% { box-shadow: 0 0 0 0 rgba(0,230,118,0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(0,230,118,0); }
-      100% { box-shadow: 0 0 0 0 rgba(0,230,118,0); }
-    }
-    .hero-logo {
-      font-family: 'Outfit', sans-serif; font-weight: 900;
-      font-size: clamp(3.5rem, 12vw, 7rem); letter-spacing: 2px; line-height: 1;
-    }
-    .hero-logo em { font-style: normal; color: var(--green); }
-    .hero-sub { color: var(--muted); font-size: 0.9rem; margin-top: 0.75rem; font-family: 'Outfit', sans-serif; font-weight: 400; }
-
-    .content { max-width: 1300px; margin: 0 auto; padding: 0 2rem 4rem; }
-
-    .section-head { display: flex; align-items: center; gap: 0.75rem; margin: 2.5rem 0 1.5rem; }
-    .section-title { font-size: 1.5rem; font-weight: 800; font-family: 'Outfit', sans-serif; color: var(--text); }
-    .live-pill {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(0,230,118,0.12); border: 1.5px solid rgba(0,230,118,0.35);
-      color: var(--green); font-size: 0.75rem; font-weight: 600;
-      padding: 5px 14px; border-radius: 999px;
-      font-family: 'Outfit', sans-serif; letter-spacing: 0.3px;
-    }
-    .day-sep {
-      font-size: 0.72rem; color: var(--muted); font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; margin: 3rem 0 1.5rem;
-      display: flex; align-items: center; gap: 1rem;
-      font-family: 'Outfit', sans-serif;
-    }
-    .day-sep::after { content:''; flex:1; height:1px; background: rgba(255,255,255,0.05); }
-
-    .matches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
-
-    .match-card {
-      background: var(--bg2); border-radius: 18px; overflow: hidden;
-      cursor: pointer; transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease, opacity 0.4s ease-out;
-      text-decoration: none; color: inherit; display: block;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    .match-card:focus-visible {
-      outline: 2px solid var(--green);
-      outline-offset: 3px;
-    }
-    @media (hover: hover) {
-      .match-card { opacity: 0; transform: translateY(20px); }
-      .match-card.kz-visible { opacity: 1; transform: translateY(0); }
-    }
-    @media (hover: hover) {
-      .match-card:hover {
-        transform: translateY(-6px) scale(1.02);
-        box-shadow: 0 0 30px rgba(0,230,118,0.12), 0 20px 50px rgba(0,0,0,0.5);
-        border-color: rgba(0,230,118,0.2);
-      }
-    }
-    .match-card.no-stream { opacity: 0.35; cursor: default; pointer-events: none; }
-    .match-card.no-stream.kz-visible { opacity: 0.35; }
-
-    .card-thumb {
-      position: relative; height: 150px;
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    }
-    .card-poster {
-      position: absolute; inset: 0;
+      display: flex; flex-direction: column; min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34,197,94,0.07) 0%, transparent 60%),
+        url("https://media.istockphoto.com/id/2119624053/fr/vectoriel/conception-abstraite-de-fond-de-courbe-de-ligne-de-motif-noir-illustration-vectorielle.jpg?s=612x612&w=0&k=20&c=K_jVlXEkuXH1yyhYec-epFTsb8KuZq3-OZvmhii6TUA=");
       background-size: cover; background-position: center;
-      transition: transform 0.3s ease;
+      background-repeat: no-repeat; background-attachment: fixed;
     }
-    @media (hover: hover) { .match-card:hover .card-poster { transform: scale(1.05); } }
-    .card-poster-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+    body::before {
+      content:""; position:fixed; inset:0;
+      background: var(--bg-overlay);
+      pointer-events:none; z-index:0;
+      transition: background .25s;
     }
-    .card-poster-placeholder {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      display: flex; align-items: center; justify-content: center;
+    body > * { position:relative; z-index:1; }
+    button * { pointer-events:none; }
+
+    ::-webkit-scrollbar { width:6px; height:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background-color: var(--scroll-thumb); border-radius:10px; }
+    ::-webkit-scrollbar-thumb:hover { background-color: var(--scroll-thumb-h); }
+    * { scrollbar-width:thin; scrollbar-color: var(--scroll-thumb) transparent; }
+    ::selection { background-color:rgba(34,197,94,.25); color:var(--text-main); }
+
+    /* NAV */
+    .nav-link {
+      display:flex; align-items:center; gap:6px;
+      height:36px; padding:0 12px; border-radius:8px;
+      font-size:13px; font-weight:600; color: var(--nav-link-clr);
+      border:1px solid var(--nav-link-bdr); background: var(--nav-link-bg);
+      transition:all .18s; text-decoration:none; white-space:nowrap; cursor:pointer;
     }
-    .card-placeholder-text {
-      font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.5);
-      text-align: center; padding: 0 0.5rem;
+    .nav-link:hover { background: var(--nav-link-h-bg); color: var(--text-main); border-color: var(--nav-link-h-bdr); }
+    .nav-link.accent { background:rgba(34,197,94,.1); border-color:rgba(34,197,94,.28); color:#22c55e; }
+    .nav-link.accent:hover { background:rgba(34,197,94,.18); }
+
+    #icon-sun  { display: none; }
+    #icon-moon { display: block; }
+    :root[data-theme="dark"] #icon-sun  { display: block; }
+    :root[data-theme="dark"] #icon-moon { display: none; }
+
+    .mobile-menu {
+      display:none; position:fixed; top:64px; left:0; right:0; z-index:50;
+      background: var(--mob-menu-bg); border-bottom:1px solid var(--mob-menu-bdr);
+      backdrop-filter:blur(24px); padding:14px 18px; flex-direction:column; gap:7px;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      display:flex; align-items:center; gap:10px; padding:11px 13px; border-radius:8px;
+      color: var(--mob-link-clr); text-decoration:none; font-size:14px; font-weight:600;
+      border:1px solid var(--mob-link-bdr); transition:all .15s;
+    }
+    .mobile-menu a:hover { background: var(--nav-link-h-bg); color: var(--text-main); }
+
+    .hero { text-align:center; padding:36px 20px 28px; }
+    .hero h1 {
+      font-size:clamp(48px,9vw,88px); font-weight:900;
+      letter-spacing:-.02em; line-height:1; color: var(--text-main);
+    }
+    .hero h1 span { color:#22c55e; }
+    .hero p { margin-top:8px; font-size:14px; color: var(--text-muted); font-weight:400; }
+
+    .date-sep { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+    .date-sep-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+    .date-sep-dot.live {
+      background:#22c55e;
+      box-shadow:0 0 0 3px rgba(34,197,94,.18), 0 0 8px rgba(34,197,94,.35);
+      animation:livepulse 2s ease-in-out infinite;
+    }
+    .date-sep-dot.soon { background: var(--sep-label); opacity:.5; }
+    @keyframes livepulse {
+      0%,100% { box-shadow:0 0 0 3px rgba(34,197,94,.18),0 0 8px rgba(34,197,94,.35); }
+      50%      { box-shadow:0 0 0 6px rgba(34,197,94,.06),0 0 14px rgba(34,197,94,.2); }
+    }
+    .date-sep-label {
+      font-size:11px; font-weight:800; letter-spacing:.1em;
+      text-transform:uppercase; color: var(--sep-label); white-space:nowrap;
+    }
+    .date-sep-line { flex:1; height:1px; background: var(--sep-line); }
+
+    .stream-card {
+      display:block; text-decoration:none; border-radius:9px; overflow:hidden;
+      background: var(--bg-card); border:1px solid var(--border);
+      transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .stream-card:hover { transform:translateY(-3px); border-color: var(--border-h); box-shadow:0 14px 36px rgba(0,0,0,.45); }
+    .stream-thumb { position:relative; height:120px; overflow:hidden; background:#1a1a1a; }
+    .stream-thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; }
+    .stream-card:hover .stream-thumb img { transform:scale(1.03); }
+    .stream-thumb::after {
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.5) 100%); pointer-events:none;
+    }
+    .sbadge {
+      position:absolute; top:7px; z-index:2;
+      display:inline-flex; align-items:center; gap:5px;
+      padding:2px 7px; border-radius:5px;
+      background: var(--badge-bg); border:1px solid var(--badge-bdr);
+      backdrop-filter:blur(6px);
+      font-size:10px; font-weight:800; letter-spacing:.05em; color: var(--text-main); white-space:nowrap;
+    }
+    .sbadge.left { left:7px; }
+    .sbadge.right { right:7px; color: var(--text-dim); font-weight:700; }
+    .sbadge.is-live { background:#22c55e; border-color:transparent; color:#fff; }
+    .sbadge.is-live .bdot { background:#fff; }
+    .bdot { width:5px; height:5px; border-radius:50%; flex-shrink:0; background:#f59e0b; }
+    .stream-body { padding:9px 11px 11px; }
+    .stream-title { font-size:13px; font-weight:700; color: var(--text-main); line-height:1.25; margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .stream-channel { font-size:11px; color: var(--text-dim); font-weight:500; margin-bottom:8px; }
+    .stream-cta { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; color:#22c55e; transition:gap .18s; }
+    .stream-card:hover .stream-cta { gap:8px; }
+    .empty-state {
+      grid-column:1/-1; display:flex; align-items:center; justify-content:center;
+      padding:30px 20px; border-radius:9px; border:1px dashed var(--empty-bdr);
+      color: var(--empty-clr); font-size:13px; font-weight:500;
+    }
+    .refresh-btn {
+      display:flex; align-items:center; justify-content:center;
+      width:28px; height:28px; border-radius:7px;
+      background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.2);
+      color:#22c55e; font-size:14px; cursor:pointer; transition:all .18s;
+    }
+    .refresh-btn:hover { background:rgba(34,197,94,.2); }
+    .refresh-btn:active { transform:rotate(180deg); }
+
+    @media (max-width:640px) {
+      .hero h1 { font-size:44px; }
+      .stream-thumb { height:108px; }
     }
 
-    .badge-live {
-      position: absolute; top: 10px; left: 10px;
-      display: inline-flex; align-items: center; gap: 6px;
-      background: linear-gradient(90deg, #00c853, #00e676);
-      color: #fff;
-      font-size: 0.62rem; font-weight: 800; letter-spacing: 1.4px;
-      padding: 4px 11px; border-radius: 999px;
-      text-transform: uppercase;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 0 18px rgba(0,230,118,0.5);
-      overflow: hidden;
-    }
-    .badge-live::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.35) 40%, transparent 80%);
-      mix-blend-mode: screen;
-      transform: translateX(-120%);
-      animation: liveShine 1.8s linear infinite;
-      pointer-events: none;
-    }
-    .badge-live .ldot {
-      position: relative;
-      width: 6px; height: 6px;
-      border-radius: 2px;
-      background: #fff;
-      box-shadow: 0 0 0 0 rgba(255,255,255,0.9);
-      animation: liveDotPulse 1.1s ease-out infinite;
-      flex-shrink: 0;
-    }
-    @keyframes liveDotPulse {
-      0%   { box-shadow: 0 0 0 0 rgba(255,255,255,0.9); opacity: 1; }
-      70%  { box-shadow: 0 0 0 7px rgba(255,255,255,0); opacity: 1; }
-      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); opacity: 0.9; }
-    }
-    @keyframes liveShine {
-      0%   { transform: translateX(-120%); }
-      100% { transform: translateX(120%); }
-    }
-    .card-body { padding: 0.9rem 1rem; }
-    .card-name { font-size: 0.88rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: 'Outfit', sans-serif; }
-    .card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 0.4rem; }
-    .card-time { font-size: 0.75rem; color: var(--muted); }
-    .card-time.live { color: #ff3333; font-weight: 600; }
-    .card-ch { font-size: 0.68rem; color: var(--muted); background: var(--bg3); padding: 2px 7px; border-radius: 4px; }
-    .card-dt {
-      font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem;
-      font-family: 'Outfit', sans-serif; font-weight: 500;
-    }
-    .card-watch {
-      display: flex; align-items: center; gap: 5px; margin-top: 0.55rem;
-      color: var(--green); font-size: 0.76rem; font-weight: 600;
-      font-family: 'Outfit', sans-serif; transition: text-shadow 0.25s;
-    }
-    @media (hover: hover) { .match-card:hover .card-watch { text-shadow: 0 0 12px rgba(0,230,118,0.5); } }
-    .card-watch svg { width: 13px; height: 13px; }
-
-    .badge-timer {
-      position: absolute; top: 10px; left: 10px;
-      background: rgba(0,0,0,0.55); backdrop-filter: blur(8px);
-      color: #fff; font-size: 0.72rem; font-weight: 700;
-      padding: 4px 10px; border-radius: 99px;
-      letter-spacing: 0.5px; font-family: 'Inter', sans-serif;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .badge-timer::before {
-      content: ''; width: 7px; height: 7px; border-radius: 50%;
-      background: #f5a623; flex-shrink: 0;
-      animation: blink 1.4s infinite;
-    }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .badge-timer.soon::before { background: #ffa500; }
-    .badge-timer.timer-red::before { background: #ff4444; }
-    .badge-timer.timer-red { color: #ff4444; }
-    .badge-timer.timer-orange::before { background: #ffa500; }
-    .badge-timer.timer-orange { color: #ffa500; }
-    .badge-timer.timer-green::before { background: #00e676; }
-    .badge-timer.timer-green { color: #00e676; }
-    .badge-timer.soon { color: #00e676; }
-    .badge-viewers {
-      position: absolute; top: 10px; right: 10px;
-      background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
-      color: rgba(255,255,255,0.7);
-      font-size: 0.65rem; font-weight: 600;
-      padding: 4px 9px; border-radius: 999px;
-      display: inline-flex; align-items: center; gap: 4px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .badge-viewers svg { width: 12px; height: 12px; flex-shrink: 0; }
-    .badge-datetime {
-      position: absolute; bottom: 8px; left: 8px;
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(18,18,18,0.65); backdrop-filter: blur(8px);
-      color: rgba(255,255,255,0.9); font-size: 0.68rem; font-weight: 700;
-      padding: 5px 10px; border-radius: 999px;
-      font-family: 'Outfit', sans-serif; letter-spacing: 0.3px;
-      border: 1px solid rgba(255,255,255,0.1);
-      line-height: 1;
-    }
-    .badge-datetime .dt-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #f59e0b;
-      box-shadow: 0 0 0 3px rgba(245,158,11,0.15);
-      flex-shrink: 0;
-    }
-
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
-      z-index: 999; align-items: center; justify-content: center; padding: 1rem;
+    /* ══════════════════════════════════
+       SHOP MODAL
+    ══════════════════════════════════ */
+    .shop-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: flex-start; justify-content: center;
       overflow-y: auto;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+      padding: 24px 16px 48px;
     }
-    .modal-overlay.open { display: flex; }
-    .iptv-modal {
-      background: #111; border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px; width: 100%; max-width: 900px;
-      overflow: hidden; animation: modalIn 0.25s ease;
-      max-height: 90vh; overflow-y: auto; margin: auto;
-    }
-    @keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
-    .modal-top {
-      text-align: center; padding: 3rem 2rem 2rem;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,230,118,0.08) 0%, transparent 70%);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .modal-top h1 { font-family:'Bebas Neue',cursive; font-size:clamp(2.5rem,6vw,4rem); letter-spacing:3px; }
-    .modal-top h1 em { font-style:normal; color:#00e676; }
-    .modal-top p { color:#888; font-size:0.9rem; margin-top:0.5rem; line-height:1.7; }
-    .modal-top p strong { color:#fff; }
-    .modal-body { display:grid; grid-template-columns:1fr 1fr; gap:0; }
-    .modal-plans { padding:2rem; border-right:1px solid rgba(255,255,255,0.08); }
-    .modal-plans h3 { font-size:1rem; font-weight:700; margin-bottom:1.2rem; display:flex; align-items:center; gap:0.5rem; }
-    .plan-item {
-      display:flex; align-items:center; justify-content:space-between;
-      background:#1a1a1a; border:2px solid rgba(255,255,255,0.08);
-      border-radius:10px; padding:0.9rem 1.2rem; margin-bottom:0.5rem;
-      cursor:pointer; position:relative;
-      transition: border-color 0.08s ease-out, background 0.08s ease-out;
-    }
-    .plan-item:hover { border-color:rgba(0,230,118,0.3); background:rgba(0,230,118,0.04); }
-    .plan-item.selected { border-color:#00e676; background:rgba(0,230,118,0.08); }
-    .plan-popular {
-      position:absolute; top:-10px; left:50%; transform:translateX(-50%);
-      background:#00e676; color:#000; font-size:0.6rem; font-weight:800;
-      padding:2px 10px; border-radius:99px; letter-spacing:1px; white-space:nowrap;
-    }
-    .plan-name { font-size:0.9rem; font-weight:500; }
-    .plan-price { font-family:'Bebas Neue',cursive; font-size:1.3rem; color:#00e676; letter-spacing:1px; }
-    .subscribe-btn {
-      display:block; width:100%; margin-top:1.2rem;
-      background:#00e676; color:#000; font-weight:700; font-size:0.95rem;
-      padding:13px; border-radius:10px; text-align:center;
-      text-decoration:none; border:none; cursor:pointer;
-      font-family:'Inter',sans-serif; transition:background 0.2s;
-    }
-    .subscribe-btn:hover { background:#00c853; }
-    .modal-features { padding:2rem; }
-    .modal-features h3 { font-size:1rem; font-weight:700; margin-bottom:1.2rem; display:flex; align-items:center; gap:0.5rem; }
-    .feature-item { display:flex; align-items:center; gap:0.6rem; padding:0.5rem 0; font-size:0.88rem; color:#ccc; border-bottom:1px solid rgba(255,255,255,0.05); }
-    .feature-item:last-child { border:none; }
-    .feature-item::before { content:'✓'; color:#00e676; font-weight:700; font-size:0.9rem; flex-shrink:0; }
-    .modal-close-btn {
-      position:absolute; top:1rem; right:1rem;
-      background:#1e1e1e; border:1px solid rgba(255,255,255,0.1);
-      color:#888; width:34px; height:34px; border-radius:8px;
-      font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
-      transition:all 0.2s;
-    }
-    .modal-close-btn:hover { color:#fff; border-color:#fff; }
+    .shop-overlay.open { opacity: 1; pointer-events: all; }
 
-    /* Popup Discord secours (à l'arrivée sur le site) */
-    .discord-secours-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      z-index: 998; align-items: center; justify-content: center; padding: 1rem;
+    .shop-modal {
+      background: var(--modal-bg);
+      border: 1px solid var(--modal-bdr);
+      border-radius: 18px;
+      width: 100%; max-width: 880px;
+      margin: auto;
+      transform: translateY(20px) scale(0.99);
+      transition: transform .3s cubic-bezier(.22,1,.36,1);
     }
-    .discord-secours-overlay.open { display: flex; }
-    .discord-secours-box {
-      position: relative; background: #111;
-      border-radius: 18px; padding: 2.5rem 2rem 2rem;
-      max-width: 400px; width: 100%; text-align: center;
-      animation: modalIn 0.25s ease;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+    .shop-overlay.open .shop-modal { transform: translateY(0) scale(1); }
+
+    .shop-modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 28px 0;
     }
-    .discord-secours-close {
-      position: absolute; top: 12px; right: 12px;
-      width: 28px; height: 28px; border-radius: 50%;
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-      color: #888; font-size: 0.85rem; cursor: pointer;
+    .shop-modal-logo { font-size: 18px; font-weight: 900; color: var(--text-main); }
+    .shop-modal-logo span { color: #22c55e; }
+    .shop-close {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.55); font-size: 16px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: color 0.2s, background 0.2s;
+      transition: all .18s; flex-shrink: 0;
     }
-    .discord-secours-close:hover { color: #fff; background: rgba(255,255,255,0.15); }
-    .discord-secours-logo {
-      font-family: 'Bebas Neue', 'Outfit', sans-serif;
-      font-size: 2rem; font-weight: 800; letter-spacing: 2px;
-      color: #fff; margin-bottom: 1.25rem;
-    }
-    .discord-secours-logo span { color: var(--green); }
-    .discord-secours-box h2 {
-      font-size: 1.15rem; font-weight: 700; color: #fff;
-      margin: 0 0 0.6rem 0; line-height: 1.4;
-    }
-    .discord-secours-box p {
-      color: #888; font-size: 0.85rem; line-height: 1.6;
-      margin: 0 0 1.5rem 0;
-    }
-    .discord-secours-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      background: #5865F2; color: #fff;
-      font-size: 0.95rem; font-weight: 700; padding: 14px 24px;
-      border-radius: 12px; text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .discord-secours-btn:hover { background: #4752c4; transform: translateY(-1px); }
-    .discord-secours-btn svg { flex-shrink: 0; }
-    .discord-secours-done {
-      display: block; width: 100%; margin-top: 12px; padding: 12px 24px;
-      background: transparent; border: 1.5px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6);
-      font-size: 0.85rem; font-weight: 600; border-radius: 12px;
-      cursor: pointer; font-family: inherit;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-    .discord-secours-done:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.25); }
+    .shop-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
-    @media(max-width:600px) { .modal-body{grid-template-columns:1fr} .modal-plans{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08)} }
+    .shop-hero {
+      text-align: center; padding: 26px 24px 20px;
+    }
+    .shop-hero h2 {
+      font-size: clamp(22px, 4vw, 40px); font-weight: 900;
+      color: var(--text-main); line-height: 1.1; margin-bottom: 12px;
+    }
+    .shop-hero h2 .accent { color: #22c55e; }
+    .shop-hero p {
+      font-size: 14px; line-height: 1.7;
+      color: var(--text-muted); max-width: 540px; margin: 0 auto;
+    }
+    .shop-hero p strong { color: var(--text-main); font-weight: 700; }
 
-    @media (max-width: 600px) {
-      .hero-logo { font-size: clamp(2.8rem, 14vw, 4rem); }
-      .hero-pill { font-size: 0.65rem; padding: 5px 12px; }
-      .matches-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
-      .card-thumb { height: 115px; }
-      nav { padding: 0 1rem; }
-      .content { padding: 0 1rem 3rem; }
-      .section-title { font-size: 1.15rem; }
+    .shop-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; padding: 0 24px 20px;
+    }
+    @media (max-width: 580px) { .shop-grid { grid-template-columns: 1fr; } }
+
+    .shop-card {
+      background: var(--shop-card-bg);
+      border: 1px solid var(--shop-card-bdr);
+      border-radius: 12px; padding: 22px 20px;
+    }
+    .shop-card-title {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 18px; font-weight: 800; color: #22c55e; margin-bottom: 18px;
+    }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 9px;
+      font-size: 13px; color: var(--text-dim); font-weight: 500; line-height: 1.4;
+    }
+    .feature-list li .chk { color: #22c55e; flex-shrink: 0; margin-top: 1px; }
+
+    .plan-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 13px; }
+    .plan-item {
+      position: relative;
+      background: var(--plan-bg); border: 1px solid var(--plan-bdr);
+      border-radius: 9px; padding: 13px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; transition: border-color .18s, background .18s;
+    }
+    .plan-item:hover { border-color: rgba(34,197,94,.4); }
+    .plan-item.selected { border-color: #22c55e; background: rgba(34,197,94,0.05); }
+    .plan-label { font-size: 13px; font-weight: 700; color: var(--text-main); }
+    .plan-label .old { font-size: 11px; color: var(--text-faint); font-weight: 500; margin-left: 5px; }
+    .plan-price { font-size: 17px; font-weight: 800; color: #22c55e; }
+    .plan-badge {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      background: #22c55e; color: #000;
+      font-size: 9px; font-weight: 900; letter-spacing: .08em;
+      padding: 2px 10px; border-radius: 20px; white-space: nowrap;
+    }
+    .cta-btn {
+      display: block; width: 100%;
+      background: #22c55e; color: #000;
+      font-size: 14px; font-weight: 800; text-align: center;
+      padding: 14px; border-radius: 9px;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: background .18s, transform .12s;
+    }
+    .cta-btn:hover { background: #16a34a; transform: translateY(-1px); }
+    .cta-btn:active { transform: translateY(0); }
+
+    .shop-how { padding: 8px 24px 28px; }
+    .shop-how-title {
+      text-align: center; font-size: 20px; font-weight: 900; color: var(--text-main);
+      margin-bottom: 18px;
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+    }
+    .step-card {
+      background: var(--shop-card-bg); border: 1px solid var(--shop-card-bdr);
+      border-radius: 12px; padding: 18px 20px; margin-bottom: 10px;
+    }
+    .step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(34,197,94,0.12); border: 2px solid rgba(34,197,94,0.35);
+      color: #22c55e; font-size: 13px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-title { font-size: 15px; font-weight: 800; color: #22c55e; }
+    .step-desc { font-size: 13px; color: var(--step-desc); line-height: 1.65; }
+    .step-desc strong { color: var(--text-main); font-weight: 700; }
+    .discord-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 13px; background: #5865f2; color: #fff;
+      font-size: 13px; font-weight: 700; padding: 11px 20px;
+      border-radius: 8px; text-decoration: none;
+      transition: background .18s, transform .12s;
+    }
+    .discord-btn:hover { background: #4752c4; transform: translateY(-1px); }
+    .devices-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 14px;
+    }
+    @media (max-width: 460px) { .devices-grid { grid-template-columns: repeat(2,1fr); } }
+    .device-item {
+      background: var(--device-bg); border: 1px solid var(--device-bdr);
+      border-radius: 8px; padding: 12px 8px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; color: var(--text-dim);
     }
   </style>
 </head>
-<body>
-<script src="kz-guard.js?v=3"></script>
-<script>document.documentElement.classList.add('js-ok');document.body.classList.add('loaded');</script>
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="brand">Kz<em>Stream</em><span style="color:var(--green);font-size:0.7em;vertical-align:super;margin-left:1px">+</span></a>
-    <div class="nav-right">
-      <a href="/admin" class="nav-btn" id="adminNavLink" style="display:none">⚙️ Admin</a>
-      <a href="shop" class="nav-btn iptv"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> <span class="iptv-full">OBTENEZ UN IPTV À PARTIR DE 9,99€</span><span class="iptv-short">IPTV 9,99€</span></a>
-      <a href="https://discord.gg/ycz9zZmTRW" target="_blank" class="nav-btn nav-icon" title="Discord">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.055a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+
+<body class="flex flex-col font-[Outfit]">
+<noscript>You need to enable JavaScript to run this website.</noscript>
+
+<!-- NAV -->
+<nav style="position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);border-bottom:1px solid var(--border);background:var(--bg-nav);">
+  <div class="max-w-screen-2xl mx-auto px-5 md:px-10 h-16 flex items-center justify-between gap-3">
+    <div class="font-black text-xl tracking-tight" style="color:var(--text-main)">ZK STREAM</div>
+    <div class="hidden md:flex items-center gap-2">
+      <button onclick="openShop()" class="nav-link accent">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        IPTV à partir de 9,99€
+      </button>
+      <a href="https://t.me/h1boux_liens" target="_blank" class="nav-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.31 8.9 19.5c.57 0 .82-.25 1.12-.55l2.69-2.57 5.58 4.08c1.02.56 1.75.27 2-.94L23.9 4.7c.31-1.44-.55-2-1.56-1.63L1.55 10.86c-1.41.55-1.39 1.34-.24 1.7l5.32 1.66L19.1 6.5c.59-.39 1.13-.18.69.21"/></svg>
+        Telegram
       </a>
-      <a href="https://x.com/KZ2026_" target="_blank" class="nav-btn nav-icon" title="X">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <a href="https://discord.gg/FfhZjxRUhm" target="_blank" class="nav-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
+        Discord
       </a>
+      <a href="https://x.com/hibouxtv1" target="_blank" class="nav-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.455L22.5 22h-6.91l-5.41-7.046L4.18 22H1.42l7.01-8.02L1.5 2h7.09l4.89 6.34L18.244 2Z"/></svg>
+        Twitter
+      </a>
+      <button id="theme-toggle" class="nav-link px-3" aria-label="Thème">
+        <svg id="icon-sun" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16h1v3h-1V2Zm0 19h1v3h-1v-3ZM2 12h3v1H2v-1Zm19 0h3v1h-3v-1ZM4.22 4.22l2.12 2.12-.7.7L3.52 4.92l.7-.7Zm14.02 14.02 2.12 2.12-.7.7-2.12-2.12.7-.7ZM19.78 4.22l.7.7-2.12 2.12-.7-.7 2.12-2.12ZM5.64 17.66l.7.7-2.12 2.12-.7-.7 2.12-2.12Z"/></svg>
+        <svg id="icon-moon" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
+    <div class="flex md:hidden items-center gap-2">
+      <button onclick="openShop()" class="nav-link accent text-xs">IPTV</button>
+      <button id="burgerBtn" class="nav-link px-2.5">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
   </div>
-
 </nav>
 
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://t.me/zk_stream" target="_blank">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.31 8.9 19.5c.57 0 .82-.25 1.12-.55l2.69-2.57 5.58 4.08c1.02.56 1.75.27 2-.94L23.9 4.7c.31-1.44-.55-2-1.56-1.63L1.55 10.86c-1.41.55-1.39 1.34-.24 1.7l5.32 1.66L19.1 6.5c.59-.39 1.13-.18.69.21"/></svg>
+    Telegram
+  </a>
+  <a href="https://discord.gg/FfhZjxRUhm" target="_blank">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
+    Discord
+  </a>
+  <a href="https://x.com/hibouxtv1" target="_blank">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.455L22.5 22h-6.91l-5.41-7.046L4.18 22H1.42l7.01-8.02L1.5 2h7.09l4.89 6.34L18.244 2Z"/></svg>
+    Twitter / X
+  </a>
+</div>
+
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-pill"><div class="hdot"></div> Streaming gratuit</div>
-  <div class="hero-logo">Kz<em>Stream</em><span style="color:var(--green)">+</span></div>
-  <div class="hero-sub">Votre destination ultime pour le streaming live</div>
+  <h1>ZK<span>+</span></h1>
+  <p>Votre destination pour le streaming sport gratuit</p>
 </div>
 
-<div class="content">
-  <div class="section-head">
-    <div class="live-pill"><div class="ldot"></div> En direct</div>
-    <div class="section-title">Diffusions</div>
-    <div style="margin-left:auto;display:flex;align-items:center;gap:0.75rem;">
-      <button type="button" id="refreshMatchesBtn" style="font-size:0.7rem;padding:6px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:var(--muted);border-radius:999px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:600;transition:all 0.25s;" title="Recharger la liste depuis le serveur" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.25)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='rgba(255,255,255,0.1)'">Actualiser</button>
-      <div style="font-size:0.72rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase" id="liveCount"></div>
-    </div>
-  </div>
-
-  <div class="matches-grid" id="liveGrid"></div>
-
-  <div id="daySectionsContainer"></div>
-
-</div>
-
-<!-- Popup Discord secours (à l’arrivée sur le site) -->
-<div class="discord-secours-overlay" id="discordSecoursOverlay">
-  <div class="discord-secours-box" onclick="event.stopPropagation()">
-    <button type="button" class="discord-secours-close" id="discordSecoursClose" aria-label="Fermer">✕</button>
-    <div class="discord-secours-logo">KZ<span>STREAM+</span></div>
-    <h2>Rejoins le Discord au cas où le site saute.</h2>
-    <p>Accès aux liens de secours, annonces et nouveautés en avant-première.</p>
-    <a href="https://discord.gg/ycz9zZmTRW" target="_blank" rel="noopener" class="discord-secours-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-      Rejoindre le Discord
-    </a>
-    <button type="button" class="discord-secours-done" id="discordSecoursDone">C'est fait</button>
-  </div>
-</div>
-
-<!-- IPTV MODAL -->
-<div class="modal-overlay" id="iptvModal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="iptv-modal" style="position:relative">
-    <button class="modal-close-btn" onclick="document.getElementById('iptvModal').classList.remove('open')">✕</button>
-    <div class="modal-top">
-      <h1>Kz<em>Stream</em> IPTV</h1>
-      <p>Plus de <strong>25.000 chaînes</strong> dont toutes les chaînes de sports en <strong>Full HD+</strong> et <strong>4K</strong>.<br>
-      Une VOD 4K complète avec plus de <strong>130.000 films</strong> et près de <strong>40.000 séries</strong> partout dans le monde !</p>
-    </div>
-    <div class="modal-body">
-      <div class="modal-plans">
-        <h3>📺 Nos Abonnements</h3>
-        <div class="plan-item selected" onclick="selectPlan(this)"><span class="plan-name">1 mois</span><span class="plan-price">9,99€</span></div>
-        <div class="plan-item" onclick="selectPlan(this)"><span class="plan-name">3 mois</span><span class="plan-price">20€</span></div>
-        <div class="plan-item" onclick="selectPlan(this)" style="margin-top:1rem">
-          <span class="plan-popular">⭐ LE PLUS ACHETÉ</span>
-          <span class="plan-name">6 mois</span><span class="plan-price">35€</span>
-        </div>
-        <div class="plan-item" onclick="selectPlan(this)"><span class="plan-name">12 mois</span><span class="plan-price">50€</span></div>
-        <a href="https://discord.gg/mQJD3GPGvb" target="_blank" class="subscribe-btn">Je réserve mon IPTV</a>
-      </div>
-      <div class="modal-features">
-        <h3>✨ Contenu Premium</h3>
-        <div class="feature-item">25.000+ chaînes</div>
-        <div class="feature-item">130.000+ Films</div>
-        <div class="feature-item">40.000+ Séries</div>
-        <div class="feature-item">Qualité SD, HD, FHD, 4K</div>
-        <div class="feature-item">Disponible sur tous vos appareils</div>
-        <div class="feature-item">Assistance 24/7</div>
+<!-- CONTENT -->
+<div class="max-w-screen-2xl mx-auto w-full flex flex-grow flex-col md:px-10 px-5 pb-14">
+  <div class="mb-10">
+    <div class="date-sep">
+      <div class="date-sep-dot live"></div>
+      <span class="date-sep-label" id="label-today">Aujourd'hui</span>
+      <div class="date-sep-line"></div>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <span id="today-count" class="text-xs font-bold" style="color:rgba(255,255,255,.3)"></span>
+        <button id="refreshBtn" class="refresh-btn" aria-label="Rafraîchir">↻</button>
       </div>
     </div>
+    <div id="stream-list-principal" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></div>
   </div>
-</div>
-
-<script src="mysql-config.js?v=16"></script>
-<script src="mysql-api.js?v=16"></script>
-<script>
-(function() {
-  var overlay = document.getElementById('discordSecoursOverlay');
-  if (!overlay) return;
-  try { if (sessionStorage.getItem('kzstream_discord_secours_seen')) return; } catch (e) {}
-  overlay.classList.add('open');
-  function closeDiscordSecours() {
-    overlay.classList.remove('open');
-    try { sessionStorage.setItem('kzstream_discord_secours_seen', '1'); } catch (err) {}
-  }
-  setTimeout(closeDiscordSecours, 12000);
-  overlay.addEventListener('click', function(e) {
-    if (e.target !== overlay) return;
-    closeDiscordSecours();
-  });
-  var closeBtn = document.getElementById('discordSecoursClose');
-  if (closeBtn) closeBtn.addEventListener('click', closeDiscordSecours);
-  var doneBtn = document.getElementById('discordSecoursDone');
-  if (doneBtn) doneBtn.addEventListener('click', closeDiscordSecours);
-  var btn = overlay.querySelector('.discord-secours-btn');
-  if (btn) btn.addEventListener('click', function() {
-    try { sessionStorage.setItem('kzstream_discord_secours_seen', '1'); } catch (err) {}
-    overlay.classList.remove('open');
-  });
-})();
-(async function() {
-  try {
-  // Uniquement le cache (API MariaDB) ; ?nocache=1 force le rechargement depuis l’API
-  // Plus de matchs en dur : affichage = cache session ou API uniquement (évite les "fantômes")
-  var DEFAULT_MATCHES = { today: [], tomorrow: [] };
-  var MATCHES = { today: [], tomorrow: [] };
-  var _noCache = window.location.search.indexOf('nocache=1') !== -1;
-  if (!_noCache) {
-    try {
-      var _cached = sessionStorage.getItem('kzstream_matches_cache');
-      if (_cached) {
-        var _cd = JSON.parse(_cached);
-        if (_cd && (Array.isArray(_cd.today) || Array.isArray(_cd.tomorrow))) {
-          MATCHES.today = Array.isArray(_cd.today) ? _cd.today : [];
-          MATCHES.tomorrow = Array.isArray(_cd.tomorrow) ? _cd.tomorrow : [];
-        }
-      }
-    } catch(e) {}
-  }
-  // Plus de lecture du cache au chargement : on affiche uniquement ce que l’API renvoie (fix mobile)
-
-  const DAYS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-  const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-  function now() { return new Date(); }
-
-  // Date du jour en France (Europe/Paris) pour que tous les visiteurs voient les memes matchs "aujourd'hui" / "demain"
-  function getParisDateStr(d) {
-    if (!d || !(d instanceof Date) || isNaN(d.getTime())) return '';
-    return d.toLocaleDateString('en-CA', { timeZone: 'Europe/Paris' });
-  }
-  function getParisTodayStr() { return getParisDateStr(new Date()); }
-  function getParisTomorrowStr() { return getParisDateStr(new Date(Date.now() + 86400000)); }
-
-  // Interprète date (YYYY-MM-DD) + heure (HH:MM) comme heure française (Europe/Paris)
-  function parseHeureParis(dateStr, timeStr) {
-    if (!dateStr || !timeStr) return new Date(NaN);
-    var ds = dateStr.toString().trim();
-    var dateParts;
-    if (ds.indexOf('/') !== -1) {
-      var p = ds.split('/').map(Number);
-      dateParts = p.length >= 3 ? [p[2], p[1], p[0]] : p;
-    } else {
-      dateParts = ds.split('-').map(Number);
-    }
-    const timeParts = timeStr.toString().trim().split(':').map(Number);
-    if (dateParts.length < 3 || isNaN(dateParts[0])) return new Date(NaN);
-    const y = dateParts[0], mo = dateParts[1], d = dateParts[2];
-    const hh = timeParts[0] || 0, mm = timeParts[1] || 0;
-    if (y < 2000 || mo < 1 || mo > 12 || d < 1 || d > 31) return new Date(NaN);
-    const lastSunMarch = 31 - ((new Date(y, 2, 31).getDay() + 7) % 7);
-    const lastSunOct = 31 - ((new Date(y, 9, 31).getDay() + 7) % 7);
-    const inSummer = (mo > 3 && mo < 10) || (mo === 3 && d >= lastSunMarch) || (mo === 10 && d < lastSunOct);
-    const offset = inSummer ? '+02:00' : '+01:00';
-    const iso = `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}T${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:00${offset}`;
-    return new Date(iso);
-  }
-
-  const LIVE_END_MINUTES = 180;
-
-  // Rollover à minuit Paris : repartitionner today/tomorrow selon la date du match
-  // Les matchs de la veille encore en direct sont conservés dans today
-  function rolloverMatches(matches, todayStr, tomorrowStr) {
-    const fromToday = (Array.isArray(matches.today) ? matches.today : []).map(m => ({ ...m, _date: (m && m.date && String(m.date).trim()) || todayStr }));
-    const fromTomorrow = (Array.isArray(matches.tomorrow) ? matches.tomorrow : []).map(m => ({ ...m, _date: (m && m.date && String(m.date).trim()) || tomorrowStr }));
-    const all = [...fromToday, ...fromTomorrow];
-    const strip = (m) => { const { _date, ...r } = m; return r; };
-    function isStillRelevant(m) {
-      if (!m._date || !m.time) return false;
-      var start = parseHeureParis(m._date, m.time);
-      if (isNaN(start.getTime())) return false;
-      var endWindow = new Date(start.getTime() + LIVE_END_MINUTES * 60000);
-      return now() <= endWindow;
-    }
-    matches.today = all.filter(m => m._date === todayStr || (m._date < todayStr && isStillRelevant(m))).map(strip);
-    matches.tomorrow = all.filter(m => m._date > todayStr).map(strip);
-  }
-
-  (function() {
-    rolloverMatches(MATCHES, getParisTodayStr(), getParisTomorrowStr());
-  })();
-
-  // Détermine si un match est en live (entre -30min et +LIVE_END_MINUTES après coup d'envoi)
-  function isMatchLive(m) {
-    if (!m || !m.date || !m.time) return false;
-    const start = parseHeureParis(m.date, m.time);
-    if (isNaN(start.getTime())) return false;
-    const startWindow = new Date(start.getTime() - 30 * 60000);
-    const endWindow = new Date(start.getTime() + LIVE_END_MINUTES * 60000);
-    const n = now();
-    return n >= startWindow && n <= endWindow;
-  }
-
-  function isMatchFinished(m) {
-    if (!m || !m.date || !m.time) return false;
-    const start = parseHeureParis(m.date, m.time);
-    if (isNaN(start.getTime())) return false;
-    const endWindow = new Date(start.getTime() + LIVE_END_MINUTES * 60000);
-    return now() > endWindow;
-  }
-
-  // Cible stream = coup d'envoi - 30 min (pour lien watch et timers)
-  function getMatchDate(m, isTomorrow) {
-    if (!m) return new Date(0);
-    let dateStr = String(m.date != null ? m.date : m.match_date || '').trim();
-    let timeStr = String(m.time != null ? m.time : m.match_time || '').trim();
-    if (dateStr.indexOf('T') !== -1) dateStr = dateStr.split('T')[0];
-    if (dateStr.indexOf(' ') !== -1) dateStr = dateStr.split(' ')[0];
-    if (timeStr.indexOf(' ') !== -1) timeStr = timeStr.split(' ')[0];
-    if (!dateStr || !timeStr) return new Date(0);
-    const start = parseHeureParis(dateStr, timeStr);
-    if (isNaN(start.getTime())) return new Date(0);
-    return new Date(start.getTime() - 30 * 60000);
-  }
-
-  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-
-  function getDateTimeLabel(m) {
-    var dateStr = (m.date || m._date || '').toString().trim();
-    var timeStr = (m.time || '').toString().trim();
-    if (!dateStr || !timeStr) return '';
-    var todayStr = getParisTodayStr();
-    var tomorrowStr = getParisTomorrowStr();
-    var dayLabel;
-    if (dateStr === todayStr) {
-      dayLabel = "Aujourd'hui";
-    } else if (dateStr === tomorrowStr) {
-      dayLabel = 'Demain';
-    } else {
-      var parts = dateStr.split('-').map(Number);
-      if (parts.length >= 3) {
-        var dd = new Date(parts[0], parts[1] - 1, parts[2]);
-        dayLabel = DAYS[dd.getDay()] + ' ' + dd.getDate() + ' ' + MONTHS[dd.getMonth()];
-      } else {
-        dayLabel = dateStr;
-      }
-    }
-    return dayLabel + ' · ' + timeStr;
-  }
-
-  var IMG_PROXY = 'https://wsrv.nl/?url=';
-  var CDN_BLOCKED = ['empire-sport.art','empire-sport.sbs','empire-sport.live','empire-sport.fit','empire-sport.tv'];
-  function proxyImg(url) {
-    if (!url || !url.trim()) return '';
-    if (CDN_BLOCKED.some(function(d){ return url.indexOf(d) >= 0; })) return IMG_PROXY + encodeURIComponent(url);
-    return url;
-  }
-
-  function renderCard(m) {
-    if (!m) return '';
-    const live = isMatchLive(m);
-    const has = m.sources && m.sources.length > 0;
-    const homeName = esc((m.home && m.home.name) || '—');
-    const awayName = esc((m.away && m.away.name) || '—');
-    const slug = (m.slug || '').replace(/"/g, '');
-    const posterSafe = m.poster ? proxyImg(String(m.poster)).replace(/'/g, '\\27 ') : '';
-    const dtLabel = getDateTimeLabel(m);
-    const watchHref = has
-      ? 'watch?m=' + encodeURIComponent(slug)
-      : '';
-    const escAttr = (s) => String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
-    return `
-  <div class="match-card${!has?' no-stream':''}"${has ? ' role="link" tabindex="0" data-watch-href="' + escAttr(watchHref) + '"' : ''}>
-    <div class="card-thumb">
-      ${posterSafe ? `<div class="card-poster" style="background-image:url('${posterSafe}')"></div><div class="card-poster-overlay"></div>` : `<div class="card-poster-placeholder"><span class="card-placeholder-text">${homeName} – ${awayName}</span></div>`}
-      ${live ? `<div class="badge-live"><div class="ldot"></div> LIVE</div>` : ''}
-      ${!live ? `<div class="badge-timer" id="timer-${slug}">--h --m --s</div>` : ''}
-      <div class="badge-viewers" id="viewers-${slug}" data-count="0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> 0</div>
-    </div>
-    <div class="card-body">
-      <div class="card-name">${homeName} - ${awayName}</div>
-      ${dtLabel ? `<div class="card-dt">${esc(dtLabel)}</div>` : (m.channel != null && m.channel !== '') ? `<div class="card-dt">${esc(m.channel)}</div>` : ''}
-      ${has ? `<div class="card-watch"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Regarder maintenant</div>` : `<div class="card-watch" style="color:var(--muted)">⏳ Bientôt</div>`}
-    </div>
-  </div>`;
-  }
-
-  // Trier par heure de diffusion (proches / prochains en premier)
-  function getDiffusionTime(m) {
-    if (!m || !m.date || !m.time) return Infinity;
-    const t = getMatchDate(m).getTime();
-    return (t !== t || t === 0) ? Infinity : t; // NaN ou 0 → fin de liste
-  }
-  function sortByDiffusion(a, b) {
-    return getDiffusionTime(a) - getDiffusionTime(b);
-  }
-
-  function daySectionTitle(dateStr) {
-    const parts = dateStr.split('-').map(Number);
-    const dayLabel = parts.length >= 3 ? (() => {
-      const d = new Date(parts[0], parts[1] - 1, parts[2]);
-      return DAYS[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()];
-    })() : dateStr;
-    if (dateStr === getParisTodayStr()) return "AUJOURD'HUI · " + dayLabel;
-    if (dateStr === getParisTomorrowStr()) return 'DEMAIN · ' + dayLabel;
-    return dayLabel;
-  }
-
-  var _viewerCounts = {};
-  function refreshGrids() {
-    const liveEl = document.getElementById('liveGrid');
-    const countEl = document.getElementById('liveCount');
-    const dayContainer = document.getElementById('daySectionsContainer');
-    const todayStr = getParisTodayStr();
-    const tomorrowStr = getParisTomorrowStr();
-    // Matchs avec date résolue (m.date ou déduite de today/tomorrow)
-    const withDate = [
-      ...MATCHES.today.filter(Boolean).map(m => ({ ...m, _date: (m.date || '').toString().trim() || todayStr })),
-      ...MATCHES.tomorrow.filter(Boolean).map(m => ({ ...m, _date: (m.date || '').toString().trim() || tomorrowStr }))
-    ];
-    // Pas de cache = premier chargement
-    if (MATCHES.today.length === 0 && MATCHES.tomorrow.length === 0) {
-      if (liveEl) liveEl.innerHTML = '<div style="grid-column:1/-1;color:var(--muted);font-size:0.9rem;padding:2rem;text-align:center">Chargement des matchs…</div>';
-      if (countEl) countEl.textContent = '';
-      if (dayContainer) dayContainer.innerHTML = '';
-      return;
-    }
-    const live = withDate.filter(m => m && isMatchLive(m)).sort(function(a, b) {
-      var ca = (_viewerCounts[a.slug] || 0), cb = (_viewerCounts[b.slug] || 0);
-      if (cb !== ca) return cb - ca;
-      return getDiffusionTime(a) - getDiffusionTime(b);
-    });
-    if (liveEl) liveEl.innerHTML = live.length ? live.map(renderCard).join('') : `<div style="color:var(--muted);font-size:0.85rem;padding:1rem 0;grid-column:1/-1">Aucun match en direct pour le moment</div>`;
-    if (countEl) countEl.textContent = live.length ? live.length + ' EN COURS' : '';
-
-    const upcoming = withDate
-      .filter(m => m && !isMatchLive(m) && !isMatchFinished(m))
-      .sort(sortByDiffusion);
-
-    const byDate = {};
-    upcoming.forEach(m => {
-      const d = m._date;
-      if (!byDate[d]) byDate[d] = [];
-      byDate[d].push(m);
-    });
-    const sortedDates = Object.keys(byDate).filter(Boolean).sort();
-    let dayHtml = '';
-    sortedDates.forEach(dateStr => {
-      const title = daySectionTitle(dateStr);
-      dayHtml += `<div class="day-sep">${title}</div><div class="matches-grid">${byDate[dateStr].map(renderCard).join('')}</div>`;
-    });
-    if (dayContainer) dayContainer.innerHTML = dayHtml;
-  }
-
-  refreshGrids();
-
-  (function bindMatchCardNav() {
-    function go(card, e) {
-      var href = card.getAttribute('data-watch-href');
-      if (!href) return;
-      if (e && (e.ctrlKey || e.metaKey || e.shiftKey)) {
-        window.open(href, '_blank');
-        return;
-      }
-      window.location.href = href;
-    }
-    document.addEventListener('click', function(e) {
-      var card = e.target.closest('.match-card');
-      if (!card || card.classList.contains('no-stream')) return;
-      if (!card.getAttribute('data-watch-href')) return;
-      e.preventDefault();
-      go(card, e);
-    });
-    document.addEventListener('auxclick', function(e) {
-      if (e.button !== 1) return;
-      var card = e.target.closest('.match-card');
-      if (!card || card.classList.contains('no-stream')) return;
-      var href = card.getAttribute('data-watch-href');
-      if (!href) return;
-      e.preventDefault();
-      window.open(href, '_blank');
-    });
-    document.addEventListener('keydown', function(e) {
-      if (e.key !== 'Enter' && e.key !== ' ') return;
-      var card = e.target.closest('.match-card');
-      if (!card || card.classList.contains('no-stream')) return;
-      if (document.activeElement !== card) return;
-      if (!card.getAttribute('data-watch-href')) return;
-      e.preventDefault();
-      go(card, null);
-    });
-  })();
-
-  function showMatchesFetchError(extraLine) {
-    const liveEl = document.getElementById('liveGrid');
-    const countEl = document.getElementById('liveCount');
-    const dayContainer = document.getElementById('daySectionsContainer');
-    if (countEl) countEl.textContent = '';
-    if (dayContainer) dayContainer.innerHTML = '';
-    const sub = extraLine ? '<br><span style="font-size:0.8rem;opacity:0.85">' + esc(extraLine) + '</span>' : '';
-    if (liveEl) {
-      liveEl.innerHTML = '<div style="grid-column:1/-1;color:var(--muted);font-size:0.9rem;padding:2rem;text-align:center">Impossible de charger les matchs.' + sub + '<br><a href="?nocache=1" style="color:var(--green);margin-top:0.5rem;display:inline-block">Actualiser</a></div>';
-    }
-  }
-
-  document.getElementById('refreshMatchesBtn').addEventListener('click', function() {
-    try { sessionStorage.removeItem('kzstream_matches_cache'); } catch (e) {}
-    const url = window.location.pathname + '?nocache=1';
-    window.location.href = url;
-  });
-
-  // Charger les matchs depuis l’API en arrière-plan (timeout 6 s)
-  (function loadMatchesFromApi() {
-    const API_TIMEOUT_MS = 6000;
-    const to = setTimeout(function() {
-      if (MATCHES.today.length === 0 && MATCHES.tomorrow.length === 0) {
-        showMatchesFetchError('Délai dépassé — vérifie la connexion ou réessaie.');
-      }
-    }, API_TIMEOUT_MS);
-    function apply(d) {
-      clearTimeout(to);
-      if (d && (Array.isArray(d.today) || Array.isArray(d.tomorrow))) {
-        if (Array.isArray(d.today)) MATCHES.today = d.today;
-        if (Array.isArray(d.tomorrow)) MATCHES.tomorrow = d.tomorrow;
-        rolloverMatches(MATCHES, getParisTodayStr(), getParisTomorrowStr());
-        try { sessionStorage.setItem('kzstream_matches_cache', JSON.stringify({ _ts: Date.now(), today: MATCHES.today, tomorrow: MATCHES.tomorrow })); } catch (e) {}
-        refreshGrids();
-        if (typeof updateTimers === 'function') setTimeout(updateTimers, 0);
-        if (typeof updateIndexViewers === 'function') setTimeout(updateIndexViewers, 100);
-        if (window.location.search.includes('nocache=1') && window.history.replaceState) window.history.replaceState({}, '', window.location.pathname);
-      }
-    }
-    if (window.KzApi) {
-      window.KzApi.getMatches(true).then(function(d) { apply(d); }).catch(function() {
-        clearTimeout(to);
-        if (MATCHES.today.length === 0 && MATCHES.tomorrow.length === 0) {
-          showMatchesFetchError('Erreur serveur (API) — vérifie config.php / base de données sur le VPS.');
-        }
-      });
-    } else {
-      clearTimeout(to);
-    }
-  })();
-
-  // Retour arrière (bfcache) : réafficher le cache puis rafraîchir l’API (évite « Chargement… » bloqué)
-  window.addEventListener('pageshow', function(ev) {
-    if (!ev.persisted || !window.KzApi) return;
-    try {
-      var _bc = sessionStorage.getItem('kzstream_matches_cache');
-      if (_bc) {
-        var _bj = JSON.parse(_bc);
-        if (_bj && (Array.isArray(_bj.today) || Array.isArray(_bj.tomorrow))) {
-          MATCHES.today = Array.isArray(_bj.today) ? _bj.today : [];
-          MATCHES.tomorrow = Array.isArray(_bj.tomorrow) ? _bj.tomorrow : [];
-          rolloverMatches(MATCHES, getParisTodayStr(), getParisTomorrowStr());
-          refreshGrids();
-        }
-      }
-    } catch (e2) {}
-    window.KzApi.getMatches(true).then(function(d) {
-      if (d && (Array.isArray(d.today) || Array.isArray(d.tomorrow))) {
-        if (Array.isArray(d.today)) MATCHES.today = d.today;
-        if (Array.isArray(d.tomorrow)) MATCHES.tomorrow = d.tomorrow;
-        rolloverMatches(MATCHES, getParisTodayStr(), getParisTomorrowStr());
-        try { sessionStorage.setItem('kzstream_matches_cache', JSON.stringify({ _ts: Date.now(), today: MATCHES.today, tomorrow: MATCHES.tomorrow })); } catch (e3) {}
-        refreshGrids();
-        if (typeof updateTimers === 'function') setTimeout(updateTimers, 0);
-        if (typeof updateIndexViewers === 'function') setTimeout(updateIndexViewers, 100);
-      }
-    }).catch(function() {});
-  });
-
-  document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState !== 'visible' || !window.KzApi) return;
-    window.KzApi.getMatches(true).then(function(d) {
-      if (d && (Array.isArray(d.today) || Array.isArray(d.tomorrow))) {
-        if (Array.isArray(d.today)) MATCHES.today = d.today;
-        if (Array.isArray(d.tomorrow)) MATCHES.tomorrow = d.tomorrow;
-        rolloverMatches(MATCHES, getParisTodayStr(), getParisTomorrowStr());
-        try { sessionStorage.setItem('kzstream_matches_cache', JSON.stringify({ _ts: Date.now(), today: MATCHES.today, tomorrow: MATCHES.tomorrow })); } catch (e) {}
-        refreshGrids();
-        if (typeof updateTimers === 'function') setTimeout(updateTimers, 0);
-        if (typeof updateIndexViewers === 'function') setTimeout(updateIndexViewers, 100);
-      }
-    }).catch(function() {});
-  });
-
-  if (sessionStorage.getItem('kzstream_admin') === '1') {
-    const adminLink = document.getElementById('adminNavLink');
-    if (adminLink) adminLink.style.display = 'flex';
-  }
-  function selectPlan(el) {
-    const prev = document.querySelector('.plan-item.selected');
-    if (prev && prev !== el) prev.classList.remove('selected');
-    el.classList.add('selected');
-  }
-
-  // ══ TIMERS ══ (même liste que "Prochains matchs" : avec date, pas en live, pas terminé)
-  function updateTimers() {
-    const todayStr = getParisTodayStr();
-    const tomorrowStr = getParisTomorrowStr();
-    const withDate = [
-      ...(MATCHES.today || []).filter(Boolean).map(m => ({ ...m, _date: (m.date || '').toString().trim() || todayStr })),
-      ...(MATCHES.tomorrow || []).filter(Boolean).map(m => ({ ...m, _date: (m.date || '').toString().trim() || tomorrowStr }))
-    ];
-    const toUpdate = withDate.filter(m => m && m.slug && !isMatchLive(m) && !isMatchFinished(m));
-    const bySlug = {};
-    toUpdate.forEach(m => { if (m.slug) bySlug[m.slug] = m; });
-    const now = Date.now();
-
-    // Mettre à jour chaque timer présent dans le DOM (par id timer-xxx)
-    document.querySelectorAll('[id^="timer-"]').forEach(el => {
-      const slug = el.id.replace(/^timer-/, '');
-      const m = bySlug[slug];
-      if (!m) return;
-      const target = getMatchDate(m);
-      if (!target || isNaN(target.getTime()) || target.getTime() === 0) {
-        el.textContent = '—';
-        el.classList.remove('timer-red', 'timer-orange', 'timer-green', 'soon');
-        return;
-      }
-      const diff = target - now;
-
-      el.classList.remove('timer-red', 'timer-orange', 'timer-green', 'soon');
-      if (diff <= 7200000) {
-        el.classList.add('timer-green');
-      } else if (diff <= 86400000) {
-        el.classList.add('timer-orange');
-      } else {
-        el.classList.add('timer-red');
-      }
-
-      if (diff <= 0) { el.textContent = 'Bientôt'; el.classList.add('timer-green'); return; }
-      const h = Math.floor(diff / 3600000);
-      const min = Math.floor((diff % 3600000) / 60000);
-      const sec = Math.floor((diff % 60000) / 1000);
-      el.textContent = `${String(h).padStart(2,'0')}h ${String(min).padStart(2,'0')}m ${String(sec).padStart(2,'0')}s`;
-    });
-  }
-
-  updateTimers();
-  setInterval(updateTimers, 1000);
-
-  let visitorId = localStorage.getItem('kzstream_vid');
-  if (!visitorId) { visitorId = Math.random().toString(36).slice(2); localStorage.setItem('kzstream_vid', visitorId); }
-
-  function sortLiveGrid() {
-    var grid = document.getElementById('liveGrid');
-    if (!grid) return;
-    var cards = Array.from(grid.querySelectorAll('.match-card'));
-    if (cards.length < 2) return;
-    cards.sort(function(a, b) {
-      var ha = a.getAttribute && a.getAttribute('data-watch-href');
-      var hb = b.getAttribute && b.getAttribute('data-watch-href');
-      var sa = ha ? ha.match(/m=([^&]+)/) : null;
-      var sb = hb ? hb.match(/m=([^&]+)/) : null;
-      var ka = sa ? decodeURIComponent(sa[1]) : '';
-      var kb = sb ? decodeURIComponent(sb[1]) : '';
-      var ca = _viewerCounts[ka] || 0, cb = _viewerCounts[kb] || 0;
-      return cb - ca;
-    });
-    cards.forEach(function(c) { grid.appendChild(c); });
-  }
-  if (window.KzApi && typeof window.KzApi.getViewersCounts === 'function') {
-    var viewersFetchPending = false;
-    var VIEWERS_INTERVAL_MS = 20000;
-    function updateIndexViewers() {
-      if (document.visibilityState !== 'visible' || viewersFetchPending) return;
-      var all = [].concat(MATCHES.today || [], MATCHES.tomorrow || []);
-      var slugs = all.map(function(m) { return m && m.slug; }).filter(Boolean);
-      if (!slugs.length) return;
-      viewersFetchPending = true;
-      window.KzApi.getViewersCounts(slugs).then(function(counts) {
-        var changed = false;
-        slugs.forEach(function(k) {
-          var n = counts[k] || 0;
-          if (_viewerCounts[k] !== n) { _viewerCounts[k] = n; changed = true; }
-          var el = document.getElementById('viewers-' + k);
-          if (el) {
-            el.setAttribute('data-count', n);
-            el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> ' + n;
-          }
-        });
-        if (changed) sortLiveGrid();
-      }).catch(function() {}).finally(function() { viewersFetchPending = false; });
-    }
-    updateIndexViewers();
-    setInterval(updateIndexViewers, VIEWERS_INTERVAL_MS);
-    var _idxTabTimer = null;
-    document.addEventListener('visibilitychange', function() {
-      if (document.visibilityState === 'visible') {
-        if (_idxTabTimer) clearTimeout(_idxTabTimer);
-        _idxTabTimer = setTimeout(updateIndexViewers, 300);
-      }
-    });
-  }
-
-  window.selectPlan = selectPlan;
-  } catch (err) {
-    if (window.MYSQL_DEBUG) console.error('KzStream:', err);
-    var msg = document.getElementById('liveGrid');
-    if (msg) msg.innerHTML = '<div style="color:var(--muted);font-size:0.9rem;padding:1.5rem;">Erreur de chargement. <a href="?nocache=1" style="color:var(--green)">Actualiser</a></div>';
-  }
-})();
-</script>
-<footer style="border-top:1px solid rgba(255,255,255,0.04);padding:2rem 2rem 2.5rem;text-align:center;margin-top:3rem;">
-  <div style="font-family:'Outfit',sans-serif;font-weight:700;font-size:0.9rem;color:rgba(255,255,255,0.25);margin-bottom:1rem;letter-spacing:1px;">KzStream<span style="color:var(--green)">+</span></div>
   <div>
-    <a href="/legal/dmca" style="color:rgba(255,255,255,0.35);text-decoration:none;font-size:0.75rem;margin:0 0.8rem;font-family:'Outfit',sans-serif;transition:color 0.25s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">DMCA</a>
-    <a href="/legal/terms" style="color:rgba(255,255,255,0.35);text-decoration:none;font-size:0.75rem;margin:0 0.8rem;font-family:'Outfit',sans-serif;transition:color 0.25s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">Conditions d'utilisation</a>
-    <a href="/legal/privacy" style="color:rgba(255,255,255,0.35);text-decoration:none;font-size:0.75rem;margin:0 0.8rem;font-family:'Outfit',sans-serif;transition:color 0.25s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">Confidentialité</a>
-    <a href="/legal/disclaimer" style="color:rgba(255,255,255,0.35);text-decoration:none;font-size:0.75rem;margin:0 0.8rem;font-family:'Outfit',sans-serif;transition:color 0.25s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">Avertissement</a>
+    <div class="date-sep">
+      <div class="date-sep-dot soon"></div>
+      <span class="date-sep-label" id="label-tomorrow">Demain</span>
+      <div class="date-sep-line"></div>
+    </div>
+    <div id="stream-list-bk" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></div>
   </div>
-</footer>
+</div>
+    <div class="date-sep">
+      <div class="date-sep-dot soon"></div>
+      <span class="date-sep-label" id="label-tomorrow">prochain</span>
+      <div class="date-sep-line"></div>
+    </div>
+    <div id="stream-list-bk" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     SHOP MODAL
+══════════════════════════════════ -->
+<div class="shop-overlay" id="shopOverlay" onclick="handleOverlayClick(event)">
+  <div class="shop-modal" id="shopModal">
+
+    <div class="shop-modal-header">
+      <span class="shop-modal-logo">ZK<span>STREAM</span></span>
+      <button class="shop-close" onclick="closeShop()">✕</button>
+    </div>
+
+    <div class="shop-hero">
+      <h2>Accédez à l'<span class="accent">IPTV</span> en quelques minutes</h2>
+      <p>Plus de <strong>25 000 chaînes</strong> dont toutes les chaînes de sports en <strong>Full HD+</strong> et <strong>4K</strong>.<br>
+      Une <strong>VOD 4K complète</strong> avec plus de <strong>130 000 films</strong> et près de <strong>40 000 séries</strong>.</p>
+    </div>
+
+    <div class="shop-grid">
+      <div class="shop-card">
+        <div class="shop-card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Contenu Premium
+        </div>
+        <ul class="feature-list">
+          <li><span class="chk">✓</span> 25 000+ chaînes</li>
+          <li><span class="chk">✓</span> VOD 4K complète (130 000+ films, 40 000+ séries)</li>
+          <li><span class="chk">✓</span> Qualité ultra-stable, même en heures de pointe</li>
+          <li><span class="chk">✓</span> Mises à jour mensuelles</li>
+          <li><span class="chk">✓</span> Disponible sur tous vos appareils</li>
+          <li><span class="chk">✓</span> Assistance premium 24/7</li>
+        </ul>
+      </div>
+
+      <div class="shop-card">
+        <div class="shop-card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Abonnement
+        </div>
+        <div class="plan-list">
+          <div class="plan-item" data-plan="1 mois" data-price="9,99€" onclick="selectPlan(this)">
+            <span class="plan-label">1 mois</span>
+            <span class="plan-price">9,99€</span>
+          </div>
+          <div class="plan-item" data-plan="3 mois" data-price="20€" onclick="selectPlan(this)">
+            <span class="plan-label">3 mois</span>
+            <span class="plan-price">20€</span>
+          </div>
+          <div class="plan-item selected" data-plan="6 mois" data-price="35€" onclick="selectPlan(this)">
+            <div class="plan-badge">LE PLUS ACHETÉ</div>
+            <span class="plan-label">6 mois <span class="old">(au lieu de 45€)</span></span>
+            <span class="plan-price">35€</span>
+          </div>
+          <div class="plan-item" data-plan="12 mois" data-price="50€" onclick="selectPlan(this)">
+            <span class="plan-label">12 mois <span class="old">(au lieu de 70€)</span></span>
+            <span class="plan-price">50€</span>
+          </div>
+        </div>
+        <a href="https://discord.gg/FfhZjxRUhm" target="_blank" class="cta-btn" id="ctaBtn">
+          6 mois — 35€ → S'abonner
+        </a>
+      </div>
+    </div>
+
+    <div class="shop-how">
+      <h3 class="shop-how-title">
+        🚀 Comment ça marche ?
+      </h3>
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <span class="step-title">Choisis ton abonnement</span>
+        </div>
+        <p class="step-desc">Consulte les offres ci-dessus et choisis la durée qui te convient.<br>
+        Tous les abonnements incluent l'accès à <strong>25 000+ chaînes</strong>, la <strong>VOD 4K</strong> et l'<strong>assistance 24/7</strong>.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <span class="step-title">Rejoins le Discord</span>
+        </div>
+        <p class="step-desc">Rejoins notre serveur Discord et ouvre un <strong>ticket</strong> dans le salon dédié. Un membre de l'équipe te guidera pour le paiement et répondra à toutes tes questions.</p>
+        <a href="https://discord.gg/FfhZjxRUhm" target="_blank" class="discord-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
+          Rejoindre le Discord
+        </a>
+      </div>
+      <div class="step-card">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <span class="step-title">Paiement & Installation</span>
+        </div>
+        <p class="step-desc">Un admin te guide pour le paiement et t'envoie tes identifiants sous <strong>5 à 20 minutes</strong>. Il t'aidera aussi à installer l'application sur ton appareil :</p>
+        <div class="devices-grid">
+          <div class="device-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            Smartphone
+          </div>
+          <div class="device-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            PC / Mac
+          </div>
+          <div class="device-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+            Box / Fire Stick
+          </div>
+          <div class="device-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg>
+            Smart TV
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
-(function() {
-  var _revealed = new WeakSet();
-  function revealCards() {
-    var grids = document.querySelectorAll('.matches-grid');
-    var delay = 0;
-    grids.forEach(function(grid) {
-      var cards = grid.querySelectorAll('.match-card:not(.kz-visible)');
-      cards.forEach(function(card) {
-        if (_revealed.has(card)) return;
-        _revealed.add(card);
-        setTimeout(function() { card.classList.add('kz-visible'); }, delay);
-        delay += 70;
-      });
+  /* ═══ DONNÉES ═══ */
+  var MATCHES_TODAY = [
+      {
+      title:   "France - Colombie",
+      channel: "Match Amical",
+      time:    "21:00",
+      banner:  "https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31108766/canal-ouah_50061/STD169/myCANAL_16x9_sport_1920x1080-2026-03-20T160621.011-UIUD",
+      href:    "france-colom.html"
+    },
+  ];
+  var MATCHES_TOMORROW = [];
+
+  const DAYS   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+  function fmtDate(d){ return DAYS[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()]; }
+  (function(){
+    const t=new Date(), tm=new Date(t); tm.setDate(t.getDate()+1);
+    const el1=document.getElementById('label-today');
+    const el2=document.getElementById('label-tomorrow');
+    if(el1) el1.textContent='Aujourd\'hui · '+fmtDate(t).toUpperCase();
+    if(el2) el2.textContent='Demain · '+fmtDate(tm).toUpperCase();
+  })();
+
+  const LIVE_WIN = Math.floor(2.5*60*60*1000);
+  function parseHHMM(s){ const [h,m]=s.split(':').map(Number); return {h,m}; }
+  function getKickoff(hhmm){
+    const now=new Date(), {h,m}=parseHHMM(hhmm);
+    const t=new Date(now); t.setHours(h,m,0,0);
+    if(now.getTime()>(t.getTime()+LIVE_WIN)){ t.setDate(t.getDate()+1); t.setHours(h,m,0,0); }
+    return t;
+  }
+  function fmtMs(ms){
+    if(ms<=0) return '00h 00m 00s';
+    const s=Math.floor(ms/1000), h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sc=s%60;
+    const p=n=>String(n).padStart(2,'0');
+    return `${p(h)}h ${p(m)}m ${p(sc)}s`;
+  }
+
+  var viewerCounts = {};
+  function randomBetween(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+  function initViewers(){
+    [...MATCHES_TODAY.map((_,i)=>i), ...MATCHES_TOMORROW.map((_,i)=>i+100)]
+      .forEach(idx=>{ if(viewerCounts[idx]===undefined) viewerCounts[idx]=randomBetween(30,250); });
+  }
+  function fluctuateViewers(){
+    Object.keys(viewerCounts).forEach(idx=>{
+      let val=viewerCounts[idx]+randomBetween(-18,18);
+      viewerCounts[idx]=Math.max(30,Math.min(250,val));
     });
   }
-  var _observedSections = new WeakSet();
-  var obs = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        obs.unobserve(entry.target);
+  setInterval(fluctuateViewers,8000);
+  function updateViewerDisplay(){
+    Object.keys(viewerCounts).forEach(idx=>{
+      const el=document.querySelector(`[data-viewer-count="${idx}"]`);
+      if(el) el.textContent=viewerCounts[idx];
+    });
+  }
+  setInterval(updateViewerDisplay,8000);
+
+  function cardHTML(m,idx){
+   return `<a href="${m.href}" class="stream-card">
+      <div class="stream-thumb">
+        <img src="${m.banner}" alt="${m.title}" loading="lazy">
+        <div class="sbadge left" data-pill="${idx}">
+          <span class="bdot" data-dot="${idx}"></span>
+          <span data-timer="${idx}">--</span>
+        </div>
+        <div class="sbadge right">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="opacity:.65"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          <span data-viewer-count="${idx}">--</span>
+        </div>
+      </div>
+      <div class="stream-body">
+        <div class="stream-title">${m.title}</div>
+        <div class="stream-channel">${m.channel||'—'}</div>
+        <div class="stream-cta">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Regarder maintenant
+        </div>
+      </div>
+    </a>`;
+  }  
+
+
+  function render(){
+    const t=document.getElementById('stream-list-principal');
+    const d=document.getElementById('stream-list-bk');
+    if(t) t.innerHTML=MATCHES_TODAY.length
+      ? MATCHES_TODAY.map((m,i)=>cardHTML(m,i)).join('')
+      : '<div class="empty-state">Aucun match prévu aujourd\'hui</div>';
+    if(d) d.innerHTML=MATCHES_TOMORROW.length
+      ? MATCHES_TOMORROW.map((m,i)=>cardHTML(m,i+100)).join('')
+      : '<div class="empty-state">Aucun match prévu demain</div>';
+    initViewers(); updateViewerDisplay();
+  }
+
+  function tick(){
+    const now=Date.now(); let live=0;
+    const all=[...MATCHES_TODAY.map((m,i)=>({m,idx:i})),...MATCHES_TOMORROW.map((m,i)=>({m,idx:i+100}))];
+    all.forEach(({m,idx})=>{
+      const ko=getKickoff(m.time).getTime(), end=ko+LIVE_WIN;
+      const tEl=document.querySelector(`[data-timer="${idx}"]`);
+      const pEl=document.querySelector(`[data-pill="${idx}"]`);
+      const dEl=document.querySelector(`[data-dot="${idx}"]`);
+      if(!tEl||!pEl||!dEl) return;
+      if(now>=ko&&now<=end){
+        live++; tEl.textContent='LIVE';
+        pEl.classList.add('is-live'); dEl.classList.add('live');
+      } else {
+        tEl.textContent=fmtMs(now<ko?ko-now:getKickoff(m.time).getTime()-now);
+        pEl.classList.remove('is-live'); dEl.classList.remove('live');
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }) : null;
-  function observeSections() {
-    document.querySelectorAll('.section-head, .day-sep').forEach(function(el) {
-      if (_observedSections.has(el)) return;
-      _observedSections.add(el);
-      el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-      if (obs) obs.observe(el);
-      else { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }
-    });
-  }
-  var _checkInterval = setInterval(function() {
-    var cards = document.querySelectorAll('.match-card');
-    if (cards.length > 0) {
-      clearInterval(_checkInterval);
-      revealCards();
-      observeSections();
+    const c=document.getElementById('today-count');
+    if(c&&MATCHES_TODAY.length){
+      c.textContent=live>0?live+' EN COURS':MATCHES_TODAY.length+' MATCH'+(MATCHES_TODAY.length>1?'S':'');
     }
-  }, 200);
-  var _mo = new MutationObserver(function() { revealCards(); observeSections(); });
-  var _liveGrid = document.getElementById('liveGrid');
-  var _dayContainer = document.getElementById('daySectionsContainer');
-  if (_liveGrid) _mo.observe(_liveGrid, { childList: true });
-  if (_dayContainer) _mo.observe(_dayContainer, { childList: true, subtree: true });
-})();
+  }
+
+  /* ── SHOP MODAL ── */
+  function openShop(){
+    document.getElementById('shopOverlay').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeShop(){
+    document.getElementById('shopOverlay').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  function handleOverlayClick(e){
+    if(e.target===document.getElementById('shopOverlay')) closeShop();
+  }
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeShop(); });
+
+  function selectPlan(el){
+    document.querySelectorAll('.plan-item').forEach(p=>p.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('ctaBtn').textContent=`${el.dataset.plan} — ${el.dataset.price} → S'abonner`;
+  }
+
+  document.getElementById('refreshBtn')?.addEventListener('click',()=>{
+    NProgress.start(); render(); tick(); setTimeout(()=>NProgress.done(),300);
+  });
+  document.getElementById('theme-toggle')?.addEventListener('click',()=>{
+    const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+    const newTheme=isDark?'light':'dark';
+    document.documentElement.setAttribute('data-theme',newTheme);
+    localStorage.setItem('theme',newTheme);
+  });
+  document.getElementById('burgerBtn')?.addEventListener('click',()=>{
+    document.getElementById('mobileMenu')?.classList.toggle('open');
+  });
+
+  render(); tick(); setInterval(tick,1000);
 </script>
+
+<script type="module" src=""></script>
 </body>
 </html>
