@@ -2,10 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import {
   getDatabase,
   ref,
-  onValue,
-  runTransaction,
-  onDisconnect,
-  increment
+  onValue
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
@@ -17,43 +14,86 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const viewerState = new Map();
 
-/**
- * @param {string} pageName - Nom de la page dans la DB
- * @param {string} elementId - ID de l'Ã©lÃ©ment HTML
- * @param {boolean} readonly - Si vrai, n'incrÃ©mente pas (juste lecture)
- */
-export function initViewerCounter(pageName, elementId, readonly = false) {
-  const countRef = ref(db, `pages/${pageName}/count`);
-  const el = document.getElementById(elementId);
-  if (!el) return;
-
-  if (!readonly) {
-    runTransaction(countRef, (current) => (current || 0) + 1);
-    onDisconnect(countRef).set(increment(-1));
+function getState(slug) {
+  if (!viewerState.has(slug)) {
+    viewerState.set(slug, {
+      sessionCount: null,
+      legacyCount: 0
+    });
   }
 
-  onValue(countRef, (snapshot) => {
-    const val = snapshot.val();
-    el.textContent = (val && val > 0) ? val : 0;
+  return viewerState.get(slug);
+}
+
+function getSafeCount(value) {
+  return Number.isFinite(value) && value > 0 ? value : 0;
+}
+
+function getFinalCount(state) {
+  if (typeof state.sessionCount === "number") {
+    return getSafeCount(state.sessionCount);
+  }
+
+  return getSafeCount(state.legacyCount);
+}
+
+function updateCard(slug) {
+  const state = getState(slug);
+  const safeCount = getFinalCount(state);
+
+  document.querySelectorAll('[data-match-slug="' + slug + '"]').forEach((card) => {
+    const target = card.querySelector("[data-viewers]");
+    card.setAttribute("data-current-viewers", String(safeCount));
+
+    if (target) {
+      target.textContent = String(safeCount);
+    }
   });
 }
 
-/**
- * Scanne les Ã©lÃ©ments.
- * Si l'Ã©lÃ©ment a l'attribut [data-viewer-readonly], il ne comptera pas comme un viewer.
- */
-export function autoInitCounters() {
-  const elements = document.querySelectorAll("[data-viewer-counter]");
+function watchRealViewers(slug) {
+  const state = getState(slug);
+  updateCard(slug);
 
-  elements.forEach((el) => {
-    const pageName = el.getAttribute("data-viewer-counter");
-    const isReadonly = el.hasAttribute("data-viewer-readonly");
+  const sessionsRef = ref(db, "pages/" + slug + "/sessions");
+  onValue(
+    sessionsRef,
+    (snapshot) => {
+      const sessions = snapshot.val() || {};
+      state.sessionCount = Object.keys(sessions).length;
+      updateCard(slug);
+    },
+    () => {
+      state.sessionCount = null;
+      updateCard(slug);
+    }
+  );
 
-    if (!el.id) el.id = "cnt_" + Math.random().toString(36).substr(2, 5);
-
-    initViewerCounter(pageName, el.id, isReadonly);
-  });
+  const countRef = ref(db, "pages/" + slug + "/count");
+  onValue(
+    countRef,
+    (snapshot) => {
+      const value = snapshot.val();
+      state.legacyCount = typeof value === "number" ? value : 0;
+      updateCard(slug);
+    },
+    () => {
+      state.legacyCount = 0;
+      updateCard(slug);
+    }
+  );
 }
 
-autoInitCounters();
+const watchedSlugs = new Set();
+
+document.querySelectorAll("[data-match-slug]").forEach((card) => {
+  const slug = card.getAttribute("data-match-slug");
+  if (!slug || watchedSlugs.has(slug)) {
+    return;
+  }
+
+  watchedSlugs.add(slug);
+  watchRealViewers(slug);
+});
