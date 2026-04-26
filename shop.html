@@ -1,577 +1,386 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>IMFTX + | SHOP</title>
-    <meta name="description" content="Abonnez-vous à l'IPTV IMFTX : 52 000+ chaînes, 188 000+ films, VOD 4K. À partir de 9,99 €."/>
-    <meta name="robots" content="noindex, nofollow, noarchive"/>
-    <meta name="googlebot" content="noindex, nofollow, noarchive"/>
-    <link rel="canonical" href="https://kzontop.site/shop"/>
-    <link rel="icon" href="img/kz-favicon.svg?v=2" type="image/svg+xml" sizes="any"/>
-    <link rel="apple-touch-icon" href="img/kz-favicon.svg?v=2"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://kzontop.site/shop"/>
-    <meta property="og:title" content="KzStream+ | IPTV Premium — 52 000+ chaînes"/>
-    <meta property="og:description" content="52 000+ chaînes, 188 000+ films, VOD 4K ultra-stable. À partir de 9,99 €."/>
-    <meta property="og:image" content="https://kzontop.site/img/og-preview.png"/>
-    <meta property="og:site_name" content="KzStream"/>
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="KzStream+ | IPTV Premium"/>
-    <meta name="twitter:description" content="52 000+ chaînes, 188 000+ films, VOD 4K ultra-stable."/>
-    <meta name="twitter:image" content="https://kzontop.site/img/og-preview.png"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']}}}};</script>
-    <style>
-        ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px}
-        *{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.08) transparent}
-        ::selection{background:#00e676;color:#000}
-        html,body{background:#050507;overflow-x:hidden;max-width:100vw}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMFTX+ — IPTV Premium</title>
+  <link rel="icon" href="https://media.discordapp.net/attachments/1485253416098730054/1485283135045369916/favicon-32x32.png?ex=69c14d36&is=69bffbb6&hm=ca14730649885e11b25569281738318b65a43ac06235014cb98de994c39a0e0a&=&format=webp&quality=lossless&width=40&height=40">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: 'Outfit', sans-serif; background: #0d0d0d url('https://thumb.canalplus.pro/bran/unsafe/2560x668/filters:quality(80)/image/695f89b989950/uploads/media/myCANAL_Cover_web_2760x720_47.jpg') center top / cover no-repeat fixed; color: #fff; min-height: 100vh; overflow-x: hidden; }
+    body::after { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: rgba(0,0,0,.65); }
+    body > * { position: relative; z-index: 1; }
 
-        @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-        @keyframes glow-pulse{0%,100%{box-shadow:0 0 20px rgba(0,230,118,.3),0 0 60px rgba(0,230,118,.1),0 0 100px rgba(0,230,118,.05)}50%{box-shadow:0 0 30px rgba(0,230,118,.5),0 0 80px rgba(0,230,118,.2),0 0 120px rgba(0,230,118,.08)}}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-        @keyframes text-glow{0%,100%{text-shadow:0 0 20px rgba(0,230,118,.3),0 0 60px rgba(0,230,118,.1)}50%{text-shadow:0 0 30px rgba(0,230,118,.5),0 0 80px rgba(0,230,118,.2)}}
-        @keyframes border-glow{0%,100%{box-shadow:0 0 20px rgba(0,230,118,.1),inset 0 0 20px rgba(0,230,118,.03)}50%{box-shadow:0 0 40px rgba(0,230,118,.2),inset 0 0 30px rgba(0,230,118,.05)}}
-        @keyframes gradient-x{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-        @keyframes card-shine{0%{transform:translateX(-100%) rotate(25deg)}100%{transform:translateX(200%) rotate(25deg)}}
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 10px; }
 
-        [data-aos]{will-change:transform,opacity}
+    /* Bannière top (pleine largeur, image centrée) */
+    .hero-logo {
+      display: block;
+      margin: -45px auto 24px;
+      max-width: 420px;
+      width: 60%;
+      height: auto;
+    }
 
-        .tilt-card{transform-style:preserve-3d;transform:perspective(1000px)}
-        .tilt-card .tilt-inner{transform:translateZ(30px)}
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; background: rgba(255,255,255,.04); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.07); }
+    .nav-logo { font-size: 22px; font-weight: 900; letter-spacing: .04em; color: #fff; text-decoration: none; }
+    .nav-back { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.06); color: #fff; font-size: 13px; font-weight: 700; text-decoration: none; transition: all .18s; }
+    .nav-back:hover { background: rgba(255,255,255,.12); }
 
-        .pricing-card .glow-follow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,230,118,.15) 0%,transparent 70%);pointer-events:none;opacity:0;transition:opacity .3s;filter:blur(20px)}
-        .pricing-card:hover .glow-follow{opacity:1}
+    /* HERO */
+    .hero {
+      text-align: center; padding: 80px 24px 60px; position: relative; overflow: hidden;
+      background: transparent;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(255,255,255,.06) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 16px; border-radius: 999px; margin-bottom: 20px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.25);
+      font-size: 12px; font-weight: 800; color: #fff; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: bdot 2s infinite; }
+    @keyframes bdot { 0%,100%{opacity:1} 50%{opacity:.35} }
+    .hero-title { font-size: clamp(38px, 6vw, 72px); font-weight: 900; letter-spacing: -.01em; line-height: 1; margin-bottom: 18px; }
+    .hero-title span { background: linear-gradient(135deg, #ffffff, #bdbdbd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,.6); font-weight: 500; max-width: 560px; margin: 0 auto 40px; line-height: 1.55; }
+    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      height: 52px; padding: 0 32px; border-radius: 12px;
+      background: #0f0f0f;
+      border: 1px solid rgba(255,255,255,.25);
+      color: #fff; font-size: 15px; font-weight: 800; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35); transition: all .2s;
+    }
+    .btn-primary:hover { background: #171717; transform: translateY(-1px); }
+    .btn-secondary {
+      height: 52px; padding: 0 28px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
+      color: #fff; font-size: 15px; font-weight: 700; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px; transition: all .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.11); }
 
-        .btn-glow{background:#00e676;color:#000;font-weight:800;border-radius:14px;transition:all .2s;position:relative;overflow:hidden;animation:glow-pulse 3s ease-in-out infinite;letter-spacing:-.01em}
-        .btn-glow:hover{background:#00ff7f;transform:translateY(-2px) scale(1.02)}
-        .btn-glow:active{transform:scale(.96)}
-        .btn-glow::after{content:'';position:absolute;top:0;left:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:shimmer 2.5s linear infinite;background-size:200% 100%}
+    /* STATS */
+    .stats { display: flex; align-items: center; justify-content: center; gap: 40px; padding: 32px 24px; border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); flex-wrap: wrap; background: transparent; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 32px; font-weight: 900; background: linear-gradient(135deg, #ffffff, #bdbdbd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
 
-        .card-depth{background:linear-gradient(145deg,rgba(255,255,255,.04) 0%,rgba(255,255,255,.01) 100%);border:1px solid rgba(255,255,255,.07);border-radius:20px;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.4,0,.2,1)}
-        .card-depth::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at center,rgba(0,230,118,.06) 0%,transparent 50%);opacity:0;transition:opacity .4s;pointer-events:none}
-        .card-depth:hover{border-color:rgba(0,230,118,.2);transform:translateY(-4px);}
-        .card-depth:hover::before{opacity:1}
+    /* PRICING */
+    .section { max-width: 1100px; margin: 0 auto; padding: 64px 24px; }
+    .section-title { text-align: center; font-size: 32px; font-weight: 900; margin-bottom: 10px; }
+    .section-sub { text-align: center; font-size: 15px; color: rgba(255,255,255,.5); margin-bottom: 48px; }
 
-        .pricing-card{background:linear-gradient(180deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,.015) 100%);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:36px 28px;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.4,0,.2,1)}
-        .pricing-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.15)}
-        .pricing-card::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent);transform:rotate(25deg);transition:left .6s}
-        .pricing-card:hover::after{left:150%}
+    /* PRICING — 2 colonnes */
+    .pricing-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .pricing-layout { grid-template-columns: 1fr; } }
 
-        .pricing-pop{background:linear-gradient(180deg,rgba(0,230,118,.06) 0%,rgba(0,230,118,.02) 40%,rgba(255,255,255,.02) 100%);border:1.5px solid #00e676;animation:border-glow 3s ease-in-out infinite;padding:0}
-        .pricing-pop:hover{transform:translateY(-6px)}
-        .pricing-pop-ribbon{display:block;width:100%;text-align:center;color:#000;font-size:0.65rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;padding:0.65rem 1rem;margin:0;border-radius:calc(24px - 1.5px) calc(24px - 1.5px) 0 0;border-bottom:1px solid rgba(0,0,0,.12)}
-        .pricing-pop-inner{padding:1.25rem 28px 36px;display:flex;flex-direction:column;flex:1;min-height:0}
+    .pricing-box {
+      border-radius: 20px; padding: 32px 28px;
+      border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.04);
+    }
+    .pricing-box-title {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 24px;
+    }
+    .pricing-box-title svg { flex-shrink: 0; }
 
-        .stat-num{font-variant-numeric:tabular-nums;font-weight:900;letter-spacing:-.03em}
+    .content-list { display: flex; flex-direction: column; gap: 14px; }
+    .content-item { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+    .content-item .ck { color: rgba(255,255,255,.7); font-size: 16px; font-weight: 900; flex-shrink: 0; }
 
-        #particles{position:absolute;inset:0;z-index:0}
+    .plan-rows { display: flex; flex-direction: column; gap: 10px; }
+    .plan-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; border-radius: 12px;
+      border: 2px solid rgba(255,255,255,.08); background: rgba(255,255,255,.03);
+      cursor: pointer; transition: border-color .2s, background .2s;
+    }
+    .plan-row:hover { border-color: rgba(255,255,255,.25); }
+    .plan-row.selected {
+      border-color: #fff; background: rgba(255,255,255,.08);
+    }
+    .plan-row.popular {
+      position: relative;
+    }
+    .plan-row.popular::before {
+      content: "LE PLUS ACHETÉ"; position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+      padding: 2px 12px; border-radius: 999px; font-size: 10px; font-weight: 900; letter-spacing: .08em;
+      background: #fff; color: #000;
+    }
+    .plan-row-left { font-size: 15px; font-weight: 600; }
+    .plan-row-left small { color: rgba(255,255,255,.4); font-weight: 500; }
+    .plan-row-price { font-size: 24px; font-weight: 900; color: #fff; }
 
-        .faq-item{background:linear-gradient(145deg,rgba(255,255,255,.04) 0%,rgba(255,255,255,.01) 100%);border:1px solid rgba(255,255,255,.07);border-radius:16px;transition:border-color .3s}
-        .faq-item:hover{border-color:rgba(0,230,118,.2)}
-        details summary{list-style:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-        details summary::-webkit-details-marker{display:none}
-        details[open] .faq-icon{transform:rotate(45deg)}
-        details[open]{border-color:rgba(0,230,118,.15)}
+    .plan-cta {
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 16px; height: 52px; border-radius: 14px; width: 100%;
+      background: #fff; color: #000; font-size: 16px; font-weight: 800;
+      text-decoration: none; border: none; cursor: pointer; font-family: 'Outfit', sans-serif;
+      transition: all .2s;
+    }
+    .plan-cta:hover { background: rgba(255,255,255,.85); }
 
-        .check-icon{width:18px;height:18px;flex-shrink:0}
-        .cross-icon{width:18px;height:18px;flex-shrink:0;color:#333}
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .feat-card {
+      padding: 24px 20px; border-radius: 16px;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+      transition: border-color .2s;
+    }
+    .feat-card:hover { border-color: rgba(255,255,255,.14); }
+    .feat-icon { font-size: 28px; margin-bottom: 12px; }
+    .feat-title { font-size: 15px; font-weight: 800; margin-bottom: 7px; }
+    .feat-desc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.55; }
 
-        .swiper{overflow:visible!important;padding-bottom:50px}
-        .swiper-pagination-bullet{background:#fff!important;opacity:.2!important;width:10px!important;height:10px!important}
-        .swiper-pagination-bullet-active{background:#00e676!important;opacity:1!important;width:28px!important;border-radius:5px!important}
-        .swiper-slide{height:auto!important}
-    </style>
+    /* CHANNELS PREVIEW */
+    .channels-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: center; margin-top: 32px; }
+    .ch-logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 6px 12px;
+      transition: border-color .2s;
+    }
+    .ch-logo:hover { border-color: rgba(255,255,255,.25); }
+    .ch-badge {
+      padding: 6px 14px; border-radius: 8px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+      font-size: 13px; font-weight: 700;
+    }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 0; max-width: 720px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,.06); background: rgba(255,255,255,.03); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 20px 24px; cursor: pointer; font-size: 15px; font-weight: 700;
+      user-select: none; transition: background .15s;
+    }
+    .faq-q:hover { background: rgba(255,255,255,.05); }
+    .faq-arrow {
+      transition: transform .25s; font-size: 12px; color: rgba(255,255,255,.4);
+      width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+      background: rgba(255,255,255,.06); display: flex; align-items: center; justify-content: center;
+    }
+    .faq-a { display: none; padding: 0 24px 20px; font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.7; }
+    .faq-item.open { background: rgba(255,255,255,.05); }
+    .faq-item.open .faq-q .faq-arrow { transform: rotate(180deg); background: rgba(255,255,255,.12); }
+    .faq-item.open .faq-a { display: block; }
+
+    /* CTA BOTTOM */
+    .cta-section {
+      text-align: center; padding: 72px 24px;
+      background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,.05) 50%, transparent 100%);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cta-title { font-size: clamp(28px, 4vw, 48px); font-weight: 900; margin-bottom: 14px; }
+    .cta-sub { font-size: 16px; color: rgba(255,255,255,.55); margin-bottom: 32px; }
+
+    /* FOOTER */
+    footer { padding: 28px 24px; border-top: 1px solid rgba(255,255,255,.06); text-align: center; color: rgba(255,255,255,.3); font-size: 13px; background: rgba(13,13,13,.8); }
+    footer a { color: rgba(255,255,255,.45); text-decoration: none; }
+    footer a:hover { color: #fff; }
+  </style>
 </head>
-<body class="text-white font-sans min-h-screen">
-<script src="kz-guard.js?v=4"></script>
+<body>
 
 <!-- NAV -->
-<nav class="sticky top-0 z-50 border-b border-white/[0.1]" style="background:rgba(8,8,8,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)">
-    <div class="max-w-[1300px] mx-auto px-5 sm:px-6 h-16 flex items-center justify-between">
-        <a href="/" class="flex items-center" style="text-decoration:none">
-            <span class="text-2xl sm:text-3xl font-extrabold tracking-tight" style="font-family:'Outfit',sans-serif">IMFTX<span class="text-[#00e676]">+</span></span>
-        </a>
-        <div class="flex items-center gap-2 sm:gap-3">
-            <a href="/" class="h-11 px-3 flex items-center gap-2 rounded-md ring-1 ring-white/[0.15] text-white hover:bg-white/[0.1] active:scale-95 transition-all whitespace-nowrap" style="font-family:'Outfit',sans-serif">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
-                <span class="text-sm font-semibold hidden sm:inline">Accueil</span>
-            </a>
-            <a href="https://discord.gg/ycz9zZmTRW" target="_blank" class="h-11 w-11 flex items-center justify-center rounded-md ring-1 ring-white/[0.15] text-white hover:bg-white/[0.1] active:scale-95 transition-all" title="Discord">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .033.055 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.36-.698.772-1.362 1.225-1.993a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.12-.098.246-.198.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03z"/></svg>
-            </a>
-            <a href="https://x.com/KZ2026_" target="_blank" class="h-11 w-11 flex items-center justify-center rounded-md ring-1 ring-white/[0.15] text-white hover:bg-white/[0.1] active:scale-95 transition-all" title="X">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-        </div>
-    </div>
+<nav class="nav">
+  <a class="nav-logo" href="index.html">IMFTX+</a>
+  <a class="nav-back" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    Retour aux matchs
+  </a>
 </nav>
 
 <!-- HERO -->
-<section class="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center overflow-hidden">
-    <canvas id="particles"></canvas>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-[#00e676]/[0.07] blur-[150px] pointer-events-none"></div>
-    <div class="absolute top-1/3 left-1/4 w-[300px] h-[300px] rounded-full bg-[#6366f1]/[0.04] blur-[100px] pointer-events-none"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] rounded-full bg-[#00e676]/[0.03] blur-[80px] pointer-events-none"></div>
-
-    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-
-        <h1 class="text-3xl sm:text-5xl md:text-6xl font-black leading-[1.1] tracking-tight mb-4" data-aos="fade-up" data-aos-delay="0">
-            Sport, ciné, séries.<br>
-            <span class="bg-gradient-to-r from-[#00e676] via-[#69f0ae] to-[#00e676] bg-clip-text text-transparent bg-[length:200%_auto]" style="animation:gradient-x 4s linear infinite,text-glow 3s ease-in-out infinite">Un seul abo.</span>
-        </h1>
-
-        <p class="text-sm sm:text-base text-zinc-400 max-w-md mx-auto leading-relaxed mb-10" data-aos="fade-up" data-aos-delay="100">
-            +52 000 chaînes, 188 000 films en 4K. Accès en quelques minutes via Discord.
-        </p>
-
-        <!-- STATS -->
-        <div class="grid grid-cols-4 max-w-xs sm:max-w-3xl mx-auto mb-10 gap-4 sm:gap-8" data-aos="fade-up" data-aos-delay="200">
-            <div class="text-center">
-                <span class="stat-num text-lg sm:text-3xl md:text-4xl text-white block mb-1" data-target="52618">0</span>
-                <span class="text-[9px] sm:text-[11px] text-zinc-500 font-bold tracking-[.15em] sm:tracking-[.2em] uppercase block">Chaînes</span>
-            </div>
-            <div class="text-center">
-                <span class="stat-num text-lg sm:text-3xl md:text-4xl text-white block mb-1" data-target="188246">0</span>
-                <span class="text-[9px] sm:text-[11px] text-zinc-500 font-bold tracking-[.15em] sm:tracking-[.2em] uppercase block">Films</span>
-            </div>
-            <div class="text-center">
-                <span class="stat-num text-lg sm:text-3xl md:text-4xl text-white block mb-1" data-target="42574">0</span>
-                <span class="text-[9px] sm:text-[11px] text-zinc-500 font-bold tracking-[.15em] sm:tracking-[.2em] uppercase block">Séries</span>
-            </div>
-            <div class="text-center">
-                <span class="stat-num text-lg sm:text-3xl md:text-4xl text-[#00e676] block mb-1" data-target="348">0</span>
-                <span class="text-[9px] sm:text-[11px] text-zinc-500 font-bold tracking-[.15em] sm:tracking-[.2em] uppercase block">Clients</span>
-            </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3" data-aos="fade-up" data-aos-delay="300">
-            <a href="#pricing" class="btn-glow px-8 py-3 sm:px-10 sm:py-4 text-sm sm:text-base flex items-center gap-2">
-                Voir les prix
-                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-            </a>
-            <a href="https://discord.gg/ycz9zZmTRW" target="_blank" class="flex items-center gap-2 bg-white/[0.06] hover:bg-[#5865F2]/20 border border-white/[0.1] hover:border-[#5865F2]/40 text-white font-bold px-8 py-3 sm:px-10 sm:py-4 rounded-[14px] transition-all active:scale-95 text-sm sm:text-base">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .033.055 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.36-.698.772-1.362 1.225-1.993a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.12-.098.246-.198.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03z"/></svg>
-                Rejoindre le Discord
-            </a>
-        </div>
-    </div>
+<section class="hero">
+  <img class="hero-logo" src="https://pbs.twimg.com/profile_banners/1982094397878751232/1775556307/600x200" alt="IMFTX+" loading="eager" decoding="async">
+  <div class="hero-badge"><span class="badge-dot"></span>IPTV Premium disponible</div>
+  <h1 class="hero-title">Regardez tout.<br><span>Sans compromis.</span></h1>
+  <p class="hero-sub">Plus de 20 000 chaînes live, films, séries et sports en qualité HD / 4K. Compatible sur tous vos appareils.</p>
+  <div class="hero-actions">
+    <a href="https://discord.gg/u3tyt9u9SB" class="btn-primary" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
+      Commander via Discord
+    </a>
+    <a href="https://discord.gg/u3tyt9u9SB" class="btn-secondary" target="_blank" rel="noopener">Test gratuit 24h</a>
+  </div>
 </section>
 
-<!-- TRUST -->
-<section class="relative py-8 border-y border-white/[0.04] bg-gradient-to-r from-transparent via-[#00e676]/[0.02] to-transparent" data-aos="fade-up">
-    <div class="max-w-5xl mx-auto px-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-sm text-zinc-400 font-semibold">
-        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg><span class="text-white font-bold">187 clients actifs</span></span>
-        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>99.9% Uptime</span>
-        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>Support 24/7</span>
-        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>Qualité 4K HDR</span>
-        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>Tous appareils</span>
-        <span class="flex items-center gap-2"><svg class="w-4 h-4 text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>Prêt en 5 min</span>
-    </div>
-</section>
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item"><div class="stat-num">20 000+</div><div class="stat-label">Chaînes live</div></div>
+  <div class="stat-item"><div class="stat-num">50 000+</div><div class="stat-label">Films & Séries</div></div>
+  <div class="stat-item"><div class="stat-num">HD/4K</div><div class="stat-label">Qualité maximale</div></div>
+  <div class="stat-item"><div class="stat-num">99.9%</div><div class="stat-label">Uptime garanti</div></div>
+  <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Appareils simultanés</div></div>
+</div>
 
 <!-- PRICING -->
-<section id="pricing" class="py-12 sm:py-16 relative overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#00e676]/[0.03] blur-[120px] rounded-full pointer-events-none"></div>
-    <div class="relative z-10 max-w-6xl mx-auto px-6">
-        <div class="text-center mb-10" data-aos="fade-up">
-            <span class="inline-block bg-[#00e676]/10 text-[#00e676] text-xs font-black tracking-[.2em] uppercase px-5 py-2 rounded-full mb-4">Nos offres</span>
-            <h2 class="text-2xl sm:text-4xl font-black tracking-tight mb-3">Choisis ton <span class="text-[#00e676]" style="animation:text-glow 3s ease-in-out infinite">abonnement</span></h2>
-            <p class="text-zinc-400 text-sm sm:text-base max-w-md mx-auto">Catalogue complet inclus. Paiement via Discord.</p>
-        </div>
+<div class="section">
+  <h2 class="section-title">Choisissez votre offre</h2>
+  <p class="section-sub">Tous les abonnements incluent l'accès complet · Sans engagement · Activation instantanée</p>
 
-        <div class="grid md:grid-cols-4 gap-4 lg:gap-5 items-stretch">
+  <div class="pricing-layout">
 
-            <!-- 1 MOIS -->
-            <div class="pricing-card flex flex-col tilt-card" data-aos="fade-up" data-aos-delay="0" data-tilt data-tilt-max="6" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
-                <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center mb-4">
-                    <svg class="w-5 h-5 text-zinc-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                </div>
-                <span class="self-start inline-block bg-zinc-800/80 text-zinc-300 text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-md ring-1 ring-white/[0.06] mb-3">1 mois</span>
-                <h3 class="font-extrabold text-lg mb-1">Découverte</h3>
-                <p class="text-zinc-600 text-xs mb-5">Idéal pour tester</p>
-                <div class="mb-6">
-                    <span class="text-4xl font-black tracking-tight">9,99</span><span class="text-lg text-zinc-500 font-bold ml-1">€</span>
-                    <span class="block text-zinc-600 text-xs mt-1 font-medium">9,99€ / mois</span>
-                </div>
-                <ul class="space-y-2.5 text-sm mb-6 flex-1">
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">52 618 chaînes live</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">188 246 films & séries</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">VOD 4K HDR</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">Tous appareils</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">Support Discord</span></li>
-                    <li class="flex items-center gap-3"><svg class="cross-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg><span class="text-zinc-700">Réduction</span></li>
-                    <li class="flex items-center gap-3"><svg class="cross-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg><span class="text-zinc-700">Support prioritaire</span></li>
-                </ul>
-                <a href="https://discord.gg/ycz9zZmTRW" target="_blank" class="block w-full text-center bg-white/[0.07] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/[0.2] text-white font-bold py-3.5 rounded-xl transition-all text-sm">S'abonner</a>
-            </div>
-
-            <!-- 3 MOIS -->
-            <div class="pricing-card flex flex-col tilt-card" data-aos="fade-up" data-aos-delay="80" data-tilt data-tilt-max="6" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
-                <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center mb-4">
-                    <svg class="w-5 h-5 text-zinc-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
-                </div>
-                <span class="self-start inline-block bg-zinc-800/80 text-zinc-300 text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-md ring-1 ring-white/[0.06] mb-3">3 mois</span>
-                <h3 class="font-extrabold text-lg mb-1">Standard</h3>
-                <p class="text-zinc-600 text-xs mb-5">Le bon compromis</p>
-                <div class="mb-6">
-                    <span class="text-4xl font-black tracking-tight">20</span><span class="text-lg text-zinc-500 font-bold ml-1">€</span>
-                    <span class="block text-zinc-600 text-xs mt-1 font-medium">6,67€ / mois</span>
-                </div>
-                <ul class="space-y-2.5 text-sm mb-6 flex-1">
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">52 618 chaînes live</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">188 246 films & séries</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">VOD 4K HDR</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">Tous appareils</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">Support Discord</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white font-semibold">-33% vs mensuel</span></li>
-                    <li class="flex items-center gap-3"><svg class="cross-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg><span class="text-zinc-700">Support prioritaire</span></li>
-                </ul>
-                <a href="https://discord.gg/ycz9zZmTRW" target="_blank" class="block w-full text-center bg-white/[0.07] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/[0.2] text-white font-bold py-3.5 rounded-xl transition-all text-sm">S'abonner</a>
-            </div>
-
-            <!-- 6 MOIS — POPULAIRE -->
-            <div class="pricing-card pricing-pop flex flex-col tilt-card" data-aos="fade-up" data-aos-delay="160" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.18">
-                <span class="pricing-pop-ribbon shrink-0" style="background:linear-gradient(135deg,#00e676,#69f0ae);animation:shimmer 2.5s linear infinite;background-size:200% 100%;background-image:linear-gradient(110deg,#00e676 0%,#b9f6ca 30%,#00e676 50%,#69f0ae 80%,#00e676 100%)">Populaire</span>
-                <div class="pricing-pop-inner">
-                <div class="w-10 h-10 rounded-xl bg-[#00e676]/15 flex items-center justify-center mb-4">
-                    <svg class="w-5 h-5 text-[#00e676]" fill="currentColor" viewBox="0 0 24 24"><path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/></svg>
-                </div>
-                <span class="self-start inline-block bg-[#00e676]/15 text-[#00e676] text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-md ring-1 ring-[#00e676]/30 mb-3">6 mois</span>
-                <h3 class="font-extrabold text-lg mb-1">Premium</h3>
-                <p class="text-zinc-400 text-xs mb-5">Meilleur rapport qualité-prix</p>
-                <div class="mb-1">
-                    <span class="text-4xl font-black tracking-tight">35</span><span class="text-lg text-zinc-400 font-bold ml-1">€</span>
-                </div>
-                <div class="mb-6">
-                    <span class="text-zinc-600 text-xs line-through mr-1.5">45€</span>
-                    <span class="text-[#00e676] text-xs font-bold">5,83€ / mois</span>
-                </div>
-                <ul class="space-y-2.5 text-sm mb-6 flex-1">
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white">52 618 chaînes live</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white">188 246 films & séries</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white">VOD 4K HDR</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white">Tous appareils</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white">Support Discord</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white font-bold">-42% vs mensuel</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white font-bold">Support prioritaire</span></li>
-                </ul>
-                <a href="https://discord.gg/jb6EpVUS2P" target="_blank" class="btn-glow block w-full text-center py-4 text-sm">S'abonner maintenant</a>
-                </div>
-            </div>
-
-            <!-- 12 MOIS -->
-            <div class="pricing-card flex flex-col tilt-card" data-aos="fade-up" data-aos-delay="240" data-tilt data-tilt-max="6" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
-                <div class="w-10 h-10 rounded-xl bg-zinc-800/80 flex items-center justify-center mb-4">
-                    <svg class="w-5 h-5 text-zinc-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/></svg>
-                </div>
-                <span class="self-start inline-block bg-zinc-800/80 text-zinc-300 text-[10px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded-md ring-1 ring-white/[0.06] mb-3">1 an</span>
-                <h3 class="font-extrabold text-lg mb-1">Ultimate</h3>
-                <p class="text-zinc-600 text-xs mb-5">Prix le plus bas</p>
-                <div class="mb-1">
-                    <span class="text-4xl font-black tracking-tight">50</span><span class="text-lg text-zinc-500 font-bold ml-1">€</span>
-                </div>
-                <div class="mb-6">
-                    <span class="text-zinc-600 text-xs line-through mr-1.5">70€</span>
-                    <span class="text-zinc-400 text-xs font-bold">4,17€ / mois</span>
-                </div>
-                <ul class="space-y-2.5 text-sm mb-6 flex-1">
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">52 618 chaînes live</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">188 246 films & séries</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">VOD 4K HDR</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">Tous appareils</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-zinc-300">Support Discord</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white font-semibold">-58% vs mensuel</span></li>
-                    <li class="flex items-center gap-3"><svg class="check-icon text-[#00e676]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg><span class="text-white font-semibold">Support prioritaire</span></li>
-                </ul>
-                <a href="https://discord.gg/ycz9zZmTRW" target="_blank" class="block w-full text-center bg-white/[0.07] hover:bg-white/[0.12] border border-white/[0.1] hover:border-white/[0.2] text-white font-bold py-3.5 rounded-xl transition-all text-sm">S'abonner</a>
-            </div>
-        </div>
-
-        <div class="text-center mt-10" data-aos="fade-up" data-aos-delay="250">
-            <p class="text-zinc-400 text-sm mb-1">Pas encore sûr ? <span class="text-[#00e676] font-bold">Test gratuit 24h</span> disponible sur Discord.</p>
-        </div>
-        <div class="flex flex-wrap items-center justify-center gap-5 mt-6 text-xs text-zinc-600 font-medium" data-aos="fade-up" data-aos-delay="300">
-            <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clip-rule="evenodd"/></svg>Paiement sécurisé</span>
-            <span>Apple Pay</span><span>Google Pay</span><span>PayPal</span><span>Crypto</span>
-        </div>
+    <!-- Colonne gauche : Contenu Premium -->
+    <div class="pricing-box">
+      <div class="pricing-box-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+        Contenu Premium
+      </div>
+      <div class="content-list">
+        <div class="content-item"><span class="ck">✓</span> 25 000+ chaînes</div>
+        <div class="content-item"><span class="ck">✓</span> VOD 4K complète (130 000+ films, 40 000+ séries)</div>
+        <div class="content-item"><span class="ck">✓</span> Qualité ultra-stable, même en heures de pointe</div>
+        <div class="content-item"><span class="ck">✓</span> Mises à jour mensuelles</div>
+        <div class="content-item"><span class="ck">✓</span> Disponible sur tous vos appareils</div>
+        <div class="content-item"><span class="ck">✓</span> Assistance premium 24/7</div>
+        <div class="content-item"><span class="ck">+</span> Appareil simultané supplémentaire : +10€</div>
+      </div>
     </div>
-</section>
 
-<!-- VIDEO -->
-<section class="py-10 sm:py-14 max-w-4xl mx-auto px-6">
-    <div class="text-center mb-10" data-aos="fade-up">
-        <span class="inline-block bg-[#00e676]/10 text-[#00e676] text-xs font-black tracking-[.2em] uppercase px-5 py-2 rounded-full mb-4">Aperçu</span>
-        <h2 class="text-2xl sm:text-4xl font-black tracking-tight mb-3">Aperçu de <span class="text-[#00e676]">IMFTX</span></h2>
-        <p class="text-zinc-400 text-sm sm:text-base max-w-md mx-auto">L'interface, les chaînes et le catalogue VOD.</p>
-    </div>
-    <div class="relative rounded-3xl overflow-hidden border border-white/[0.08] bg-black/50" data-aos="fade-up" data-aos-delay="100">
-        <div class="aspect-video w-full">
-            <iframe class="w-full h-full" src="" title="Présentation KzStream" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- Colonne droite : Abonnement -->
+    <div class="pricing-box">
+      <div class="pricing-box-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Abonnement
+      </div>
+      <div class="plan-rows" id="planRows">
+        <div class="plan-row" data-label="1 mois" data-price="9,99€" onclick="selectPlan(this)">
+          <div class="plan-row-left">1 mois</div>
+          <div class="plan-row-price">9,99€</div>
         </div>
-        <div class="absolute inset-0 rounded-3xl border border-white/[0.04] pointer-events-none"></div>
+        <div class="plan-row" data-label="3 mois" data-price="19,99€" onclick="selectPlan(this)">
+          <div class="plan-row-left">3 mois</div>
+          <div class="plan-row-price">24,99€</div>
+        </div>
+        <div class="plan-row popular selected" data-label="6 mois" data-price="34,99€" onclick="selectPlan(this)">
+          <div class="plan-row-left">6 mois <small>(au lieu de 45€)</small></div>
+          <div class="plan-row-price">34,99€</div>
+        </div>
+        <div class="plan-row" data-label="12 mois" data-price="57,99€" onclick="selectPlan(this)">
+          <div class="plan-row-left">12 mois <small>(au lieu de 70€)</small></div>
+          <div class="plan-row-price">49,99€</div>
+        </div>
+      </div>
+      <a href="https://discord.gg/u3tyt9u9SB" class="plan-cta" id="planCta" target="_blank">6 mois — 34,99€ → S'abonner</a>
     </div>
-</section>
 
-<!-- HOW IT WORKS -->
-<section id="paiement" class="py-10 sm:py-14 max-w-4xl mx-auto px-6">
-    <div class="text-center mb-10" data-aos="fade-up">
-        <span class="inline-block bg-[#00e676]/10 text-[#00e676] text-xs font-black tracking-[.2em] uppercase px-5 py-2 rounded-full mb-4">Comment s'abonner</span>
-        <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Prêt en <span class="text-[#00e676]">3 étapes</span>.</h2>
-    </div>
-    <div class="grid md:grid-cols-3 gap-6">
-        <div class="card-depth p-8 text-center" data-aos="fade-up" data-aos-delay="0">
-            <div class="w-16 h-16 rounded-2xl bg-[#5865F2]/15 flex items-center justify-center mx-auto mb-6 text-[#5865F2] text-2xl font-black" style="animation:float 4s ease-in-out infinite">1</div>
-            <h3 class="font-extrabold text-lg mb-2">Rejoins le Discord</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed mb-4">Clique sur le bouton ci-dessous pour rejoindre notre serveur. C'est gratuit et rapide.</p>
-            <a href="https://discord.gg/jb6EpVUS2P" target="_blank" class="inline-flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold px-5 py-2.5 rounded-xl transition text-xs">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .033.055 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.36-.698.772-1.362 1.225-1.993a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.12-.098.246-.198.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03z"/></svg>
-                Rejoindre le Discord
-            </a>
-        </div>
-        <div class="card-depth p-8 text-center" data-aos="fade-up" data-aos-delay="150">
-            <div class="w-16 h-16 rounded-2xl bg-[#00e676]/10 flex items-center justify-center mx-auto mb-6 text-[#00e676] text-2xl font-black" style="animation:float 4s ease-in-out infinite;animation-delay:.5s">2</div>
-            <h3 class="font-extrabold text-lg mb-2">Ouvre un ticket & paye</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed mb-4">Dans le Discord, ouvre un ticket, choisis ton plan et paye par Apple Pay, Google Pay, PayPal ou Crypto.</p>
-            <div class="flex flex-wrap justify-center gap-2">
-                <span class="bg-white/[0.05] border border-white/[0.06] rounded-lg px-3 py-1.5 text-[11px] text-zinc-400 font-semibold">Apple Pay</span>
-                <span class="bg-white/[0.05] border border-white/[0.06] rounded-lg px-3 py-1.5 text-[11px] text-zinc-400 font-semibold">Google Pay</span>
-                <span class="bg-white/[0.05] border border-white/[0.06] rounded-lg px-3 py-1.5 text-[11px] text-zinc-400 font-semibold">PayPal</span>
-                <span class="bg-white/[0.05] border border-white/[0.06] rounded-lg px-3 py-1.5 text-[11px] text-zinc-400 font-semibold">Crypto</span>
-            </div>
-        </div>
-        <div class="card-depth p-8 text-center" data-aos="fade-up" data-aos-delay="300">
-            <div class="w-16 h-16 rounded-2xl bg-[#fb923c]/10 flex items-center justify-center mx-auto mb-6 text-[#fb923c] text-2xl font-black" style="animation:float 4s ease-in-out infinite;animation-delay:1s">3</div>
-            <h3 class="font-extrabold text-lg mb-2">Reçois tes accès</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed mb-4">On t'envoie tes identifiants en 5 à 20 min et on t'aide à installer sur ton appareil.</p>
-            <div class="flex flex-wrap justify-center gap-2">
-                <span class="bg-white/[0.05] border border-white/[0.06] rounded-lg px-3 py-1.5 text-[11px] text-zinc-400 font-semibold">Smart TV</span>
-                <span class="bg-white/[0.05] border border-white/[0.06] rounded-lg px-3 py-1.5 text-[11px] text-zinc-400 font-semibold">Fire Stick</span>
-                <span class="bg-white/[0.05] border border-white/[0.06] rounded-lg px-3 py-1.5 text-[11px] text-zinc-400 font-semibold">Mobile</span>
-                <span class="bg-white/[0.05] border border-white/[0.06] rounded-lg px-3 py-1.5 text-[11px] text-zinc-400 font-semibold">PC / Mac</span>
-            </div>
-        </div>
-    </div>
-</section>
+  </div>
+</div>
 
-<!-- REVIEWS -->
-<section class="py-10 sm:py-14 max-w-6xl mx-auto px-6 overflow-hidden">
-    <div class="text-center mb-10" data-aos="fade-up">
-        <span class="inline-block bg-[#00e676]/10 text-[#00e676] text-xs font-black tracking-[.2em] uppercase px-5 py-2 rounded-full mb-4">Avis clients</span>
-        <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Ils nous font <span class="text-[#00e676]">confiance</span>.</h2>
+<!-- FEATURES -->
+<div class="section" style="padding-top:0">
+  <h2 class="section-title">Pourquoi choisir IMFTX+ IPTV ?</h2>
+  <p class="section-sub">Une expérience premium pensée pour les vrais fans de sport et de divertissement</p>
+  <div class="features-grid">
+    <div class="feat-card"><div class="feat-icon">📺</div><div class="feat-title">20 000+ Chaînes</div><div class="feat-desc">Sports, infos, divertissement, cinéma... Tout ce que vous cherchez, en une seule application.</div></div>
+    <div class="feat-card"><div class="feat-icon">⚡</div><div class="feat-title">Zapping instantané</div><div class="feat-desc">Changement de chaîne ultra-rapide. Pas de buffering, pas de latence. Juste du direct.</div></div>
+    <div class="feat-card"><div class="feat-icon">🎬</div><div class="feat-title">50 000+ VOD</div><div class="feat-desc">Films et séries en français et en VO, mis à jour quotidiennement. Un Netflix amélioré.</div></div>
+    <div class="feat-card"><div class="feat-icon">📱</div><div class="feat-title">Tous les appareils</div><div class="feat-desc">Smart TV, Android, iOS, PC, Firestick, MAG, Formuler... Compatible partout.</div></div>
+    <div class="feat-card"><div class="feat-icon">🔴</div><div class="feat-title">Sports en direct</div><div class="feat-desc">Ligue 1, Premier League, Champions League, NBA, NFL... Tous les matchs en HD/4K.</div></div>
+    <div class="feat-card"><div class="feat-icon">💬</div><div class="feat-title">Support réactif</div><div class="feat-desc">Une équipe disponible 7j/7 sur WhatsApp et Telegram pour vous aider en quelques minutes.</div></div>
+  </div>
+
+  <!-- Chaînes dispo -->
+  <div style="margin-top:48px;text-align:center">
+    <div style="font-size:14px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.09em;margin-bottom:16px">Chaînes disponibles (extrait)</div>
+    <div class="channels-row">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/bein_1.png" alt="beIN Sports 1" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/bein_2.png" alt="beIN Sports 2" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/bein_3.png" alt="beIN Sports 3" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/canalplus.png" alt="Canal+" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/canalplus_sport.png" alt="Canal+ Sport" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/canalplus_foot.png" alt="Canal+ Foot" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/canalplus_sport360.png" alt="Canal+ Sport 360" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/rmc_sport_1.png" alt="RMC Sport 1" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/rmc_sport_2.png" alt="RMC Sport 2" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/eurosport_1.png" alt="Eurosport 1" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/eurosport_2.png" alt="Eurosport 2" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/lequipe.png" alt="L'Équipe" loading="lazy">
+      <img class="ch-logo" src="https://only-us.win/tv/logos/ligue1_fr.png" alt="Ligue 1" loading="lazy">
+      <span class="ch-badge">+20 000 autres...</span>
     </div>
-    <div class="swiper reviews-swiper" data-aos="fade-up" data-aos-delay="100">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><div class="card-depth p-7 h-full">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#00e676] to-[#00b0ff] flex items-center justify-center text-black font-black text-sm">L</div>
-                    <div><span class="text-sm font-bold">Lucas M.</span><div class="text-[#fbbf24] text-xs tracking-wider">★★★★★</div></div>
-                    <span class="rv text-zinc-700 text-xs ml-auto font-medium" data-d="3"></span>
-                </div>
-                <p class="text-zinc-400 text-sm leading-relaxed">Honnêtement j'étais sceptique au début mais ça marche super bien. La qualité est top même en soirée quand y'a du monde.</p>
-            </div></div>
-            <div class="swiper-slide"><div class="card-depth p-7 h-full">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#f59e0b] to-[#ef4444] flex items-center justify-center text-black font-black text-sm">S</div>
-                    <div><span class="text-sm font-bold">Sofiane K.</span><div class="text-[#fbbf24] text-xs tracking-wider">★★★★★</div></div>
-                    <span class="rv text-zinc-700 text-xs ml-auto font-medium" data-d="5"></span>
-                </div>
-                <p class="text-zinc-400 text-sm leading-relaxed">6 mois pour 35€ c'est imbattable. J'ai tout : sport, ciné, séries. Même ma mère l'utilise maintenant mdr.</p>
-            </div></div>
-            <div class="swiper-slide"><div class="card-depth p-7 h-full">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#8b5cf6] to-[#ec4899] flex items-center justify-center text-black font-black text-sm">M</div>
-                    <div><span class="text-sm font-bold">Marie P.</span><div class="text-[#fbbf24] text-xs tracking-wider">★★★★☆</div></div>
-                    <span class="rv text-zinc-700 text-xs ml-auto font-medium" data-d="14"></span>
-                </div>
-                <p class="text-zinc-400 text-sm leading-relaxed">Le catalogue VOD est ouf, y'a des trucs que j'ai même pas trouvé sur Netflix. Par contre faut un bon débit pour la 4K.</p>
-            </div></div>
-            <div class="swiper-slide"><div class="card-depth p-7 h-full">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#06b6d4] to-[#3b82f6] flex items-center justify-center text-black font-black text-sm">A</div>
-                    <div><span class="text-sm font-bold">Lucas T.</span><div class="text-[#fbbf24] text-xs tracking-wider">★★★★★</div></div>
-                    <span class="rv text-zinc-700 text-xs ml-auto font-medium" data-d="21"></span>
-                </div>
-                <p class="text-zinc-400 text-sm leading-relaxed">J'ai pris 12 mois direct après le premier mois d'essai. Le support Discord est réactif, config Fire Stick en 5 min.</p>
-            </div></div>
-            <div class="swiper-slide"><div class="card-depth p-7 h-full">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#10b981] to-[#059669] flex items-center justify-center text-black font-black text-sm">K</div>
-                    <div><span class="text-sm font-bold">Karim B.</span><div class="text-[#fbbf24] text-xs tracking-wider">★★★★★</div></div>
-                    <span class="rv text-zinc-700 text-xs ml-auto font-medium" data-d="2"></span>
-                </div>
-                <p class="text-zinc-400 text-sm leading-relaxed">Je regarde tous les matchs de Ligue 1 et de Champions League dessus. Zéro freeze, zéro galère. J'recommande à fond.</p>
-            </div></div>
-            <div class="swiper-slide"><div class="card-depth p-7 h-full">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#f472b6] to-[#a855f7] flex items-center justify-center text-black font-black text-sm">J</div>
-                    <div><span class="text-sm font-bold">Raphael D..</span><div class="text-[#fbbf24] text-xs tracking-wider">★★★★★</div></div>
-                    <span class="rv text-zinc-700 text-xs ml-auto font-medium" data-d="8"></span>
-                </div>
-                <p class="text-zinc-400 text-sm leading-relaxed">Installé sur ma Fire Stick en 5 min avec l'aide du support. J'ai accès à tout, même les chaînes étrangères. Top.</p>
-            </div></div>
-            <div class="swiper-slide"><div class="card-depth p-7 h-full">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#fbbf24] to-[#f97316] flex items-center justify-center text-black font-black text-sm">T</div>
-                    <div><span class="text-sm font-bold">Thomas L.</span><div class="text-[#fbbf24] text-xs tracking-wider">★★★★★</div></div>
-                    <span class="rv text-zinc-700 text-xs ml-auto font-medium" data-d="12"></span>
-                </div>
-                <p class="text-zinc-400 text-sm leading-relaxed">Franchement pour le prix c'est du vol. J'avais un abo Canal+ à 40€/mois, là j'ai 10x plus de contenu pour 5€/mois.</p>
-            </div></div>
-            <div class="swiper-slide"><div class="card-depth p-7 h-full">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-[#ef4444] to-[#dc2626] flex items-center justify-center text-black font-black text-sm">Y</div>
-                    <div><span class="text-sm font-bold">Amélie M.</span><div class="text-[#fbbf24] text-xs tracking-wider">★★★★★</div></div>
-                    <span class="rv text-zinc-700 text-xs ml-auto font-medium" data-d="1"></span>
-                </div>
-                <p class="text-zinc-400 text-sm leading-relaxed">J'ai testé plein de services IPTV avant, c'est le premier qui freeze pas. Et en plus la VOD 4K est clean.</p>
-            </div></div>
-        </div>
-        <div class="swiper-pagination mt-8"></div>
-    </div>
-</section>
+  </div>
+</div>
 
 <!-- FAQ -->
-<section class="py-10 sm:py-14 max-w-3xl mx-auto px-6">
-    <div class="text-center mb-10" data-aos="fade-up">
-        <span class="inline-block bg-[#00e676]/10 text-[#00e676] text-xs font-black tracking-[.2em] uppercase px-5 py-2 rounded-full mb-4">FAQ</span>
-        <h2 class="text-2xl sm:text-4xl font-black tracking-tight">Questions fréquentes.</h2>
+<div class="section" style="padding-top:0">
+  <h2 class="section-title">Questions fréquentes</h2>
+  <p class="section-sub">Tout ce que vous devez savoir avant de commander</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Comment commander un abonnement ?</span><span class="faq-arrow">▾</span></div>
+      <div class="faq-a">Rejoignez notre Discord et suivez les instructions du bot. Il vous guidera étape par étape pour choisir votre offre et finaliser votre commande. Activation sous 15 minutes après paiement.</div>
     </div>
-    <div class="space-y-3" data-aos="fade-up" data-aos-delay="100">
-        <details class="faq-item">
-            <summary class="p-5 font-bold text-sm flex items-center justify-between cursor-pointer select-none"><span>C'est quoi l'IPTV exactement ?</span><svg class="faq-icon w-5 h-5 text-[#00e676] transition-transform duration-300 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></summary>
-            <p class="px-5 pb-5 text-sm text-zinc-400 leading-relaxed">L'IPTV c'est la télé par internet. Au lieu de passer par une antenne ou un décodeur, tu reçois les chaînes en streaming via une appli sur ta Smart TV, Fire Stick, téléphone ou PC. Tu as accès à des milliers de chaînes et un catalogue VOD énorme.</p>
-        </details>
-        <details class="faq-item">
-            <summary class="p-5 font-bold text-sm flex items-center justify-between cursor-pointer select-none"><span>Comment je fais pour payer ?</span><svg class="faq-icon w-5 h-5 text-[#00e676] transition-transform duration-300 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></summary>
-            <p class="px-5 pb-5 text-sm text-zinc-400 leading-relaxed">Tout se passe sur Discord. Tu rejoins le serveur, tu ouvres un ticket, et un admin te guide. Tu peux payer par Apple Pay, Google Pay, PayPal ou Crypto. C'est rapide et sécurisé.</p>
-        </details>
-        <details class="faq-item">
-            <summary class="p-5 font-bold text-sm flex items-center justify-between cursor-pointer select-none"><span>Combien de temps pour recevoir mes accès ?</span><svg class="faq-icon w-5 h-5 text-[#00e676] transition-transform duration-300 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></summary>
-            <p class="px-5 pb-5 text-sm text-zinc-400 leading-relaxed">Entre 5 et 20 minutes après le paiement. On t'envoie tes identifiants directement sur Discord et on t'aide à tout configurer.</p>
-        </details>
-        <details class="faq-item">
-            <summary class="p-5 font-bold text-sm flex items-center justify-between cursor-pointer select-none"><span>Je peux tester avant d'acheter ?</span><svg class="faq-icon w-5 h-5 text-[#00e676] transition-transform duration-300 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></summary>
-            <p class="px-5 pb-5 text-sm text-zinc-400 leading-relaxed">Oui ! On propose un <span class="text-white font-semibold">test gratuit de 24h</span> pour que tu puisses tout essayer avant de t'engager. Ouvre un ticket sur Discord et demande ton test.</p>
-        </details>
-        <details class="faq-item">
-            <summary class="p-5 font-bold text-sm flex items-center justify-between cursor-pointer select-none"><span>Sur quels appareils ça marche ?</span><svg class="faq-icon w-5 h-5 text-[#00e676] transition-transform duration-300 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></summary>
-            <p class="px-5 pb-5 text-sm text-zinc-400 leading-relaxed">Smart TV (Samsung, LG, Android TV), Amazon Fire Stick, téléphone (iOS et Android), tablette, PC et Mac. Tu peux installer sur autant d'appareils que tu veux, mais un seul connecté à la fois.</p>
-        </details>
-        <details class="faq-item">
-            <summary class="p-5 font-bold text-sm flex items-center justify-between cursor-pointer select-none"><span>Il me faut quel débit internet ?</span><svg class="faq-icon w-5 h-5 text-[#00e676] transition-transform duration-300 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></summary>
-            <p class="px-5 pb-5 text-sm text-zinc-400 leading-relaxed">20 Mbps minimum pour du Full HD, 35 Mbps pour la 4K. La fibre c'est l'idéal mais ça marche aussi en 4G si t'as un bon réseau.</p>
-        </details>
-        <details class="faq-item">
-            <summary class="p-5 font-bold text-sm flex items-center justify-between cursor-pointer select-none"><span>Quelles chaînes sport je vais avoir ?</span><svg class="faq-icon w-5 h-5 text-[#00e676] transition-transform duration-300 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></summary>
-            <p class="px-5 pb-5 text-sm text-zinc-400 leading-relaxed">Toutes. beIN Sports, Canal+, RMC Sport, DAZN, Sky Sports, ESPN... Tu peux voir la Ligue 1, la Champions League, la Premier League, la Liga, la NBA, l'UFC, la F1 et bien plus.</p>
-        </details>
-        <details class="faq-item">
-            <summary class="p-5 font-bold text-sm flex items-center justify-between cursor-pointer select-none"><span>Est-ce que ça freeze ou ça coupe ?</span><svg class="faq-icon w-5 h-5 text-[#00e676] transition-transform duration-300 flex-shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></summary>
-            <p class="px-5 pb-5 text-sm text-zinc-400 leading-relaxed">Nos serveurs tournent en 99.9% uptime. Tant que t'as une connexion stable, pas de freeze. Si jamais t'as un souci, le support Discord est là pour t'aider.</p>
-        </details>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Quels appareils sont compatibles ?</span><span class="faq-arrow">▾</span></div>
+      <div class="faq-a">Téléphone Android/iOS, Smart TV Samsung/LG, Android TV, Firestick, PC Windows/Mac, tablette, et tout appareil supportant les apps IPTV (TiviMate, Smarters, XCIPTV...).</div>
     </div>
-</section>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Combien de temps pour l'activation ?</span><span class="faq-arrow">▾</span></div>
+      <div class="faq-a">L'activation est instantanée — généralement moins de 15 minutes après réception du paiement, 7 jours sur 7.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Y a-t-il une période d'essai gratuite ?</span><span class="faq-arrow">▾</span></div>
+      <div class="faq-a">Oui ! Rejoignez notre Discord et suivez le bot pour demander un test gratuit de 24h afin de vérifier la compatibilité avec votre appareil.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Comment est la qualité de diffusion ?</span><span class="faq-arrow">▾</span></div>
+      <div class="faq-a">Nos serveurs garantissent une qualité HD/Full HD sur toutes les chaînes, avec une option 4K disponible. Le buffering est quasi inexistant grâce à notre infrastructure dédiée.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)"><span>Quels modes de paiement acceptez-vous ?</span><span class="faq-arrow">▾</span></div>
+      <div class="faq-a">Nous acceptons PayPal, virement bancaire, crypto (USDT, BTC) et d'autres méthodes. Rejoignez le Discord et suivez le bot pour plus de détails.</div>
+    </div>
+  </div>
+</div>
 
-<!-- CTA FINAL -->
-<section class="py-14 sm:py-18 text-center relative overflow-hidden" data-aos="fade-up">
-    <div class="absolute inset-0 bg-gradient-to-t from-[#00e676]/[0.05] via-[#00e676]/[0.02] to-transparent pointer-events-none"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#00e676]/[0.04] blur-[100px] rounded-full pointer-events-none"></div>
-    <div class="relative z-10 max-w-2xl mx-auto px-6">
-        <h2 class="text-2xl sm:text-4xl font-black tracking-tight mb-4">Prêt à tout <span class="text-[#00e676]">regarder</span> ?</h2>
-        <p class="text-zinc-400 mb-8 text-sm sm:text-base">Rejoins IMFTX et profite du meilleur de l'IPTV.</p>
-        <a href="https://discord.gg/ycz9zZmTRW" target="_blank" class="btn-glow inline-flex items-center gap-3 px-12 py-5 text-lg">
-            S'abonner maintenant
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </a>
-    </div>
-</section>
+<!-- CTA BOTTOM -->
+<div class="cta-section">
+  <h2 class="cta-title">Prêt à tout regarder ?</h2>
+  <p class="cta-sub">Rejoignez des milliers d'abonnés IMFTX+ satisfaits. Activation en moins de 15 minutes.</p>
+  <div class="hero-actions">
+    <a href="https://discord.gg/u3tyt9u9SB" class="btn-primary" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
+      Commander via Discord
+    </a>
+    <a href="https://discord.gg/u3tyt9u9SB" class="btn-secondary" target="_blank" rel="noopener">Test gratuit 24h</a>
+  </div>
+</div>
 
-<!-- FOOTER -->
-<footer class="border-t border-white/[0.04] py-10 bg-[#030305]">
-    <div class="flex flex-col items-center max-w-5xl mx-auto px-6 gap-4">
-        <span class="text-sm font-black text-white/[0.12] tracking-wide">IMFTX<span class="text-[#00e676]">+</span></span>
-        <div class="flex flex-wrap justify-center gap-6 text-white/[0.18] text-xs font-medium">
-            <a href="/legal/dmca" class="hover:text-[#00e676] transition-colors">DMCA</a>
-            <a href="/legal/terms" class="hover:text-[#00e676] transition-colors">Conditions</a>
-            <a href="/legal/privacy" class="hover:text-[#00e676] transition-colors">Confidentialité</a>
-            <a href="/legal/disclaimer" class="hover:text-[#00e676] transition-colors">Avertissement</a>
-        </div>
-    </div>
+<footer>
+  <p>© 2025 IMFTX+ · <a href="index.html">Retour aux matchs</a></p>
 </footer>
 
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script src="https://unpkg.com/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-(function(){
-    AOS.init({duration:600,easing:'ease-out-quart',once:true,offset:40});
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
 
-    new Swiper('.reviews-swiper',{
-        slidesPerView:1,
-        spaceBetween:20,
-        grabCursor:true,
-        loop:true,
-        autoplay:{delay:4000,disableOnInteraction:false,pauseOnMouseEnter:true},
-        pagination:{el:'.swiper-pagination',clickable:true},
-        breakpoints:{640:{slidesPerView:2,spaceBetween:20},1024:{slidesPerView:3,spaceBetween:24}}
-    });
-
-    var c=document.getElementById('particles'),ctx=c.getContext('2d');
-    function resize(){c.width=window.innerWidth;c.height=c.parentElement.offsetHeight}
-    resize();window.addEventListener('resize',resize);
-    var pts=[];for(var i=0;i<70;i++)pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.8+.4,dx:(Math.random()-.5)*.35,dy:(Math.random()-.5)*.35,o:Math.random()*.5+.1});
-    function draw(){
-        ctx.clearRect(0,0,c.width,c.height);
-        pts.forEach(function(p){
-            p.x+=p.dx;p.y+=p.dy;
-            if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;
-            if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
-            ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ctx.fillStyle='rgba(0,230,118,'+p.o+')';ctx.fill();
-        });
-        pts.forEach(function(a,i){
-            pts.slice(i+1).forEach(function(b){
-                var d=Math.hypot(a.x-b.x,a.y-b.y);
-                if(d<130){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(0,230,118,'+((.15-d/900))+')';ctx.stroke()}
-            });
-        });
-        requestAnimationFrame(draw);
-    }
-    draw();
-
-    document.querySelectorAll('.pricing-card').forEach(function(card){
-        var glow=document.createElement('div');
-        glow.className='glow-follow';
-        card.appendChild(glow);
-        card.addEventListener('mousemove',function(e){
-            var r=card.getBoundingClientRect();
-            glow.style.left=(e.clientX-r.left-100)+'px';
-            glow.style.top=(e.clientY-r.top-100)+'px';
-        });
-    });
-
-    var counted=false;
-    new IntersectionObserver(function(e){e.forEach(function(x){
-        if(!x.isIntersecting||counted)return;counted=true;
-        document.querySelectorAll('.stat-num').forEach(function(el){
-            var t=parseFloat(el.dataset.target),dur=2500,s=performance.now();
-            !function step(n){var p=Math.min((n-s)/dur,1),v=(1-Math.pow(1-p,4))*t;el.textContent=Math.floor(v).toLocaleString('fr-FR');if(p<1)requestAnimationFrame(step)}(s);
-        });
-    })},{threshold:.2}).observe(document.querySelector('.stat-num').closest('section'));
-
-    document.querySelectorAll('.rv').forEach(function(el){
-        var d=+el.dataset.d;
-        el.textContent=d<=1?"Aujourd'hui":d<7?'Il y a '+d+' jours':d<30?'Il y a '+Math.floor(d/7)+' sem':'Il y a '+Math.floor(d/30)+' mois';
-    });
-})();
+function selectPlan(row) {
+  document.querySelectorAll('.plan-row').forEach(function(r) { r.classList.remove('selected'); });
+  row.classList.add('selected');
+  var label = row.getAttribute('data-label');
+  var price = row.getAttribute('data-price');
+  var cta = document.getElementById('planCta');
+  if (cta) cta.textContent = label + ' — ' + price + ' → S\'abonner';
+}
 </script>
 </body>
 </html>
