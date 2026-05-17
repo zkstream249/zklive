@@ -687,20 +687,56 @@
   /* ═══ DONNÉES ═══ */
   window.MATCHES_TODAY = MATCHES_TODAY = [
     {
-      title:   "Asron Villa vs Liverpool",
-      channel: "Premier Ligue",
-      time:    "21:00",
-      banner:  "https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1307934/368/1307934_368-b1147c4b-edf0-4298-8b11-8c8eb4d9f58e.jpg",
+      title:   "Barcelone vs Betis",
+      channel: "Liga",
+      time:    "21:15",
+      banner:  "https://empire-sports.online/upload/banners/celta-vigo-vs-barcelona.png",
       href:    "A-B.html",
       home: { name:"PSG", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/e/e0/Olympique_Lyonnais_%28logo%29.svg/1200px-Olympique_Lyonnais_%28logo%29.svg.png" },
       away: { name:"Bayern Munich", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/2/27/Logo_Stade_Rennais_FC.svg/1200px-Logo_Stade_Rennais_FC.svg.png" }
     },
     {
-      title:   "Saint Etienne vs Rodez",
-      channel: "Ligue 2",
-      time:    "20:30",
-      banner:  "https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31387815/canal-ouah_50009/STD169/myCANAL_16x9_sport_1920x1080-2026-05-13T154622.390-OFg5",
+      title:   "Marseille vs Rennes Fc",
+      channel: "Ligue 1",
+      time:    "21:00",
+      banner:  "https://empire-sports.online/upload/banners/marseille-vs-angers.png",
       href:    "C-D.html",
+      home: { name:"PSG", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/e/e0/Olympique_Lyonnais_%28logo%29.svg/1200px-Olympique_Lyonnais_%28logo%29.svg.png" },
+      away: { name:"Bayern Munich", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/2/27/Logo_Stade_Rennais_FC.svg/1200px-Logo_Stade_Rennais_FC.svg.png" }
+    },
+    {
+      title:   "Psg vs Paris FC",
+      channel: "Ligue 1",
+      time:    "21:00",
+      banner:  "https://empire-sports.online/upload/banners/paris-sg-vs-nantes.png",
+      href:    "E-F.html",
+      home: { name:"PSG", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/e/e0/Olympique_Lyonnais_%28logo%29.svg/1200px-Olympique_Lyonnais_%28logo%29.svg.png" },
+      away: { name:"Bayern Munich", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/2/27/Logo_Stade_Rennais_FC.svg/1200px-Logo_Stade_Rennais_FC.svg.png" }
+    },
+    {
+      title:   "Lyon vs Lens",
+      channel: "Ligue 1",
+      time:    "21:00",
+      banner:  "https://empire-sports.online/upload/banners/le-havre-vs-lyon.png",
+      href:    "G-H.html",
+      home: { name:"PSG", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/e/e0/Olympique_Lyonnais_%28logo%29.svg/1200px-Olympique_Lyonnais_%28logo%29.svg.png" },
+      away: { name:"Bayern Munich", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/2/27/Logo_Stade_Rennais_FC.svg/1200px-Logo_Stade_Rennais_FC.svg.png" }
+    },
+    {
+      title:   "Real Madrid vs Séville",
+      channel: "Liga",
+      time:    "19:00",
+      banner:  "https://empire-sports.online/upload/banners/real-madrid-vs-valencia.png",
+      href:    "I-J.html",
+      home: { name:"PSG", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/e/e0/Olympique_Lyonnais_%28logo%29.svg/1200px-Olympique_Lyonnais_%28logo%29.svg.png" },
+      away: { name:"Bayern Munich", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/2/27/Logo_Stade_Rennais_FC.svg/1200px-Logo_Stade_Rennais_FC.svg.png" }
+    },
+    {
+      title:   "Atlétco Madrid vs Girona",
+      channel: "Liga",
+      time:    "19:00",
+      banner:  "https://empire-sports.online/upload/banners/atletico-madrid-vs-valencia.png",
+      href:    "K-L.html",
       home: { name:"PSG", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/e/e0/Olympique_Lyonnais_%28logo%29.svg/1200px-Olympique_Lyonnais_%28logo%29.svg.png" },
       away: { name:"Bayern Munich", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/2/27/Logo_Stade_Rennais_FC.svg/1200px-Logo_Stade_Rennais_FC.svg.png" }
     },
@@ -710,7 +746,7 @@
   const DAYS   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
   const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
   function fmtDate(d){ return DAYS[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()]; }
-  (function(){
+  (function()
     const t=new Date(), tm=new Date(t); tm.setDate(t.getDate()+1);
     const el1=document.getElementById('label-today');
     const el2=document.getElementById('label-tomorrow');
