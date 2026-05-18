@@ -127,8 +127,7 @@
       display: inline-flex; align-items: center; gap: 5px;
       font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--green); background: rgba(6,214,160,0.08);
-      border: 1px solid rgba(6,214,160,0.2);
-      padding: 4px 11px; border-radius: 99px;
+      border: 1px solid rgba(6,214,160,0.2); padding: 4px 11px; border-radius: 99px;
     }
     .dot {
       width: 5px; height: 5px; border-radius: 50%; background: var(--green);
@@ -139,15 +138,13 @@
     .hdr-r { display: flex; align-items: center; gap: 8px; }
 
     .h-ico {
-      width: 36px; height: 36px;
-      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center;
       border-radius: 9px; border: 1px solid rgba(255,255,255,0.07);
       color: var(--muted); transition: all .2s;
     }
     .h-ico:hover {
       color: var(--text); border-color: rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.04);
-      box-shadow: 0 0 16px rgba(160,18,72,0.1);
+      background: rgba(255,255,255,0.04); box-shadow: 0 0 16px rgba(160,18,72,0.1);
     }
     .h-ico svg { width: 16px; height: 16px; }
 
@@ -160,15 +157,13 @@
       transition: transform .2s, box-shadow .2s;
     }
     .h-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(160,18,72,0.45), inset 0 1px 0 rgba(255,255,255,0.1);
+      transform: translateY(-2px); box-shadow: 0 6px 24px rgba(160,18,72,0.45), inset 0 1px 0 rgba(255,255,255,0.1);
     }
     .h-cta svg { width: 13px; height: 13px; }
 
     /* ════════════ SHELL ════════════ */
     .shell {
-      display: grid;
-      grid-template-columns: var(--rw) 1fr var(--cw);
+      display: grid; grid-template-columns: var(--rw) 1fr var(--cw);
       height: calc(100vh - var(--hh));
       overflow: hidden;
     }
@@ -331,8 +326,7 @@
       display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
       padding: 10px 16px 12px;
       background: rgba(6,8,18,0.88);
-      backdrop-filter: blur(22px);
-      border-top: 1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(22px); border-top: 1px solid rgba(255,255,255,0.04);
     }
     .pbar::before {
       content: ''; position: absolute; top: -1px; left: 0; right: 0; height: 1px;
@@ -340,7 +334,8 @@
       opacity: .3;
     }
     .pbar-title {
-      font-family: var(--fn-d); font-size: 20px; font-weight: 800; letter-spacing: .05em; color: var(--text);
+      font-family: var(--fn-d); font-size: 20px; font-weight: 800; letter-spacing: .05em;
+      color: var(--text);
       flex: 1; min-width: 0;
     }
     .pbar-btns { display: flex; align-items: center; gap: 5px; flex-shrink: 0; flex-wrap: wrap; }
@@ -492,8 +487,7 @@
     /* ════════════ RESPONSIVE ════════════ */
     @media (max-width: 1100px) {
       .shell, .shell.rail-off {
-        grid-template-columns: 1fr;
-        height: auto; min-height: calc(100vh - var(--hh)); overflow: visible;
+        grid-template-columns: 1fr; height: auto; min-height: calc(100vh - var(--hh)); overflow: visible;
       }
       .rail { display: none; }
       .player-wrap { aspect-ratio: 16/9; flex: none; height: auto; position: relative; }
@@ -518,7 +512,6 @@
 <div class="grid-bg" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 
-<!-- HEADER -->
 <header class="site-header">
   <div class="hdr-l">
     <a href="index.html" class="logo">ZFMA SPORT</a>
@@ -538,14 +531,11 @@
     <a href="#" class="h-ico" aria-label="X">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.455L22.5 22h-6.91l-5.41-7.046L4.18 22H1.42l7.01-8.02L1.5 2h7.09l4.89 6.34L18.244 2Zm-1.21 18h1.53L7.76 3.89H6.12L17.03 20Z"/></svg>
     </a>
-
   </div>
 </header>
 
-<!-- SHELL -->
 <div class="shell" id="mainShell">
 
-  <!-- RAIL -->
   <aside class="rail">
     <header class="rail-top">
       <span class="rail-ttl">Chaînes Live</span>
@@ -563,17 +553,15 @@
     </div>
   </aside>
 
-  <!-- CENTER -->
   <main class="col-center">
 
-    <!-- PLAYER -->
     <div class="player-shell">
       <div class="player-wrap">
         <div class="player-overlay-bar"></div>
         <iframe
-          src="https://jack27eo.mp7786j2ncsusov57general.ru/fr/football/english-premier-league-4194071/arsenal-vs-burnley.html?icg=RlI&ilang=fr"
-          title="Lecteur live" allowfullscreen referrerpolicy="no-referrer"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-presentation">
+          src="https://embedsports.top/embed/admin/ppv-arsenal-vs-burnley/1"
+          title="Lecteur live" 
+          allowfullscreen referrerpolicy="no-referrer">
         </iframe>
       </div>
       <div class="pbar">
@@ -592,7 +580,6 @@
     </div>
   </main>
 
-  <!-- CHAT -->
   <aside class="col-right">
     <div class="chat-top">
       <span class="chat-title">Chat du Stream</span>
@@ -663,7 +650,6 @@
 
 </div>
 
-<!-- PSEUDO MODAL -->
 <div id="pseudoModal" style="
   display:none; position:fixed; inset:0; z-index:9999;
   background:rgba(0,0,0,0.75); backdrop-filter:blur(8px);
@@ -706,7 +692,6 @@
   </div>
 </div>
 
-<!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import {
@@ -748,11 +733,9 @@
 
   const viewersRef    = ref(db, 'viewers/' + matchId);
   const myPresenceRef = push(viewersRef);
-
   set(myPresenceRef, { ts: Date.now() })
     .then(() => console.log('[IMFTX] ✅ viewer enregistré'))
     .catch(e  => console.error('[IMFTX] ❌ erreur viewer :', e.message));
-
   onDisconnect(myPresenceRef).remove();
   window.addEventListener('beforeunload', () => remove(myPresenceRef));
 
@@ -761,7 +744,6 @@
   onValue(viewersRef, (snap) => {
     if (viewerCountEl) viewerCountEl.textContent = snap.exists() ? snap.numChildren() : 0;
   });
-
   /* ════════════ CHAT ════════════ */
   const chatBody  = document.getElementById('chatBody');
   const chatInput = document.getElementById('chatInput');
@@ -769,18 +751,15 @@
   const modal     = document.getElementById('pseudoModal');
   const pseudoIn  = document.getElementById('pseudoInput');
   const pseudoOk  = document.getElementById('pseudoConfirm');
-
   const COLORS = ['#FF6B1A','#FFD166','#06D6A0','#A78BFA','#38BDF8','#F472B6','#FB923C','#34D399'];
   let userPseudo = localStorage.getItem('chat_pseudo') || null;
   let userColor  = localStorage.getItem('chat_color')  || COLORS[Math.floor(Math.random()*COLORS.length)];
   localStorage.setItem('chat_color', userColor);
-
   function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function nowStr()   { return new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}); }
   function scrollDown(){ chatBody.scrollTop = chatBody.scrollHeight; }
 
   chatBody.innerHTML = '<p class="chat-welcome">Connexion au chat… ⏳</p>';
-
   function renderMsg(data) {
     const isSelf = (data.pseudo === userPseudo && data.color === userColor);
     const msg = document.createElement('div');
@@ -813,13 +792,11 @@
       chatBody.innerHTML = '<p class="chat-welcome">Soyez les premiers à écrire ! 💬</p>';
     }
   }, 4000);
-
   onChildAdded(recentQ, (snapshot) => {
     if (firstLoad) { clearTimeout(chatReadyTimer); chatBody.innerHTML = ''; }
     firstLoad = false;
     renderMsg(snapshot.val());
   });
-
   async function sendMessage() {
     const txt = chatInput.value.trim();
     if (!txt) return;
@@ -839,7 +816,6 @@
   pseudoOk.addEventListener('click', confirmPseudo);
   pseudoIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') confirmPseudo(); });
   document.getElementById('pseudoClose').addEventListener('click', closeModal);
-
   async function confirmPseudo() {
     const val = pseudoIn.value.trim().replace(/\s+/g,'_').substring(0,20);
     if (!val) { pseudoIn.style.borderColor='#FF6B1A'; pseudoIn.focus(); return; }
