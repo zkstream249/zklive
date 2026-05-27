@@ -1,166 +1,226 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>ZFMA - Crystal Palace vs Vallecano</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+<title>ZFMA - Live</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
-  <style>
-    html,body{height:100%;margin:0}
-    body{
-      font-family:'Outfit',sans-serif;
-      color:#fff;
-      overflow-x:hidden;
-      background:linear-gradient(135deg,rgba(10,10,12,.92) 0%,rgba(10,10,12,.88) 40%,rgba(10,10,12,.92) 100%),
-      url("https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31108766/canal-ouah_50061/STD169/myCANAL_16x9_sport_1920x1080-2026-03-20T160621.011-UIUD")
-      center/cover no-repeat fixed;
-    }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    .glass{
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow:0 30px 120px rgba(0,0,0,.75);
-      backdrop-filter:blur(14px);
-    }
+<style>
 
-    .player-box{border-radius:20px;overflow:hidden;position:relative}
-    iframe{width:100%;height:100%;border:0;background:#000;display:block}
+body{
+  margin:0;
+  font-family:'Outfit',sans-serif;
+  background:#070709;
+  color:white;
+}
 
-    .cover{position:absolute;inset:0;z-index:15;cursor:pointer;
-      background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.45) 55%,rgba(0,0,0,.80) 100%),
-      url("https://empire-sports.online/upload/events/n9dynlk4at8hddbhsouhntl492chr5.jpg") center/cover no-repeat}
+.glass{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(12px);
+}
 
-    .pill{position:absolute;top:16px;right:16px;padding:7px 12px;border-radius:999px;background:rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.12);font-weight:900;font-size:12px;display:flex;align-items:center;gap:8px}
+.player{
+  position:relative;
+  overflow:hidden;
+  border-radius:22px;
+  aspect-ratio:16/9;
+}
 
-    .dot{width:7px;height:7px;border-radius:999px;background:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.12)}
+#videoTarget{
+  width:100%;
+  height:100%;
+  background:black;
+}
 
-    .source-btn{height:42px;border-radius:12px;font-weight:900;font-size:13px;transition:.2s}
-    .source-btn.active{background:#fff;color:#000}
-    .source-btn.inactive{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#fff}
+.cover{
+  position:absolute;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.65);
+  cursor:pointer;
+}
 
-    .watch-bar{border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-    .watch-text .small{opacity:.75;font-weight:700;font-size:13px}
-    .watch-text .big{font-weight:900;font-size:15px}
+.cover button{
+  padding:14px 26px;
+  background:#ff2d55;
+  border:none;
+  border-radius:14px;
+  color:white;
+  font-weight:900;
+  font-size:14px;
+}
 
-    .chat-box{
-      border-radius:20px;
-      overflow:hidden;
-      min-height:520px;
-      background:#050505;
-      border:1px solid rgba(255,255,255,.06);
-    }
+.btns{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
 
-    .chat-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:12px 14px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
+.source-btn{
+  padding:10px 16px;
+  border-radius:12px;
+  font-weight:800;
+  font-size:13px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);
+  cursor:pointer;
+}
 
-    .chat-head .title{font-weight:900}
-    .chat-head .sub{font-size:12px;opacity:.7;font-weight:700}
+.source-btn.active{
+  background:white;
+  color:black;
+}
 
-    .chat-body{
-      height:520px;
-      background:#050505;
-    }
+.chat{
+  height:100%;
+  border-radius:22px;
+  overflow:hidden;
+  background:black;
+}
 
-    .chat-body iframe{
-      width:100%;
-      height:100%;
-      border:0;
-      background:#050505;
-    }
+.chat-header{
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
 
-    @media(max-width:1024px){
-      .chat-box{min-height:420px}
-      .chat-body{height:420px}
-    }
-  </style>
+.live{
+  color:#ff3b3b;
+  font-weight:900;
+  font-size:12px;
+}
+
+iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  background:black;
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:18px;
+  padding:20px;
+}
+
+@media(max-width:1000px){
+  .layout{grid-template-columns:1fr}
+}
+
+.topbar{
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+</style>
 </head>
 
 <body>
 
-<nav class="sticky top-0 z-40 bg-black/30 backdrop-blur-xl border-b border-white/10">
-  <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
-    <div class="text-2xl md:text-3xl font-extrabold tracking-tight">ZFMA</div>
-    <a href="index.html" class="inline-flex items-center gap-2 px-4 h-10 rounded-full bg-white/10 border border-white/10">
-      <i class="fa-solid fa-arrow-left"></i> Retour
-    </a>
-  </div>
-</nav>
+<div class="topbar">
+  <div style="font-weight:900;font-size:20px;">ZFMA</div>
+  <div style="opacity:.6;font-size:13px;">LIVE STREAM</div>
+</div>
 
-<main class="max-w-screen-2xl mx-auto px-6 py-8">
-
-<section class="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6">
+<div class="layout">
 
   <!-- PLAYER -->
   <div>
 
-    <div class="player-box glass w-full aspect-video">
-
-      <div id="cover" class="cover" onclick="loadVideo(1)">
-        <div class="pill"><span class="dot"></span>21:00</div>
-      </div>
+    <div class="player glass">
 
       <div id="videoTarget"></div>
 
+      <div class="cover" id="cover" onclick="loadVideo(1)">
+        <button>▶ Lancer le stream</button>
+      </div>
+
     </div>
 
-    <div class="mt-4 flex gap-3">
-      <button id="btn1" onclick="loadVideo(1)" class="source-btn active px-6">Source 1</button>
-      <button id="btn2" onclick="loadVideo(2)" class="source-btn inactive px-6">Source 2</button>
-      <button id="btn3" onclick="loadVideo(3)" class="source-btn inactive px-6">Source 3</button>
+    <div class="btns">
+
+      <button id="btn1" class="source-btn active" onclick="loadVideo(1)">Source 1</button>
+      <button id="btn2" class="source-btn" onclick="loadVideo(2)">Source 2</button>
+      <button id="btn3" class="source-btn" onclick="loadVideo(3)">Source 3</button>
+
     </div>
 
   </div>
 
   <!-- CHAT -->
-  <aside class="chat-box glass">
+  <div class="chat glass">
 
-    <div class="chat-head">
-      <div>
-        <div class="title">Chat en direct</div>
-        <div class="sub">Aucun compte requis</div>
-      </div>
+    <div class="chat-header">
+      <div style="font-weight:900;">Chat Live</div>
+      <div class="live">● LIVE</div>
     </div>
 
-    <div class="chat-body">
+    <div style="height:600px">
 
-      <iframe
-        src="https://tlk.io/zfma_live"
-        scrolling="no">
-      </iframe>
+      <!-- CHATANGO (SANS COMPTE) -->
+      <script id="cid0020000"
+              data-cfasync="false"
+              src="https://st.chatango.com/js/gz/emb.js"
+              style="width:100%;height:100%;">
+      {
+        "handle":"zfma_livechat",
+        "arch":"js",
+        "styles":{
+          "a":"000000",
+          "b":100,
+          "c":"FFFFFF",
+          "d":"FFFFFF",
+          "e":"000000",
+          "f":100,
+          "g":"ff2d55",
+          "h":"000000",
+          "k":"000000",
+          "l":"000000",
+          "m":"000000",
+          "n":"FFFFFF",
+          "p":"10",
+          "q":"000000",
+          "r":100
+        }
+      }
+      </script>
 
     </div>
 
-  </aside>
+  </div>
 
-</section>
-
-</main>
+</div>
 
 <script>
 
 const SOURCES = {
-  1:"https://livewatch.top/embed/3271278010f4217cd17c4c-9481045a45a7d7",
-  2:"https://jack49eo.mp7786j2ncsusov57general.ru/fr/football/uefa-europa-conference-league-4396136/crystal-palace-vs-rayo-vallecano.html",
+  1:"https://livewatch.top/embed/3271278010f4217cd17c4c",
+  2:"https://livewatch.top/embed/3271278010f4217cd17c4c",
   3:"#"
 };
 
-function setActive(id){
-  [1,2,3].forEach(n=>{
-    document.getElementById("btn"+n).className =
-      n===id ? "source-btn active px-6" : "source-btn inactive px-6";
+function setActive(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById("btn"+i).classList.remove("active");
   });
+  document.getElementById("btn"+n).classList.add("active");
 }
 
 function loadVideo(id){
@@ -173,12 +233,13 @@ function loadVideo(id){
   const target = document.getElementById("videoTarget");
 
   if(!url || url==="#"){
-    target.innerHTML="<div style='color:white;display:grid;place-items:center;height:100%'>Stream indisponible</div>";
+    target.innerHTML = "<div style='display:grid;place-items:center;height:100%;background:black'>Stream bientôt dispo</div>";
     return;
   }
 
-  target.innerHTML =
-    `<iframe src="${url}" allowfullscreen style="width:100%;height:100%;border:0"></iframe>`;
+  target.innerHTML = `
+    <iframe src="${url}" allowfullscreen></iframe>
+  `;
 }
 
 </script>
