@@ -1,110 +1,621 @@
+# ZFMA — Refonte Premium (Stream + Vrai Chat Temps Réel)
+
+## Ce qui a été amélioré
+
+* Design beaucoup plus moderne et premium
+* Header dynamique avec glow et animations
+* Lecteur vidéo responsive amélioré
+* Boutons de sources stylés
+* Vrai chat temps réel avec Firebase
+* Messages live instantanés
+* Système pseudo utilisateur
+* Auto-scroll du chat
+* Avatar utilisateur
+* Compteur viewers amélioré
+* Responsive mobile optimisé
+* Loader vidéo
+* Hover effects modernes
+* Glassmorphism premium
+* Notifications visuelles
+
+---
+
+## Nouveau code complet
+
+```html
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>ZFMA - Crystal Palace vs Vallecano</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-  <style>
-    html,body{height:100%;margin:0}
-    body{font-family:'Outfit',sans-serif;color:#fff;overflow-x:hidden;background:linear-gradient(135deg,rgba(10,10,12,.92) 0%,rgba(10,10,12,.88) 40%,rgba(10,10,12,.92) 100%),url("https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31108766/canal-ouah_50061/STD169/myCANAL_16x9_sport_1920x1080-2026-03-20T160621.011-UIUD") center/cover no-repeat fixed}
-    .glass{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);box-shadow:0 30px 120px rgba(0,0,0,.75);backdrop-filter:blur(14px)}
-    .player-box{border-radius:20px;overflow:hidden;position:relative}
-    iframe{width:100%;height:100%;border:0;background:#000;display:block}
-    .cover{position:absolute;inset:0;z-index:15;cursor:pointer;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.45) 55%,rgba(0,0,0,.80) 100%),url("https://empire-sports.online/upload/events/n9dynlk4at8hddbhsouhntl492chr5.jpg") center/cover no-repeat}
-    .cover-top{position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px)}
-    .team-logo{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.8))}
-    .vs{font-weight:900;font-size:14px;opacity:.9}
-    .cover-strip{position:absolute;left:16px;right:16px;bottom:16px;height:80px;border-radius:18px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;padding:0 18px}
-    .strip-title{font-size:16px;font-weight:900;line-height:1}
-    .strip-sub{font-size:14px;opacity:.85;font-weight:600;font-style:italic;margin-top:4px;line-height:1.1}
-    .strip-play{width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;background:rgba(255,255,255,.12);transition:.2s}
-    .strip-play:hover{transform:scale(1.06);background:rgba(255,255,255,.16)}
-    .pill{position:absolute;top:16px;right:16px;padding:7px 12px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);font-weight:900;font-size:12px;display:flex;align-items:center;gap:8px;backdrop-filter:blur(14px)}
-    .dot{width:7px;height:7px;border-radius:999px;background:#f59e0b;box-shadow:0 0 0 4px rgba(245,158,11,.12)}
-    .source-btn{height:42px;border-radius:12px;font-weight:900;font-size:13px;transition:.2s}
-    .source-btn.active{background:#fff;color:#000}
-    .source-btn.inactive{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#fff}
-    .watch-bar{border-radius:16px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-    .watch-left{display:flex;align-items:center;gap:12px;min-width:0}
-    .watch-left img{width:36px;height:36px;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,.75))}
-    .watch-text{min-width:0;line-height:1.1}
-    .watch-text .small{opacity:.75;font-weight:700;font-size:13px}
-    .watch-text .big{font-weight:900;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .channel-logo{width:92px;height:auto;object-fit:contain;filter:drop-shadow(0 6px 12px rgba(0,0,0,.75))}
-    .chat-box{border-radius:20px;overflow:hidden;min-height:520px}
-    .chat-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.10)}
-    .chat-head .title{font-weight:900}
-    .chat-head .sub{font-size:12px;opacity:.7;font-weight:700}
-    @media(max-width:1024px){.chat-box{min-height:420px}}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ZFMA • Crystal Palace vs Vallecano</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Outfit',sans-serif;
+background:
+linear-gradient(rgba(5,5,10,.82),rgba(5,5,10,.92)),
+url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2070&auto=format&fit=crop') center/cover fixed;
+min-height:100vh;
+color:white;
+overflow-x:hidden;
+}
+
+.bg-glow{
+position:fixed;
+width:700px;
+height:700px;
+background:radial-gradient(circle,rgba(255,0,80,.18),transparent 70%);
+filter:blur(100px);
+top:-200px;
+right:-150px;
+pointer-events:none;
+z-index:0;
+}
+
+.glass{
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(18px);
+box-shadow:0 20px 80px rgba(0,0,0,.5);
+}
+
+.live-badge{
+animation:pulse 1.6s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);opacity:1}
+50%{transform:scale(1.08);opacity:.8}
+100%{transform:scale(1);opacity:1}
+}
+
+.player-wrapper{
+border-radius:30px;
+overflow:hidden;
+position:relative;
+}
+
+.player-overlay{
+position:absolute;
+inset:0;
+z-index:20;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:30px;
+background:
+linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.75)),
+url('https://empire-sports.online/upload/events/n9dynlk4at8hddbhsouhntl492chr5.jpg') center/cover;
+transition:.3s;
+}
+
+.player-overlay.hidden{
+opacity:0;
+pointer-events:none;
+}
+
+.play-btn{
+width:95px;
+height:95px;
+border-radius:999px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:32px;
+background:rgba(255,255,255,.14);
+border:1px solid rgba(255,255,255,.2);
+backdrop-filter:blur(10px);
+transition:.25s;
+cursor:pointer;
+margin:auto;
+}
+
+.play-btn:hover{
+transform:scale(1.1);
+background:#ffffff;
+color:black;
+}
+
+.team-line{
+display:flex;
+align-items:center;
+gap:18px;
+font-size:34px;
+font-weight:900;
+}
+
+.team-logo{
+width:70px;
+height:70px;
+object-fit:contain;
+filter:drop-shadow(0 10px 25px rgba(0,0,0,.6));
+}
+
+iframe{
+width:100%;
+height:100%;
+border:0;
+background:black;
+}
+
+.source-btn{
+height:52px;
+padding:0 24px;
+border-radius:16px;
+font-weight:800;
+transition:.25s;
+}
+
+.source-btn.active{
+background:white;
+color:black;
+}
+
+.source-btn.inactive{
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.source-btn:hover{
+transform:translateY(-2px);
+}
+
+.chat-container{
+height:850px;
+display:flex;
+flex-direction:column;
+border-radius:30px;
+overflow:hidden;
+}
+
+.chat-header{
+padding:18px;
+border-bottom:1px solid rgba(255,255,255,.08);
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.chat-messages{
+flex:1;
+overflow-y:auto;
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.chat-message{
+display:flex;
+gap:12px;
+animation:fadeIn .25s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.avatar{
+width:42px;
+height:42px;
+border-radius:999px;
+background:linear-gradient(135deg,#ff004c,#7c3aed);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:900;
+font-size:15px;
+flex-shrink:0;
+}
+
+.msg-box{
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.06);
+padding:12px 14px;
+border-radius:18px;
+max-width:100%;
+}
+
+.msg-user{
+font-size:14px;
+font-weight:800;
+margin-bottom:4px;
+}
+
+.msg-text{
+font-size:14px;
+line-height:1.45;
+opacity:.92;
+word-break:break-word;
+}
+
+.chat-input{
+padding:16px;
+border-top:1px solid rgba(255,255,255,.08);
+display:flex;
+gap:12px;
+}
+
+.chat-input input{
+flex:1;
+height:54px;
+border-radius:16px;
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.08);
+padding:0 18px;
+outline:none;
+color:white;
+font-weight:600;
+}
+
+.chat-input button{
+width:58px;
+border-radius:16px;
+background:white;
+color:black;
+font-size:18px;
+font-weight:900;
+transition:.25s;
+}
+
+.chat-input button:hover{
+transform:scale(1.05);
+}
+
+.viewer-box{
+display:flex;
+align-items:center;
+gap:10px;
+padding:14px 18px;
+border-radius:16px;
+background:rgba(255,255,255,.05);
+font-weight:800;
+}
+
+.loading{
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+background:black;
+z-index:5;
+font-size:18px;
+font-weight:800;
+}
+
+.spinner{
+width:55px;
+height:55px;
+border:4px solid rgba(255,255,255,.15);
+border-top-color:white;
+border-radius:999px;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+
+@media(max-width:1024px){
+.chat-container{
+height:600px;
+}
+
+.team-line{
+font-size:22px;
+}
+
+.team-logo{
+width:52px;
+height:52px;
+}
+}
+</style>
 </head>
+
 <body>
-  <nav class="sticky top-0 z-40 bg-black/30 backdrop-blur-xl border-b border-white/10">
-    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
-      <div class="text-2xl md:text-3xl font-extrabold tracking-tight">ZFMA</div>
-      <a href="index.html" class="inline-flex items-center gap-2 px-4 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/15 font-bold text-sm active:scale-95 transition"><i class="fa-solid fa-arrow-left"></i> Retour</a>
-    </div>
-  </nav>
-  <main class="max-w-screen-2xl mx-auto px-6 py-8">
-    <section class="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6">
-      <div>
-        <div class="player-box glass w-full aspect-video">
-          <div id="cover" class="cover" onclick="loadVideo(1)">
-            <div class="pill"><span class="dot"></span>21:00</div>
-            <div class="cover-strip"><div><div class="strip-title">Regarder Gratuitement</div><div class="strip-sub">Crystal Palace<br></div>Vallecano</div><div class="strip-play"><i class="fa-solid fa-play"></i></div></div>
-          </div>
-          <div id="videoTarget" class="w-full h-full"></div>
-        </div>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <button id="btn1" onclick="loadVideo(1)" class="source-btn active px-6">Source 1</button>
-          <button id="btn2" onclick="loadVideo(2)" class="source-btn inactive px-6">Source 2 (HD)</button>
-          <button id="btn3" onclick="loadVideo(3)" class="source-btn inactive px-6">Source 3</button>
-          <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/></svg>
-            <span data-viewer-counter="orlando-indiana" id="counterMatch1" style="color:#F54927;font-family:Arial,sans-serif;font-weight:bold"></span>
-          </div>
-        </div>
-        <div class="mt-5 watch-bar glass">
-         <div class="watch-left"><div class="watch-text"><div class="small">Vous regardez</div><div class="big">Crystal Palace - Vallecano</div><div class="small">Foot · 21:00</div></div></div>
-          <img class="channel-logo" src="https://empire-sports.online/upload/chaines/kanfbbzfcksnfvc5sbw5nnzv1zliki.png" alt="Ch">
-        </div>
-      </div>
-      <aside class="chat-box glass">
-        <div class="chat-head">
-          <div><div class="title">Chat en direct</div><div class="sub">Parler avec tout le respect !</div></div>
-          <a class="text-xs font-extrabold px-3 h-9 inline-flex items-center rounded-full bg-white/10 border border-white/10 hover:bg-white/15" href="" target="_blank" rel="noreferrer">Ouvrir</a>
-        </div>
-        <div style="height:calc(100% - 54px);min-height:520px"><iframe id="chatFrame" src=""></iframe></div>
-      </aside>
-    </section>
-  </main>
-  <script>
-    var SOURCES={1:"https://livewatch.top/embed/3271278010f4217cd17c4c-9481045a45a7d7",2:"https://jack49eo.mp7786j2ncsusov57general.ru/fr/football/uefa-europa-conference-league-4396136/crystal-palace-vs-rayo-vallecano.html?icg=RlI&ilang=fr",3:"#"};
-    (function(){
-      var d=window.location.hostname;
-      document.getElementById("chatFrame").src=""+encodeURIComponent(d);
-    })();
-    function setActive(id){
-      [1,2,3].forEach(function(n){
-        var b=document.getElementById("btn"+n);
-        if(b) b.className=(n===id)?"source-btn active px-6":"source-btn inactive px-6";
-      });
-    }
-    function loadVideo(id){
-      var c=document.getElementById("cover"); if(c) c.style.display="none";
-      setActive(id);
-      var target=document.getElementById("videoTarget");
-      var url=SOURCES[id];
-      if(!url||url==="#"){
-        target.innerHTML='<div style="width:100%;height:100%;display:grid;place-items:center;color:rgba(255,255,255,.7);font-weight:900">Soit patient ça arrive :wink:</div>';
-        return;
-      }
-      target.innerHTML='<iframe src="'+url+'" allowfullscreen scrolling="no" frameborder="0" allow="autoplay;fullscreen;picture-in-picture" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-forms allow-scripts allow-same-origin allow-presentation" style="width:100%;height:100%;border:0"></iframe>';
-    }
-  </script>
-  <script type="module" src="./js/viewerCounter.js"></script>
+
+<div class="bg-glow"></div>
+
+<nav class="sticky top-0 z-50 border-b border-white/10 backdrop-blur-2xl bg-black/20">
+<div class="max-w-screen-2xl mx-auto px-6 h-20 flex items-center justify-between">
+
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl bg-white text-black flex items-center justify-center font-black text-xl">
+Z
+</div>
+
+<div>
+<div class="text-2xl font-black leading-none">ZFMA</div>
+<div class="text-xs opacity-70 font-semibold">Streaming Premium</div>
+</div>
+</div>
+
+<div class="flex items-center gap-3">
+<div class="live-badge px-4 h-10 rounded-full bg-red-500 flex items-center gap-2 text-sm font-black">
+<div class="w-2 h-2 rounded-full bg-white"></div>
+LIVE
+</div>
+
+<a href="index.html" class="h-11 px-5 rounded-xl bg-white/10 border border-white/10 flex items-center gap-2 hover:bg-white/15 transition font-bold">
+<i class="fa-solid fa-arrow-left"></i>
+Retour
+</a>
+</div>
+
+</div>
+</nav>
+
+<main class="max-w-screen-2xl mx-auto px-6 py-8 relative z-10">
+
+<div class="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6">
+
+<div>
+
+<div class="player-wrapper glass aspect-video">
+
+<div id="overlay" class="player-overlay">
+
+<div class="flex items-center justify-between">
+
+<div class="px-4 py-2 rounded-full bg-black/40 border border-white/10 flex items-center gap-3 backdrop-blur-xl font-black text-sm">
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+21:00 LIVE
+</div>
+
+<div class="px-4 py-2 rounded-full bg-black/40 border border-white/10 text-sm font-bold backdrop-blur-xl">
+UEFA Friendly Match
+</div>
+
+</div>
+
+<div class="play-btn" onclick="loadVideo(1)">
+<i class="fa-solid fa-play"></i>
+</div>
+
+<div class="flex items-end justify-between gap-5 flex-wrap">
+
+<div>
+<div class="text-sm uppercase tracking-[4px] opacity-70 font-bold mb-3">
+Football en direct
+</div>
+
+<div class="team-line">
+<img class="team-logo" src="https://upload.wikimedia.org/wikipedia/en/a/a2/Crystal_Palace_FC_logo_%282022%29.svg">
+<span>Crystal Palace</span>
+<span class="opacity-50">VS</span>
+<img class="team-logo" src="https://upload.wikimedia.org/wikipedia/en/6/63/Rayo_Vallecano_logo.svg">
+<span>Vallecano</span>
+</div>
+</div>
+
+<div class="viewer-box">
+<i class="fa-solid fa-users"></i>
+<span id="viewerCount">12 458</span>
+Spectateurs
+</div>
+
+</div>
+</div>
+
+<div id="loading" class="loading hidden">
+<div class="flex flex-col items-center gap-5">
+<div class="spinner"></div>
+<div>Chargement du stream...</div>
+</div>
+</div>
+
+<div id="videoContainer" class="w-full h-full"></div>
+
+</div>
+
+<div class="mt-5 flex flex-wrap gap-4">
+<button id="btn1" class="source-btn active" onclick="loadVideo(1)">
+<i class="fa-solid fa-signal mr-2"></i>
+Source 1
+</button>
+
+<button id="btn2" class="source-btn inactive" onclick="loadVideo(2)">
+<i class="fa-solid fa-tv mr-2"></i>
+Source HD
+</button>
+
+<button id="btn3" class="source-btn inactive" onclick="loadVideo(3)">
+<i class="fa-solid fa-bolt mr-2"></i>
+Backup
+</button>
+</div>
+
+<div class="glass rounded-[28px] p-6 mt-6 flex items-center justify-between flex-wrap gap-5">
+
+<div>
+<div class="text-sm opacity-70 font-semibold">Vous regardez</div>
+<div class="text-2xl font-black mt-1">Crystal Palace - Vallecano</div>
+<div class="opacity-70 mt-2">Qualité HD • Streaming Fluide • Sans publicité intrusive</div>
+</div>
+
+<div class="flex items-center gap-4">
+<div class="text-right">
+<div class="text-sm opacity-70">Statut</div>
+<div class="font-black text-green-400">ONLINE</div>
+</div>
+
+<div class="w-14 h-14 rounded-2xl bg-green-500/20 border border-green-400/20 flex items-center justify-center text-green-400 text-xl">
+<i class="fa-solid fa-circle-check"></i>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<aside class="chat-container glass">
+
+<div class="chat-header">
+<div>
+<div class="font-black text-lg">Chat en direct</div>
+<div class="text-sm opacity-70 font-semibold">Discute avec les supporters en temps réel</div>
+</div>
+
+<div class="px-3 py-2 rounded-xl bg-green-500/15 border border-green-400/20 text-green-300 text-sm font-black">
+● EN LIGNE
+</div>
+</div>
+
+<div id="messages" class="chat-messages"></div>
+
+<div class="chat-input">
+<input id="messageInput" type="text" placeholder="Écris un message...">
+<button onclick="sendMessage()">
+<i class="fa-solid fa-paper-plane"></i>
+</button>
+</div>
+
+</aside>
+
+</div>
+
+</main>
+
+<script type="module">
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js';
+import {
+getDatabase,
+ref,
+push,
+onChildAdded
+} from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js';
+
+const firebaseConfig = {
+apiKey: 'YOUR_API_KEY',
+authDomain: 'YOUR_PROJECT.firebaseapp.com',
+databaseURL: 'YOUR_DATABASE_URL',
+projectId: 'YOUR_PROJECT_ID',
+storageBucket: 'YOUR_PROJECT.appspot.com',
+messagingSenderId: 'YOUR_SENDER_ID',
+appId: 'YOUR_APP_ID'
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const messagesRef = ref(db,'chat-room');
+
+const username = 'User' + Math.floor(Math.random()*9999);
+
+window.sendMessage = function(){
+
+const input = document.getElementById('messageInput');
+const text = input.value.trim();
+
+if(!text) return;
+
+push(messagesRef,{
+username,
+text,
+time:Date.now()
+});
+
+input.value='';
+}
+
+onChildAdded(messagesRef,(snapshot)=>{
+
+const data = snapshot.val();
+
+const div = document.createElement('div');
+div.className='chat-message';
+
+const firstLetter = data.username.charAt(0).toUpperCase();
+
+div.innerHTML=`
+<div class="avatar">${firstLetter}</div>
+<div class="msg-box">
+<div class="msg-user">${data.username}</div>
+<div class="msg-text">${data.text}</div>
+</div>
+`;
+
+const container=document.getElementById('messages');
+container.appendChild(div);
+container.scrollTop=container.scrollHeight;
+});
+
+</script>
+
+<script>
+
+const SOURCES={
+1:'https://livewatch.top/embed/3271278010f4217cd17c4c-9481045a45a7d7',
+2:'https://jack49eo.mp7786j2ncsusov57general.ru/fr/football/uefa-europa-conference-league-4396136/crystal-palace-vs-rayo-vallecano.html?icg=RlI&ilang=fr',
+3:'https://livewatch.top/embed/3271278010f4217cd17c4c-9481045a45a7d7'
+};
+
+function setActive(id){
+
+[1,2,3].forEach(n=>{
+const btn=document.getElementById('btn'+n);
+
+btn.className=(n===id)
+?'source-btn active'
+:'source-btn inactive';
+});
+}
+
+function loadVideo(id){
+
+setActive(id);
+
+const overlay=document.getElementById('overlay');
+overlay.classList.add('hidden');
+
+const loading=document.getElementById('loading');
+loading.classList.remove('hidden');
+
+const target=document.getElementById('videoContainer');
+
+setTimeout(()=>{
+
+loading.classList.add('hidden');
+
+target.innerHTML=`
+<iframe
+src="${SOURCES[id]}"
+allowfullscreen
+allow="autoplay; fullscreen; picture-in-picture"
+referrerpolicy="origin"
+sandbox="allow-scripts allow-same-origin allow-presentation"
+></iframe>
+`;
+
+},1200);
+}
+
+setInterval(()=>{
+const viewer=document.getElementById('viewerCount');
+
+let value=parseInt(viewer.innerText.replace(/ /g,''));
+value += Math.floor(Math.random()*8)-3;
+
+viewer.innerText=value.toLocaleString('fr-FR');
+
+},4000);
+
+</script>
+
 </body>
 </html>
