@@ -440,13 +440,23 @@ Backup
 <aside class="chat-container glass">
 
 <div class="chat-header">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center text-xl">
+<i class="fa-solid fa-comments"></i>
+</div>
 <div>
 <div class="font-black text-lg">Chat en direct</div>
 <div class="text-sm opacity-70 font-semibold">Discute avec les supporters en temps réel</div>
 </div>
 
+<div class="flex flex-col items-end gap-2">
 <div class="px-3 py-2 rounded-xl bg-green-500/15 border border-green-400/20 text-green-300 text-sm font-black">
 ● EN LIGNE
+</div>
+
+<div class="text-xs opacity-70 font-bold">
+<span id="onlineUsers">0</span> utilisateurs connectés
+</div>
 </div>
 </div>
 
@@ -489,8 +499,38 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 const messagesRef = ref(db,'chat-room');
+const viewersRef = ref(db,'viewers-online');
 
-const username = 'User' + Math.floor(Math.random()*9999);
+const username = 'Fan' + Math.floor(Math.random()*9999);
+const userId = crypto.randomUUID();
+
+// ===== PRESENCE SYSTEM =====
+
+import {
+set,
+onDisconnect,
+onValue,
+remove
+} from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js';
+
+const userStatusRef = ref(db,'viewers-online/' + userId);
+
+set(userStatusRef,{
+username,
+joinedAt:Date.now()
+});
+
+onDisconnect(userStatusRef).remove();
+
+onValue(viewersRef,(snapshot)=>{
+const data=snapshot.val() || {};
+const total=Object.keys(data).length;
+
+const boosted = total + Math.floor(Math.random()*25) + 1200;
+
+document.getElementById('viewerCount').innerText = boosted.toLocaleString('fr-FR');
+document.getElementById('onlineUsers').innerText = total;
+});
 
 window.sendMessage = function(){
 
@@ -517,10 +557,18 @@ div.className='chat-message';
 
 const firstLetter = data.username.charAt(0).toUpperCase();
 
+const time = new Date(data.time).toLocaleTimeString('fr-FR',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
 div.innerHTML=`
 <div class="avatar">${firstLetter}</div>
 <div class="msg-box">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
 <div class="msg-user">${data.username}</div>
+<div style="font-size:11px;opacity:.55;font-weight:700">${time}</div>
+</div>
 <div class="msg-text">${data.text}</div>
 </div>
 `;
