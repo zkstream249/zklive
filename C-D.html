@@ -37,7 +37,7 @@ box-shadow:0 10px 60px rgba(0,0,0,.5);
 }
 
 .hero{
-height:100vh;
+min-height:100vh;
 padding:30px;
 display:grid;
 grid-template-columns:1fr 420px;
@@ -48,6 +48,7 @@ gap:25px;
 position:relative;
 border-radius:35px;
 overflow:hidden;
+min-height:720px;
 }
 
 .player iframe{
@@ -146,6 +147,7 @@ font-weight:800;
 
 .chat{
 border-radius:35px;
+min-height:720px;
 overflow:hidden;
 display:flex;
 flex-direction:column;
@@ -303,7 +305,7 @@ LIVE
 
 </div>
 
-<div id="video"></div>
+<div id="video" class="absolute inset-0 w-full h-full"></div>
 
 </div>
 
@@ -441,11 +443,15 @@ document.getElementById('overlay').style.display='none';
 }
 
 function changeSource(id){
+
+const overlay=document.getElementById('overlay');
+if(overlay) overlay.style.display='none';
 document.getElementById('video').innerHTML=`
 <iframe
 src="${sources[id]}"
 allowfullscreen
-allow="autoplay; fullscreen"
+allow="autoplay; fullscreen; picture-in-picture"
+style="width:100%;height:100%;border:0;display:block;background:#000"
 ></iframe>
 `;
 }
