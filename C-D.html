@@ -526,9 +526,7 @@ onValue(viewersRef,(snapshot)=>{
 const data=snapshot.val() || {};
 const total=Object.keys(data).length;
 
-const boosted = total + Math.floor(Math.random()*25) + 1200;
-
-document.getElementById('viewerCount').innerText = boosted.toLocaleString('fr-FR');
+document.getElementById('viewerCount').innerText = total.toLocaleString('fr-FR');
 document.getElementById('onlineUsers').innerText = total;
 });
 
