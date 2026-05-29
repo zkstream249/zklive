@@ -1,885 +1,156 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
-  <title>ZFMA</title>
-  <meta name="description" content="ZFMA — Streaming sport en direct">
-  <meta name="robots" content="index,follow">
-  <link rel="icon" href="https://media.discordapp.net/attachments/1485253416098730054/1485288633903878214/image.png?ex=69c15255&is=69c000d5&hm=262101bc0e714f2b00e571bd0f480c6dfe22058aabaace2dc06db1af010e6a34&=&format=webp&quality=lossless&width=469&height=384">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="ZFMA — 100% Des Matchs en direct">
-  <meta property="og:description" content="ZFMA: matchs, scores et résultats en direct.">
-  <meta property="og:url" content="https://hiboux.vercel.app/">
-  <meta property="og:image" content="https://pbs.twimg.com/profile_banners/1490316829109239810/1770049817/1500x500">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ZFMA — 100% Des Matchs en direct">
-  <meta name="twitter:description" content="ZFMA : matchs, scores et résultats en direct.">
-  <meta name="twitter:image" content="https://pbs.twimg.com/profile_banners/1490316829109239810/1770049817/1500x500">
- 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="https://media.discordapp.net/attachments/1483508247569891462/1509942567058538697/content.png?ex=6a1b0319&is=6a19b199&hm=fb4e40aa5b519a98b567a0dce4904c2673fd70087b08434f5910496e27bc1343&format=webp&quality=lossless&width=873&height=873" type="image/webp" />
+  <link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1483508247569891462/1509942567058538697/content.png?ex=6a1b0319&is=6a19b199&hm=fb4e40aa5b519a98b567a0dce4904c2673fd70087b08434f5910496e27bc1343&format=webp&quality=lossless&width=873&height=873" />
+  <title>LKZ+ — 100% Des Matchs En Direct !</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/nprogress/nprogress.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/nprogress/nprogress.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
- 
-
- 
-  <style>
-    :root {
-      --bg-page:    #0E0E0E;
-      --bg-nav:     rgba(6,8,16,0.85);
-      --bg-card:    #131313;
-      --bg-overlay: rgba(0,0,0,0.82);
-      --text-main:  #F2EFE8;
-      --text-muted: rgba(242,239,232,.38);
-      --text-dim:   rgba(242,239,232,.32);
-      --text-faint: rgba(242,239,232,.2);
-      --border:     rgba(255,255,255,.06);
-      --border-h:   rgba(255,107,26,.3);
-      --sep-line:   rgba(255,255,255,.07);
-      --sep-label:  rgba(255,255,255,.5);
-      --nav-link-bg:   rgba(255,255,255,.04);
-      --nav-link-bdr:  rgba(255,255,255,.07);
-      --nav-link-clr:  rgba(255,255,255,.6);
-      --nav-link-h-bg: rgba(255,255,255,.08);
-      --nav-link-h-bdr:rgba(255,255,255,.14);
-      --scroll-thumb:  rgba(255,107,26,.2);
-      --scroll-thumb-h:rgba(255,107,26,.35);
-      --badge-bg:  rgba(6,8,16,.82);
-      --badge-bdr: rgba(255,255,255,.1);
-      --empty-bdr: rgba(255,255,255,.07);
-      --empty-clr: rgba(255,255,255,.22);
-      --mob-menu-bg:  rgba(8,8,10,.97);
-      --mob-menu-bdr: rgba(255,255,255,.07);
-      --mob-link-clr: rgba(255,255,255,.65);
-      --mob-link-bdr: rgba(255,255,255,.06);
-      --shop-card-bg: #181818;
-      --shop-card-bdr:rgba(255,255,255,.08);
-      --plan-bg:   #1c1c1c;
-      --plan-bdr:  rgba(255,255,255,.09);
-      --device-bg: #1c1c1c;
-      --device-bdr:rgba(255,255,255,.07);
-      --step-desc: rgba(255,255,255,.6);
-      --modal-bg:  #0f0f0f;
-      --modal-bdr: rgba(255,255,255,.09);
-    }
-
- 
-    #nprogress .bar { top: 64px !important; }
-    #nprogress .spinner { top: 75px !important; }
- 
-    html, body {
-      font-family: 'Outfit', sans-serif;
-      background-color: var(--bg-page);
-      color: var(--text-main);
-      transition: background-color .25s, color .25s;
-    }
-    body {
-      display: flex; flex-direction: column; min-height: 100vh;
-      background-image:
-        radial-gradient(ellipse 70vw 55vh at -5% 5%,  rgba(255,107,26,0.13) 0%, transparent 65%),
-        radial-gradient(ellipse 60vw 50vh at 105% 85%, rgba(201,75,0,0.10) 0%, transparent 65%),
-        radial-gradient(ellipse 45vw 40vh at 50% 50%,  rgba(255,140,66,0.04) 0%, transparent 70%);
-      background-attachment: fixed;
-    }
-    /* Animated grid */
-    body::after {
-      content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.018;
-      background-image:
-        linear-gradient(rgba(255,107,26,0.9) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,107,26,0.9) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    body::before {
-      content:""; position:fixed; inset:0;
-      background: var(--bg-overlay);
-      pointer-events:none; z-index:0;
-      transition: background .25s;
-    }
-    body > * { position:relative; z-index:1; }
-    button * { pointer-events:none; }
- 
-    ::-webkit-scrollbar { width:6px; height:6px; }
-    ::-webkit-scrollbar-track { background:transparent; }
-    ::-webkit-scrollbar-thumb { background-color: var(--scroll-thumb); border-radius:10px; }
-    ::-webkit-scrollbar-thumb:hover { background-color: var(--scroll-thumb-h); }
-    * { scrollbar-width:thin; scrollbar-color: var(--scroll-thumb) transparent; }
-    ::selection { background-color:rgba(255,107,26,.25); color:var(--text-main); }
- 
-    /* NAV */
-    .nav-link {
-      display:flex; align-items:center; gap:6px;
-      height:36px; padding:0 12px; border-radius:8px;
-      font-size:13px; font-weight:600; color: var(--nav-link-clr);
-      border:1px solid var(--nav-link-bdr); background: var(--nav-link-bg);
-      transition:all .18s; text-decoration:none; white-space:nowrap; cursor:pointer;
-    }
-    .nav-link:hover { background: var(--nav-link-h-bg); color: var(--text-main); border-color: var(--nav-link-h-bdr); }
-    .nav-link.accent {
-      background: linear-gradient(135deg, rgba(255,107,26,.15), rgba(201,75,0,.1));
-      border-color:rgba(255,107,26,.35); color:#FF6B1A;
-      box-shadow: 0 0 18px rgba(255,107,26,.12);
-    }
-    .nav-link.accent:hover { background: linear-gradient(135deg, rgba(255,107,26,.25), rgba(201,75,0,.18)); box-shadow: 0 0 24px rgba(255,107,26,.2); }
-
-    /* Nav bottom glow line */
-    nav::after {
-      content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
-      background: linear-gradient(90deg, transparent 0%, #FF6B1A 30%, #C94B00 70%, transparent 100%);
-      opacity:.25;
-    }
-    nav { position:relative; }
- 
-    .mobile-menu {
-      display:none; position:fixed; top:64px; left:0; right:0; z-index:50;
-      background: var(--mob-menu-bg); border-bottom:1px solid var(--mob-menu-bdr);
-      backdrop-filter:blur(24px); padding:14px 18px; flex-direction:column; gap:7px;
-    }
-    .mobile-menu.open { display:flex; }
-    .mobile-menu a {
-      display:flex; align-items:center; gap:10px; padding:11px 13px; border-radius:8px;
-      color: var(--mob-link-clr); text-decoration:none; font-size:14px; font-weight:600;
-      border:1px solid var(--mob-link-bdr); transition:all .15s;
-    }
-    .mobile-menu a:hover { background: var(--nav-link-h-bg); color: var(--text-main); }
- 
-    .hero {
-      text-align:center; padding: 56px 20px 40px;
-      position: relative;
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
-      color: #FF6B1A; background: rgba(255,107,26,.08);
-      border: 1px solid rgba(255,107,26,.2); padding: 5px 14px; border-radius: 99px;
-      margin-bottom: 20px;
-      animation: eyebrowGlow 2.5s ease-in-out infinite;
-    }
-    .hero-eyebrow-dot { width:5px; height:5px; border-radius:50%; background:#FF6B1A; animation: dotPulse 1.4s ease-in-out infinite; }
-    @keyframes eyebrowGlow { 0%,100%{box-shadow:0 0 0 rgba(255,107,26,0)} 50%{box-shadow:0 0 18px rgba(255,107,26,.18)} }
-    @keyframes dotPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.5)} }
-    .hero h1 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size:clamp(64px,12vw,120px); font-weight:900;
-      letter-spacing:-.01em; line-height:1; color: var(--text-main);
-      margin-bottom: 16px;
-    }
-    .hero h1 .logo-gradient {
-      background: linear-gradient(110deg, #fff 0%, #FF6B1A 45%, #FFD166 100%);
-      background-size: 220% auto;
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      animation: logoShift 6s linear infinite;
-    }
-    @keyframes logoShift { 0%{background-position:0%} 100%{background-position:220%} }
-    .hero p { margin-top:0; font-size:15px; color: var(--text-muted); font-weight:400; max-width:440px; margin:0 auto 28px; line-height:1.65; }
-    .hero-stats {
-      display: flex; align-items: center; justify-content: center; gap: 32px;
-      flex-wrap: wrap; margin-top: 28px;
-    }
-    .hero-stat { text-align: center; }
-    .hero-stat-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 32px; font-weight: 900; letter-spacing: -.01em;
-      background: linear-gradient(135deg, #FF6B1A, #FFD166);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .hero-stat-lbl { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-top: 2px; }
-    .hero-stat-sep { width: 1px; height: 36px; background: var(--border); }
-    .hero-cta-row { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:28px; }
-    .hero-btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      height: 44px; padding: 0 24px; border-radius: 10px;
-      font-size: 13px; font-weight: 700; letter-spacing: .03em; color: #fff;
-      background: linear-gradient(135deg, #FF6B1A 0%, #C94B00 100%);
-      box-shadow: 0 0 28px rgba(255,107,26,.35), inset 0 1px 0 rgba(255,255,255,.1);
-      transition: transform .2s, box-shadow .2s; text-decoration: none; cursor: pointer; border: none;
-    }
-    .hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,107,26,.5), inset 0 1px 0 rgba(255,255,255,.1); }
-    .hero-btn-secondary {
-      display: inline-flex; align-items: center; gap: 8px;
-      height: 44px; padding: 0 24px; border-radius: 10px;
-      font-size: 13px; font-weight: 600; color: var(--text-main);
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-      transition: all .2s; text-decoration: none;
-    }
-    .hero-btn-secondary:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.18); }
- 
-    .date-sep { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
-    .date-sep-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
-    .date-sep-dot.live {
-      background:#FF6B1A;
-      box-shadow:0 0 0 3px rgba(255,107,26,.18), 0 0 8px rgba(255,107,26,.35);
-      animation:livepulse 2s ease-in-out infinite;
-    }
-    .date-sep-dot.soon { background: var(--sep-label); opacity:.5; }
-    @keyframes livepulse {
-      0%,100% { box-shadow:0 0 0 3px rgba(255,107,26,.18),0 0 8px rgba(255,107,26,.35); }
-      50%      { box-shadow:0 0 0 6px rgba(255,107,26,.06),0 0 14px rgba(255,107,26,.2); }
-    }
-    .date-sep-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size:13px; font-weight:800; letter-spacing:.14em;
-      text-transform:uppercase; color: var(--sep-label); white-space:nowrap;
-    }
-    .date-sep-line { flex:1; height:1px; background: linear-gradient(90deg, rgba(255,107,26,.25), transparent); }
- 
-    .stream-card {
-      display:block; text-decoration:none; border-radius:16px; overflow:hidden;
-      background: var(--bg-card); border:1px solid var(--border);
-      transition:transform .22s cubic-bezier(.34,1.56,.64,1), border-color .2s ease, box-shadow .2s ease;
-    }
-    .stream-card:hover { transform:translateY(-6px) scale(1.01); border-color: rgba(255,107,26,.3); box-shadow:0 20px 50px rgba(0,0,0,.6), 0 0 30px rgba(255,107,26,.08); }
- 
-    /* THUMBNAIL */
-    .stream-thumb {
-      position:relative; height:160px; overflow:hidden;
-      background:#0a0a0a;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .stream-thumb-teams {
-      display:flex; align-items:center; justify-content:center;
-      gap:0; width:100%; height:100%; padding:0 16px;
-      position:relative; z-index:1;
-    }
-    .stream-team {
-      display:flex; flex-direction:column; align-items:center; gap:6px;
-      flex:1;
-    }
-    .stream-team-logo {
-      width:64px; height:64px; object-fit:contain; drop-shadow: 0 4px 12px rgba(0,0,0,.5);
-      filter: drop-shadow(0 4px 14px rgba(0,0,0,.6));
-    }
-    .stream-team-name {
-      font-size:10px; font-weight:800; letter-spacing:.08em;
-      text-transform:uppercase; color:rgba(255,255,255,.75);
-    }
-    .stream-vs {
-      font-size:13px; font-weight:900; color:rgba(255,255,255,.2);
-      padding:0 8px; flex-shrink:0;
-    }
-    .stream-thumb-bg {
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; opacity:0.85; z-index:0;
-    }
-    .stream-thumb::after {
-      content:""; position:absolute; inset:0;
-      background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.2) 100%);
-      pointer-events:none; z-index:2;
-    }
- 
-    /* BADGES */
-    .sbadge {
-      position:absolute; z-index:3;
-      display:inline-flex; align-items:center; gap:5px;
-      padding:3px 8px; border-radius:6px;
-      background: var(--badge-bg); border:1px solid var(--badge-bdr);
-      backdrop-filter:blur(8px);
-      font-size:10px; font-weight:800; letter-spacing:.05em; color: var(--text-main); white-space:nowrap;
-    }
-    .sbadge.top-left { top:9px; left:9px; }
-    .sbadge.top-right { top:9px; right:9px; color: var(--text-dim); font-weight:700; }
-    .sbadge.bottom-left { bottom:9px; left:9px; background:rgba(0,0,0,.72); border-color:rgba(255,255,255,.12); color:#fff; font-size:11px; font-weight:900; letter-spacing:.06em; }
-    .sbadge.is-live .bdot { background:#fff; }
-    .bdot { width:6px; height:6px; border-radius:50%; flex-shrink:0; background:#f59e0b; animation:none; }
-    .bdot.live { background:#fff; animation:livepulse 1.5s ease-in-out infinite; }
- 
-    /* BODY */
-    .stream-body { padding:13px 14px 14px; }
-    .stream-title { font-size:15px; font-weight:800; color: var(--text-main); line-height:1.2; margin-bottom:4px; }
-    .stream-channel { font-size:12px; color: var(--text-dim); font-weight:500; margin-bottom:12px; }
-    .stream-cta {
-      display:flex; align-items:center; justify-content:center; gap:7px;
-      width:100%; padding:11px 0; border-radius:9px;
-      background: linear-gradient(135deg, #FF6B1A, #C94B00); color:#fff;
-      font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
-      transition:filter .18s, transform .12s;
-      box-shadow: 0 4px 16px rgba(255,107,26,.25);
-    }
-    .stream-card:hover .stream-cta { filter: brightness(1.1); transform: none; }
-    .empty-state {
-      grid-column:1/-1; display:flex; align-items:center; justify-content:center;
-      padding:30px 20px; border-radius:9px; border:1px dashed var(--empty-bdr);
-      color: var(--empty-clr); font-size:13px; font-weight:500;
-    }
-    .refresh-btn {
-      display:flex; align-items:center; justify-content:center;
-      width:28px; height:28px; border-radius:7px;
-      background:rgba(255,107,26,.1); border:1px solid rgba(255,107,26,.2);
-      color:#FF6B1A; font-size:14px; cursor:pointer; transition:all .18s;
-    }
-    .refresh-btn:hover { background:rgba(255,107,26,.2); box-shadow: 0 0 12px rgba(255,107,26,.2); }
-    .refresh-btn:active { transform:rotate(180deg); }
-
-    .sbadge.is-live { background: linear-gradient(135deg,#FF6B1A,#C94B00); border-color:transparent; color:#fff; box-shadow: 0 0 14px rgba(255,107,26,.4); }
- 
-    @media (max-width:640px) {
-      .hero h1 { font-size:44px; }
-      .stream-thumb { height:108px; }
-    }
- 
-    /* ══════════════════════════════════
-       SHOP MODAL
-    ══════════════════════════════════ */
-    .shop-overlay {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(0,0,0,0.78);
-      backdrop-filter: blur(8px);
-      display: flex; align-items: flex-start; justify-content: center;
-      overflow-y: auto;
-      opacity: 0; pointer-events: none;
-      transition: opacity .25s;
-      padding: 24px 16px 48px;
-    }
-    .shop-overlay.open { opacity: 1; pointer-events: all; }
- 
-    .shop-modal {
-      background: var(--modal-bg);
-      border: 1px solid var(--modal-bdr);
-      border-radius: 18px;
-      width: 100%; max-width: 880px;
-      margin: auto;
-      transform: translateY(20px) scale(0.99);
-      transition: transform .3s cubic-bezier(.22,1,.36,1);
-    }
-    .shop-overlay.open .shop-modal { transform: translateY(0) scale(1); }
- 
-    .shop-modal-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 22px 28px 0;
-    }
-    .shop-modal-logo { font-size: 18px; font-weight: 900; color: var(--text-main); }
-    .shop-modal-logo span { color: #FF6B1A; }
-    .shop-close {
-      width: 34px; height: 34px; border-radius: 8px;
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.55); font-size: 16px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: all .18s; flex-shrink: 0;
-    }
-    .shop-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
- 
-    .shop-hero {
-      text-align: center; padding: 26px 24px 20px;
-    }
-    .shop-hero h2 {
-      font-size: clamp(22px, 4vw, 40px); font-weight: 900;
-      color: var(--text-main); line-height: 1.1; margin-bottom: 12px;
-    }
-    .shop-hero h2 .accent { color: #FF6B1A; }
-    .shop-hero p {
-      font-size: 14px; line-height: 1.7;
-      color: var(--text-muted); max-width: 540px; margin: 0 auto;
-    }
-    .shop-hero p strong { color: var(--text-main); font-weight: 700; }
- 
-    .shop-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; padding: 0 24px 20px;
-    }
-    @media (max-width: 580px) { .shop-grid { grid-template-columns: 1fr; } }
- 
-    .shop-card {
-      background: var(--shop-card-bg);
-      border: 1px solid var(--shop-card-bdr);
-      border-radius: 12px; padding: 22px 20px;
-    }
-    .shop-card-title {
-      display: flex; align-items: center; gap: 9px;
-      font-size: 18px; font-weight: 800; color: #FF6B1A; margin-bottom: 18px;
-    }
-    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
-    .feature-list li {
-      display: flex; align-items: flex-start; gap: 9px;
-      font-size: 13px; color: var(--text-dim); font-weight: 500; line-height: 1.4;
-    }
-    .feature-list li .chk { color: #FF6B1A; flex-shrink: 0; margin-top: 1px; }
- 
-    .plan-list { display: flex; flex-direction: column; gap: 9px; margin-bottom: 13px; }
-    .plan-item {
-      position: relative;
-      background: var(--plan-bg); border: 1px solid var(--plan-bdr);
-      border-radius: 9px; padding: 13px 16px;
-      display: flex; align-items: center; justify-content: space-between;
-      cursor: pointer; transition: border-color .18s, background .18s;
-    }
-    .plan-item:hover { border-color: rgba(255,107,26,.4); }
-    .plan-item.selected { border-color: #FF6B1A; background: rgba(255,107,26,0.05); }
-    .plan-label { font-size: 13px; font-weight: 700; color: var(--text-main); }
-    .plan-label .old { font-size: 11px; color: var(--text-faint); font-weight: 500; margin-left: 5px; }
-    .plan-price { font-size: 17px; font-weight: 800; color: #FF6B1A; }
-    .plan-badge {
-      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-      background: #FF6B1A; color: #000;
-      font-size: 9px; font-weight: 900; letter-spacing: .08em;
-      padding: 2px 10px; border-radius: 20px; white-space: nowrap;
-    }
-    .cta-btn {
-      display: block; width: 100%;
-      background: #FF6B1A; color: #000;
-      font-size: 14px; font-weight: 800; text-align: center;
-      padding: 14px; border-radius: 9px;
-      border: none; cursor: pointer; text-decoration: none;
-      transition: background .18s, transform .12s;
-    }
-    .cta-btn:hover { background: #C94B00; transform: translateY(-1px); }
-    .cta-btn:active { transform: translateY(0); }
- 
-    .shop-how { padding: 8px 24px 28px; }
-    .shop-how-title {
-      text-align: center; font-size: 20px; font-weight: 900; color: var(--text-main);
-      margin-bottom: 18px;
-      display: flex; align-items: center; justify-content: center; gap: 9px;
-    }
-    .step-card {
-      background: var(--shop-card-bg); border: 1px solid var(--shop-card-bdr);
-      border-radius: 12px; padding: 18px 20px; margin-bottom: 10px;
-    }
-    .step-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-    .step-num {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: rgba(255,107,26,0.12); border: 2px solid rgba(255,107,26,0.35);
-      color: #FF6B1A; font-size: 13px; font-weight: 900;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .step-title { font-size: 15px; font-weight: 800; color: #FF6B1A; }
-    .step-desc { font-size: 13px; color: var(--step-desc); line-height: 1.65; }
-    .step-desc strong { color: var(--text-main); font-weight: 700; }
-    .discord-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      margin-top: 13px; background: #5865f2; color: #fff;
-      font-size: 13px; font-weight: 700; padding: 11px 20px;
-      border-radius: 8px; text-decoration: none;
-      transition: background .18s, transform .12s;
-    }
-    .discord-btn:hover { background: #4752c4; transform: translateY(-1px); }
-    .devices-grid {
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 14px;
-    }
-    @media (max-width: 460px) { .devices-grid { grid-template-columns: repeat(2,1fr); } }
-    .device-item {
-      background: var(--device-bg); border: 1px solid var(--device-bdr);
-      border-radius: 8px; padding: 12px 8px;
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 600; color: var(--text-dim);
-    }
-  </style>
-</head>
- 
-<body class="flex flex-col font-[Outfit]">
-<noscript>You need to enable JavaScript to run this website.</noscript>
- 
-<!-- NAV -->
-<nav style="position:sticky;top:0;z-index:40;backdrop-filter:blur(20px);border-bottom:1px solid var(--border);background:var(--bg-nav);">
-  <div class="max-w-screen-2xl mx-auto px-5 md:px-10 h-16 flex items-center justify-between gap-3">
-    <div class="font-black text-xl tracking-tight" style="color:var(--text-main)">ZFMA</div>
-    <div class="hidden md:flex items-center gap-2">
-      <button onclick="openShop()" class="nav-link accent">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        IPTV à partir de 9,99€
-      </button>
-      <a href="https://t.me/ix_20261" target="_blank" class="nav-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.31 8.9 19.5c.57 0 .82-.25 1.12-.55l2.69-2.57 5.58 4.08c1.02.56 1.75.27 2-.94L23.9 4.7c.31-1.44-.55-2-1.56-1.63L1.55 10.86c-1.41.55-1.39 1.34-.24 1.7l5.32 1.66L19.1 6.5c.59-.39 1.13-.18.69.21"/></svg>
-        Telegram
-      </a>
-      <a href="https://discord.gg/fWjBW8pwCU" target="_blank" class="nav-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
-        Discord
-      </a>
-      <a href="https://x.com/ix_2026" target="_blank" class="nav-link">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.455L22.5 22h-6.91l-5.41-7.046L4.18 22H1.42l7.01-8.02L1.5 2h7.09l4.89 6.34L18.244 2Z"/></svg>
-        Twitter
-      </a>
-
-    </div>
-    <div class="flex md:hidden items-center gap-2">
-      <button onclick="openShop()" class="nav-link accent text-xs">IPTV</button>
-      <button id="burgerBtn" class="nav-link px-2.5">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-  </div>
-</nav>
- 
-<!-- Mobile menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="https://t.me/zfmasport1" target="_blank">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.31 8.9 19.5c.57 0 .82-.25 1.12-.55l2.69-2.57 5.58 4.08c1.02.56 1.75.27 2-.94L23.9 4.7c.31-1.44-.55-2-1.56-1.63L1.55 10.86c-1.41.55-1.39 1.34-.24 1.7l5.32 1.66L19.1 6.5c.59-.39 1.13-.18.69.21"/></svg>
-    Telegram
-  </a>
-  <a href="https://discord.gg/FfhZjxRUhm" target="_blank">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
-    Discord
-  </a>
-  <a href="https://x.com/ix_2026" target="_blank">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2H21l-6.52 7.455L22.5 22h-6.91l-5.41-7.046L4.18 22H1.42l7.01-8.02L1.5 2h7.09l4.89 6.34L18.244 2Z"/></svg>
-    Twitter / X
-  </a>
-</div>
- 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> Streaming sport gratuit</div>
-  <h1><span class="logo-gradient">ZFMA</span></h1>
-  <p>Votre destination pour regarder tous les matchs en direct, gratuitement et sans inscription.</p>
-  <div class="hero-cta-row">
-    <button onclick="document.getElementById('stream-list-principal').scrollIntoView({behavior:'smooth'})" class="hero-btn-primary">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      Voir les matchs
-    </button>
-    <button onclick="openShop()" class="hero-btn-secondary">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      IPTV dès 9,99€
-    </button>
-  </div>
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-lbl">Gratuit</div></div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat"><div class="hero-stat-num">HD</div><div class="hero-stat-lbl">Qualité</div></div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat"><div class="hero-stat-num">24/7</div><div class="hero-stat-lbl">En direct</div></div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat"><div class="hero-stat-num">0€</div><div class="hero-stat-lbl">Sans abonnement</div></div>
-  </div>
-</div>
- 
-<!-- CONTENT -->
-<div class="max-w-screen-2xl mx-auto w-full flex flex-grow flex-col md:px-10 px-5 pb-14">
-  <div class="mb-10">
-    <div class="date-sep">
-      <div class="date-sep-dot live"></div>
-      <span class="date-sep-label" id="label-today">Aujourd'hui</span>
-      <div class="date-sep-line"></div>
-      <div class="flex items-center gap-2 flex-shrink-0">
-        <span id="today-count" class="text-xs font-bold" style="color:rgba(255,255,255,.3)"></span>
-        <button id="refreshBtn" class="refresh-btn" aria-label="Rafraîchir">↻</button>
-      </div>
-    </div>
-    <div id="stream-list-principal" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></div>
-  </div>
-  <div>
-    <div class="date-sep">
-      <div class="date-sep-dot soon"></div>
-      <span class="date-sep-label" id="label-tomorrow">Demain</span>
-      <div class="date-sep-line"></div>
-    </div>
-    <div id="stream-list-bk" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3"></div>
-  </div>
-</div>
- 
-<!-- ══════════════════════════════════
-     SHOP MODAL
-══════════════════════════════════ -->
-<div class="shop-overlay" id="shopOverlay" onclick="handleOverlayClick(event)">
-  <div class="shop-modal" id="shopModal">
- 
-    <div class="shop-modal-header">
-      <span class="shop-modal-logo">ZFMA<span>IPTV</span></span>
-      <button class="shop-close" onclick="closeShop()">✕</button>
-    </div>
- 
-    <div class="shop-hero">
-      <h2>Accédez à l'<span class="accent">IPTV</span> en quelques minutes</h2>
-      <p>Plus de <strong>25 000 chaînes</strong> dont toutes les chaînes de sports en <strong>Full HD+</strong> et <strong>4K</strong>.<br>
-      Une <strong>VOD 4K complète</strong> avec plus de <strong>130 000 films</strong> et près de <strong>40 000 séries</strong>.</p>
-    </div>
- 
-    <div class="shop-grid">
-      <div class="shop-card">
-        <div class="shop-card-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-          Contenu Premium
-        </div>
-        <ul class="feature-list">
-          <li><span class="chk">✓</span> 25 000+ chaînes</li>
-          <li><span class="chk">✓</span> VOD 4K complète (130 000+ films, 40 000+ séries)</li>
-          <li><span class="chk">✓</span> Qualité ultra-stable, même en heures de pointe</li>
-          <li><span class="chk">✓</span> Mises à jour mensuelles</li>
-          <li><span class="chk">✓</span> Disponible sur tous vos appareils</li>
-          <li><span class="chk">✓</span> Assistance premium 24/7</li>
-        </ul>
-      </div>
- 
-      <div class="shop-card">
-        <div class="shop-card-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF6B1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-          Abonnement
-        </div>
-        <div class="plan-list">
-          <div class="plan-item" data-plan="1 mois" data-price="9,99€" onclick="selectPlan(this)">
-            <span class="plan-label">1 mois</span>
-            <span class="plan-price">9,99€</span>
-          </div>
-          <div class="plan-item" data-plan="3 mois" data-price="20€" onclick="selectPlan(this)">
-            <span class="plan-label">3 mois</span>
-            <span class="plan-price">20€</span>
-          </div>
-          <div class="plan-item selected" data-plan="6 mois" data-price="35€" onclick="selectPlan(this)">
-            <div class="plan-badge">LE PLUS ACHETÉ</div>
-            <span class="plan-label">6 mois <span class="old">(au lieu de 45€)</span></span>
-            <span class="plan-price">35€</span>
-          </div>
-          <div class="plan-item" data-plan="12 mois" data-price="50€" onclick="selectPlan(this)">
-            <span class="plan-label">12 mois <span class="old">(au lieu de 70€)</span></span>
-            <span class="plan-price">50€</span>
-          </div>
-        </div>
-        <a href="https://discord.gg/FfhZjxRUhm" target="_blank" class="cta-btn" id="ctaBtn">
-          6 mois — 35€ → S'abonner
-        </a>
-      </div>
-    </div>
- 
-    <div class="shop-how">
-      <h3 class="shop-how-title">
-        🚀 Comment ça marche ?
-      </h3>
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">1</div>
-          <span class="step-title">Choisis ton abonnement</span>
-        </div>
-        <p class="step-desc">Consulte les offres ci-dessus et choisis la durée qui te convient.<br>
-        Tous les abonnements incluent l'accès à <strong>25 000+ chaînes</strong>, la <strong>VOD 4K</strong> et l'<strong>assistance 24/7</strong>.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">2</div>
-          <span class="step-title">Rejoins le Discord</span>
-        </div>
-        <p class="step-desc">Rejoins notre serveur Discord et ouvre un <strong>ticket</strong> dans le salon dédié. Un membre de l'équipe te guidera pour le paiement et répondra à toutes tes questions.</p>
-        <a href="https://discord.gg/fWjBW8pwCU" target="_blank" class="discord-btn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028Z"/></svg>
-          Rejoindre le Discord
-        </a>
-      </div>
-      <div class="step-card">
-        <div class="step-header">
-          <div class="step-num">3</div>
-          <span class="step-title">Paiement & Installation</span>
-        </div>
-        <p class="step-desc">Un admin te guide pour le paiement et t'envoie tes identifiants sous <strong>5 à 20 minutes</strong>. Il t'aidera aussi à installer l'application sur ton appareil :</p>
-        <div class="devices-grid">
-          <div class="device-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            Smartphone
-          </div>
-          <div class="device-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            PC / Mac
-          </div>
-          <div class="device-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
-            Box / Fire Stick
-          </div>
-          <div class="device-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg>
-            Smart TV
-          </div>
-        </div>
-      </div>
-    </div>
- 
-  </div>
-</div>
- 
-<script>
-  /* ═══ DONNÉES ═══ */
-  window.MATCHES_TODAY = MATCHES_TODAY = [
-    {
-      title:   "PSG vs Arsenal",
-      channel: "Ligue Des Champions",
-      time:    "18:00",
-      banner:  "https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31476453/canal-ouah/STD169/1308681_284_S16_UEFAChampionsLeague2025-2026-Final-ParisSaint-Germain-Arsenal-30-05-26-nVXI",
-      href:    "C-D.html",
-      home: { name:"PSG", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/e/e0/Olympique_Lyonnais_%28logo%29.svg/1200px-Olympique_Lyonnais_%28logo%29.svg.png" },
-      away: { name:"Bayern Munich", logo:"https://upload.wikimedia.org/wikipedia/fr/thumb/2/27/Logo_Stade_Rennais_FC.svg/1200px-Logo_Stade_Rennais_FC.svg.png" }
-    },
-  ];
-  window.MATCHES_TOMORROW = MATCHES_TOMORROW = [];
- 
-  const DAYS   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-  const MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-  function fmtDate(d){ return DAYS[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()]; }
-  (function(){
-    const t=new Date(), tm=new Date(t); tm.setDate(t.getDate()+1);
-    const el1=document.getElementById('label-today');
-    const el2=document.getElementById('label-tomorrow');
-    if(el1) el1.textContent='Aujourd\'hui · '+fmtDate(t).toUpperCase();
-    if(el2) el2.textContent='Demain · '+fmtDate(tm).toUpperCase();
-  })();
- 
-  const LIVE_WIN = Math.floor(2.5*60*60*1000);
-  function parseHHMM(s){ const [h,m]=s.split(':').map(Number); return {h,m}; }
-  function getKickoff(hhmm){
-    const now=new Date(), {h,m}=parseHHMM(hhmm);
-    const t=new Date(now); t.setHours(h,m,0,0);
-    if(now.getTime()>(t.getTime()+LIVE_WIN)){ t.setDate(t.getDate()+1); t.setHours(h,m,0,0); }
-    return t;
-  }
-  function fmtMs(ms){
-    if(ms<=0) return '00h 00m 00s';
-    const s=Math.floor(ms/1000), h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sc=s%60;
-    const p=n=>String(n).padStart(2,'0');
-    return `${p(h)}h ${p(m)}m ${p(sc)}s`;
-  }
- 
-  // Les viewers sont maintenant gérés par Firebase (voir script module en bas)
- 
-  function fmtTime(hhmm){ return hhmm.replace(':','H').replace(/^0/,'')+'S'; }
- 
-  function cardHTML(m,idx){
-    const home = m.home || {};
-    const away = m.away || {};
-    const hasTeams = home.logo && away.logo;
-    const DAYS2   = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-    const MONTHS2 = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
-    const now2 = new Date();
-    const dateStr = DAYS2[now2.getDay()]+' '+now2.getDate()+' '+MONTHS2[now2.getMonth()];
-    const subChannel = m.channel ? `${m.channel} · ${dateStr} · ${m.time.replace(':','H')}` : dateStr;
- 
-    return `<a href="${m.href}" class="stream-card">
-      <div class="stream-thumb">
-        <img src="${m.banner}" alt="${m.title}" class="stream-thumb-bg">
-        <div class="stream-thumb-teams">
-          ${hasTeams ? `
-          <div class="stream-team">
-            <img src="${home.logo}" alt="${home.name||''}" class="stream-team-logo" loading="lazy" onerror="this.style.display='none'">
-          </div>
-          <span class="stream-vs">VS</span>
-          <div class="stream-team">
-            <img src="${away.logo}" alt="${away.name||''}" class="stream-team-logo" loading="lazy" onerror="this.style.display='none'">
-          </div>
-          ` : ''}
-        </div>
-        <div class="sbadge top-left" data-pill="${idx}">
-          <span class="bdot" data-dot="${idx}"></span>
-          <span data-timer="${idx}">--</span>
-        </div>
-        <div class="sbadge top-right">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="opacity:.7"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-          <span data-viewer-count="${m.href.split('/').pop().replace(/[^a-zA-Z0-9]/g,'_')}">–</span>
-        </div>
-        <div class="sbadge bottom-left">${m.time.replace(':','H')}</div>
-      </div>
-      <div class="stream-body">
-        <div class="stream-title">${m.title}</div>
-        <div class="stream-channel">${subChannel}</div>
-        <div class="stream-cta">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          Regarder maintenant
-        </div>
-      </div>
-    </a>`;
-  }  
- 
- 
-  function render(){
-    const t=document.getElementById('stream-list-principal');
-    const d=document.getElementById('stream-list-bk');
-    if(t) t.innerHTML=MATCHES_TODAY.length
-      ? MATCHES_TODAY.map((m,i)=>cardHTML(m,i)).join('')
-      : '<div class="empty-state">Aucun match prévu aujourd\'hui</div>';
-    if(d) d.innerHTML=MATCHES_TOMORROW.length
-      ? MATCHES_TOMORROW.map((m,i)=>cardHTML(m,i+100)).join('')
-      : '<div class="empty-state">Aucun match prévu demain</div>';
-    initViewersFromFirebase();
-  }
- 
-  function tick(){
-    const now=Date.now(); let live=0;
-    const all=[...MATCHES_TODAY.map((m,i)=>({m,idx:i})),...MATCHES_TOMORROW.map((m,i)=>({m,idx:i+100}))];
-    all.forEach(({m,idx})=>{
-      const ko=getKickoff(m.time).getTime(), end=ko+LIVE_WIN;
-      const tEl=document.querySelector(`[data-timer="${idx}"]`);
-      const pEl=document.querySelector(`[data-pill="${idx}"]`);
-      const dEl=document.querySelector(`[data-dot="${idx}"]`);
-      if(!tEl||!pEl||!dEl) return;
-      if(now>=ko&&now<=end){
-        live++; tEl.textContent='LIVE';
-        pEl.classList.add('is-live'); dEl.classList.add('live');
-      } else {
-        tEl.textContent=fmtMs(now<ko?ko-now:getKickoff(m.time).getTime()-now);
-        pEl.classList.remove('is-live'); dEl.classList.remove('live');
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            background: 'hsl(0 0% 5.1%)',
+            card: 'hsl(0 0% 10.2%)',
+            primary: { DEFAULT: 'hsl(270 90% 65%)', foreground: 'hsl(0 0% 100%)' },
+            muted: { DEFAULT: 'hsl(0 0% 15%)', foreground: 'hsl(0 0% 66.7%)' },
+            border: 'hsl(0 0% 18%)',
+            live: 'hsl(0 100% 59%)',
+            soon: 'hsl(270 90% 65%)',
+          },
+          borderRadius: { lg: '1rem', md: '0.75rem', sm: '0.5rem' }
+        }
       }
-    });
-    const c=document.getElementById('today-count');
-    if(c&&MATCHES_TODAY.length){
-      c.textContent=live>0?live+' EN COURS':MATCHES_TODAY.length+' MATCH'+(MATCHES_TODAY.length>1?'S':'');
-    }
-  }
- 
-  /* ── SHOP MODAL ── */
-  function openShop(){
-    document.getElementById('shopOverlay').classList.add('open');
-    document.body.style.overflow='hidden';
-  }
-  function closeShop(){
-    document.getElementById('shopOverlay').classList.remove('open');
-    document.body.style.overflow='';
-  }
-  function handleOverlayClick(e){
-    if(e.target===document.getElementById('shopOverlay')) closeShop();
-  }
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeShop(); });
- 
-  function selectPlan(el){
-    document.querySelectorAll('.plan-item').forEach(p=>p.classList.remove('selected'));
-    el.classList.add('selected');
-    document.getElementById('ctaBtn').textContent=`${el.dataset.plan} — ${el.dataset.price} → S'abonner`;
-  }
- 
-  document.getElementById('refreshBtn')?.addEventListener('click',()=>{
-    NProgress.start(); render(); tick(); setTimeout(()=>NProgress.done(),300);
-  });
-  document.getElementById('burgerBtn')?.addEventListener('click',()=>{
-    document.getElementById('mobileMenu')?.classList.toggle('open');
-  });
- 
-  window.initViewersFromFirebase = window.initViewersFromFirebase || function(){};
-  render(); tick(); setInterval(tick,1000);
-</script>
- 
+    };
+  </script>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body class="min-h-screen flex flex-col bg-black text-white font-sans antialiased">
 
-<!-- Firebase Viewers temps réel -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  <!-- ── Fond noir + étoiles violettes ── -->
+  <div class="scene" aria-hidden="true">
+    <canvas id="particles"></canvas>
+  </div>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDOPgoi-wbboh8QqBjK5npM7RB9SrCWyU0",
-    authDomain: "imftx-chat.firebaseapp.com",
-    databaseURL: "https://imftx-chat-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "imftx-chat",
-    storageBucket: "imftx-chat.firebasestorage.app",
-    messagingSenderId: "1067226163390",
-    appId: "1:1067226163390:web:b1654656d19e06976dd6ef"
-  };
+  <!-- ── Navbar ── -->
+  <header class="site-nav">
+    <div class="nav-brand">
+      <a href="#top" class="wordmark-link" aria-label="LKZ+ — Accueil" data-route="home">
+        <span class="wordmark">LKZ<span class="accent">+</span></span>
+      </a>
+      <span class="nav-sep" aria-hidden="true"></span>
+    </div>
 
-  const app = initializeApp(firebaseConfig);
-  const db  = getDatabase(app);
+    <nav class="nav-main" aria-label="Navigation principale">
+      <a href="index.html" class="nav-link nav-link--active" data-route="home">Accueil</a>
+      <a href="programme.html" class="nav-link" data-route="programme">Programme</a>
+    </nav>
 
-  function initViewers() {
-    const allMatches = [
-      ...(window.MATCHES_TODAY   || []),
-      ...(window.MATCHES_TOMORROW || [])
-    ];
-    allMatches.forEach(m => {
-      const matchId = m.href.split('/').pop().replace(/[^a-zA-Z0-9]/g, '_');
-      onValue(ref(db, 'viewers/' + matchId), (snap) => {
-        const count = snap.exists() ? snap.numChildren() : 0;
-        const el = document.querySelector(`[data-viewer-count="${matchId}"]`);
-        if (el) el.textContent = count;
-      });
-    });
-  }
+    <div class="nav-right">
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="iptv.html" class="cta-iptv" data-route="iptv" aria-label="Offre IPTV à partir de 9€">
+        <span class="cta-iptv__long">Offre IPTV (à partir de 9€)</span>
+        <span class="cta-iptv__short" aria-hidden="true">IPTV</span>
+      </a>
+      <a class="social-sq" href="#" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.6 12.6 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+      </a>
+      <a class="social-sq" href="#" target="_blank" rel="noopener" aria-label="X" title="X">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+    </div>
+  </header>
 
-  // Surcharge la fonction exposée au script principal
-  window.initViewersFromFirebase = initViewers;
+  <!-- ── Contenu ── -->
+  <main class="flex-grow max-w-screen-2xl w-full mx-auto px-5 md:px-12 pt-1 pb-10">
 
-  // Firebase est prêt → on relance après un délai pour que render() ait injecté les cartes
-  setTimeout(initViewers, 300);
-</script>
+    <!-- Hero centré : gros wordmark LKZ+ -->
+    <section class="hero-center animate-fade-up" aria-label="Accueil">
+      <h1 class="hero-wordmark">LKZ<span class="accent">+</span></h1>
+      <p class="hero-sub">Tous les matchs, gratuitement.</p>
+    </section>
 
+    <!-- Sections -->
+    <div class="w-full flex flex-col gap-10 mt-4">
+
+      <!-- En direct -->
+      <section>
+        <div class="flex items-center justify-between mb-6 relative animate-fade-up" style="animation-delay:200ms">
+          <div class="absolute left-0 top-0 h-14 w-[3px] bg-gradient-to-b from-primary via-primary/60 to-transparent rounded-full"></div>
+          <div class="ml-6">
+            <div class="flex items-center gap-2.5 mb-2">
+              <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+              </span>
+              <span class="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary">En direct maintenant</span>
+            </div>
+            <h2 class="text-lg md:text-2xl font-bold tracking-tight">Diffusions en direct</h2>
+          </div>
+          <button type="button" id="refreshBtn" class="group flex items-center gap-2 border border-border/60 hover:border-border bg-card hover:bg-card/80 px-4 py-2 rounded-lg text-sm btn-press transition-all">
+            <svg class="w-4 h-4 transition-transform group-hover:rotate-180 duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+            <span class="hidden md:inline">Actualiser</span>
+          </button>
+        </div>
+        <div id="liveGrid" class="lkz-grid animate-fade-up" style="animation-delay:300ms"></div>
+        <p id="liveEmpty" class="hidden text-center text-muted-foreground text-sm py-12">Aucune diffusion en direct pour le moment.</p>
+      </section>
+
+      <!-- À venir -->
+      <section>
+        <div class="flex items-center justify-between mb-6 relative animate-fade-up" style="animation-delay:400ms">
+          <div class="absolute left-0 top-0 h-14 w-[3px] bg-gradient-to-b from-violet-600 via-violet-600/60 to-transparent rounded-full"></div>
+          <div class="ml-6">
+            <div class="flex items-center gap-2.5 mb-2">
+              <svg class="w-3.5 h-3.5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span class="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-400">Bientôt en direct</span>
+            </div>
+            <h2 class="text-lg md:text-2xl font-bold tracking-tight">Diffusions à venir</h2>
+          </div>
+        </div>
+        <div id="upcomingGrid" class="lkz-grid animate-fade-up" style="animation-delay:500ms"></div>
+        <p id="upcomingEmpty" class="hidden text-center text-muted-foreground text-sm py-12">Aucune diffusion à venir.</p>
+      </section>
+
+      <!-- Demain -->
+      <section>
+        <div class="flex items-center justify-between mb-6 relative animate-fade-up" style="animation-delay:600ms">
+          <div class="absolute left-0 top-0 h-14 w-[3px] bg-gradient-to-b from-primary via-primary/60 to-transparent rounded-full"></div>
+          <div class="ml-6">
+            <div class="flex items-center gap-2.5 mb-2">
+              <span class="relative flex h-2 w-2">
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+              </span>
+              <span class="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary" id="tomorrowEyebrow">Demain</span>
+            </div>
+            <h2 class="text-lg md:text-2xl font-bold tracking-tight" id="tomorrowTitle">Diffusions de demain</h2>
+          </div>
+        </div>
+        <div id="tomorrowGrid" class="lkz-grid animate-fade-up" style="animation-delay:700ms"></div>
+        <p id="tomorrowEmpty" class="hidden text-center text-muted-foreground text-sm py-12">Aucune diffusion programmée pour demain.</p>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/match-data.js"></script>
+  <script src="js/lkz-remote-config.js"></script>
+  <script src="js/lkz-loader.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
