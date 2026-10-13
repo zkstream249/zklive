@@ -1,458 +1,695 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="no-referrer-when-downgrade"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta name="theme-color" content="#0a0a0a">
 
-  <!-- ✅ Titre -->
-  <title>HUNI STREAM | N°1 DE LA DIFFUSION FR</title>
+  <!-- ═══════════ SEO ═══════════ -->
+  <title>HUNI STREAM | N°1 de la diffusion sportive en direct</title>
+  <meta name="description" content="HUNI STREAM : regardez tous les matchs de foot en direct et en streaming gratuit. Scores, résultats et compétitions en HD, sans inscription ni attente.">
+  <meta name="keywords" content="streaming foot, match en direct, HUNI STREAM, beIN Sports, Ligue 1, Premier League, Champions League, streaming gratuit">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="author" content="HUNI STREAM">
+  <link rel="canonical" href="https://hunisport.vercel.app/">
 
-  <!-- ✅ SEO -->
-  <meta name="description" content="HUNI STREAM : matchs, scores et résultats en direct.">
-  <meta name="robots" content="index,follow">
-
-  <!-- ✅ Favicon simple (sans fichiers à upload) -->
+  <!-- ═══════════ FAVICON ═══════════ -->
   <link rel="icon" href="https://clipart-library.com/images/BTgr6L5kc.jpg">
+  <link rel="apple-touch-icon" href="https://clipart-library.com/images/BTgr6L5kc.jpg">
 
-  <!-- ✅ Preview partage (OG) -->
+  <!-- ═══════════ PRÉCONNEXIONS (perf) ═══════════ -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://hunisport.vercel.app">
+
+  <!-- ═══════════ OPEN GRAPH ═══════════ -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="HUNI STREAM — 100% Des Matchs en direct">
-  <meta property="og:description" content="Regardez le meilleur du sport en direct et en streaming gratuit sur VØRTEX !
-Profitez des matchs, compétitions et grands événements sportifs en haute définition, sans inscription ni attente..">
-  <meta property="og:url" content="https://imftxlive-five.vercel.app">
+  <meta property="og:site_name" content="HUNI STREAM">
+  <meta property="og:title" content="HUNI STREAM — 100% des matchs en direct">
+  <meta property="og:description" content="Regardez le meilleur du sport en direct et en streaming gratuit sur HUNI STREAM. Matchs, compétitions et grands événements en HD, sans inscription.">
+  <meta property="og:url" content="https://hunisport.vercel.app/">
   <meta property="og:image" content="https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-plus-icon-png-image_4254480.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="fr_FR">
 
-  <!-- ✅ Preview partage (Twitter/X) -->
+  <!-- ═══════════ TWITTER / X ═══════════ -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HUNI STREAM — 100% Des Matchs en direct">
-  <meta name="twitter:description" content="Regardez le meilleur du sport en direct et en streaming gratuit sur VØRTEX STREAM !
-Profitez des matchs, compétitions et grands événements sportifs en haute définition, sans inscription ni attente.">
+  <meta name="twitter:site" content="@lerato_matsose">
+  <meta name="twitter:title" content="HUNI STREAM — 100% des matchs en direct">
+  <meta name="twitter:description" content="Regardez le meilleur du sport en streaming gratuit sur HUNI STREAM. HD, sans inscription, sans attente.">
   <meta name="twitter:image" content="https://png.pngtree.com/png-clipart/20190516/original/pngtree-vector-plus-icon-png-image_4254480.jpg">
-<meta name="google-site-verification" content="a5zOVxQIw-x0KxGB8lTIsVtA6nDYKID5Czj5xGd5On8" />
-  <meta name="msvalidate.01" content="7AE286133A327961D5D20E0C731C190F" />
-  <!-- ✅ ensuite tu laisses TOUS tes scripts/style comme tu avais -->
 
+  <!-- ═══════════ VÉRIFICATIONS ═══════════ -->
+  <meta name="google-site-verification" content="a5zOVxQIw-x0KxGB8lTIsVtA6nDYKID5Czj5xGd5On8">
+  <meta name="msvalidate.01" content="7AE286133A327961D5D20E0C731C190F">
+
+  <!-- ═══════════ JSON-LD ═══════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "HUNI STREAM",
+    "url": "https://hunisport.vercel.app/",
+    "description": "Streaming sportif en direct et gratuit.",
+    "inLanguage": "fr-FR",
+    "publisher": {
+      "@type": "Organization",
+      "name": "HUNI STREAM"
+    }
+  }
+  </script>
+
+  <!-- ═══════════ LIBRAIRIES ═══════════ -->
   <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest" url="https://google.com"></script>
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     window.tailwind = window.tailwind || {};
     tailwind.config = { darkMode: 'class' };
   </script>
 
+  <!-- ═══════════ THÈME (avant rendu → anti-flash) ═══════════ -->
   <script>
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    }
+    (function () {
+      try {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/nprogress/nprogress.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/nprogress/nprogress.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
- 
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    #nprogress .bar { top: 64px !important; }
+    /* ═══════════ BASE ═══════════ */
+    :root {
+      --accent: #5865F2;
+      --live: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ED4245;
+    }
+
+    #nprogress .bar { top: 64px !important; background: var(--accent) !important; }
     #nprogress .spinner { top: 75px !important; }
+    #nprogress .peg { box-shadow: 0 0 10px var(--accent), 0 0 5px var(--accent) !important; }
 
     html, body { font-family: 'Outfit', sans-serif; }
+    html { scroll-behavior: smooth; }
 
-    /* ✅ BACKGROUND IMAGE GLOBAL */
-    body{
-      display:flex;
-      flex-direction:column;
+    /* ═══════════ BACKGROUND ═══════════ */
+    body {
+      display: flex;
+      flex-direction: column;
       min-height: 100vh;
-      background-image: url("https://thumb.canalplus.pro/bran/unsafe/2560x668/filters:quality(80)/image/695f89b989950/uploads/media/myCANAL_Cover_web_2760x720_47.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      background: #050505 url("https://thumb.canalplus.pro/bran/unsafe/2560x668/filters:quality(80)/image/695f89b989950/uploads/media/myCANAL_Cover_web_2760x720_47.jpg") center/cover no-repeat fixed;
       color: #fff;
+      overflow-x: hidden;
     }
-    /* overlay léger pour lisibilité */
-    body::before{
-      content:"";
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.55);
+      background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.70) 100%);
       pointer-events: none;
       z-index: 0;
     }
-    body > *{ position: relative; z-index: 1; }
-    button *{ pointer-events:none; }
+    body > * { position: relative; z-index: 1; }
+    button * { pointer-events: none; }
 
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    /* ═══════════ SCROLLBAR ═══════════ */
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb{
-      background-color: rgba(100, 100, 100, 0.4);
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(120, 120, 120, .45);
       border-radius: 10px;
       border: 2px solid transparent;
       background-clip: content-box;
     }
-    ::-webkit-scrollbar-thumb:hover { background-color: rgba(100, 100, 100, 0.6); }
-    *{ scrollbar-width: thin; scrollbar-color: rgba(100, 100, 100, 0.4) transparent; }
-    ::selection { background-color: #444; color: white; }
+    ::-webkit-scrollbar-thumb:hover { background-color: rgba(120, 120, 120, .7); }
+    * { scrollbar-width: thin; scrollbar-color: rgba(120,120,120,.45) transparent; }
+    ::selection { background: var(--accent); color: #fff; }
 
-    /* ===== Intro / Pop-up (Twitter) ===== */
-    .gate{
+    /* ═══════════ FOCUS ═══════════ */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 8px;
+    }
+    button:focus:not(:focus-visible) { outline: none; }
+
+    /* ═══════════ ANIMATIONS ═══════════ */
+    @keyframes gateFadeIn {
+      from { opacity: 0; transform: scale(.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes livePulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(34,197,94,.16); }
+      50% { box-shadow: 0 0 0 8px rgba(34,197,94,.05); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .4s ease both; }
+
+    /* ═══════════ GATE (popup) ═══════════ */
+    .gate {
       position: fixed;
       inset: 0;
       z-index: 9999;
       display: grid;
       place-items: center;
       padding: 18px;
-      background: rgba(0,0,0,.75);
-      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      animation: gateFadeIn .35s ease;
     }
-    .gate-card{
+    .gate-card {
       width: min(980px, 100%);
-      border-radius: 18px;
+      border-radius: 20px;
       border: 1px solid rgba(255,0,0,.55);
-      box-shadow: 0 30px 120px rgba(0,0,0,.65);
+      box-shadow: 0 30px 120px rgba(0,0,0,.7);
       background:
-        radial-gradient(900px 420px at 50% 30%, rgba(255,0,0,.18), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+        radial-gradient(900px 420px at 50% 30%, rgba(255,0,0,.20), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
       overflow: hidden;
     }
-    .gate-inner{
-      padding: 26px 24px 22px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      text-align:center;
+    .gate-inner {
+      padding: 28px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       gap: 14px;
     }
-    .gate-avatar{
+    .gate-avatar {
       width: 92px;
       height: 92px;
-      border-radius: 18px;
+      border-radius: 20px;
       object-fit: cover;
       box-shadow: 0 14px 55px rgba(0,0,0,.55);
       border: 1px solid rgba(255,255,255,.10);
     }
-    .gate-title{
-      font-size: 46px;
+    .gate-title {
+      font-size: clamp(34px, 6vw, 46px);
       font-weight: 900;
       letter-spacing: .04em;
-      color:#fff;
+      color: #fff;
       text-transform: uppercase;
       line-height: 1;
       margin-top: 6px;
+      background: linear-gradient(180deg, #fff 40%, #bbb 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .gate-text{
+    .gate-text {
       color: rgba(255,255,255,.85);
-      font-weight: 700;
+      font-weight: 600;
       font-size: 16px;
-      line-height: 1.35;
+      line-height: 1.45;
       max-width: 720px;
     }
-    .gate-btn{
+    .gate-btn {
       width: min(720px, 100%);
       height: 56px;
       border-radius: 999px;
-      background: #ff0000;
-      color:#fff;
+      background: linear-gradient(180deg, #ff2b2b, #cc0000);
+      color: #fff;
       font-weight: 900;
       letter-spacing: .06em;
       text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 20px 70px rgba(255,0,0,.22);
-      transition: transform .15s ease, filter .15s ease;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 20px 70px rgba(255,0,0,.30), inset 0 1px 0 rgba(255,255,255,.15);
+      transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       gap: 10px;
+      text-decoration: none;
+      font-size: 14px;
     }
-    .gate-btn:hover{ filter: brightness(1.06); }
-    .gate-btn:active{ transform: scale(.985); }
-    .gate-skip{
+    .gate-btn:hover { filter: brightness(1.08); box-shadow: 0 24px 80px rgba(255,0,0,.4), inset 0 1px 0 rgba(255,255,255,.2); }
+    .gate-btn:active { transform: scale(.985); }
+    .gate-skip {
       margin-top: 6px;
       font-size: 12px;
       color: rgba(255,255,255,.55);
       text-decoration: underline;
       cursor: pointer;
       user-select: none;
+      transition: color .15s;
     }
+    .gate-skip:hover { color: rgba(255,255,255,.85); }
 
-    /* ✅ Logo center (sans bannière) */
-    .logo-wrap{
-      width: 100%;
-      max-width: 1536px;
-      margin: 0 auto;
-      padding: 18px 20px 0;
-    }
-    .logo-center{
-      width: 100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-top: 10px;
-      margin-bottom: 18px;
-    }
-    .logo-center img{
-      width: min(820px, 92%);
-      height: clamp(90px, 10vw, 140px);
-      object-fit: contain;
-      display:block;
-    }
-
-    /* ✅ Sections glass */
-    .glass-section{
-      border-radius: 16px;
+    /* ═══════════ SECTIONS GLASS ═══════════ */
+    .glass-section {
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.35);
-      backdrop-filter: blur(14px);
+      background: rgba(0,0,0,.38);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       box-shadow: 0 18px 70px rgba(0,0,0,.45);
+      padding: 24px;
+      animation: fadeUp .4s ease both;
+    }
+    @media (max-width: 640px) {
+      .glass-section { padding: 16px; border-radius: 14px; }
     }
 
-    /* --------- Match Cards --------- */
-    .match-card{
-      position:relative;
-      overflow:hidden;
+    /* ═══════════ MATCH CARDS ═══════════ */
+    .match-card {
+      position: relative;
+      overflow: hidden;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
       box-shadow: 0 18px 70px rgba(0,0,0,.45);
       aspect-ratio: 16 / 9;
+      transition: transform .3s cubic-bezier(.2,.9,.3,1),
+                  border-color .3s ease,
+                  box-shadow .3s ease;
+      will-change: transform;
     }
-    .match-bg{ position:absolute; inset:0; background-size:cover; background-position:center; transform:scale(1.02); opacity:.96; }
-    .match-overlay{
-      position:absolute; inset:0;
+    .match-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.25);
+      box-shadow: 0 26px 90px rgba(0,0,0,.6), 0 0 0 1px rgba(88,101,242,.3);
+    }
+    .match-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.02);
+      transition: transform .5s cubic-bezier(.2,.9,.3,1);
+      opacity: .96;
+    }
+    .match-card:hover .match-bg { transform: scale(1.08); }
+    .match-overlay {
+      position: absolute;
+      inset: 0;
       background:
         radial-gradient(700px 320px at 28% 55%, rgba(0,0,0,.35), transparent 60%),
-        linear-gradient(90deg, rgba(0,0,0,.70) 0%, rgba(0,0,0,.45) 45%, rgba(0,0,0,.10) 100%);
+        linear-gradient(90deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.45) 45%, rgba(0,0,0,.10) 100%);
     }
 
-    .timer-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(18,18,18,.62);
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter: blur(8px);
-      font-weight:800;
-      font-size:12px;
-      line-height:1;
+    /* ═══════════ TIMER PILL ═══════════ */
+    .timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(18,18,18,.68);
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-weight: 800;
+      font-size: 12px;
+      line-height: 1;
       color: rgba(255,255,255,.92);
       white-space: nowrap;
     }
-    .timer-dot{
-      width:8px;height:8px;border-radius:999px;background:#f59e0b;
-      box-shadow:0 0 0 3px rgba(245,158,11,.12);
+    .timer-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--warning);
+      box-shadow: 0 0 0 3px rgba(245,158,11,.12);
+      flex-shrink: 0;
     }
-    .timer-text{ font-variant-numeric: tabular-nums; }
-    .timer-live{ color:#22c55e !important; }
-    .timer-dot-live{
-      background:#22c55e !important;
-      box-shadow:0 0 0 3px rgba(34,197,94,.16) !important;
+    .timer-text { font-variant-numeric: tabular-nums; }
+    .timer-live { color: var(--live) !important; font-weight: 900; }
+    .timer-dot-live {
+      background: var(--live) !important;
+      box-shadow: 0 0 0 3px rgba(34,197,94,.16) !important;
+      animation: livePulse 1.4s ease-in-out infinite;
     }
 
-    .team-logo{ width:30px;height:30px; display:flex;align-items:center;justify-content:center; flex:0 0 auto; }
-    .team-logo img{ width:100%; height:100%; object-fit:contain; display:block; filter: drop-shadow(0 1px 0 rgba(0,0,0,.35)); }
-    .vs{ font-weight:800; font-size:12px; color: rgba(255,255,255,.68); letter-spacing:.02em; }
-    .comp-wrap{ width:26px;height:26px; display:flex;align-items:center;justify-content:center; flex:0 0 auto; }
-    .comp-wrap img{ width:100%; height:100%; object-fit:contain; filter: drop-shadow(0 1px 0 rgba(0,0,0,.35)); }
+    /* ═══════════ TEAM LOGOS ═══════════ */
+    .team-logo { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+    .team-logo img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+    .vs { font-weight: 800; font-size: 12px; color: rgba(255,255,255,.68); letter-spacing: .02em; }
+    .comp-wrap { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+    .comp-wrap img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
 
-    .match-title{ font-size:15px; font-weight:500; line-height:1.15; color: rgba(255,255,255,.92); }
-    .match-sub{ font-size:12px; font-weight:600; color: rgba(255,255,255,.70); line-height:1.25; }
+    .match-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.15;
+      color: rgba(255,255,255,.96);
+      text-shadow: 0 1px 4px rgba(0,0,0,.5);
+    }
+    .match-sub {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,.72);
+      line-height: 1.25;
+    }
 
-    .watch-pill{
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
+    /* ═══════════ WATCH PILL ═══════════ */
+    .watch-pill {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.10);
-      backdrop-filter: blur(10px);
-      color:#fff;
-      font-weight:800;
-      font-size:12px;
-      padding:.42rem .70rem;
-      display:inline-flex;
-      align-items:center;
-      gap:.45rem;
-      transition: transform .15s ease, background .15s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #fff;
+      font-weight: 800;
+      font-size: 12px;
+      padding: .45rem .75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
       white-space: nowrap;
     }
-    .watch-pill:hover{ background: rgba(255,255,255,.14); }
-    .watch-pill:active{ transform: scale(.98); }
-    .play{
-      width:26px;height:26px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      display:grid; place-items:center;
-      background: rgba(0,0,0,.20);
+    .match-card:hover .watch-pill {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.03);
+    }
+    .play {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,.25);
     }
 
-    @media (max-width: 640px){
-      .gate-title{ font-size: 40px; }
+    /* ═══════════ FAVORI ═══════════ */
+    .fav-btn {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.15);
+      display: grid;
+      place-items: center;
+      color: rgba(255,255,255,.7);
+      cursor: pointer;
+      transition: all .2s ease;
+      z-index: 2;
+      font-size: 16px;
     }
+    .fav-btn:hover { color: #fbbf24; background: rgba(251,191,36,.15); border-color: rgba(251,191,36,.4); }
+    .fav-btn.active { color: #fbbf24; }
 
-    /* ══════════════════════════════
-       TV LIVE — section chaînes
-    ══════════════════════════════ */
+    /* ═══════════ BARRE DE RECHERCHE ═══════════ */
+    .search-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      height: 42px;
+      padding: 0 14px 0 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: all .2s ease;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23ffffff99' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 14px center;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      background-color: rgba(255,255,255,.09);
+      box-shadow: 0 0 0 3px rgba(88,101,242,.2);
+    }
+    .search-input::placeholder { color: rgba(255,255,255,.45); }
+
+    /* ═══════════ TV LIVE ═══════════ */
     .tv-section-label {
-      font-size: 13px; font-weight: 800;
+      font-size: 13px;
+      font-weight: 800;
       color: rgba(255,255,255,.60);
-      text-transform: uppercase; letter-spacing: .09em;
+      text-transform: uppercase;
+      letter-spacing: .09em;
       margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .tv-carousel-wrap { display: flex; align-items: center; gap: 8px; }
     .tv-row {
-      display: flex; align-items: center; gap: 12px;
-      overflow-x: auto; flex: 1;
-      scrollbar-width: none; padding: 4px 2px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;
+      flex: 1;
+      scrollbar-width: none;
+      padding: 4px 2px;
+      scroll-behavior: smooth;
     }
     .tv-row::-webkit-scrollbar { display: none; }
 
     .tv-car-btn {
-      flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%;
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.55);
-      color: rgba(255,255,255,.65); font-size: 18px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: all .2s;
+      color: rgba(255,255,255,.65);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .2s ease;
     }
-    .tv-car-btn:hover { background: rgba(255,255,255,.14); color: #fff; }
+    .tv-car-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .tv-car-btn:active { transform: scale(.9); }
 
-    .tv-card{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  flex:0 0 auto;
-  text-decoration:none;
-  cursor:pointer;
-  background:transparent !important;
-  border:none !important;
-  box-shadow:none !important;
-}
-
-.tv-card-inner{
-  width:120px;
-  height:78px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:12px;
-  background:transparent !important;
-  border:none !important;
-  box-shadow:none !important;
-  overflow:hidden;
-  padding:8px;
-  transition:transform .2s ease;
-}
-
-.tv-card:hover .tv-card-inner{
-  transform:translateY(-3px);
-}
-
-.tv-card-inner img{
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-  display:block;
-  background:transparent !important;
-}
-
-.tv-card-name{
-  font-size:11px;
-  font-weight:700;
-  color:rgba(255,255,255,.65);
-  text-align:center;
-  white-space:nowrap;
-  background:transparent !important;
-}
+    .tv-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .tv-card-inner {
+      width: 120px;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 8px;
+      transition: transform .25s ease;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .tv-card:hover .tv-card-inner {
+      transform: translateY(-4px);
+      background: rgba(88,101,242,.15);
+      border-color: rgba(88,101,242,.4);
+    }
+    .tv-card-inner img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+    .tv-card-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,.65);
+      text-align: center;
+      white-space: nowrap;
     }
     .tv-empty {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 16px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.08);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px dashed rgba(255,255,255,.15);
       background: rgba(255,255,255,.03);
-      font-size: 13px; color: rgba(255,255,255,.38);
+      font-size: 13px;
+      color: rgba(255,255,255,.45);
+    }
+
+    /* ═══════════ SCROLL TOP ═══════════ */
+    #scrollTop {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(88,101,242,.4);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: all .3s ease;
+      z-index: 50;
+      font-size: 22px;
+    }
+    #scrollTop.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    #scrollTop:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(88,101,242,.55); }
+
+    /* ═══════════ MENU MOBILE ═══════════ */
+    #mobileMenu {
+      position: fixed;
+      top: 64px;
+      right: 0;
+      bottom: 0;
+      width: 260px;
+      background: rgba(10,10,10,.95);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(255,255,255,.1);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 40;
+      transform: translateX(100%);
+      transition: transform .3s ease;
+    }
+    #mobileMenu.open { transform: translateX(0); }
+    #mobileMenu a {
+      color: rgba(255,255,255,.9);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      transition: background .2s;
+    }
+    #mobileMenu a:hover { background: rgba(255,255,255,.08); }
+
+    /* ═══════════ LIVE BADGE ═══════════ */
+    .live-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--live);
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34,197,94,.12);
+      border: 1px solid rgba(34,197,94,.3);
+    }
+    .live-count .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--live);
+      animation: livePulse 1.4s ease-in-out infinite;
     }
   </style>
 </head>
 
 <body data-page="index" class="text-white flex flex-col font-[Outfit] transition-colors duration-200">
-<noscript>You need to enable JavaScript to run this website.</noscript>
-<!-- POP-UP TWITTER -->
-<div id="gate" class="gate" style="display:none">
+<noscript>Vous devez activer JavaScript pour utiliser ce site.</noscript>
+
+<!-- ═══════════ POPUP GATE ═══════════ -->
+<div id="gate" class="gate" style="display:none" role="dialog" aria-modal="true" aria-labelledby="gate-title">
   <div class="gate-card">
     <div class="gate-inner">
-      <img class="gate-avatar" src="https://pbs.twimg.com/profile_images/1610301960493703168/rDZ9v5xZ_400x400.jpg" alt="ZFMA">
-      <div class="gate-title">HUNI STREAM</div>
+      <img class="gate-avatar" src="https://pbs.twimg.com/profile_images/1610301960493703168/rDZ9v5xZ_400x400.jpg" alt="HUNI STREAM">
+      <div id="gate-title" class="gate-title">HUNI STREAM</div>
       <div class="gate-text">
-      NOUVEAU TWITTER <b>VØRTEX STREAM</b> Pour regarder le matchs !  :<br>
-        <b>Rejoins Le nouveaux site</b>, 👇 ✅
+        🔥 <b>NOUVEAU !</b> Rejoins HUNI STREAM pour regarder tous les matchs en direct.<br>
+        <b>Suis-nous pour ne rien manquer</b> 👇
       </div>
-      <a class="gate-btn" href="https://x.com/lerato_matsose" target="_blank" rel="noopener">
-          NOUVEAUX LIEN HUNI STREAM
+      <a class="gate-btn" href="https://x.com/lerato_matsose" target="_blank" rel="noopener noreferrer">
+        🚀 VOIR HUNI STREAM
       </a>
-      <div id="gateSkip" class="gate-skip">J’ai déjà fait</div>
+      <div id="gateSkip" class="gate-skip" role="button" tabindex="0">J'ai déjà fait</div>
     </div>
   </div>
 </div>
 
-<!-- NAV -->
-<nav class="sticky top-0 z-10 backdrop-blur-xl border-b border-white/10 shadow-sm bg-black/30">
-  <div class="max-w-screen-2xl mx-auto py-2 px-5 md:px-24 h-16 flex items-center justify-between">
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="sticky top-0 z-30 backdrop-blur-xl border-b border-white/10 shadow-sm bg-black/40">
+  <div class="max-w-screen-2xl mx-auto py-2 px-5 md:px-24 h-16 flex items-center justify-between gap-3">
 
-    <button id="burgerBtn" class="flex md:hidden w-11 h-11 items-center justify-center rounded-md backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200" aria-label="Menu">
+    <button id="burgerBtn" class="flex md:hidden w-11 h-11 items-center justify-center rounded-md backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200" aria-label="Ouvrir le menu">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
     </button>
 
-    <!-- ✅ visible TEL + PC -->
-    <button id="nav-pfp" type="button" class="h-11 flex items-center gap-1">
-      <div class="text-3xl font-extrabold tracking-tight text-white">VØRTEX STREAM</div>
-    </button>
+    <a href="/" class="h-11 flex items-center gap-1 no-underline">
+      <div class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">HUNI STREAM</div>
+    </a>
 
-    <div class="h-11 flex items-center gap-2 md:gap-4 text-xl">
-      <div class="relative flex group">
-        <a href="/shop"
-           class="md:hidden h-11 px-3 flex items-center justify-center rounded-md backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
-           aria-label="IPTV">
-          <span class="text-sm font-extrabold tracking-wide">IPTV</span>
-        </a>
+    <div class="h-11 flex items-center gap-2 md:gap-3">
+      <a href="/shop.html"
+         class="h-11 px-4 flex items-center justify-center rounded-xl backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200 no-underline"
+         aria-label="IPTV">
+        <span class="text-sm font-extrabold tracking-wide">IPTV</span>
+      </a>
 
-        <a href="/shop.html"
-           class="hidden md:flex w-auto h-11 px-3 items-center justify-center rounded-md backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200">
-          <span class="text-sm font-semibold"></span>
-        </a>
-      </div>
-
-      <a id="nav-btn-telegram" href="#" target="_blank"
-         class="hidden md:flex w-11 h-11 items-center justify-center rounded-md backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
+      <a id="nav-btn-telegram" href="#" target="_blank" rel="noopener noreferrer"
+         class="hidden md:flex w-11 h-11 items-center justify-center rounded-xl backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
          aria-label="Telegram">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
           <path d="M9.04 15.31 8.9 19.5c.57 0 .82-.25 1.12-.55l2.69-2.57 5.58 4.08c1.02.56 1.75.27 2-.94L23.9 4.7c.31-1.44-.55-2-1.56-1.63L1.55 10.86c-1.41.55-1.39 1.34-.24 1.7l5.32 1.66L19.1 6.5c.59-.39 1.13-.18.69.21"/>
         </svg>
       </a>
 
-      <a id="nav-btn-discord" href="https://discord.gg/WrWkXY8qm3" target="_blank"
-         class="hidden md:flex w-11 h-11 items-center justify-center rounded-md backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
+      <a id="nav-btn-discord" href="https://discord.gg/U7sf6vSM2M" target="_blank" rel="noopener noreferrer"
+         class="hidden md:flex w-11 h-11 items-center justify-center rounded-xl backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
          aria-label="Discord">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04 .106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028ZM8.02 15.332c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.955 2.419-2.157 2.419Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.946 2.419-2.157 2.419Z"/>
+          <path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028ZM8.02 15.332c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.955 2.419-2.157 2.419Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.946 2.419-2.157 2.419Z"/>
         </svg>
       </a>
 
-      <a id="nav-btn-twitter" href="https://x.com/lerato_matsose" target="_blank"
-         class="hidden md:flex w-11 h-11 items-center justify-center rounded-md backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
-         aria-label="X">
+      <a id="nav-btn-twitter" href="https://x.com/lerato_matsose" target="_blank" rel="noopener noreferrer"
+         class="hidden md:flex w-11 h-11 items-center justify-center rounded-xl backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
+         aria-label="X (Twitter)">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2H21l-6.52 7.455L22.5 22h-6.91l-5.41-7.046L4.18 22H1.42l7.01-8.02L1.5 2h7.09l4.89 6.34L18.244 2Zm-1.21 18h1.53L7.76 3.89H6.12L17.03 20Z"/>
         </svg>
       </a>
 
       <button id="theme-toggle"
-              class="w-11 h-11 flex items-center justify-center rounded-md backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
+              class="w-11 h-11 flex items-center justify-center rounded-xl backdrop-blur-md ring-1 ring-white/15 hover:bg-white/10 active:scale-95 transition-all duration-200"
               aria-label="Changer le thème">
-        <svg id="icon-sun" class="w-6 h-6 hidden dark:block" viewBox="0 0 24 24" fill="currentColor">
+        <svg class="w-6 h-6 hidden dark:block" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16h1v3h-1V2Zm0 19h1v3h-1v-3ZM2 12h3v1H2v-1Zm19 0h3v1h-3v-1ZM4.22 4.22l2.12 2.12-.7.7L3.52 4.92l.7-.7Zm14.02 14.02 2.12 2.12-.7.7-2.12-2.12.7-.7ZM19.78 4.22l.7.7-2.12 2.12-.7-.7 2.12-2.12ZM5.64 17.66l.7.7-2.12 2.12-.7-.7 2.12-2.12Z"/>
         </svg>
-        <svg id="icon-moon" class="w-6 h-6 block dark:hidden" viewBox="0 0 24 24" fill="currentColor">
+        <svg class="w-6 h-6 block dark:hidden" viewBox="0 0 24 24" fill="currentColor">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
         </svg>
       </button>
@@ -460,37 +697,59 @@ Profitez des matchs, compétitions et grands événements sportifs en haute déf
   </div>
 </nav>
 
-<!-- ══ TV LIVE ══ -->
+<!-- ═══════════ MENU MOBILE ═══════════ -->
+<div id="mobileMenu" aria-hidden="true">
+  <a href="/shop.html">🛒 IPTV</a>
+  <a href="https://discord.gg/U7sf6vSM2M" target="_blank" rel="noopener noreferrer">💬 Discord</a>
+  <a href="https://x.com/lerato_matsose" target="_blank" rel="noopener noreferrer">🐦 Twitter / X</a>
+  <a href="#" id="mobileTelegram">✈️ Telegram</a>
+</div>
+
+<!-- ═══════════ TV LIVE ═══════════ -->
 <div class="max-w-screen-2xl mx-auto w-full md:px-24 px-5 mt-10 mb-2">
-  <div class="tv-section-label">TV Live</div>
+  <div class="tv-section-label">📡 TV Live</div>
   <div class="tv-carousel-wrap">
-    <button class="tv-car-btn" id="tvCarLeft">‹</button>
+    <button class="tv-car-btn" id="tvCarLeft" aria-label="Défiler à gauche">‹</button>
     <div class="tv-row" id="tvLiveRow">
-      <div class="tv-empty">📡&nbsp; TV Live indisponible ! </div>
+      <div class="tv-empty">📡&nbsp; TV Live indisponible !</div>
     </div>
-    <button class="tv-car-btn" id="tvCarRight">›</button>
+    <button class="tv-car-btn" id="tvCarRight" aria-label="Défiler à droite">›</button>
   </div>
 </div>
-<!-- CONTENT -->
-<div class="my_container max-w-screen-2xl mx-auto h-full w-full flex flex-grow flex-col md:px-24 px-5 transition-all duration-300 ease-out">
-  <div class="w-full flex flex-col gap-12 mt-6 pb-10">
 
-    <section class="glass-section p-6 w-full">
-      <div class="flex items-center justify-between mb-6">
+<!-- ═══════════ CONTENU ═══════════ -->
+<div class="my_container max-w-screen-2xl mx-auto h-full w-full flex flex-grow flex-col md:px-24 px-5 transition-all duration-300 ease-out">
+  <div class="w-full flex flex-col gap-10 mt-6 pb-10">
+
+    <!-- ═══ AUJOURD'HUI ═══ -->
+    <section class="glass-section w-full">
+      <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
         <div class="flex items-center gap-3">
           <div class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.7)]"></div>
-          <h2 class="text-xl font-bold text-white">AUJOURD’HUI</h2>
+          <h2 class="text-xl font-bold text-white">AUJOURD'HUI</h2>
+          <span id="liveCount" class="live-count" style="display:none">
+            <span class="dot"></span>
+            <span id="liveCountText">0</span> en direct
+          </span>
         </div>
 
         <button type="button" id="refreshBtn"
-          class="flex items-center justify-center w-9 h-9 rounded-xl bg-green-500/90 hover:bg-green-500 text-black transition-all duration-200 active:scale-95 shadow-md"
-          aria-label="Rafraîchir">↻</button>
+          class="flex items-center justify-center gap-2 h-9 px-3 rounded-xl bg-green-500/90 hover:bg-green-500 text-black font-bold text-sm transition-all duration-200 active:scale-95 shadow-md"
+          aria-label="Rafraîchir">
+          <span id="refreshIcon">↻</span>
+          Rafraîchir
+        </button>
+      </div>
+
+      <div class="search-bar">
+        <input type="search" id="searchInput" class="search-input" placeholder="Rechercher un match ou une équipe...">
       </div>
 
       <div id="stream-list-principal" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
     </section>
 
-    <section class="glass-section p-6 w-full">
+    <!-- ═══ DEMAIN ═══ -->
+    <section class="glass-section w-full">
       <div class="flex items-center gap-3 mb-6">
         <div class="w-3 h-3 rounded-full bg-zinc-500"></div>
         <h2 class="text-xl font-bold text-white">DEMAIN</h2>
@@ -502,80 +761,138 @@ Profitez des matchs, compétitions et grands événements sportifs en haute déf
   </div>
 </div>
 
+<!-- ═══════════ SCROLL TOP ═══════════ -->
+<button id="scrollTop" aria-label="Remonter en haut">↑</button>
+
 <script>
-  // ===== Gate (Twitter pop-up) =====
-  const GATE_KEY = "imftx_gate_done_v1";
-  const gate = document.getElementById("gate");
-  const gateSkip = document.getElementById("gateSkip");
+  /* ═══════════════════════════════════════════════════
+     GATE (popup)
+  ═══════════════════════════════════════════════════ */
+  (function () {
+    const GATE_KEY = 'huni_gate_done_v2';
+    const gate = document.getElementById('gate');
+    const gateSkip = document.getElementById('gateSkip');
 
-  function showGate(){
-    if(!gate) return;
-    gate.style.display = "grid";
-    document.body.style.overflow = "hidden";
-  }
-  function hideGate(){
-    if(!gate) return;
-    gate.style.display = "none";
-    document.body.style.overflow = "";
-    localStorage.setItem(GATE_KEY, "1");
-  }
-  if (!localStorage.getItem(GATE_KEY)) showGate();
-  gateSkip?.addEventListener("click", hideGate);
-
-  // -------- Theme toggle --------
-  const toggle = document.getElementById('theme-toggle');
-  function setTheme(mode){
-    if(mode === 'dark'){
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme','dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme','light');
+    function showGate() {
+      if (!gate) return;
+      gate.style.display = 'grid';
+      document.body.style.overflow = 'hidden';
+      // Focus sur le bouton pour accessibilité
+      setTimeout(() => gate.querySelector('.gate-btn')?.focus(), 100);
     }
-  }
-  toggle?.addEventListener('click', () => {
-    const isDark = document.documentElement.classList.contains('dark');
-    setTheme(isDark ? 'light' : 'dark');
-  });
+    function hideGate() {
+      if (!gate) return;
+      gate.style.display = 'none';
+      document.body.style.overflow = '';
+      try { localStorage.setItem(GATE_KEY, '1'); } catch (e) {}
+    }
 
-  /* ══ MATCHES_TODAY (copier dans index.html) ══ */
-/* Matchs Aujourd hui */
-var MATCHES_TODAY = [
-  {
-    title:"Barcelone vs Galatasaray", time:"21:00",
-    banner:"https://www.google.com/imgres?q=barcelone%20vs%20galatasaray&imgurl=https%3A%2F%2Fthumb.canalplus.pro%2Fhttp%2Funsafe%2F1440x810%2Ffilters%3Aquality(80)%2Fmht.images.prod.siec.canal.aws.io-cplus.net%2Fprogram%2F1321224%2F116%2F1321224_116-c69623a3-bd6c-4c55-b00c-88b076316f75.jpg&imgrefurl=https%3A%2F%2Fwww.canalplus.com%2Fsport%2Fgalatasaray-fc-barcelone%2Fh%2F32235781_50001&docid=HpwqLYm4-39HdM&tbnid=FnAxtnMK7Ku5ZM&vet=12ahUKEwjQ1Y3stLWXAxUzhf0HHbMDAmwQnPAOegQIWBAA..i&w=1440&h=810&hcb=2&ved=2ahUKEwjQ1Y3stLWXAxUzhf0HHbMDAmwQnPAOegQIWBAA",
-    aLogo:"https://ssl.gstatic.com/onebox/media/sports/logos/optimized/paYnEE8hcrP96neHRNofhQ_48x48.png",
-    bLogo:"https://ssl.gstatic.com/onebox/media/sports/logos/optimized/XjWqAG8vQD_B6ffzIOan6g_48x48.png",
-    compLogo:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAQlBMVEVHcEwCMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv9hV9DCAAAAFXRSTlMABkoYcKLQDiuwWIrCZeM0fpkhPfMc7vRrAAABoklEQVRYCe3BR7LbMBBAwYc4yADD3P+qpv5etsiN7Sp18/X19T+YtoTseK6q6vCJZ6breShgYo7cJ1oMe+Ol6cZtsXLxvJyqi5uSGi56gF390M1wj5286Jl1A3zhrgWkoKqRF8tdZ2hl6MXz0rkpqyYweimADcI9UzOX0bChzBR1cc8eI5fmANELd00K0PmhWrnPRYmelzWW5TY5hmrikiaP9Kg6LKDz4BmnVsqpo/DYTvI7f49b9bIcz0jwx2bo3QfhAVsLPTvODuHgPvEmk+2e6IrjgdlCqmtVaxvPmFq4lDp5aOfHzue2bK03GfKO9/hOyJ3gTG6JcKQiIVveC4vUsyj7qARFA4oaJR6iNE2+Znbeixb6qErwSt5azegWUc6EmtCHZ9PFe0VL8QElpjNFp/tAATU+9khj+HKszG/sxbjdJJdILhkn0ySBJEwLEyOmWP5MBCNOQICZEMEhTnB8ZljQXpnqGGtzKxBRX1mOj8QDdEsEX9NA8BsZDZNPxQOUnRFOo7TiNxqKM3xoy01ayEeniY9hSmyFFhpfX1//sF+juBO4oBBARAAAAABJRU5ErkJggg==",
-    href:"A-C.html"
-  },
-    title:"Arsenal vs Lille", time:"21:00",
-    banner:"https://www.google.com/imgres?q=arsenal%20vs%20lille&imgurl=https%3A%2F%2Fr2.thesportsdb.com%2Fimages%2Fmedia%2Fevent%2Fthumb%2Fg8oict1787915576.jpg&imgrefurl=https%3A%2F%2Fwww.meliapp.co.uk%2Fsport%2Farsenal-vs-lille-13-oct-2026&docid=xz33iUaDy2q8XM&tbnid=t2sZMpdQrGuUYM&vet=12ahUKEwiGtoKDt7WXAxV42QIHHXmVKLs4ChCc8A56BQjHARAA..i&w=1280&h=720&hcb=2&itg=1&ved=2ahUKEwiGtoKDt7WXAxV42QIHHXmVKLs4ChCc8A56BQjHARAA",
-    aLogo:"https://ssl.gstatic.com/onebox/media/sports/logos/optimized/4us2nCgl6kgZc0t3hpW75Q_48x48.png",
-    bLogo:"https://ssl.gstatic.com/onebox/media/sports/logos/optimized/D2AQe8qoyPIP4K8MzLvwuA_48x48.png",
-    compLogo:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAQlBMVEVHcEwCMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv9hV9DCAAAAFXRSTlMABkoYcKLQDiuwWIrCZeM0fpkhPfMc7vRrAAABoklEQVRYCe3BR7LbMBBAwYc4yADD3P+qpv5etsiN7Sp18/X19T+YtoTseK6q6vCJZ6breShgYo7cJ1oMe+Ol6cZtsXLxvJyqi5uSGi56gF390M1wj5286Jl1A3zhrgWkoKqRF8tdZ2hl6MXz0rkpqyYweimADcI9UzOX0bChzBR1cc8eI5fmANELd00K0PmhWrnPRYmelzWW5TY5hmrikiaP9Kg6LKDz4BmnVsqpo/DYTvI7f49b9bIcz0jwx2bo3QfhAVsLPTvODuHgPvEmk+2e6IrjgdlCqmtVaxvPmFq4lDp5aOfHzue2bK03GfKO9/hOyJ3gTG6JcKQiIVveC4vUsyj7qARFA4oaJR6iNE2+Znbeixb6qErwSt5azegWUc6EmtCHZ9PFe0VL8QElpjNFp/tAATU+9khj+HKszG/sxbjdJJdILhkn0ySBJEwLEyOmWP5MBCNOQICZEMEhTnB8ZljQXpnqGGtzKxBRX1mOj8QDdEsEX9NA8BsZDZNPxQOUnRFOo7TiNxqKM3xoy01ayEeniY9hSmyFFhpfX1//sF+juBO4oBBARAAAAABJRU5ErkJggg==",
-    href:"A-B.html"
-  }, 
-];
+    try {
+      if (!localStorage.getItem(GATE_KEY)) showGate();
+    } catch (e) { showGate(); }
 
-var MATCHES_TOMORROW = [
-];
+    gateSkip?.addEventListener('click', hideGate);
+    gateSkip?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hideGate(); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && gate && gate.style.display === 'grid') hideGate();
+    });
+  })();
 
+  /* ═══════════════════════════════════════════════════
+     THÈME
+  ═══════════════════════════════════════════════════ */
+  (function () {
+    const toggle = document.getElementById('theme-toggle');
+    function setTheme(mode) {
+      if (mode === 'dark') {
+        document.documentElement.classList.add('dark');
+        try { localStorage.setItem('theme', 'dark'); } catch (e) {}
+      } else {
+        document.documentElement.classList.remove('dark');
+        try { localStorage.setItem('theme', 'light'); } catch (e) {}
+      }
+    }
+    toggle?.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
+    });
+  })();
 
+  /* ═══════════════════════════════════════════════════
+     MENU MOBILE
+  ═══════════════════════════════════════════════════ */
+  (function () {
+    const burger = document.getElementById('burgerBtn');
+    const menu = document.getElementById('mobileMenu');
+    if (!burger || !menu) return;
 
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+    document.addEventListener('click', (e) => {
+      if (!menu.classList.contains('open')) return;
+      if (menu.contains(e.target) || burger.contains(e.target)) return;
+      menu.classList.remove('open');
+      menu.setAttribute('aria-hidden', 'true');
+    });
+  })();
+
+  /* ═══════════════════════════════════════════════════
+     SCROLL TOP
+  ═══════════════════════════════════════════════════ */
+  (function () {
+    const btn = document.getElementById('scrollTop');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  })();
+
+  /* ═══════════════════════════════════════════════════
+     DONNÉES MATCHS
+  ═══════════════════════════════════════════════════ */
+  const MATCHES_TODAY = [
+    {
+      title: "Barcelone vs Galatasaray",
+      time: "21:00",
+      banner: "https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321224/116/1321224_116-c69623a3-bd6c-4c55-b00c-88b076316f75.jpg",
+      aLogo: "https://ssl.gstatic.com/onebox/media/sports/logos/optimized/paYnEE8hcrP96neHRNofhQ_48x48.png",
+      bLogo: "https://ssl.gstatic.com/onebox/media/sports/logos/optimized/XjWqAG8vQD_B6ffzIOan6g_48x48.png",
+      compLogo: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAQlBMVEVHcEwCMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv9hV9DCAAAAFXRSTlMABkoYcKLQDiuwWIrCZeM0fpkhPfMc7vRrAAABoklEQVRYCe3BR7LbMBBAwYc4yADD3P+qpv5etsiN7Sp18/X19T+YtoTseK6q6vCJZ6breShgYo7cJ1oMe+Ol6cZtsXLxvJyqi5uSGi56gF390M1wj5286Jl1A3zhrgWkoKqRF8tdZ2hl6MXz0rkpqyYweimADcI9UzOX0bChzBR1cc8eI5fmANELd00K0PmhWrnPRYmelzWW5TY5hmrikiaP9Kg6LKDz4BmnVsqpo/DYTvI7f49b9bIcz0jwx2bo3QfhAVsLPTvODuHgPvEmk+2e6IrjgdlCqmtVaxvPmFq4lDp5aOfHzue2bK03GfKO9/hOyJ3gTG6JcKQiIVveC4vUsyj7qARFA4oaJR6iNE2+Znbeixb6qErwSt5azegWUc6EmtCHZ9PFe0VL8QElpjNFp/tAATU+9khj+HKszG/sxbjdJJdILhkn0ySBJEwLEyOmWP5MBCNOQICZEMEhTnB8ZljQXpnqGGtzKxBRX1mOj8QDdEsEX9NA8BsZDZNPxQOUnRFOo7TiNxqKM3xoy01ayEeniY9hSmyFFhpfX1//sF+juBO4oBBARAAAAABJRU5ErkJggg==",
+      href: "A-C.html"
+    },
+    {
+      title: "Arsenal vs Lille",
+      time: "21:00",
+      banner: "https://r2.thesportsdb.com/images/media/event/thumb/g8oict1787915576.jpg",
+      aLogo: "https://ssl.gstatic.com/onebox/media/sports/logos/optimized/4us2nCgl6kgZc0t3hpW75Q_48x48.png",
+      bLogo: "https://ssl.gstatic.com/onebox/media/sports/logos/optimized/D2AQe8qoyPIP4K8MzLvwuA_48x48.png",
+      compLogo: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAQlBMVEVHcEwCMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv8CMv9hV9DCAAAAFXRSTlMABkoYcKLQDiuwWIrCZeM0fpkhPfMc7vRrAAABoklEQVRYCe3BR7LbMBBAwYc4yADD3P+qpv5etsiN7Sp18/X19T+YtoTseK6q6vCJZ6breShgYo7cJ1oMe+Ol6cZtsXLxvJyqi5uSGi56gF390M1wj5286Jl1A3zhrgWkoKqRF8tdZ2hl6MXz0rkpqyYweimADcI9UzOX0bChzBR1cc8eI5fmANELd00K0PmhWrnPRYmelzWW5TY5hmrikiaP9Kg6LKDz4BmnVsqpo/DYTvI7f49b9bIcz0jwx2bo3QfhAVsLPTvODuHgPvEmk+2e6IrjgdlCqmtVaxvPmFq4lDp5aOfHzue2bK03GfKO9/hOyJ3gTG6JcKQiIVveC4vUsyj7qARFA4oaJR6iNE2+Znbeixb6qErwSt5azegWUc6EmtCHZ9PFe0VL8QElpjNFp/tAATU+9khj+HKszG/sxbjdJJdILhkn0ySBJEwLEyOmWP5MBCNOQICZEMEhTnB8ZljQXpnqGGtzKxBRX1mOj8QDdEsEX9NA8BsZDZNPxQOUnRFOo7TiNxqKM3xoy01ayEeniY9hSmyFFhpfX1//sF+juBO4oBBARAAAAABJRU5ErkJggg==",
+      href: "A-B.html"
+    }
+  ];
+
+  const MATCHES_TOMORROW = [];
+
+  /* ═══════════════════════════════════════════════════
+     TIMER
+  ═══════════════════════════════════════════════════ */
   const LIVE_WINDOW_MS = Math.floor(2.5 * 60 * 60 * 1000);
 
-  function parseHHMM(hhmm){
-    const [h,m] = hhmm.split(':').map(Number);
-    return {h, m};
+  function parseHHMM(hhmm) {
+    const [h, m] = hhmm.split(':').map(Number);
+    return { h, m };
   }
 
-  function getNextKickoff(timeHHMM){
+  function getNextKickoff(timeHHMM) {
     const now = new Date();
-    const {h,m} = parseHHMM(timeHHMM);
+    const { h, m } = parseHHMM(timeHHMM);
     const t = new Date(now);
     t.setHours(h, m, 0, 0);
-
     if (now.getTime() > (t.getTime() + LIVE_WINDOW_MS)) {
       t.setDate(t.getDate() + 1);
       t.setHours(h, m, 0, 0);
@@ -583,21 +900,41 @@ var MATCHES_TOMORROW = [
     return t;
   }
 
-  function formatRemaining(ms){
-    if(ms <= 0) return "00h 00m 00s";
+  function formatRemaining(ms) {
+    if (ms <= 0) return '00h 00m 00s';
     const total = Math.floor(ms / 1000);
     const hh = Math.floor(total / 3600);
     const mm = Math.floor((total % 3600) / 60);
     const ss = total % 60;
-    const pad = (n) => String(n).padStart(2,"0");
+    const pad = (n) => String(n).padStart(2, '0');
     return `${pad(hh)}h ${pad(mm)}m ${pad(ss)}s`;
   }
 
-  function cardHTML(m, idx, dayLabel){
-    const cleanID = (m.href || `match-${idx}`).replace(".html","");
+  /* ═══════════════════════════════════════════════════
+     FAVORIS
+  ═══════════════════════════════════════════════════ */
+  const FAV_KEY = 'huni_favorites';
+  function getFavorites() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; }
+  }
+  function toggleFavorite(href) {
+    let favs = getFavorites();
+    if (favs.includes(href)) favs = favs.filter(f => f !== href);
+    else favs.push(href);
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(favs)); } catch (e) {}
+    return favs.includes(href);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     CARTE MATCH
+  ═══════════════════════════════════════════════════ */
+  function cardHTML(m, idx, dayLabel) {
+    const cleanID = (m.href || `match-${idx}`).replace('.html', '');
+    const safeTitle = String(m.title || '').replace(/"/g, '&quot;');
+    const isFav = getFavorites().includes(m.href);
 
     return `
-      <a href="${m.href}" class="block">
+      <a href="${m.href}" class="block fade-up" aria-label="${safeTitle}">
         <article class="match-card">
           <div class="match-bg" style="background-image:url('${m.banner}')"></div>
           <div class="match-overlay"></div>
@@ -611,26 +948,28 @@ var MATCHES_TOMORROW = [
 
           <div class="absolute right-3 top-3">
             <span class="timer-pill">
-              <span class="timer-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F54927" class="bi bi-person" viewBox="0 0 16 16">
-                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                </svg>
-              </span>
-              <span data-viewer-counter="${cleanID}" data-viewer-readonly style="color:#F54927;font-family:Arial, Helvetica, sans-serif;"></span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#F54927" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+              </svg>
+              <span data-viewer-counter="${cleanID}" data-viewer-readonly style="color:#F54927;font-family:Arial,Helvetica,sans-serif;"></span>
             </span>
           </div>
 
-          <div class="absolute inset-x-0 bottom-0 p-4">
+          <button class="fav-btn ${isFav ? 'active' : ''}" data-fav="${m.href}" aria-label="Ajouter aux favoris" title="Favori">
+            ${isFav ? '★' : '☆'}
+          </button>
+
+          <div class="absolute inset-x-0 bottom-0 p-4 pr-14">
             <div class="flex items-end justify-between gap-4">
-              <div class="min-w-0 max-w-[72%]">
+              <div class="min-w-0 max-w-[70%]">
                 <div class="flex items-center gap-2">
-                  <div class="team-logo"><img src="${m.aLogo}" alt=""></div>
+                  <div class="team-logo"><img src="${m.aLogo}" alt="" loading="lazy" decoding="async"></div>
                   <span class="vs">VS</span>
-                  <div class="team-logo"><img src="${m.bLogo}" alt=""></div>
+                  <div class="team-logo"><img src="${m.bLogo}" alt="" loading="lazy" decoding="async"></div>
                 </div>
 
                 <div class="mt-2 flex items-center gap-2">
-                  <div class="comp-wrap"><img src="${m.compLogo}" alt=""></div>
+                  <div class="comp-wrap"><img src="${m.compLogo}" alt="" loading="lazy" decoding="async"></div>
                   <div class="min-w-0">
                     <div class="match-title truncate">${m.title}</div>
                     <div class="match-sub">${dayLabel} · ${m.time}</div>
@@ -640,11 +979,11 @@ var MATCHES_TOMORROW = [
 
               <span class="watch-pill">
                 <span class="play">
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M10 8l8 4-8 4V8Z" fill="currentColor"/>
                   </svg>
                 </span>
-                REGARDER
+                VOIR
               </span>
             </div>
           </div>
@@ -653,26 +992,46 @@ var MATCHES_TOMORROW = [
     `;
   }
 
-  function render(){
+  /* ═══════════════════════════════════════════════════
+     RENDER
+  ═══════════════════════════════════════════════════ */
+  function render(filter = '') {
     const todayEl = document.getElementById('stream-list-principal');
-    const tomEl   = document.getElementById('stream-list-bk');
+    const tomEl = document.getElementById('stream-list-bk');
+    const q = filter.trim().toLowerCase();
 
-    if(todayEl) todayEl.innerHTML = MATCHES_TODAY.map((m,i) => cardHTML(m, i, "Aujourd’hui")).join('');
-    if(tomEl) tomEl.innerHTML = MATCHES_TOMORROW.length
-      ? MATCHES_TOMORROW.map((m,i) => cardHTML(m, i + 100, "Demain")).join('')
-      : '';
+    const filterFn = (m) => !q || (m.title || '').toLowerCase().includes(q);
+
+    if (todayEl) {
+      const list = MATCHES_TODAY.filter(filterFn);
+      todayEl.innerHTML = list.length
+        ? list.map((m, i) => cardHTML(m, i, "Aujourd'hui")).join('')
+        : '<div class="tv-empty col-span-full">🔍 Aucun match trouvé.</div>';
+    }
+    if (tomEl) {
+      const list = MATCHES_TOMORROW.filter(filterFn);
+      tomEl.innerHTML = list.length
+        ? list.map((m, i) => cardHTML(m, i + 100, 'Demain')).join('')
+        : '<div class="tv-empty col-span-full">📭 Aucun match prévu demain.</div>';
+    }
+    bindFavButtons();
   }
 
-  function tick(){
+  /* ═══════════════════════════════════════════════════
+     TIMER TICK
+  ═══════════════════════════════════════════════════ */
+  function tick() {
     const now = Date.now();
+    let liveCount = 0;
+
     MATCHES_TODAY.forEach((m, idx) => {
       const kickoff = getNextKickoff(m.time).getTime();
       const endLive = kickoff + LIVE_WINDOW_MS;
 
       const timerEl = document.querySelector(`[data-timer="${idx}"]`);
-      const pillEl  = document.querySelector(`[data-pill="${idx}"]`);
-      const dotEl   = document.querySelector(`[data-dot="${idx}"]`);
-      if(!timerEl || !pillEl || !dotEl) return;
+      const pillEl = document.querySelector(`[data-pill="${idx}"]`);
+      const dotEl = document.querySelector(`[data-dot="${idx}"]`);
+      if (!timerEl || !pillEl || !dotEl) return;
 
       if (now < kickoff) {
         timerEl.textContent = formatRemaining(kickoff - now);
@@ -680,10 +1039,11 @@ var MATCHES_TOMORROW = [
         timerEl.classList.remove('timer-live');
         dotEl.classList.remove('timer-dot-live');
       } else if (now >= kickoff && now <= endLive) {
-        timerEl.textContent = "En Cours";
+        timerEl.textContent = '● EN DIRECT';
         pillEl.classList.add('timer-live');
         timerEl.classList.add('timer-live');
         dotEl.classList.add('timer-dot-live');
+        liveCount++;
       } else {
         const next = getNextKickoff(m.time).getTime();
         timerEl.textContent = formatRemaining(next - now);
@@ -692,54 +1052,93 @@ var MATCHES_TOMORROW = [
         dotEl.classList.remove('timer-dot-live');
       }
     });
+
+    const liveEl = document.getElementById('liveCount');
+    const liveText = document.getElementById('liveCountText');
+    if (liveEl && liveText) {
+      if (liveCount > 0) {
+        liveEl.style.display = '';
+        liveText.textContent = String(liveCount);
+      } else {
+        liveEl.style.display = 'none';
+      }
+    }
   }
 
-  document.getElementById('refreshBtn')?.addEventListener('click', () => {
-    NProgress.start();
-    render();
+  /* ═══════════════════════════════════════════════════
+     FAVORIS — BIND
+  ═══════════════════════════════════════════════════ */
+  function bindFavButtons() {
+    document.querySelectorAll('[data-fav]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const href = btn.getAttribute('data-fav');
+        const isFav = toggleFavorite(href);
+        btn.classList.toggle('active', isFav);
+        btn.textContent = isFav ? '★' : '☆';
+      });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════
+     RECHERCHE
+  ═══════════════════════════════════════════════════ */
+  (function () {
+    const input = document.getElementById('searchInput');
+    if (!input) return;
+    let t = null;
+    input.addEventListener('input', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        render(input.value);
+        tick();
+      }, 200);
+    });
+  })();
+
+  /* ═══════════════════════════════════════════════════
+     REFRESH
+  ═══════════════════════════════════════════════════ */
+  document.getElementById('refreshBtn')?.addEventListener('click', (e) => {
+    const icon = document.getElementById('refreshIcon');
+    if (icon) {
+      icon.style.display = 'inline-block';
+      icon.style.animation = 'spin .8s linear';
+      setTimeout(() => { icon.style.animation = ''; }, 800);
+    }
+    if (window.NProgress) NProgress.start();
+    render(document.getElementById('searchInput')?.value || '');
     tick();
-    setTimeout(() => NProgress.done(), 350);
+    setTimeout(() => { if (window.NProgress) NProgress.done(); }, 400);
   });
 
-
-  /* ════════════════════════════════════════════
+  /* ═══════════════════════════════════════════════════
      TV CHANNELS
-     ─────────────────────────────────────────
-     logo : URL directe .png/.jpg/.svg/.webp
-            → laisse "" pour logo coloré auto
-     ═══════════════════════════════════════════ */
+  ═══════════════════════════════════════════════════ */
   const CHANNEL_STYLES = {
-    "beIN Sports 1":  { bg:'#5c0f8b', l1:'beIN',     l2:'SPORTS 1', c2:'#ffd700' },
-    "beIN Sports 2":  { bg:'#5c0f8b', l1:'beIN',     l2:'SPORTS 2', c2:'#ffd700' },
-    "beIN Sports 3":  { bg:'#5c0f8b', l1:'beIN',     l2:'SPORTS 3', c2:'#ffd700' },
+    'beIN Sports 1': { l1: 'beIN', l2: 'SPORTS 1', c2: '#ffd700' },
+    'beIN Sports 2': { l1: 'beIN', l2: 'SPORTS 2', c2: '#ffd700' },
+    'beIN Sports 3': { l1: 'beIN', l2: 'SPORTS 3', c2: '#ffd700' }
   };
 
- function makeSvgFallback(name) {
-  const s = CHANNEL_STYLES[name] || { bg:'#222', l1:name, l2:'', c2:'#fff' };
-  const lines = s.l2
-    ? [[s.l1, 18, '#fff'], [s.l2, 13, s.c2]]
-    : [[s.l1, 22, '#fff']];
-  const step = 80 / (lines.length + 1);
-  const txt = lines.map((l,i) =>
-    `<text x='50%' y='${Math.round(step*(i+1))}' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-size='${l[1]}' fill='${l[2]}'>${l[0]}</text>`
-  ).join('');
-  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'>
-      <rect width='200' height='80' rx='10' fill='transparent'/>
-      ${txt}
-    </svg>`
-  );
-}
+  function makeSvgFallback(name) {
+    const s = CHANNEL_STYLES[name] || { l1: name, l2: '', c2: '#fff' };
+    const lines = s.l2 ? [[s.l1, 18, '#fff'], [s.l2, 13, s.c2]] : [[s.l1, 22, '#fff']];
+    const step = 80 / (lines.length + 1);
+    const txt = lines.map((l, i) =>
+      `<text x='50%' y='${Math.round(step * (i + 1))}' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black,Arial' font-weight='900' font-size='${l[1]}' fill='${l[2]}'>${l[0]}</text>`
+    ).join('');
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
+      `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'><rect width='200' height='80' rx='10' fill='transparent'/>${txt}</svg>`
+    );
+  }
 
-  /* ── Liste des chaînes ──
-     Pour ajouter un logo URL : logo:"https://ton-cdn.com/bein1.png"
-     Pour logo auto coloré    : logo:""                               */
   const TV_CHANNELS = [
-    { name:"beIN Sports 1",  href:"bein1.html",           logo:"https://upload.wikimedia.org/wikipedia/commons/c/c5/Logo_beIN_SPORTS_1.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original" },
-    { name:"beIN Sports 2",  href:"bein2.html",           logo:"https://upload.wikimedia.org/wikipedia/commons/7/78/Logo_beIN_SPORTS_2.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original" },
-    { name:"beIN Sports 3",  href:"bein3.html",           logo:"https://upload.wikimedia.org/wikipedia/commons/5/5c/Logo_beIN_SPORTS_3.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original" },
- ];
-
+    { name: 'beIN Sports 1', href: 'bein1.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c5/Logo_beIN_SPORTS_1.png' },
+    { name: 'beIN Sports 2', href: 'bein2.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Logo_beIN_SPORTS_2.png' },
+    { name: 'beIN Sports 3', href: 'bein3.html', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Logo_beIN_SPORTS_3.png' }
+  ];
 
   function renderTV() {
     const row = document.getElementById('tvLiveRow');
@@ -754,6 +1153,7 @@ var MATCHES_TOMORROW = [
       const a = document.createElement('a');
       a.className = 'tv-card';
       a.href = ch.href || '#';
+      a.setAttribute('aria-label', ch.name);
 
       const inner = document.createElement('div');
       inner.className = 'tv-card-inner';
@@ -767,6 +1167,7 @@ var MATCHES_TOMORROW = [
       }
       img.alt = ch.name;
       img.loading = 'lazy';
+      img.decoding = 'async';
       inner.appendChild(img);
 
       const label = document.createElement('span');
@@ -781,25 +1182,35 @@ var MATCHES_TOMORROW = [
 
   renderTV();
 
-  /* ── Flèches carousel ── */
-  (function(){
+  /* ═══════════════════════════════════════════════════
+     CARROUSEL TV
+  ═══════════════════════════════════════════════════ */
+  (function () {
     const row = document.getElementById('tvLiveRow');
     const lft = document.getElementById('tvCarLeft');
     const rgt = document.getElementById('tvCarRight');
     if (!row || !lft || !rgt) return;
-    const step = () => { const c = row.querySelector('.tv-card'); return c ? Math.max(150, c.getBoundingClientRect().width * 3 + 24) : 370; };
+
+    const step = () => {
+      const c = row.querySelector('.tv-card');
+      return c ? Math.max(150, c.getBoundingClientRect().width * 3 + 24) : 370;
+    };
     lft.addEventListener('click', () => row.scrollBy({ left: -step(), behavior: 'smooth' }));
-    rgt.addEventListener('click', () => row.scrollBy({ left:  step(), behavior: 'smooth' }));
+    rgt.addEventListener('click', () => row.scrollBy({ left: step(), behavior: 'smooth' }));
+
     const upd = () => {
       const max = row.scrollWidth - row.clientWidth - 2;
-      lft.style.opacity = row.scrollLeft <= 2   ? '0.28' : '1';
+      lft.style.opacity = row.scrollLeft <= 2 ? '0.28' : '1';
       rgt.style.opacity = row.scrollLeft >= max ? '0.28' : '1';
     };
-    row.addEventListener('scroll', () => requestAnimationFrame(upd));
-    window.addEventListener('resize', upd);
+    row.addEventListener('scroll', () => requestAnimationFrame(upd), { passive: true });
+    window.addEventListener('resize', upd, { passive: true });
     setTimeout(upd, 350);
   })();
 
+  /* ═══════════════════════════════════════════════════
+     INIT
+  ═══════════════════════════════════════════════════ */
   render();
   tick();
   setInterval(tick, 1000);
