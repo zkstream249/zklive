@@ -1,43 +1,552 @@
 <!DOCTYPE html>
 <html lang="fr" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>OFFRE IPTV | HUNI STREAM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    * { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
-    body { background-color: #070709; color: #fff; }
-    .glass-card {
-      background: rgba(18, 18, 24, 0.55);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#06060a">
+<title>OFFRE IPTV | HUNI STREAM</title>
+<meta name="description" content="Offre IPTV Premium HUNI STREAM — milliers de chaînes, films et séries en FHD/4K.">
+<link rel="icon" href="https://clipart-library.com/images/BTgr6L5kc.jpg">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        brand: '#a855f7',
+        'brand-glow': '#c084fc',
+        darkbg: '#06060a',
+      }
     }
-  </style>
-</head>
-<body class="min-h-screen flex flex-col justify-between bg-black">
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root { --brand: #a855f7; --bg: #06060a; }
+* { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: #fff;
+  overflow-x: hidden;
+  cursor: none;
+}
+a, button { cursor: none; }
+@media (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+  body, a, button { cursor: auto; }
+}
 
-<header class="sticky top-0 z-40 backdrop-blur-xl bg-black/40 border-b border-white/10">
-  <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-    <a href="index.html" class="text-2xl font-black text-white">HUNI <span class="text-purple-500">STREAM</span></a>
-    <a href="index.html" class="px-4 py-2 text-xs font-bold rounded-xl bg-white/10 text-white">← RETOUR</a>
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000;
+  border-radius: 50%; transform: translate(-50%, -50%);
+}
+.cursor-dot {
+  width: 8px; height: 8px; background: var(--brand); box-shadow: 0 0 16px var(--brand);
+}
+.cursor-ring {
+  width: 36px; height: 36px; border: 1.5px solid rgba(168,85,247,.55);
+  transition: width .25s, height .25s, border-color .25s, background .25s;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  border-color: rgba(168,85,247,.9);
+  background: rgba(168,85,247,.08);
+}
+
+.scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.scene-img {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6,6,10,.6) 0%, rgba(6,6,10,.88) 50%, #06060a 100%),
+    radial-gradient(ellipse at 50% 0%, rgba(168,85,247,.25) 0%, transparent 55%),
+    url("https://thumb.canalplus.pro/bran/unsafe/2560x668/filters:quality(80)/image/695f89b989950/uploads/media/myCANAL_Cover_web_2760x720_47.jpg") center/cover no-repeat;
+  animation: kenburns 28s ease-in-out infinite alternate;
+}
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08) translateY(-2%); }
+}
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(80px); opacity: .4;
+  animation: floatOrb 12s ease-in-out infinite;
+}
+.orb-a { width: 420px; height: 420px; background: #a855f7; top: -10%; left: -8%; }
+.orb-b { width: 360px; height: 360px; background: #4f46e5; top: 40%; right: -10%; animation-delay: -4s; }
+.orb-c { width: 260px; height: 260px; background: #10b981; bottom: 8%; left: 35%; opacity: .18; animation-delay: -7s; }
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0,0); }
+  50% { transform: translate(40px,-30px) scale(1.1); }
+}
+#particles { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.7) 100%);
+}
+
+.glass {
+  background: rgba(14,14,20,.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+.reveal { opacity: 0; animation: fadeUp .75s cubic-bezier(.16,1,.3,1) forwards; }
+.d1 { animation-delay: .08s; }
+.d2 { animation-delay: .18s; }
+.d3 { animation-delay: .3s; }
+.d4 { animation-delay: .42s; }
+.d5 { animation-delay: .54s; }
+
+.nav-link { position: relative; transition: color .25s; }
+.nav-link::after {
+  content: '';
+  position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
+  background: linear-gradient(90deg, #a855f7, #6366f1);
+  transition: width .3s; border-radius: 2px;
+}
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+@keyframes borderSpin { to { --angle: 360deg; } }
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.price-card {
+  position: relative;
+  border-radius: 1.35rem;
+  padding: 1px;
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+.price-card:hover { transform: translateY(-8px); }
+.price-card.featured {
+  background: conic-gradient(from var(--angle), #a855f7, #6366f1, #22d3ee, #a855f7);
+  animation: borderSpin 4s linear infinite;
+}
+.price-card:not(.featured) {
+  background: rgba(255,255,255,.08);
+}
+.price-inner {
+  border-radius: calc(1.35rem - 1px);
+  background: rgba(10,10,14,.92);
+  backdrop-filter: blur(20px);
+  height: 100%;
+  padding: 1.75rem;
+  display: flex; flex-direction: column;
+}
+.price-card.featured .price-inner {
+  background: linear-gradient(180deg, rgba(28,16,48,.95), rgba(10,10,14,.98));
+}
+
+.feature-item {
+  display: flex; align-items: flex-start; gap: .75rem;
+  padding: .85rem 1rem;
+  border-radius: 12px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  transition: border-color .25s, background .25s, transform .25s;
+}
+.feature-item:hover {
+  border-color: rgba(168,85,247,.35);
+  background: rgba(168,85,247,.08);
+  transform: translateX(4px);
+}
+.feature-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: grid; place-items: center; flex-shrink: 0;
+  background: rgba(168,85,247,.15);
+  color: #c084fc; font-size: 15px;
+}
+
+.btn-cta {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  width: 100%; padding: .9rem 1.25rem;
+  border-radius: 12px; font-weight: 800; font-size: .8rem;
+  letter-spacing: .04em; text-transform: uppercase;
+  background: linear-gradient(90deg, #9333ea, #4f46e5);
+  color: #fff; transition: box-shadow .3s, transform .2s;
+}
+.btn-cta::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform .55s;
+}
+.btn-cta:hover::after { transform: translateX(120%); }
+.btn-cta:hover { box-shadow: 0 0 28px rgba(168,85,247,.4); }
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 100%; padding: .9rem 1.25rem;
+  border-radius: 12px; font-weight: 800; font-size: .8rem;
+  letter-spacing: .04em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: #e5e5e5; transition: .25s;
+}
+.btn-ghost:hover {
+  border-color: rgba(168,85,247,.45);
+  background: rgba(168,85,247,.12);
+  color: #fff;
+}
+
+.badge-pop {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  padding: .3rem .75rem; border-radius: 999px;
+  font-size: 10px; font-weight: 800; letter-spacing: .08em;
+  background: linear-gradient(90deg, #9333ea, #4f46e5);
+  box-shadow: 0 8px 20px rgba(147,51,234,.35);
+  white-space: nowrap;
+  animation: floatY 3s ease-in-out infinite;
+}
+@keyframes floatY {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+.check {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(168,85,247,.2); color: #c084fc;
+  display: grid; place-items: center; flex-shrink: 0;
+  font-size: 11px; font-weight: 900;
+}
+
+.section-title {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
+}
+.section-title h2 {
+  font-size: 13px; font-weight: 800; letter-spacing: .18em;
+  text-transform: uppercase; white-space: nowrap; color: #c084fc;
+}
+.section-title .line {
+  height: 1px; flex: 1;
+  background: linear-gradient(90deg, rgba(168,85,247,.55), transparent);
+}
+
+#nbar {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, #a855f7, #6366f1, #10b981);
+  z-index: 10001; transition: width .3s ease, opacity .4s;
+}
+.content-layer { position: relative; z-index: 1; }
+.noise::after {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.stat {
+  text-align: center; padding: 1.25rem;
+  border-radius: 1rem;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  transition: transform .3s, border-color .3s;
+}
+.stat:hover {
+  transform: translateY(-4px);
+  border-color: rgba(168,85,247,.35);
+}
+.stat-num {
+  font-size: 1.75rem; font-weight: 900;
+  background: linear-gradient(90deg, #c084fc, #818cf8);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+</style>
+</head>
+<body class="noise min-h-screen flex flex-col">
+
+<div id="nbar"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="scene" aria-hidden="true">
+  <div class="scene-img"></div>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <canvas id="particles"></canvas>
+  <div class="vignette"></div>
+</div>
+
+<div class="content-layer flex flex-col min-h-screen">
+
+<header class="sticky top-0 z-40 bg-transparent">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 grid grid-cols-3 items-center">
+    <a href="index.html" class="justify-self-start interactive">
+      <span class="text-2xl sm:text-3xl font-black tracking-wider text-white">
+        HUNI <span class="text-brand">STREAM</span>
+      </span>
+    </a>
+    <nav class="hidden md:flex items-center justify-center gap-8 text-sm font-semibold tracking-wide justify-self-center">
+      <a href="index.html" class="nav-link text-gray-300 hover:text-white interactive">ACCUEIL</a>
+      <a href="tv.html" class="nav-link text-gray-300 hover:text-white interactive">CHAÎNES TV</a>
+      <a href="shop.html" class="nav-link active text-purple-300 interactive">OFFRE IPTV</a>
+    </nav>
+    <div class="justify-self-end">
+      <a href="index.html" class="px-3 py-2 text-xs font-bold rounded-xl glass text-gray-300 hover:text-white interactive">← RETOUR</a>
+    </div>
   </div>
 </header>
 
-<main class="max-w-4xl mx-auto px-4 py-16 flex-grow text-center">
-  <h1 class="text-4xl font-black mb-4">OFFRE <span class="text-purple-400">IPTV PREMIUM</span></h1>
-  <p class="text-gray-400 mb-8">Profitez de milliers de chaînes, films et séries en illimité.</p>
-  <div class="glass-card p-8 rounded-3xl border-purple-500/30 max-w-md mx-auto">
-    <h2 class="text-2xl font-bold mb-4">À partir de 9€</h2>
-    <p class="text-sm text-gray-300 mb-6">Qualité 4K/FHD, anti-freeze garanti 99% du temps.</p>
-    <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="block py-3 bg-purple-600 hover:bg-purple-500 font-bold rounded-xl transition-all">COMMANDER SUR DISCORD</a>
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 text-center">
+  <div class="reveal d1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass text-xs font-semibold text-purple-200 mb-6 border border-purple-500/25">
+    IPTV PREMIUM
   </div>
+  <h1 class="reveal d2 text-4xl sm:text-6xl font-black tracking-tight mb-4">
+    OFFRE <span class="text-brand">IPTV</span>
+  </h1>
+  <p class="reveal d3 text-gray-400 font-medium text-base sm:text-lg max-w-2xl mx-auto">
+    Des milliers de chaînes, films et séries en illimité — qualité FHD / 4K, activation rapide.
+  </p>
+</section>
+
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+  <div class="reveal d4 grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div class="stat">
+      <div class="stat-num" data-count="18000">0</div>
+      <p class="text-[11px] text-gray-500 mt-1 font-medium uppercase tracking-wider">Chaînes</p>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-count="80000">0</div>
+      <p class="text-[11px] text-gray-500 mt-1 font-medium uppercase tracking-wider">VOD</p>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4K</div>
+      <p class="text-[11px] text-gray-500 mt-1 font-medium uppercase tracking-wider">Qualité</p>
+    </div>
+    <div class="stat">
+      <div class="stat-num">99%</div>
+      <p class="text-[11px] text-gray-500 mt-1 font-medium uppercase tracking-wider">Stabilité</p>
+    </div>
+  </div>
+</section>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex-1 w-full space-y-16">
+
+  <section>
+    <div class="section-title">
+      <h2>FORMULES</h2>
+      <div class="line"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+      <div class="price-card reveal" style="animation-delay:.1s">
+        <div class="price-inner">
+          <p class="text-xs font-bold tracking-widest text-gray-500 uppercase mb-3">1 mois</p>
+          <p class="text-4xl font-black mb-1">9€</p>
+          <p class="text-xs text-gray-500 mb-6">Sans engagement</p>
+          <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+            <li class="flex items-center gap-2"><span class="check">✓</span> +18 000 chaînes</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> VOD illimitée</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> Qualité FHD / 4K</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> 1 appareil</li>
+          </ul>
+          <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="btn-ghost interactive">Commander</a>
+        </div>
+      </div>
+
+      <div class="price-card featured reveal" style="animation-delay:.2s">
+        <div class="price-inner relative pt-6">
+          <span class="badge-pop">POPULAIRE</span>
+          <p class="text-xs font-bold tracking-widest text-purple-300 uppercase mb-3">3 mois</p>
+          <p class="text-4xl font-black mb-1">25€</p>
+          <p class="text-xs text-purple-300/70 mb-6">≈ 8,30€ / mois</p>
+          <ul class="space-y-3 text-sm text-gray-200 mb-8 flex-1">
+            <li class="flex items-center gap-2"><span class="check">✓</span> +18 000 chaînes</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> VOD + Replay</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> Qualité FHD / 4K</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> 2 appareils</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> Support prioritaire</li>
+          </ul>
+          <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="btn-cta interactive">Commander sur Discord</a>
+        </div>
+      </div>
+
+      <div class="price-card reveal" style="animation-delay:.3s">
+        <div class="price-inner">
+          <p class="text-xs font-bold tracking-widest text-gray-500 uppercase mb-3">12 mois</p>
+          <p class="text-4xl font-black mb-1">70€</p>
+          <p class="text-xs text-gray-500 mb-6">Meilleur tarif</p>
+          <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+            <li class="flex items-center gap-2"><span class="check">✓</span> +18 000 chaînes</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> VOD + Replay</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> Qualité FHD / 4K</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> 3 appareils</li>
+            <li class="flex items-center gap-2"><span class="check">✓</span> Anti-freeze 99%</li>
+          </ul>
+          <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="btn-ghost interactive">Commander</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>INCLUS</h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div class="feature-item reveal" style="animation-delay:.1s">
+        <div class="feature-icon">📡</div>
+        <div>
+          <p class="font-bold text-sm">Chaînes sport &amp; TV</p>
+          <p class="text-xs text-gray-500 mt-0.5">beIN, Canal+, Ligue 1+, DAZN et bien plus.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal" style="animation-delay:.15s">
+        <div class="feature-icon">🎬</div>
+        <div>
+          <p class="font-bold text-sm">Films &amp; séries VOD</p>
+          <p class="text-xs text-gray-500 mt-0.5">Catalogue mis à jour régulièrement.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal" style="animation-delay:.2s">
+        <div class="feature-icon">⚡</div>
+        <div>
+          <p class="font-bold text-sm">Activation rapide</p>
+          <p class="text-xs text-gray-500 mt-0.5">Compte livré sous quelques minutes sur Discord.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal" style="animation-delay:.25s">
+        <div class="feature-icon">📱</div>
+        <div>
+          <p class="font-bold text-sm">Multi-appareils</p>
+          <p class="text-xs text-gray-500 mt-0.5">Smart TV, Firestick, téléphone, PC, box…</p>
+        </div>
+      </div>
+      <div class="feature-item reveal" style="animation-delay:.3s">
+        <div class="feature-icon">🛡️</div>
+        <div>
+          <p class="font-bold text-sm">Anti-freeze</p>
+          <p class="text-xs text-gray-500 mt-0.5">Serveurs stables, uptime ~99%.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal" style="animation-delay:.35s">
+        <div class="feature-icon">💬</div>
+        <div>
+          <p class="font-bold text-sm">Support Discord</p>
+          <p class="text-xs text-gray-500 mt-0.5">Aide à l’installation et suivi client.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" style="animation-delay:.2s">
+    <div class="glass rounded-3xl p-8 sm:p-10 text-center relative overflow-hidden border border-purple-500/20">
+      <div class="absolute -top-20 -right-20 w-56 h-56 bg-purple-600/25 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-20 -left-20 w-56 h-56 bg-indigo-600/20 rounded-full blur-3xl"></div>
+      <h3 class="text-2xl sm:text-3xl font-black mb-3 relative z-10">Prêt à démarrer ?</h3>
+      <p class="text-gray-400 text-sm mb-7 max-w-lg mx-auto relative z-10">
+        Rejoins le Discord, choisis ta formule et reçois ton accès IPTV en quelques minutes.
+      </p>
+      <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="btn-cta interactive relative z-10 max-w-xs mx-auto">
+        Commander sur Discord
+      </a>
+    </div>
+  </section>
+
 </main>
 
-<footer class="border-t border-white/10 bg-black/60 py-8 text-center text-xs text-gray-500">
-  <p>© HUNI STREAM IPTV</p>
+<footer class="mt-16 border-t border-white/10 bg-black/55 backdrop-blur-md py-10">
+  <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-3">
+    <p class="text-sm font-bold tracking-wide text-gray-300">HUNI <span class="text-brand">STREAM</span></p>
+    <p>© HUNI STREAM IPTV — Tous droits réservés.</p>
+  </div>
 </footer>
+</div>
 
+<script>
+(function () {
+  const bar = document.getElementById('nbar');
+  let p = 0;
+  const tick = () => {
+    p = Math.min(p + Math.random() * 18, 92);
+    bar.style.width = p + '%';
+    if (p < 92) requestAnimationFrame(() => setTimeout(tick, 80));
+  };
+  tick();
+  window.addEventListener('load', () => {
+    bar.style.width = '100%';
+    setTimeout(() => { bar.style.opacity = '0'; }, 350);
+  });
+})();
+
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!window.matchMedia('(pointer:fine)').matches) return;
+  let x = 0, y = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', (e) => {
+    x = e.clientX; y = e.clientY;
+    dot.style.left = x + 'px'; dot.style.top = y + 'px';
+  });
+  (function follow() {
+    rx += (x - rx) * 0.18; ry += (y - ry) * 0.18;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(follow);
+  })();
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest('.interactive')) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest('.interactive')) ring.classList.remove('hover');
+  });
+})();
+
+(function () {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let w, h, parts = [];
+  function resize() { w = canvas.width = innerWidth; h = canvas.height = innerHeight; }
+  function spawn() {
+    parts = Array.from({ length: Math.min(55, Math.floor(w / 24)) }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      r: Math.random() * 1.6 + 0.4,
+      vx: (Math.random() - 0.5) * 0.3, vy: -Math.random() * 0.35 - 0.08,
+      a: Math.random() * 0.4 + 0.1, hue: Math.random() > 0.7 ? 160 : 270
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of parts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue},80%,70%,${p.a})`;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  resize(); spawn(); draw();
+  addEventListener('resize', () => { resize(); spawn(); });
+})();
+
+(function () {
+  const els = document.querySelectorAll('[data-count]');
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  els.forEach(el => {
+    const target = +el.dataset.count;
+    const dur = 1400;
+    const start = performance.now();
+    function frame(now) {
+      const t = Math.min(1, (now - start) / dur);
+      const val = Math.floor(ease(t) * target);
+      el.textContent = val.toLocaleString('fr-FR') + (target >= 1000 ? '+' : '');
+      if (t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  });
+})();
+</script>
 </body>
 </html>
