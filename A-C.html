@@ -1,10 +1,11 @@
+C'est noté ! Voici une version améliorée avec des tons bleu nuit profond et néon cyan (style cyberpunk/sport pro), tout en gardant ton design ultra propre :
 <!doctype html>
 <html lang="fr" class="dark">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#070709" />
+  <meta name="theme-color" content="#060913" />
 
   <title>HUNI STREAM — PSG vs OL</title>
 
@@ -15,7 +16,7 @@
       darkMode: 'class',
       theme: {
         extend: {
-          colors: { brand: '#a855f7', live: '#10b981' }
+          colors: { brand: '#0ea5e9', live: '#10b981' }
         }
       }
     }
@@ -29,23 +30,23 @@
 
   <style>
     * { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100vh; background-color: #070709; color: white; overflow-x: hidden; }
+    html, body { margin: 0; min-height: 100vh; background-color: #060913; color: white; overflow-x: hidden; }
 
     body {
-      background: linear-gradient(135deg, rgba(7,7,9,.94) 0%, rgba(7,7,9,.88) 40%, rgba(7,7,9,.94) 100%),
+      background: linear-gradient(135deg, rgba(6,9,19,.95) 0%, rgba(10,15,30,.9) 40%, rgba(6,9,19,.95) 100%),
                   url("https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31108766/canal-ouah_50061/STD169/myCANAL_16x9_sport_1920x1080-2026-03-20T160621.011-UIUD") center/cover no-repeat fixed;
     }
 
-    /* GLASSMORPHISM */
+    /* GLASSMORPHISM BLEU NUIT */
     .glass {
-      background: rgba(18, 18, 24, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 20, 38, 0.65);
+      border: 1px solid rgba(14, 165, 233, 0.15);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
     .glass:hover {
-      border-color: rgba(168, 85, 247, 0.3);
+      border-color: rgba(14, 165, 233, 0.4);
     }
 
     /* PLAYER CONTAINER */
@@ -53,7 +54,7 @@
       position: relative;
       overflow: hidden;
       border-radius: 20px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 30px rgba(168,85,247,0.15);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7), 0 0 35px rgba(14,165,233,0.15);
     }
 
     /* COVER */
@@ -62,7 +63,7 @@
       inset: 0;
       z-index: 20;
       cursor: pointer;
-      background: linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,.5) 60%, rgba(0,0,0,.85) 100%),
+      background: linear-gradient(180deg, rgba(6,9,19,.2) 0%, rgba(6,9,19,.6) 60%, rgba(6,9,19,.9) 100%),
                   url("https://news-frontend.news.indazn.com/_next/image?url=https%3A%2F%2Fcms-images.acc.indazn.com%2Fdi%2Flibrary%2FDAZN_News%2F17%2F71%2Fpsg-lyon_1t58reh74jwo71pp1f4pcs8rp9.png%3Ft%3D490589039%26quality%3D75%26w%3D760%26h%3D428&w=1200&q=75") center/cover no-repeat;
       transition: transform 0.5s ease;
     }
@@ -74,8 +75,8 @@
       right: 18px;
       padding: 6px 14px;
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(6, 9, 19, 0.7);
+      border: 1px solid rgba(14, 165, 233, 0.25);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -102,8 +103,8 @@
       left: 18px; right: 18px; bottom: 18px;
       height: 80px;
       border-radius: 16px;
-      background: rgba(10, 10, 15, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 15, 30, 0.85);
+      border: 1px solid rgba(14, 165, 233, 0.2);
       backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
@@ -115,8 +116,8 @@
       width: 46px; height: 46px;
       border-radius: 50%;
       display: grid; place-items: center;
-      background: linear-gradient(135deg, #a855f7, #6366f1);
-      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+      background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.5);
       transition: transform 0.2s, filter 0.2s;
     }
     .strip-play:hover { transform: scale(1.1); filter: brightness(1.1); }
@@ -132,25 +133,25 @@
       cursor: pointer;
     }
     .source-btn.active {
-      background: #a855f7;
-      color: white;
-      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+      background: #0ea5e9;
+      color: #060913;
+      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
     }
     .source-btn.inactive {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 20, 38, 0.6);
+      border: 1px solid rgba(14, 165, 233, 0.15);
       color: rgba(255, 255, 255, 0.7);
     }
-    .source-btn.inactive:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+    .source-btn.inactive:hover { background: rgba(14, 165, 233, 0.15); color: white; }
 
     /* CHAT BOX */
     .chat-box {
       border-radius: 20px;
       overflow: hidden;
-      background: rgba(14, 14, 18, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(10, 15, 30, 0.75);
+      border: 1px solid rgba(14, 165, 233, 0.15);
       backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -162,13 +163,13 @@
 <body class="flex flex-col justify-between">
 
   <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
+  <nav class="sticky top-0 z-50 bg-[#060913]/60 backdrop-blur-xl border-b border-cyan-500/10">
     <div class="max-w-screen-2xl mx-auto px-6 h-20 flex items-center justify-between">
       <a href="index.html" class="text-2xl md:text-3xl font-black tracking-wider text-white">
-        HUNI <span class="text-purple-500">STREAM</span>
+        HUNI <span class="text-cyan-400">STREAM</span>
       </a>
 
-      <a href="index.html" class="inline-flex items-center gap-2 px-4 h-10 rounded-xl bg-white/10 border border-white/10 hover:bg-white/20 transition text-xs font-bold">
+      <a href="index.html" class="inline-flex items-center gap-2 px-4 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/20 transition text-xs font-bold text-cyan-300">
         <i class="fa-solid fa-arrow-left"></i> Retour au menu
       </a>
     </div>
@@ -192,7 +193,7 @@
             <div class="cover-strip">
               <div>
                 <div class="text-base md:text-lg font-black text-white">Regarder Gratuitement</div>
-                <div class="text-xs md:text-sm text-purple-300 font-semibold mt-0.5">PSG vs OL • Ligue 1</div>
+                <div class="text-xs md:text-sm text-cyan-300 font-semibold mt-0.5">PSG vs OL • Ligue 1</div>
               </div>
               <div class="strip-play">
                 <i class="fa-solid fa-play text-white"></i>
@@ -217,7 +218,7 @@
         <!-- MATCH INFO BAR -->
         <div class="glass rounded-2xl p-5 flex items-center justify-between">
           <div>
-            <div class="text-xs font-bold text-purple-400 uppercase tracking-wider">Diffusion en cours</div>
+            <div class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Diffusion en cours</div>
             <div class="text-lg font-black text-white mt-0.5">PSG vs OL</div>
             <div class="text-xs text-gray-400 font-semibold mt-1">Football • Ligue 1 McDonald's</div>
           </div>
@@ -232,14 +233,14 @@
 
       <!-- COLONNE DROITE (CHAT) -->
       <aside class="chat-box">
-        <div class="p-4 border-b border-white/10 flex items-center justify-between bg-black/30">
+        <div class="p-4 border-b border-cyan-500/10 flex items-center justify-between bg-black/40">
           <div>
             <div class="font-extrabold text-sm text-white flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span> Chat en direct
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Chat en direct
             </div>
             <div class="text-[11px] text-gray-400 font-semibold mt-0.5">Restez fair-play dans les messages</div>
           </div>
-          <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="text-xs font-extrabold px-3 py-1.5 rounded-lg bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600 hover:text-white transition">
+          <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="text-xs font-extrabold px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500 hover:text-white transition">
             Discord
           </a>
         </div>
@@ -253,22 +254,18 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="border-t border-white/10 bg-black/40 py-6 text-center text-xs text-gray-500 mt-12">
+  <footer class="border-t border-cyan-500/10 bg-[#060913]/60 py-6 text-center text-xs text-gray-500 mt-12">
     <p>© HUNI STREAM — Tous droits réservés.</p>
   </footer>
 
   <!-- SCRIPT -->
   <script>
-    // TES LIENS DE STREAM
     const SOURCES = {
       1: "https://stech.sellbase.gg/e/hunisport",
       2: "https://stech.sellbase.gg/e/hunisport"
     };
 
-    // CONFIGURATION DU CHAT (Exemple embed ou iframe externe si besoin)
-    // Tu peux remplacer l'URL du chat par ton widget de chat en direct
-    document.getElementById("chatFrame").src = "https://discord.com/widget?id=1000000000000000000&theme=dark"; 
-    // Note: Si tu veux un autre chat, remplace l'URL ci-dessus par ton lien de chat.
+    document.getElementById("chatFrame").src = "https://discord.com/widget?id=1000000000000000000&theme=dark";
 
     function setActive(id) {
       [1, 2].forEach(n => {
@@ -306,3 +303,4 @@
   </script>
 </body>
 </html>
+
