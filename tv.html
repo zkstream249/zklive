@@ -24,8 +24,6 @@
     }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <!-- Support HLS (.m3u8) -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
   <style>
     * { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
@@ -76,30 +74,29 @@
 
 <body class="min-h-screen flex flex-col justify-between bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black">
 
-<!-- LECTEUR DE FLUX / MODAL VIDEO -->
+<!-- LECTEUR DE FLUX / MODAL VIDEO INTÉGRÉ -->
 <div id="playerModal" class="player-modal">
   <div class="glass-card max-w-5xl w-full rounded-3xl overflow-hidden border-purple-500/30 flex flex-col">
     <!-- En-tête du lecteur -->
     <div class="p-4 bg-black/60 border-b border-white/10 flex items-center justify-between">
       <div class="flex items-center gap-3">
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <h3 id="modalChannelTitle" class="font-bold text-white text-base">CHÂINE EN DIRECT</h3>
+        <h3 id="modalChannelTitle" class="font-bold text-white text-base">HUNI STREAM — LECTEUR EN DIRECT</h3>
       </div>
       <button id="closePlayerBtn" class="px-4 py-1.5 rounded-xl bg-white/10 text-xs font-bold hover:bg-red-600 hover:text-white transition-all">
         ✕ FERMER
       </button>
     </div>
     
-    <!-- Conteneur Vidéo / Iframe -->
+    <!-- Conteneur Iframe de ton lecteur -->
     <div class="relative w-full aspect-video bg-black flex items-center justify-center">
-      <!-- 1. Iframe Stream -->
-      <iframe id="streamIframe" class="w-full h-full border-0 hidden" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-      <!-- 2. Video Player HLS -->
-      <video id="hlsVideo" class="w-full h-full hidden" controls autoplay></video>
-      
-      <div id="noStreamMsg" class="hidden text-center text-gray-400 p-6">
-        <p class="text-sm">⚠️ Aucun lien configuré pour cette chaîne.</p>
-      </div>
+      <iframe id="streamIframe" 
+              src="" 
+              allow="autoplay; fullscreen" 
+              allowfullscreen 
+              referrerpolicy="origin" 
+              style="width:100%;aspect-ratio:16/9;border:0" 
+              class="w-full h-full"></iframe>
     </div>
   </div>
 </div>
@@ -136,14 +133,14 @@
     CHAÎNES <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 glow-text">TV FOOT</span>
   </h1>
   <p class="text-gray-400 text-sm max-w-lg mx-auto">
-    Cliquez sur n'importe quelle chaîne pour lancer le direct instantanément dans le lecteur !
+    Cliquez sur n'importe quelle chaîne pour lancer le direct dans ton lecteur !
   </p>
 </section>
 
 <!-- GRILLE CHAÎNES DYNAMIQUE -->
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
 
-  <!-- beIN SPORTS -->
+  <!-- BEIN SPORTS -->
   <div class="mb-10">
     <h2 class="text-sm font-black text-purple-400 tracking-wider uppercase mb-4 flex items-center gap-2">
       <span class="w-2 h-2 rounded-full bg-purple-500"></span> BEIN SPORTS
@@ -175,83 +172,87 @@
   </div>
 </footer>
 
-<!-- SCRIPT DE CONFIGURATION DES LIENS -->
+<!-- SCRIPT DE CONFIGURATION CHAQUE LIEN DE CHAÎNE -->
 <script>
-  // ⚙️ REMPLIS ET METS TES LIENS DE TRUC ICI !!!
+  // 🔗 LISTE DES CHAÎNES : Remplace chaque "streamUrl" par ton lien spécifique !
   const CHANNELS = [
-    // beIN Sports
-    {
-      id: "bein1",
-      group: "bein",
-      name: "beIN SPORTS 1",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Logo_beIN_SPORTS_1.png",
-      // Remplace avec ton lien d'embed (iframe) OU ton fichier m3u8 :
-      streamUrl: "https://example.com/embed/bein1", // Exemple d'iframe
-      type: "iframe" // ou "hls"
+    // ════════ BEIN SPORTS ════════
+    { 
+      id: "bein1", 
+      group: "bein", 
+      name: "beIN SPORTS 1", 
+      logo: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Logo_beIN_SPORTS_1.png", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport" // 👈 Remplace ici pour beIN 1
     },
-    {
-      id: "bein2",
-      group: "bein",
-      name: "beIN SPORTS 2",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/7/78/Logo_beIN_SPORTS_2.png",
-      streamUrl: "",
-      type: "iframe"
+    { 
+      id: "bein2", 
+      group: "bein", 
+      name: "beIN SPORTS 2", 
+      logo: "https://upload.wikimedia.org/wikipedia/commons/7/78/Logo_beIN_SPORTS_2.png", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-bein2" // 👈 Remplace ici pour beIN 2
     },
-    {
-      id: "bein3",
-      group: "bein",
-      name: "beIN SPORTS 3",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Logo_beIN_SPORTS_3.png",
-      streamUrl: "",
-      type: "iframe"
+    { 
+      id: "bein3", 
+      group: "bein", 
+      name: "beIN SPORTS 3", 
+      logo: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Logo_beIN_SPORTS_3.png", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-bein3" // 👈 Remplace ici pour beIN 3
     },
 
-    // Canal+
-    {
-      id: "canal-plus",
-      group: "canal",
-      name: "CANAL+",
-      logoText: "CANAL+",
-      streamUrl: "<iframe src="https://stech.sellbase.gg/e/hunisport" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="origin" style="width:100%;aspect-ratio:16/9;border:0"></iframe>",
-      type: "iframe"
+    // ════════ CANAL + ════════
+    { 
+      id: "canal-plus", 
+      group: "canal", 
+      name: "CANAL+", 
+      logoText: "CANAL+", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-canal" // 👈 Remplace ici pour Canal+
     },
-    {
-      id: "canal-sport",
-      group: "canal",
-      name: "CANAL+ SPORT",
-      logoText: "CANAL+ SPORT",
-      streamUrl: "",
-      type: "iframe"
+    { 
+      id: "canal-sport", 
+      group: "canal", 
+      name: "CANAL+ SPORT", 
+      logoText: "CANAL+ SPORT", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-canalsport" // 👈 Remplace ici pour Canal+ Sport
     },
-    {
-      id: "canal-foot",
-      group: "canal",
-      name: "CANAL+ FOOT",
-      logoText: "CANAL+ FOOT",
-      streamUrl: "",
-      type: "iframe"
+    { 
+      id: "canal-foot", 
+      group: "canal", 
+      name: "CANAL+ FOOT", 
+      logoText: "CANAL+ FOOT", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-canalfoot" // 👈 Remplace ici pour Canal+ Foot
+    },
+    { 
+      id: "canal-360", 
+      group: "canal", 
+      name: "CANAL+ 360", 
+      logoText: "CANAL+ 360", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-canal360" // 👈 Remplace ici pour Canal+ 360
     },
 
-    // DAZN & Autres
-    {
-      id: "dazn1",
-      group: "other",
-      name: "DAZN 1",
-      logoText: "DAZN 1",
-      streamUrl: "",
-      type: "iframe"
+    // ════════ DAZN & AUTRES ════════
+    { 
+      id: "dazn1", 
+      group: "other", 
+      name: "DAZN 1", 
+      logoText: "DAZN 1", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-dazn1" // 👈 Remplace ici pour DAZN 1
     },
-    {
-      id: "rmc1",
-      group: "other",
-      name: "RMC SPORT 1",
-      logoText: "RMC SPORT 1",
-      streamUrl: "",
-      type: "iframe"
+    { 
+      id: "rmc1", 
+      group: "other", 
+      name: "RMC SPORT 1", 
+      logoText: "RMC SPORT 1", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-rmc1" // 👈 Remplace ici pour RMC 1
+    },
+    { 
+      id: "prime-ligue1", 
+      group: "other", 
+      name: "PASS LIGUE 1", 
+      logoText: "PRIME LIGUE 1", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-ligue1" // 👈 Remplace ici pour Prime Ligue 1
     }
   ];
 
-  // Rendu automatique des cartes de chaînes
   function renderChannels() {
     CHANNELS.forEach(ch => {
       const targetGroup = document.getElementById(`group-${ch.group}`);
@@ -260,12 +261,9 @@
       const card = document.createElement('div');
       card.className = "glass-card rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer group";
 
-      let logoHTML = '';
-      if (ch.logo) {
-        logoHTML = `<img src="${ch.logo}" alt="${ch.name}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform">`;
-      } else {
-        logoHTML = `<span class="text-xl font-black italic text-white tracking-tighter">${ch.logoText || ch.name}</span>`;
-      }
+      let logoHTML = ch.logo 
+        ? `<img src="${ch.logo}" alt="${ch.name}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform">`
+        : `<span class="text-xl font-black italic text-white tracking-tighter">${ch.logoText || ch.name}</span>`;
 
       card.innerHTML = `
         <div class="w-full h-24 bg-black/40 rounded-xl flex items-center justify-center p-4 mb-4 border border-white/5">
@@ -280,57 +278,21 @@
     });
   }
 
-  // Gestion de la lecture vidéo
-  let hlsInstance = null;
-
   function openPlayer(ch) {
     const modal = document.getElementById('playerModal');
     const title = document.getElementById('modalChannelTitle');
     const iframe = document.getElementById('streamIframe');
-    const video = document.getElementById('hlsVideo');
-    const noMsg = document.getElementById('noStreamMsg');
 
-    title.textContent = ch.name;
+    title.textContent = `${ch.name} — DIRECT HD`;
+    iframe.src = ch.streamUrl;
     modal.classList.add('active');
-
-    // Reset
-    iframe.classList.add('hidden');
-    video.classList.add('hidden');
-    noMsg.classList.add('hidden');
-    iframe.src = "";
-    video.pause();
-
-    if (!ch.streamUrl) {
-      noMsg.classList.remove('hidden');
-      return;
-    }
-
-    if (ch.type === "hls" || ch.streamUrl.endsWith('.m3u8')) {
-      video.classList.remove('hidden');
-      if (Hls.isSupported()) {
-        if (hlsInstance) hlsInstance.destroy();
-        hlsInstance = new Hls();
-        hlsInstance.loadSource(ch.streamUrl);
-        hlsInstance.attachMedia(video);
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = ch.streamUrl;
-      }
-    } else {
-      // Direct iframe
-      iframe.classList.remove('hidden');
-      iframe.src = ch.streamUrl;
-    }
   }
 
-  // Fermer le lecteur
   document.getElementById('closePlayerBtn')?.addEventListener('click', () => {
     const modal = document.getElementById('playerModal');
     const iframe = document.getElementById('streamIframe');
-    const video = document.getElementById('hlsVideo');
     modal.classList.remove('active');
-    iframe.src = "";
-    video.pause();
-    if (hlsInstance) hlsInstance.destroy();
+    iframe.src = ""; // Coupe la lecture au fermer
   });
 
   renderChannels();
