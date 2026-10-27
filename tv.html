@@ -1,318 +1,506 @@
 <!DOCTYPE html>
 <html lang="fr" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#090a0f">
-
-  <title>CHAÎNES TV LIVE | HUNI STREAM</title>
-  <meta name="description" content="Regardez toutes les chaînes sportives Ligue 1+, beIN Sports, Canal+, DAZN, RMC Sport en direct HD 24/7.">
-
-  <link rel="icon" href="https://clipart-library.com/images/BTgr6L5kc.jpg">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: '#a855f7',
-            'brand-glow': '#c084fc',
-          }
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#06060a">
+<title>HUNI STREAM | Chaînes TV</title>
+<meta name="description" content="Toutes les chaînes sportives en direct sur HUNI STREAM — beIN, Canal+, Ligue 1+ et plus.">
+<link rel="icon" href="https://clipart-library.com/images/BTgr6L5kc.jpg">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        brand: '#a855f7',
+        'brand-glow': '#c084fc',
+        live: '#10b981',
+        darkbg: '#06060a',
       }
     }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand: #a855f7;
+  --bg: #06060a;
+}
+* { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: #fff;
+  overflow-x: hidden;
+  cursor: none;
+}
+a, button, input { cursor: none; }
+@media (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+  body, a, button, input { cursor: auto; }
+}
 
-  <style>
-    * { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
-    body { background-color: #070709; color: #fff; }
-    
-    .glass-card {
-      background: rgba(18, 18, 24, 0.55);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glass-card:hover {
-      border-color: rgba(168, 85, 247, 0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(168, 85, 247, 0.15);
-    }
-    .glow-text { text-shadow: 0 0 20px rgba(168, 85, 247, 0.6); }
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000;
+  border-radius: 50%; transform: translate(-50%, -50%);
+}
+.cursor-dot {
+  width: 8px; height: 8px; background: var(--brand); box-shadow: 0 0 16px var(--brand);
+}
+.cursor-ring {
+  width: 36px; height: 36px; border: 1.5px solid rgba(168,85,247,.55);
+  transition: width .25s, height .25s, border-color .25s, background .25s;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  border-color: rgba(168,85,247,.9);
+  background: rgba(168,85,247,.08);
+}
 
-    .channel-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      background: rgba(16, 185, 129, 0.12);
-      color: #10b981;
-      border: 1px solid rgba(16, 185, 129, 0.25);
-    }
+.scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.scene-img {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6,6,10,.55) 0%, rgba(6,6,10,.82) 45%, #06060a 100%),
+    radial-gradient(ellipse at 50% 0%, rgba(168,85,247,.22) 0%, transparent 55%),
+    url("https://thumb.canalplus.pro/bran/unsafe/2560x668/filters:quality(80)/image/695f89b989950/uploads/media/myCANAL_Cover_web_2760x720_47.jpg") center/cover no-repeat;
+  animation: kenburns 28s ease-in-out infinite alternate;
+}
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.08) translateY(-2%); }
+}
+.orb {
+  position: absolute; border-radius: 50%; filter: blur(80px); opacity: .4;
+  animation: floatOrb 12s ease-in-out infinite;
+}
+.orb-a { width: 420px; height: 420px; background: #a855f7; top: -10%; left: -8%; }
+.orb-b { width: 360px; height: 360px; background: #4f46e5; top: 35%; right: -10%; animation-delay: -4s; }
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0,0); }
+  50% { transform: translate(40px,-30px) scale(1.1); }
+}
+#particles { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vignette {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.65) 100%);
+}
 
-    /* Modal Player Styling */
-    .player-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(12px);
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-    .player-modal.active { display: flex; }
-  </style>
+.glass {
+  background: rgba(14,14,20,.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: .7; }
+}
+.live-dot { animation: pulse-dot 1.6s ease-out infinite; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+.reveal { opacity: 0; animation: fadeUp .7s cubic-bezier(.16,1,.3,1) forwards; }
+.d1 { animation-delay: .08s; }
+.d2 { animation-delay: .16s; }
+.d3 { animation-delay: .28s; }
+
+.nav-link { position: relative; transition: color .25s; }
+.nav-link::after {
+  content: '';
+  position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
+  background: linear-gradient(90deg, #a855f7, #6366f1);
+  transition: width .3s cubic-bezier(.16,1,.3,1);
+  border-radius: 2px;
+}
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+.section-title {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+}
+.section-title h2 {
+  font-size: 13px; font-weight: 800; letter-spacing: .18em;
+  text-transform: uppercase; white-space: nowrap; color: #34d399;
+}
+.section-title .line {
+  height: 1px; flex: 1;
+  background: linear-gradient(90deg, rgba(168,85,247,.55), rgba(52,211,153,.15), transparent);
+}
+
+.channels-toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 14px; margin-bottom: 22px;
+}
+.channels-search {
+  width: 100%; max-width: 22rem; height: 42px; padding: 0 1rem;
+  border-radius: 10px; border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.03); color: #fff; font-size: .875rem; outline: none;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.channels-search::placeholder { color: rgba(255,255,255,.38); }
+.channels-search:focus {
+  border-color: rgba(168,85,247,.5);
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 0 0 4px rgba(168,85,247,.1);
+}
+
+.tab-btn {
+  font-size: 13px; font-weight: 700; color: rgba(255,255,255,.45);
+  padding-bottom: 6px; border-bottom: 2px solid transparent; transition: .2s;
+}
+.tab-btn.active {
+  color: #c084fc;
+  border-bottom-color: #a855f7;
+}
+
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 1rem;
+}
+
+.channel-tile {
+  position: relative;
+  display: flex; flex-direction: column;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform .25s cubic-bezier(.16,1,.3,1), background .25s;
+  text-decoration: none; color: inherit;
+  opacity: 0;
+  animation: fadeUp .45s cubic-bezier(.22,1,.36,1) forwards;
+  animation-delay: calc(.05s + var(--i, 0) * .04s);
+}
+.channel-tile:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,.05);
+}
+.channel-tile__head {
+  display: flex; justify-content: flex-end;
+  min-height: 1.85rem; padding: .4rem .55rem 0;
+}
+.channel-tile__fav {
+  border: none; background: transparent;
+  color: rgba(185,131,255,.55); padding: .2rem;
+  border-radius: 6px; display: grid; place-items: center;
+  transition: color .15s, background .15s;
+}
+.channel-tile__fav:hover { color: #c084fc; background: rgba(168,85,247,.12); }
+.channel-tile__fav.is-on { color: #facc15; }
+.channel-tile__fav svg { width: 1.05rem; height: 1.05rem; }
+.channel-tile__logo-pane { padding: .25rem .55rem .35rem; }
+.channel-tile__logo-inner {
+  position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden;
+  border-radius: 8px; background: rgba(255,255,255,.03);
+}
+.channel-tile__logo-inner img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; object-position: center;
+}
+.channel-tile__foot { padding: .55rem .65rem .75rem; }
+.channel-tile__name {
+  margin: 0; font-size: .8125rem; font-weight: 600; line-height: 1.35;
+  color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; min-height: 2.35em;
+}
+.channel-tile__now {
+  margin: .35rem 0 0; font-size: .68rem; font-weight: 500;
+  color: rgba(255,255,255,.35); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.channel-tile__meta {
+  margin-top: .55rem; display: flex; flex-wrap: wrap; gap: .35rem;
+}
+.channel-tile__chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: .625rem; font-weight: 600; padding: .2rem .4rem;
+  border-radius: 4px; border: 1px solid rgba(255,255,255,.1);
+  background: rgba(39,39,42,.85); color: #d4d4d8;
+}
+.channel-tile__chip--hd {
+  background: rgba(168,85,247,.18);
+  color: #e8cfff;
+  border-color: rgba(192,132,252,.35);
+}
+.channel-tile__chip--lang {
+  color: #71717a; background: transparent;
+}
+
+#nbar {
+  position: fixed; top: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, #a855f7, #6366f1, #10b981);
+  z-index: 10001; transition: width .3s ease, opacity .4s;
+}
+.content-layer { position: relative; z-index: 1; }
+.noise::after {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+</style>
 </head>
+<body class="noise min-h-screen flex flex-col">
 
-<body class="min-h-screen flex flex-col justify-between bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black">
+<div id="nbar"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-<!-- LECTEUR DE FLUX / MODAL VIDEO INTÉGRÉ -->
-<div id="playerModal" class="player-modal">
-  <div class="glass-card max-w-5xl w-full rounded-3xl overflow-hidden border-purple-500/30 flex flex-col">
-    <!-- En-tête du lecteur -->
-    <div class="p-4 bg-black/60 border-b border-white/10 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <h3 id="modalChannelTitle" class="font-bold text-white text-base">HUNI STREAM — LECTEUR EN DIRECT</h3>
-      </div>
-      <button id="closePlayerBtn" class="px-4 py-1.5 rounded-xl bg-white/10 text-xs font-bold hover:bg-red-600 hover:text-white transition-all">
-        ✕ FERMER
-      </button>
-    </div>
-    
-    <!-- Conteneur Iframe de ton lecteur -->
-    <div class="relative w-full aspect-video bg-black flex items-center justify-center">
-      <iframe id="streamIframe" 
-              src="" 
-              allow="autoplay; fullscreen" 
-              allowfullscreen 
-              referrerpolicy="origin" 
-              style="width:100%;aspect-ratio:16/9;border:0" 
-              class="w-full h-full"></iframe>
-    </div>
-  </div>
+<div class="scene" aria-hidden="true">
+  <div class="scene-img"></div>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <canvas id="particles"></canvas>
+  <div class="vignette"></div>
 </div>
 
-<!-- NAVBAR -->
-<header class="sticky top-0 z-40 backdrop-blur-xl bg-black/40 border-b border-white/10">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-2 group">
-      <span class="text-2xl sm:text-3xl font-black tracking-wider text-white group-hover:text-purple-400 transition-colors">
-        HUNI <span class="text-brand glow-text">STREAM</span>
+<div class="content-layer flex flex-col min-h-screen">
+
+<header class="sticky top-0 z-40 bg-transparent">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 grid grid-cols-3 items-center">
+    <a href="index.html" class="justify-self-start interactive">
+      <span class="text-2xl sm:text-3xl font-black tracking-wider text-white">
+        HUNI <span class="text-brand">STREAM</span>
       </span>
     </a>
-
-    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide">
-      <a href="index.html" class="text-gray-300 hover:text-white transition-colors">ACCUEIL</a>
-      <a href="tv.html" class="text-purple-400 border-b-2 border-purple-500 pb-1">CHAÎNES TV</a>
-      <a href="shop.html" class="text-gray-300 hover:text-white transition-colors">OFFRE IPTV</a>
+    <nav class="hidden md:flex items-center justify-center gap-8 text-sm font-semibold tracking-wide justify-self-center">
+      <a href="index.html" class="nav-link text-gray-300 hover:text-white interactive">ACCUEIL</a>
+      <a href="tv.html" class="nav-link active text-purple-300 interactive">CHAÎNES TV</a>
+      <a href="/shop.html" class="nav-link text-gray-300 hover:text-white interactive">OFFRE IPTV</a>
     </nav>
-
-    <div class="flex items-center gap-3">
-      <a href="index.html" class="px-4 py-2 text-xs font-extrabold rounded-xl bg-white/10 text-white hover:bg-white/20 transition-all">
-        ← RETOUR MATCHS
+    <div class="justify-self-end flex items-center">
+      <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="hidden sm:flex p-2.5 rounded-xl glass text-gray-300 hover:text-white interactive">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028ZM8.02 15.332c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.955 2.419-2.157 2.419Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.946 2.419-2.157 2.419Z"/></svg>
       </a>
     </div>
   </div>
 </header>
 
-<!-- HEADER TV -->
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6 text-center">
-  <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card text-xs font-semibold text-purple-300 mb-4 border-purple-500/20">
-    📡 FLUX EN DIRECT 24/7
-  </div>
-  <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-2">
-    CHAÎNES <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 glow-text">TV FOOT</span>
+  <h1 class="reveal d1 text-5xl sm:text-6xl font-black tracking-tight text-white mb-3">
+    HUNI <span class="text-brand">STREAM</span>
   </h1>
-  <p class="text-gray-400 text-sm max-w-lg mx-auto">
-    Cliquez sur n'importe quelle chaîne pour lancer le direct dans ton lecteur !
-  </p>
+  <p class="reveal d2 text-gray-400 font-medium">Toutes les chaînes, gratuitement.</p>
 </section>
 
-<!-- GRILLE CHAÎNES DYNAMIQUE -->
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
-
-  <!-- LIGUE 1 PASS / LIGUE 1+ -->
-  <div class="mb-10">
-    <h2 class="text-sm font-black text-purple-400 tracking-wider uppercase mb-4 flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-cyan-400"></span> LIGUE 1+ MCDONALD'S
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="group-ligue1"></div>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+  <div class="reveal d3 section-title">
+    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 live-dot"></span>
+    <h2>CHAÎNES EN DIRECT</h2>
+    <div class="line"></div>
   </div>
 
-  <!-- BEIN SPORTS -->
-  <div class="mb-10">
-    <h2 class="text-sm font-black text-purple-400 tracking-wider uppercase mb-4 flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-purple-500"></span> BEIN SPORTS
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="group-bein"></div>
+  <div class="channels-toolbar">
+    <input type="search" id="search" class="channels-search interactive" placeholder="Rechercher une chaîne…" autocomplete="off">
+    <div class="flex items-center gap-4 flex-wrap">
+      <span id="countLabel" class="text-xs text-gray-400 font-medium"></span>
+      <button id="refreshBtn" class="text-xs font-bold px-3 py-2 rounded-lg glass text-gray-300 hover:text-white interactive flex items-center gap-1.5">
+        <span id="refreshIcon" class="inline-block transition-transform duration-500">↻</span> Actualiser
+      </button>
+      <div class="flex items-center gap-5">
+        <button type="button" class="tab-btn active interactive" data-tab="all">Toutes</button>
+        <button type="button" class="tab-btn interactive" data-tab="favs">★ Favoris <span id="favCount">0</span></button>
+      </div>
+    </div>
   </div>
 
-  <!-- CANAL + -->
-  <div class="mb-10">
-    <h2 class="text-sm font-black text-purple-400 tracking-wider uppercase mb-4 flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-purple-500"></span> CANAL +
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="group-canal"></div>
-  </div>
-
-  <!-- DAZN & AUTRES -->
-  <div>
-    <h2 class="text-sm font-black text-purple-400 tracking-wider uppercase mb-4 flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-purple-500"></span> DAZN & AUTRES
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="group-other"></div>
-  </div>
-
+  <div id="channelsGrid" class="channels-grid"></div>
 </main>
 
-<footer class="border-t border-white/10 bg-black/60 backdrop-blur-md py-8">
-  <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500">
-    <p>© HUNI STREAM TV — Diffusion des chaînes TV sportives.</p>
+<footer class="mt-16 border-t border-white/10 bg-black/55 backdrop-blur-md py-10">
+  <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-3">
+    <p class="text-sm font-bold tracking-wide text-gray-300">HUNI <span class="text-brand">STREAM</span></p>
+    <p>© HUNI STREAM — Tous droits réservés.</p>
   </div>
 </footer>
+</div>
 
-<!-- SCRIPT DE CONFIGURATION CHAQUE LIEN DE CHAÎNE -->
 <script>
-  // 🔗 LISTE DES CHAÎNES : Remplace chaque "streamUrl" par ton lien spécifique !
-  const CHANNELS = [
-    // ════════ LIGUE 1+ ════════
-    { 
-      id: "ligue1-plus", 
-      group: "ligue1", 
-      name: "LIGUE 1+", 
-      logoText: "LIGUE 1+", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-ligue1plus" // 👈 Lien Ligue 1+
-    },
-    { 
-      id: "ligue1-pass", 
-      group: "ligue1", 
-      name: "LIGUE 1 PASS", 
-      logoText: "L1 PASS", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-l1pass" // 👈 Lien Ligue 1 Pass
-    },
-
-    // ════════ BEIN SPORTS ════════
-    { 
-      id: "bein1", 
-      group: "bein", 
-      name: "beIN SPORTS 1", 
-      logo: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Logo_beIN_SPORTS_1.png", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport" 
-    },
-    { 
-      id: "bein2", 
-      group: "bein", 
-      name: "beIN SPORTS 2", 
-      logo: "https://upload.wikimedia.org/wikipedia/commons/7/78/Logo_beIN_SPORTS_2.png", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-bein2" 
-    },
-    { 
-      id: "bein3", 
-      group: "bein", 
-      name: "beIN SPORTS 3", 
-      logo: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Logo_beIN_SPORTS_3.png", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-bein3" 
-    },
-
-    // ════════ CANAL + ════════
-    { 
-      id: "canal-plus", 
-      group: "canal", 
-      name: "CANAL+", 
-      logoText: "CANAL+", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-canal" 
-    },
-    { 
-      id: "canal-sport", 
-      group: "canal", 
-      name: "CANAL+ SPORT", 
-      logoText: "CANAL+ SPORT", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-canalsport" 
-    },
-    { 
-      id: "canal-foot", 
-      group: "canal", 
-      name: "CANAL+ FOOT", 
-      logoText: "CANAL+ FOOT", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-canalfoot" 
-    },
-    { 
-      id: "canal-360", 
-      group: "canal", 
-      name: "CANAL+ 360", 
-      logoText: "CANAL+ 360", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-canal360" 
-    },
-
-    // ════════ DAZN & AUTRES ════════
-    { 
-      id: "dazn1", 
-      group: "other", 
-      name: "DAZN 1", 
-      logoText: "DAZN 1", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-dazn1" 
-    },
-    { 
-      id: "rmc1", 
-      group: "other", 
-      name: "RMC SPORT 1", 
-      logoText: "RMC SPORT 1", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-rmc1" 
-    }
-  ];
-
-  function renderChannels() {
-    CHANNELS.forEach(ch => {
-      const targetGroup = document.getElementById(`group-${ch.group}`);
-      if (!targetGroup) return;
-
-      const card = document.createElement('div');
-      card.className = "glass-card rounded-2xl p-6 flex flex-col items-center text-center cursor-pointer group";
-
-      let logoHTML = ch.logo 
-        ? `<img src="${ch.logo}" alt="${ch.name}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform">`
-        : `<span class="text-xl font-black italic text-cyan-400 tracking-tighter">${ch.logoText || ch.name}</span>`;
-
-      card.innerHTML = `
-        <div class="w-full h-24 bg-black/40 rounded-xl flex items-center justify-center p-4 mb-4 border border-white/5">
-          ${logoHTML}
-        </div>
-        <h3 class="font-bold text-lg text-white group-hover:text-purple-400 transition-colors mb-1">${ch.name}</h3>
-        <span class="channel-badge"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> DIRECT HD</span>
-      `;
-
-      card.addEventListener('click', () => openPlayer(ch));
-      targetGroup.appendChild(card);
-    });
-  }
-
-  function openPlayer(ch) {
-    const modal = document.getElementById('playerModal');
-    const title = document.getElementById('modalChannelTitle');
-    const iframe = document.getElementById('streamIframe');
-
-    title.textContent = `${ch.name} — DIRECT HD`;
-    iframe.src = ch.streamUrl;
-    modal.classList.add('active');
-  }
-
-  document.getElementById('closePlayerBtn')?.addEventListener('click', () => {
-    const modal = document.getElementById('playerModal');
-    const iframe = document.getElementById('streamIframe');
-    modal.classList.remove('active');
-    iframe.src = "";
+(function () {
+  const bar = document.getElementById('nbar');
+  let p = 0;
+  const tick = () => {
+    p = Math.min(p + Math.random() * 18, 92);
+    bar.style.width = p + '%';
+    if (p < 92) requestAnimationFrame(() => setTimeout(tick, 80));
+  };
+  tick();
+  window.addEventListener('load', () => {
+    bar.style.width = '100%';
+    setTimeout(() => { bar.style.opacity = '0'; }, 350);
   });
+})();
 
-  renderChannels();
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!window.matchMedia('(pointer:fine)').matches) return;
+  let x = 0, y = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', (e) => { x = e.clientX; y = e.clientY; dot.style.left = x + 'px'; dot.style.top = y + 'px'; });
+  (function follow() {
+    rx += (x - rx) * 0.18; ry += (y - ry) * 0.18;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(follow);
+  })();
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest('.interactive')) ring.classList.add('hover');
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest('.interactive')) ring.classList.remove('hover');
+  });
+})();
+
+(function () {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let w, h, parts = [];
+  function resize() { w = canvas.width = innerWidth; h = canvas.height = innerHeight; }
+  function spawn() {
+    parts = Array.from({ length: Math.min(55, Math.floor(w / 24)) }, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      r: Math.random() * 1.6 + 0.4,
+      vx: (Math.random() - 0.5) * 0.3, vy: -Math.random() * 0.35 - 0.08,
+      a: Math.random() * 0.4 + 0.1, hue: Math.random() > 0.7 ? 160 : 270
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of parts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue},80%,70%,${p.a})`;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  resize(); spawn(); draw();
+  addEventListener('resize', () => { resize(); spawn(); });
+})();
+
+const CHANNELS = [
+  { name: "beIN SPORTS 1", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_1_134e751711.png", cat: "Sport" },
+  { name: "beIN SPORTS 2", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_2_7cb5d3a006.png", cat: "Sport" },
+  { name: "beIN SPORTS 3", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_3_7e4adcefc6.png", cat: "Sport" },
+  { name: "beIN SPORTS MAX 4", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_MAX_4_c3c337c2ff.png", cat: "Sport" },
+  { name: "beIN SPORTS MAX 5", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_MAX_5_ce5871fc49.png", cat: "Sport" },
+  { name: "beIN SPORTS MAX 6", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_MAX_6_50f4830f78.png", cat: "Sport" },
+  { name: "beIN SPORTS MAX 7", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_MAX_7_6ebdb0a7d8.png", cat: "Sport" },
+  { name: "beIN SPORTS MAX 8", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_MAX_8_f699d80fa1.png", cat: "Sport" },
+  { name: "beIN SPORTS MAX 9", logo: "https://freebox.cdn.scw.iliad.fr/large_Logo_be_IN_SPORTS_MAX_9_17ef74743f.png", cat: "Sport" },
+  { name: "beIN SPORTS MAX 10", logo: "https://freebox.cdn.scw.iliad.fr/large_be_INSPORTSMAX_10_1ddd01afda.png", cat: "Sport" },
+  { name: "Canal+", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-fr.png", cat: "Ciné" },
+  { name: "Canal+ Sport", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-sport-fr.png", cat: "Sport" },
+  { name: "Canal+ Foot", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-foot-fr.png", cat: "Sport" },
+  { name: "Canal+ Sport 360", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/canal-plus-sport-360-fr.png", cat: "Sport" },
+  { name: "Ligue 1+", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 2", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-2-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 3", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-3-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 4", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-4-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 5", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-5-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 6", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-6-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 7", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-7-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 8", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-8-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 9", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-9-fr.png", cat: "Sport" },
+  { name: "Ligue 1+ 10", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/ligue-1plus-10-fr.png", cat: "Sport" },
+  { name: "RMC Sport 1", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/rmc-sport-1-fr.png", cat: "Sport" },
+  { name: "Sport Tv 1", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-1-pt.png", cat: "Sport" },
+  { name: "Sport Tv 2", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-2-pt.png", cat: "Sport" },
+  { name: "Sport Tv 3", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-3-pt.png", cat: "Sport" },
+  { name: "Sport Tv 5", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-1-pt.png", cat: "Sport" },
+  { name: "L'Équipe", logo: "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/lequipe-fr.png", cat: "Sport" },
+  { name: "TF1", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/TF1_logo_2013.svg/200px-TF1_logo_2013.svg.png", cat: "Sport" },
+  { name: "M6", logo: "https://upload.wikimedia.org/wikipedia/fr/thumb/2/22/M6_logo_2015.svg/200px-M6_logo_2015.svg.png", cat: "Sport" }
+];
+
+const FAV_KEY = 'huni_tv_favs_v1';
+let currentTab = 'all';
+
+function getFavs() {
+  try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; }
+}
+function setFavs(list) {
+  localStorage.setItem(FAV_KEY, JSON.stringify(list));
+  document.getElementById('favCount').textContent = list.length;
+}
+
+function cardHTML(ch, i, isFav) {
+  const href = `stream.html?c=${encodeURIComponent(ch.name)}`;
+  return `
+  <a href="${href}" class="channel-tile interactive" style="--i:${i}" data-name="${ch.name}">
+    <div class="channel-tile__head">
+      <button type="button" class="channel-tile__fav ${isFav ? 'is-on' : ''}" data-fav="${ch.name}" aria-label="Favori">
+        <svg viewBox="0 0 24 24" fill="${isFav ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5l2.6 5.3 5.9.9-4.3 4.2 1 5.8L12 16.9 6.8 19.7l1-5.8L3.5 9.7l5.9-.9L12 3.5z"/></svg>
+      </button>
+    </div>
+    <div class="channel-tile__logo-pane">
+      <div class="channel-tile__logo-inner">
+        <img src="${ch.logo}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.opacity='.3'">
+      </div>
+    </div>
+    <div class="channel-tile__foot">
+      <p class="channel-tile__name">${ch.name}</p>
+      <p class="channel-tile__now">Programme indisponible</p>
+      <div class="channel-tile__meta">
+        <span class="channel-tile__chip">${ch.cat}</span>
+        <span class="channel-tile__chip channel-tile__chip--hd">FHD</span>
+        <span class="channel-tile__chip channel-tile__chip--lang">FR</span>
+      </div>
+    </div>
+  </a>`;
+}
+
+function render() {
+  const q = (document.getElementById('search').value || '').toLowerCase().trim();
+  const favs = getFavs();
+  let list = CHANNELS.filter(c => c.name.toLowerCase().includes(q));
+  if (currentTab === 'favs') list = list.filter(c => favs.includes(c.name));
+
+  document.getElementById('countLabel').textContent = `${list.length} disponible${list.length > 1 ? 's' : ''}`;
+  document.getElementById('favCount').textContent = favs.length;
+
+  const grid = document.getElementById('channelsGrid');
+  if (!list.length) {
+    grid.innerHTML = `<div class="col-span-full glass p-10 rounded-2xl text-center text-gray-400 text-sm" style="grid-column:1/-1">Aucune chaîne trouvée.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map((c, i) => cardHTML(c, i, favs.includes(c.name))).join('');
+}
+
+document.getElementById('channelsGrid').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-fav]');
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const name = btn.getAttribute('data-fav');
+  let favs = getFavs();
+  if (favs.includes(name)) favs = favs.filter(n => n !== name);
+  else favs.push(name);
+  setFavs(favs);
+  render();
+});
+
+document.getElementById('search').addEventListener('input', render);
+document.querySelectorAll('[data-tab]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentTab = btn.dataset.tab;
+    document.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('active', b === btn));
+    render();
+  });
+});
+document.getElementById('refreshBtn').addEventListener('click', () => {
+  const icon = document.getElementById('refreshIcon');
+  icon.style.transform = 'rotate(360deg)';
+  setTimeout(() => { icon.style.transform = ''; }, 500);
+  render();
+});
+
+setFavs(getFavs());
+render();
 </script>
 </body>
 </html>
