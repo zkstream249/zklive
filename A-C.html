@@ -1,558 +1,308 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="dark">
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#070709" />
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0" />
-
-  <title>HUNI - PSG vs OL</title>
+  <title>HUNI STREAM — PSG vs OL</title>
 
   <!-- TAILWIND -->
-
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { brand: '#a855f7', live: '#10b981' }
+        }
+      }
+    }
+  </script>
 
   <!-- FONT -->
-
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap"
-        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- ICONS -->
-
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
+    * { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100vh; background-color: #070709; color: white; overflow-x: hidden; }
 
-    html,
-    body{
-      margin:0;
-      height:100%;
+    body {
+      background: linear-gradient(135deg, rgba(7,7,9,.94) 0%, rgba(7,7,9,.88) 40%, rgba(7,7,9,.94) 100%),
+                  url("https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31108766/canal-ouah_50061/STD169/myCANAL_16x9_sport_1920x1080-2026-03-20T160621.011-UIUD") center/cover no-repeat fixed;
     }
 
-    body{
-      font-family:'Outfit',sans-serif;
-      color:white;
-      overflow-x:hidden;
-
-      background:
-      linear-gradient(
-        135deg,
-        rgba(10,10,12,.92) 0%,
-        rgba(10,10,12,.88) 40%,
-        rgba(10,10,12,.92) 100%
-      ),
-      url("https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31108766/canal-ouah_50061/STD169/myCANAL_16x9_sport_1920x1080-2026-03-20T160621.011-UIUD")
-      center/cover no-repeat fixed;
+    /* GLASSMORPHISM */
+    .glass {
+      background: rgba(18, 18, 24, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .glass:hover {
+      border-color: rgba(168, 85, 247, 0.3);
     }
 
-    /* GLASS */
-
-    .glass{
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter:blur(14px);
-      box-shadow:0 30px 120px rgba(0,0,0,.75);
-    }
-
-    /* PLAYER */
-
-    .player-box{
-      position:relative;
-      overflow:hidden;
-      border-radius:22px;
-    }
-
-    iframe{
-      width:100%;
-      height:100%;
-      border:none;
-      display:block;
-      background:black;
+    /* PLAYER CONTAINER */
+    .player-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 30px rgba(168,85,247,0.15);
     }
 
     /* COVER */
+    .cover {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      cursor: pointer;
+      background: linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,.5) 60%, rgba(0,0,0,.85) 100%),
+                  url("https://news-frontend.news.indazn.com/_next/image?url=https%3A%2F%2Fcms-images.acc.indazn.com%2Fdi%2Flibrary%2FDAZN_News%2F17%2F71%2Fpsg-lyon_1t58reh74jwo71pp1f4pcs8rp9.png%3Ft%3D490589039%26quality%3D75%26w%3D760%26h%3D428&w=1200&q=75") center/cover no-repeat;
+      transition: transform 0.5s ease;
+    }
+    .cover:hover { transform: scale(1.01); }
 
-    .cover{
-      position:absolute;
-      inset:0;
-      z-index:20;
-      cursor:pointer;
-
-      background:
-      linear-gradient(
-        180deg,
-        rgba(0,0,0,.15) 0%,
-        rgba(0,0,0,.45) 55%,
-        rgba(0,0,0,.82) 100%
-      ),
-      url("https://news-frontend.news.indazn.com/_next/image?url=https%3A%2F%2Fcms-images.acc.indazn.com%2Fdi%2Flibrary%2FDAZN_News%2F17%2F71%2Fpsg-lyon_1t58reh74jwo71pp1f4pcs8rp9.png%3Ft%3D490589039%26quality%3D75%26w%3D760%26h%3D428&w=1200&q=75")
-      center/cover no-repeat;
+    .pill {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 900;
+      backdrop-filter: blur(10px);
     }
 
-    .pill{
-      position:absolute;
-      top:18px;
-      right:18px;
-
-      padding:8px 14px;
-
-      border-radius:999px;
-
-      background:rgba(0,0,0,.55);
-
-      border:1px solid rgba(255,255,255,.12);
-
-      display:flex;
-      align-items:center;
-      gap:8px;
-
-      font-size:12px;
-      font-weight:900;
-
-      backdrop-filter:blur(12px);
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
     }
 
-    .dot{
-      width:8px;
-      height:8px;
-      border-radius:999px;
-      background:#f59e0b;
-      box-shadow:0 0 0 4px rgba(245,158,11,.15);
+    .cover-strip {
+      position: absolute;
+      left: 18px; right: 18px; bottom: 18px;
+      height: 80px;
+      border-radius: 16px;
+      background: rgba(10, 10, 15, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
     }
 
-    .cover-strip{
-      position:absolute;
-
-      left:18px;
-      right:18px;
-      bottom:18px;
-
-      height:85px;
-
-      border-radius:18px;
-
-      background:rgba(0,0,0,.42);
-
-      border:1px solid rgba(255,255,255,.12);
-
-      backdrop-filter:blur(18px);
-
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-
-      padding:0 20px;
+    .strip-play {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+      transition: transform 0.2s, filter 0.2s;
     }
-
-    .strip-title{
-      font-size:18px;
-      font-weight:900;
-    }
-
-    .strip-sub{
-      margin-top:5px;
-      font-size:14px;
-      opacity:.82;
-      font-style:italic;
-      font-weight:700;
-    }
-
-    .strip-play{
-      width:50px;
-      height:50px;
-
-      border-radius:999px;
-
-      display:grid;
-      place-items:center;
-
-      background:rgba(255,255,255,.14);
-
-      border:1px solid rgba(255,255,255,.16);
-
-      transition:.2s;
-    }
-
-    .strip-play:hover{
-      transform:scale(1.08);
-    }
+    .strip-play:hover { transform: scale(1.1); filter: brightness(1.1); }
 
     /* BUTTONS */
-
-    .source-btn{
-      height:42px;
-      padding:0 24px;
-
-      border-radius:12px;
-
-      font-weight:900;
-      font-size:13px;
-
-      transition:.2s;
+    .source-btn {
+      height: 44px;
+      padding: 0 24px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      cursor: pointer;
     }
-
-    .source-btn.active{
-      background:white;
-      color:black;
+    .source-btn.active {
+      background: #a855f7;
+      color: white;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
     }
-
-    .source-btn.inactive{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      color:white;
+    .source-btn.inactive {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
     }
+    .source-btn.inactive:hover { background: rgba(255, 255, 255, 0.1); color: white; }
 
-    /* WATCH BAR */
-
-    .watch-bar{
-      border-radius:18px;
-
-      padding:14px 18px;
-
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
+    /* CHAT BOX */
+    .chat-box {
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(14, 14, 18, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 550px;
     }
-
-    .watch-text .small{
-      font-size:13px;
-      opacity:.75;
-      font-weight:700;
-    }
-
-    .watch-text .big{
-      font-size:16px;
-      font-weight:900;
-      margin:3px 0;
-    }
-
-    .channel-logo{
-      width:95px;
-      object-fit:contain;
-    }
-
-    /* CHAT */
-
-    .chat-box{
-      border-radius:22px;
-      overflow:hidden;
-
-      min-height:520px;
-
-      background:#0e0e10;
-
-      border:1px solid rgba(255,255,255,.08);
-
-      box-shadow:0 30px 120px rgba(0,0,0,.75);
-    }
-
-    .chat-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-
-      padding:14px 16px;
-
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .chat-head .title{
-      font-weight:900;
-    }
-
-    .chat-head .sub{
-      font-size:12px;
-      opacity:.7;
-      margin-top:2px;
-      font-weight:700;
-    }
-
-    #chatFrame{
-      position:relative;
-      z-index:9999;
-      width:100%;
-      height:100%;
-      border:none;
-      background:#0e0e10;
-    }
-
-    @media(max-width:1024px){
-
-      .chat-box{
-        min-height:420px;
-      }
-
-    }
-
   </style>
 </head>
 
-<body>
+<body class="flex flex-col justify-between">
 
   <!-- NAVBAR -->
-
-  <nav class="sticky top-0 z-50 bg-black/30 backdrop-blur-xl border-b border-white/10">
-
-    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
-
-      <div class="text-2xl md:text-3xl font-extrabold tracking-tight">
-       HUNI
-      </div>
-
-      <a href="index.html"
-         class="inline-flex items-center gap-2 px-4 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/15 transition">
-
-        <i class="fa-solid fa-arrow-left"></i>
-
-        Retour
-
+  <nav class="sticky top-0 z-50 bg-black/40 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-screen-2xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="text-2xl md:text-3xl font-black tracking-wider text-white">
+        HUNI <span class="text-purple-500">STREAM</span>
       </a>
 
+      <a href="index.html" class="inline-flex items-center gap-2 px-4 h-10 rounded-xl bg-white/10 border border-white/10 hover:bg-white/20 transition text-xs font-bold">
+        <i class="fa-solid fa-arrow-left"></i> Retour au menu
+      </a>
     </div>
-
   </nav>
 
   <!-- MAIN -->
+  <main class="max-w-screen-2xl mx-auto px-6 py-8 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
 
-  <main class="max-w-screen-2xl mx-auto px-6 py-8">
+      <!-- COLONNE GAUCHE (PLAYER) -->
+      <div class="space-y-4">
 
-    <section class="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6">
-
-      <!-- PLAYER -->
-
-      <div>
-
-        <div class="player-box glass aspect-video">
-
+        <!-- PLAYER WRAPPER -->
+        <div class="player-box glass aspect-video w-full">
           <!-- COVER -->
-
-          <div id="cover"
-               class="cover"
-               onclick="loadVideo(1)">
-
+          <div id="cover" class="cover" onclick="loadVideo(1)">
             <div class="pill">
               <span class="dot"></span>
-              LIVE 21:00
+              EN DIRECT HD
             </div>
-
             <div class="cover-strip">
-
               <div>
-
-                <div class="strip-title">
-                  Regarder Gratuitement
-                </div>
-
-                <div class="strip-sub">
-                    PSG vs OL
-                </div>
-
+                <div class="text-base md:text-lg font-black text-white">Regarder Gratuitement</div>
+                <div class="text-xs md:text-sm text-purple-300 font-semibold mt-0.5">PSG vs OL • Ligue 1</div>
               </div>
-
               <div class="strip-play">
-                <i class="fa-solid fa-play"></i>
+                <i class="fa-solid fa-play text-white"></i>
               </div>
-
             </div>
-
           </div>
 
-          <!-- VIDEO -->
-
-          <div id="videoTarget"
-               class="w-full h-full"></div>
-
+          <!-- VIDEO TARGET -->
+          <div id="videoTarget" class="w-full h-full bg-black"></div>
         </div>
 
-        <!-- BUTTONS -->
-
-        <div class="mt-4 flex flex-wrap gap-3">
-
-          <button id="btn1"
-                  onclick="loadVideo(1)"
-                  class="source-btn active">
-
-            Source 1
-
+        <!-- SOURCE BUTTONS -->
+        <div class="flex flex-wrap gap-3">
+          <button id="btn1" onclick="loadVideo(1)" class="source-btn active">
+            <i class="fa-solid fa-play mr-2"></i> Source 1 (Principale)
           </button>
-
-          <button id="btn2"
-                  onclick="loadVideo(2)"
-                  class="source-btn inactive">
-
-            Source 2 HD
-
+          <button id="btn2" onclick="loadVideo(2)" class="source-btn inactive">
+            <i class="fa-solid fa-bolt mr-2"></i> Source 2 (Backup HD)
           </button>
-
         </div>
 
-        <!-- WATCH BAR -->
-
-        <div class="mt-5 watch-bar glass">
-
-          <div class="watch-text">
-
-            <div class="small">
-              Vous regardez
-            </div>
-
-            <div class="big">
-              PSG vs OL
-            </div>
-
-            <div class="small">
-              Football · Ligue 1 
-            </div>
-
+        <!-- MATCH INFO BAR -->
+        <div class="glass rounded-2xl p-5 flex items-center justify-between">
+          <div>
+            <div class="text-xs font-bold text-purple-400 uppercase tracking-wider">Diffusion en cours</div>
+            <div class="text-lg font-black text-white mt-0.5">PSG vs OL</div>
+            <div class="text-xs text-gray-400 font-semibold mt-1">Football • Ligue 1 McDonald's</div>
           </div>
-
-          <img class="channel-logo"
-               src="">
-
+          <div class="flex items-center gap-3">
+            <img class="w-10 h-10 object-contain" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/psg.png" alt="PSG">
+            <span class="text-xs font-extrabold text-gray-500">VS</span>
+            <img class="w-10 h-10 object-contain" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/olympique-lyonnais.png" alt="OL">
+          </div>
         </div>
 
       </div>
 
-      <!-- CHAT -->
-
+      <!-- COLONNE DROITE (CHAT) -->
       <aside class="chat-box">
-
-        <div class="chat-head">
-
+        <div class="p-4 border-b border-white/10 flex items-center justify-between bg-black/30">
           <div>
-
-            <div class="title">
-              Chat en direct
+            <div class="font-extrabold text-sm text-white flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span> Chat en direct
             </div>
-
-            <div class="sub">
-              Respectez les autres dans le chat
-            </div>
-
+            <div class="text-[11px] text-gray-400 font-semibold mt-0.5">Restez fair-play dans les messages</div>
           </div>
-
-          <a href=""
-             target="_blank"
-             class="text-xs font-extrabold px-3 h-9 inline-flex items-center rounded-full bg-white/10 border border-white/10 hover:bg-white/15">
-
-            Ouvrir
-
+          <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="text-xs font-extrabold px-3 py-1.5 rounded-lg bg-purple-600/20 text-purple-300 border border-purple-500/30 hover:bg-purple-600 hover:text-white transition">
+            Discord
           </a>
-
         </div>
 
-        <div style="height:calc(100% - 60px);min-height:520px">
-
-          <iframe id="chatFrame"></iframe>
-
+        <div class="flex-grow w-full h-[500px] lg:h-full">
+          <iframe id="chatFrame" class="w-full h-full border-0 bg-transparent" src="about:blank"></iframe>
         </div>
-
       </aside>
 
-    </section>
-
+    </div>
   </main>
 
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 bg-black/40 py-6 text-center text-xs text-gray-500 mt-12">
+    <p>© HUNI STREAM — Tous droits réservés.</p>
+  </footer>
+
   <!-- SCRIPT -->
-
   <script>
-
+    // TES LIENS DE STREAM
     const SOURCES = {
-
-      1:"https://stech.sellbase.gg/e/hunisport",
-      2:"https://stech.sellbase.gg/e/hunisport",
-
+      1: "https://stech.sellbase.gg/e/hunisport",
+      2: "https://stech.sellbase.gg/e/hunisport"
     };
 
-    // TWITCH CHAT
+    // CONFIGURATION DU CHAT (Exemple embed ou iframe externe si besoin)
+    // Tu peux remplacer l'URL du chat par ton widget de chat en direct
+    document.getElementById("chatFrame").src = "https://discord.com/widget?id=1000000000000000000&theme=dark"; 
+    // Note: Si tu veux un autre chat, remplace l'URL ci-dessus par ton lien de chat.
 
-    (function(){
-
-      const domain = window.location.hostname;
-
-      document.getElementById("chatFrame").src =
-      "" + domain;
-
-    })();
-
-    // ACTIVE BUTTON
-
-    function setActive(id){
-
-      [1,2,3].forEach(function(n){
-
+    function setActive(id) {
+      [1, 2].forEach(n => {
         const btn = document.getElementById("btn" + n);
-
-        if(btn){
-
-          btn.className =
-          (n === id)
-          ? "source-btn active"
-          : "source-btn inactive";
-
+        if (btn) {
+          btn.className = (n === id) ? "source-btn active" : "source-btn inactive";
         }
-
       });
-
     }
 
-    // LOAD VIDEO
-
-    function loadVideo(id){
-
+    function loadVideo(id) {
       const cover = document.getElementById("cover");
-
-      if(cover){
+      if (cover) {
         cover.style.display = "none";
       }
 
       setActive(id);
 
       const target = document.getElementById("videoTarget");
-
       const url = SOURCES[id];
 
-      // NO STREAM
-
-      if(!url || url === "#"){
-
+      if (!url || url === "#") {
         target.innerHTML = `
-
-          <div style="
-            width:100%;
-            height:100%;
-            display:grid;
-            place-items:center;
-            font-size:24px;
-            font-weight:900;
-            color:rgba(255,255,255,.7);
-          ">
-
+          <div class="w-full h-full grid place-items-center text-lg font-bold text-gray-400">
             Le stream arrive bientôt 😉
-
           </div>
-
         `;
-
         return;
-
       }
 
-      // LOAD STREAM
-
       target.innerHTML = `
-
-        <iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen
-        referrerpolicy="origin" style="width:100%;aspect-ratio:16/9;border:0"></iframe>
-
+        <iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="origin" class="w-full h-full border-0"></iframe>
       `;
-
     }
-
   </script>
-
 </body>
 </html>
