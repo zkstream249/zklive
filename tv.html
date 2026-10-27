@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#090a0f">
 
   <title>CHAÎNES TV LIVE | HUNI STREAM</title>
-  <meta name="description" content="Regardez toutes les chaînes sportives beIN Sports, Canal+, DAZN, RMC Sport en direct HD 24/7.">
+  <meta name="description" content="Regardez toutes les chaînes sportives Ligue 1+, beIN Sports, Canal+, DAZN, RMC Sport en direct HD 24/7.">
 
   <link rel="icon" href="https://clipart-library.com/images/BTgr6L5kc.jpg">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -140,6 +140,14 @@
 <!-- GRILLE CHAÎNES DYNAMIQUE -->
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
 
+  <!-- LIGUE 1 PASS / LIGUE 1+ -->
+  <div class="mb-10">
+    <h2 class="text-sm font-black text-purple-400 tracking-wider uppercase mb-4 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-cyan-400"></span> LIGUE 1+ MCDONALD'S
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="group-ligue1"></div>
+  </div>
+
   <!-- BEIN SPORTS -->
   <div class="mb-10">
     <h2 class="text-sm font-black text-purple-400 tracking-wider uppercase mb-4 flex items-center gap-2">
@@ -176,27 +184,43 @@
 <script>
   // 🔗 LISTE DES CHAÎNES : Remplace chaque "streamUrl" par ton lien spécifique !
   const CHANNELS = [
+    // ════════ LIGUE 1+ ════════
+    { 
+      id: "ligue1-plus", 
+      group: "ligue1", 
+      name: "LIGUE 1+", 
+      logoText: "LIGUE 1+", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-ligue1plus" // 👈 Lien Ligue 1+
+    },
+    { 
+      id: "ligue1-pass", 
+      group: "ligue1", 
+      name: "LIGUE 1 PASS", 
+      logoText: "L1 PASS", 
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-l1pass" // 👈 Lien Ligue 1 Pass
+    },
+
     // ════════ BEIN SPORTS ════════
     { 
       id: "bein1", 
       group: "bein", 
       name: "beIN SPORTS 1", 
       logo: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Logo_beIN_SPORTS_1.png", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport" // 👈 Remplace ici pour beIN 1
+      streamUrl: "https://stech.sellbase.gg/e/hunisport" 
     },
     { 
       id: "bein2", 
       group: "bein", 
       name: "beIN SPORTS 2", 
       logo: "https://upload.wikimedia.org/wikipedia/commons/7/78/Logo_beIN_SPORTS_2.png", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-bein2" // 👈 Remplace ici pour beIN 2
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-bein2" 
     },
     { 
       id: "bein3", 
       group: "bein", 
       name: "beIN SPORTS 3", 
       logo: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Logo_beIN_SPORTS_3.png", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-bein3" // 👈 Remplace ici pour beIN 3
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-bein3" 
     },
 
     // ════════ CANAL + ════════
@@ -205,28 +229,28 @@
       group: "canal", 
       name: "CANAL+", 
       logoText: "CANAL+", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-canal" // 👈 Remplace ici pour Canal+
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-canal" 
     },
     { 
       id: "canal-sport", 
       group: "canal", 
       name: "CANAL+ SPORT", 
       logoText: "CANAL+ SPORT", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-canalsport" // 👈 Remplace ici pour Canal+ Sport
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-canalsport" 
     },
     { 
       id: "canal-foot", 
       group: "canal", 
       name: "CANAL+ FOOT", 
       logoText: "CANAL+ FOOT", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-canalfoot" // 👈 Remplace ici pour Canal+ Foot
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-canalfoot" 
     },
     { 
       id: "canal-360", 
       group: "canal", 
       name: "CANAL+ 360", 
       logoText: "CANAL+ 360", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-canal360" // 👈 Remplace ici pour Canal+ 360
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-canal360" 
     },
 
     // ════════ DAZN & AUTRES ════════
@@ -235,21 +259,14 @@
       group: "other", 
       name: "DAZN 1", 
       logoText: "DAZN 1", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-dazn1" // 👈 Remplace ici pour DAZN 1
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-dazn1" 
     },
     { 
       id: "rmc1", 
       group: "other", 
       name: "RMC SPORT 1", 
       logoText: "RMC SPORT 1", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-rmc1" // 👈 Remplace ici pour RMC 1
-    },
-    { 
-      id: "prime-ligue1", 
-      group: "other", 
-      name: "PASS LIGUE 1", 
-      logoText: "PRIME LIGUE 1", 
-      streamUrl: "https://stech.sellbase.gg/e/hunisport-ligue1" // 👈 Remplace ici pour Prime Ligue 1
+      streamUrl: "https://stech.sellbase.gg/e/hunisport-rmc1" 
     }
   ];
 
@@ -263,7 +280,7 @@
 
       let logoHTML = ch.logo 
         ? `<img src="${ch.logo}" alt="${ch.name}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform">`
-        : `<span class="text-xl font-black italic text-white tracking-tighter">${ch.logoText || ch.name}</span>`;
+        : `<span class="text-xl font-black italic text-cyan-400 tracking-tighter">${ch.logoText || ch.name}</span>`;
 
       card.innerHTML = `
         <div class="w-full h-24 bg-black/40 rounded-xl flex items-center justify-center p-4 mb-4 border border-white/5">
@@ -292,7 +309,7 @@
     const modal = document.getElementById('playerModal');
     const iframe = document.getElementById('streamIframe');
     modal.classList.remove('active');
-    iframe.src = ""; // Coupe la lecture au fermer
+    iframe.src = "";
   });
 
   renderChannels();
