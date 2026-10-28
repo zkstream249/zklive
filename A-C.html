@@ -1,306 +1,509 @@
-C'est noté ! Voici une version améliorée avec des tons bleu nuit profond et néon cyan (style cyberpunk/sport pro), tout en gardant ton design ultra propre :
 <!doctype html>
-<html lang="fr" class="dark">
+<html lang="fr" class="dark scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#060913" />
+  <meta name="theme-color" content="#070510" />
 
-  <title>HUNI STREAM — PSG vs OL</title>
+  <title>HUNI STREAM — PSG vs OL (Direct 4K)</title>
 
-  <!-- TAILWIND -->
+  <!-- TAILWIND CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          colors: { brand: '#0ea5e9', live: '#10b981' }
+          colors: {
+            brand: {
+              dark: '#070510',
+              card: '#120a24',
+              purple: '#9333ea',
+              violet: '#7c3aed',
+              magenta: '#d946ef',
+              neon: '#a855f7'
+            }
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 3s infinite ease-in-out'
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.35', transform: 'scale(1)' },
+              '50%': { opacity: '0.65', transform: 'scale(1.02)' }
+            }
+          }
         }
       }
     }
   </script>
 
-  <!-- FONT -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- ICONS -->
+  <!-- FONTS & ICONS -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
-    * { font-family: 'Outfit', sans-serif; box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100vh; background-color: #060913; color: white; overflow-x: hidden; }
+    * {
+      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      box-sizing: border-box;
+    }
 
     body {
-      background: linear-gradient(135deg, rgba(6,9,19,.95) 0%, rgba(10,15,30,.9) 40%, rgba(6,9,19,.95) 100%),
-                  url("https://thumb.canalplus.pro/http/unsafe/1440x810/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/31108766/canal-ouah_50061/STD169/myCANAL_16x9_sport_1920x1080-2026-03-20T160621.011-UIUD") center/cover no-repeat fixed;
+      background-color: #070510;
+      color: #f3f4f6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(147, 51, 234, 0.22) 0%, transparent 50%),
+        radial-gradient(circle at 85% 60%, rgba(217, 70, 239, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 15% 80%, rgba(124, 58, 237, 0.18) 0%, transparent 45%);
+      background-attachment: fixed;
     }
 
-    /* GLASSMORPHISM BLEU NUIT */
-    .glass {
-      background: rgba(13, 20, 38, 0.65);
-      border: 1px solid rgba(14, 165, 233, 0.15);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    /* GLASSMORPHISM CARDS */
+    .glass-panel {
+      background: rgba(18, 10, 36, 0.7);
+      border: 1px solid rgba(168, 85, 247, 0.22);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(168, 85, 247, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .glass:hover {
-      border-color: rgba(14, 165, 233, 0.4);
-    }
-
-    /* PLAYER CONTAINER */
-    .player-box {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.7), 0 0 35px rgba(14,165,233,0.15);
+    .glass-panel:hover {
+      border-color: rgba(217, 70, 239, 0.4);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(168, 85, 247, 0.25);
     }
 
-    /* COVER */
-    .cover {
-      position: absolute;
+    /* LIGHTS OFF / CINEMA MODE DIMMER */
+    #lightsOffOverlay {
+      position: fixed;
       inset: 0;
-      z-index: 20;
-      cursor: pointer;
-      background: linear-gradient(180deg, rgba(6,9,19,.2) 0%, rgba(6,9,19,.6) 60%, rgba(6,9,19,.9) 100%),
-                  url("https://news-frontend.news.indazn.com/_next/image?url=https%3A%2F%2Fcms-images.acc.indazn.com%2Fdi%2Flibrary%2FDAZN_News%2F17%2F71%2Fpsg-lyon_1t58reh74jwo71pp1f4pcs8rp9.png%3Ft%3D490589039%26quality%3D75%26w%3D760%26h%3D428&w=1200&q=75") center/cover no-repeat;
-      transition: transform 0.5s ease;
+      background: rgba(3, 1, 8, 0.96);
+      z-index: 35;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .cover:hover { transform: scale(1.01); }
-
-    .pill {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(6, 9, 19, 0.7);
-      border: 1px solid rgba(14, 165, 233, 0.25);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 900;
-      backdrop-filter: blur(10px);
+    body.lights-off #lightsOffOverlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    body.lights-off .player-box-wrapper {
+      z-index: 40 !important;
+      position: relative;
     }
 
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.6; }
+    /* PLAYER COVER BACKGROUND */
+    .player-cover-bg {
+      background: linear-gradient(180deg, rgba(7,5,16,0.3) 0%, rgba(7,5,16,0.7) 60%, rgba(7,5,16,0.95) 100%),
+                  url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
     }
 
-    .cover-strip {
-      position: absolute;
-      left: 18px; right: 18px; bottom: 18px;
-      height: 80px;
-      border-radius: 16px;
-      background: rgba(10, 15, 30, 0.85);
-      border: 1px solid rgba(14, 165, 233, 0.2);
-      backdrop-filter: blur(14px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
+    /* FULLSCREEN CSS OVERRIDES FOR PLAYER BOX */
+    .player-box:fullscreen,
+    .player-box:-webkit-full-screen,
+    .player-box:-moz-full-screen,
+    .player-box:-ms-fullscreen {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      max-height: none !important;
+      border-radius: 0 !important;
+      border: none !important;
+      background: #000 !important;
     }
 
-    .strip-play {
-      width: 46px; height: 46px;
-      border-radius: 50%;
-      display: grid; place-items: center;
-      background: linear-gradient(135deg, #0ea5e9, #3b82f6);
-      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.5);
-      transition: transform 0.2s, filter 0.2s;
-    }
-    .strip-play:hover { transform: scale(1.1); filter: brightness(1.1); }
-
-    /* BUTTONS */
-    .source-btn {
-      height: 44px;
-      padding: 0 24px;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 13px;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    .source-btn.active {
-      background: #0ea5e9;
-      color: #060913;
-      box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
-    }
-    .source-btn.inactive {
-      background: rgba(13, 20, 38, 0.6);
-      border: 1px solid rgba(14, 165, 233, 0.15);
-      color: rgba(255, 255, 255, 0.7);
-    }
-    .source-btn.inactive:hover { background: rgba(14, 165, 233, 0.15); color: white; }
-
-    /* CHAT BOX */
-    .chat-box {
-      border-radius: 20px;
-      overflow: hidden;
-      background: rgba(10, 15, 30, 0.75);
-      border: 1px solid rgba(14, 165, 233, 0.15);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 550px;
+    .player-box:fullscreen iframe,
+    .player-box:-webkit-full-screen iframe,
+    .player-box:-moz-full-screen iframe,
+    .player-box:-ms-fullscreen iframe {
+      width: 100vw !important;
+      height: 100vh !important;
     }
   </style>
 </head>
 
-<body class="flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between selection:bg-fuchsia-500 selection:text-white transition-colors duration-300">
+
+  <!-- LIGHTS OFF OVERLAY DIMMER -->
+  <div id="lightsOffOverlay" onclick="toggleLightsOff()"></div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div id="toastContainer" class="fixed top-24 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 bg-[#060913]/60 backdrop-blur-xl border-b border-cyan-500/10">
-    <div class="max-w-screen-2xl mx-auto px-6 h-20 flex items-center justify-between">
-      <a href="index.html" class="text-2xl md:text-3xl font-black tracking-wider text-white">
-        HUNI <span class="text-cyan-400">STREAM</span>
+  <header class="sticky top-0 z-40 bg-[#070510]/85 backdrop-blur-2xl border-b border-fuchsia-500/20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="relative flex items-center justify-center">
+          <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-500 blur-md opacity-75 group-hover:opacity-100 transition duration-300"></div>
+          <div class="relative w-11 h-11 rounded-2xl bg-[#120a24] border border-fuchsia-400/40 flex items-center justify-center font-black text-2xl text-transparent bg-clip-text bg-gradient-to-tr from-purple-400 via-fuchsia-300 to-white shadow-xl">
+            H
+          </div>
+        </div>
+        <div>
+          <span class="text-2xl font-black tracking-wider text-white">
+            HUNI <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-pink-400">STREAM</span>
+          </span>
+          <div class="text-[10px] font-extrabold text-fuchsia-400/90 tracking-widest uppercase -mt-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> DIRECT ULTRA HD
+          </div>
+        </div>
       </a>
 
-      <a href="index.html" class="inline-flex items-center gap-2 px-4 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/20 transition text-xs font-bold text-cyan-300">
-        <i class="fa-solid fa-arrow-left"></i> Retour au menu
-      </a>
+      <!-- NAVBAR RIGHT CONTROLS -->
+      <div class="flex items-center gap-3">
+        <!-- LIGHTS TOGGLE BUTTON -->
+        <button onclick="toggleLightsOff()" id="btnLights" title="Mode Cinéma" class="px-3.5 py-2 rounded-xl bg-white/5 border border-fuchsia-500/20 hover:bg-fuchsia-500/20 hover:border-fuchsia-400 text-gray-300 hover:text-fuchsia-200 transition text-xs font-bold flex items-center gap-2">
+          <i class="fa-solid fa-moon"></i>
+          <span class="hidden sm:inline">Cinéma</span>
+        </button>
+
+        <!-- DISCORD LINK -->
+        <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-purple-600/30 transition hover:scale-105 flex items-center gap-2">
+          <i class="fa-brands fa-discord text-sm"></i>
+          <span class="hidden sm:inline">Discord</span>
+        </a>
+      </div>
+
     </div>
-  </nav>
+  </header>
 
-  <!-- MAIN -->
-  <main class="max-w-screen-2xl mx-auto px-6 py-8 w-full flex-grow">
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
+  <!-- MAIN WRAPPER -->
+  <main id="mainContainer" class="max-w-6xl mx-auto px-4 sm:px-6 py-6 w-full flex-grow flex flex-col justify-center transition-all duration-300">
+    
+    <div class="space-y-5 w-full">
 
-      <!-- COLONNE GAUCHE (PLAYER) -->
-      <div class="space-y-4">
+      <!-- PLAYER CONTAINER WITH AMBIENT GLOW -->
+      <div class="player-box-wrapper relative group">
+        
+        <!-- DYNAMIC AMBIENT BACKLIGHT GLOW -->
+        <div id="ambientGlow" class="absolute -inset-3 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 rounded-3xl opacity-35 blur-2xl transition-all duration-700 pointer-events-none animate-pulse-glow"></div>
 
-        <!-- PLAYER WRAPPER -->
-        <div class="player-box glass aspect-video w-full">
-          <!-- COVER -->
-          <div id="cover" class="cover" onclick="loadVideo(1)">
-            <div class="pill">
-              <span class="dot"></span>
-              EN DIRECT HD
+        <!-- MAIN PLAYER BOX -->
+        <div id="playerBox" class="player-box relative w-full aspect-video rounded-2xl glass-panel overflow-hidden z-10 bg-black border border-fuchsia-500/30">
+          
+          <!-- OVERLAY FULLSCREEN BUTTON (VISIBLE ON HOVER / STREAM) -->
+          <button onclick="toggleFullscreen()" title="Plein écran" class="absolute top-4 right-4 z-20 px-3 py-2 rounded-xl bg-black/60 hover:bg-fuchsia-600/80 border border-fuchsia-500/30 backdrop-blur-md text-white text-xs font-bold transition shadow-lg flex items-center gap-1.5 opacity-80 hover:opacity-100">
+            <i class="fa-solid fa-expand text-sm"></i>
+          </button>
+
+          <!-- COVER PREVIEW BEFORE PLAYING -->
+          <div id="playerCover" class="absolute inset-0 z-30 player-cover-bg flex flex-col justify-between p-6 transition-all duration-500">
+            
+            <!-- HEADER BADGES -->
+            <div class="flex items-center justify-between">
+              <span class="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-black text-xs tracking-wider uppercase backdrop-blur-md flex items-center gap-2 shadow-lg">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> EN DIRECT 1080p60
+              </span>
             </div>
-            <div class="cover-strip">
-              <div>
-                <div class="text-base md:text-lg font-black text-white">Regarder Gratuitement</div>
-                <div class="text-xs md:text-sm text-cyan-300 font-semibold mt-0.5">PSG vs OL • Ligue 1</div>
+
+            <!-- CENTRAL PLAY ACTION -->
+            <div class="self-center text-center cursor-pointer my-auto group/play" onclick="startStream(1)">
+              <div class="relative inline-block">
+                <div class="absolute -inset-6 rounded-full bg-fuchsia-500/50 blur-2xl group-hover/play:bg-fuchsia-400/80 transition duration-300"></div>
+                <div class="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-purple-600 via-fuchsia-500 to-pink-500 flex items-center justify-center text-white text-3xl font-black shadow-2xl transform group-hover/play:scale-110 transition duration-300 border border-white/20">
+                  <i class="fa-solid fa-play ml-1"></i>
+                </div>
               </div>
-              <div class="strip-play">
-                <i class="fa-solid fa-play text-white"></i>
+              <div class="mt-4 text-xl md:text-2xl font-black tracking-wide text-white drop-shadow-lg">
+                LANCER LE DIRECT
+              </div>
+              <div class="text-xs text-fuchsia-300 font-semibold mt-1">
+                Haute qualité • Flux vidéo sans interruption
               </div>
             </div>
+
+            <!-- MATCH SUMMARY BANNER ON COVER -->
+            <div class="glass-panel p-3.5 rounded-xl flex items-center justify-between border border-fuchsia-500/30 bg-black/80 backdrop-blur-2xl">
+              <div class="flex items-center gap-3">
+                <img class="w-9 h-9 object-contain drop-shadow" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/psg.png" alt="PSG">
+                <div>
+                  <div class="font-black text-sm text-white">Paris Saint-Germain</div>
+                  <div class="text-[10px] text-gray-400">Domicile</div>
+                </div>
+              </div>
+
+              <div class="text-center px-4">
+                <div class="text-xs font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-fuchsia-300 uppercase tracking-widest">LIGUE 1 MCDONALD'S</div>
+                <div class="text-xs text-fuchsia-400/80 font-bold mt-0.5">Parc des Princes</div>
+              </div>
+
+              <div class="flex items-center gap-3 text-right">
+                <div>
+                  <div class="font-black text-sm text-white">Olympique Lyonnais</div>
+                  <div class="text-[10px] text-gray-400">Extérieur</div>
+                </div>
+                <img class="w-9 h-9 object-contain drop-shadow" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/olympique-lyonnais.png" alt="OL">
+              </div>
+            </div>
+
           </div>
 
-          <!-- VIDEO TARGET -->
-          <div id="videoTarget" class="w-full h-full bg-black"></div>
-        </div>
-
-        <!-- SOURCE BUTTONS -->
-        <div class="flex flex-wrap gap-3">
-          <button id="btn1" onclick="loadVideo(1)" class="source-btn active">
-            <i class="fa-solid fa-play mr-2"></i> Source 1 (Principale)
-          </button>
-          <button id="btn2" onclick="loadVideo(2)" class="source-btn inactive">
-            <i class="fa-solid fa-bolt mr-2"></i> Source 2 (Backup HD)
-          </button>
-        </div>
-
-        <!-- MATCH INFO BAR -->
-        <div class="glass rounded-2xl p-5 flex items-center justify-between">
-          <div>
-            <div class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Diffusion en cours</div>
-            <div class="text-lg font-black text-white mt-0.5">PSG vs OL</div>
-            <div class="text-xs text-gray-400 font-semibold mt-1">Football • Ligue 1 McDonald's</div>
+          <!-- LOADER SPINNER -->
+          <div id="playerLoader" class="hidden absolute inset-0 z-20 bg-black/90 flex flex-col items-center justify-center gap-4">
+            <div class="w-12 h-12 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
+            <div class="text-sm font-bold text-fuchsia-300">Connexion au serveur haute performance...</div>
           </div>
-          <div class="flex items-center gap-3">
-            <img class="w-10 h-10 object-contain" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/psg.png" alt="PSG">
-            <span class="text-xs font-extrabold text-gray-500">VS</span>
-            <img class="w-10 h-10 object-contain" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/olympique-lyonnais.png" alt="OL">
+
+          <!-- IFRAME CONTAINER -->
+          <div id="videoTarget" class="w-full h-full bg-black flex items-center justify-center"></div>
+
+        </div>
+
+        <!-- PLAYER TOOLBAR CONTROL STRIP UNDER VIDEO -->
+        <div class="mt-3 flex items-center justify-between gap-2 px-1">
+          <div class="flex items-center gap-2">
+            <!-- FULLSCREEN BUTTON -->
+            <button onclick="toggleFullscreen()" title="Plein écran" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:brightness-110 border border-fuchsia-400/40 text-xs font-bold text-white shadow-md transition flex items-center gap-1.5">
+              <i class="fa-solid fa-expand text-white"></i>
+              <span>Plein écran</span>
+            </button>
+
+            <!-- RELOAD BUTTON -->
+            <button onclick="reloadStream()" title="Rafraîchir la vidéo" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-fuchsia-500/20 border border-fuchsia-500/20 text-xs font-bold text-gray-300 hover:text-white transition flex items-center gap-1.5">
+              <i class="fa-solid fa-arrows-rotate text-fuchsia-400"></i>
+              <span class="hidden sm:inline">Rafraîchir</span>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-semibold text-gray-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-microphone text-fuchsia-400"></i> Commentaires Fr
+            </span>
           </div>
         </div>
 
       </div>
 
-      <!-- COLONNE DROITE (CHAT) -->
-      <aside class="chat-box">
-        <div class="p-4 border-b border-cyan-500/10 flex items-center justify-between bg-black/40">
-          <div>
-            <div class="font-extrabold text-sm text-white flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Chat en direct
+      <!-- 3 SERVERS SELECTION BUTTONS -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        
+        <button id="srcBtn1" onclick="switchSource(1)" class="group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white border-fuchsia-300 shadow-lg shadow-purple-600/30 scale-[1.02]">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-server text-sm"></i>
+            <div class="text-left">
+              <div>Serveur 1</div>
+              <div class="text-[10px] text-fuchsia-200 font-normal">Flux Principal 1080p60</div>
             </div>
-            <div class="text-[11px] text-gray-400 font-semibold mt-0.5">Restez fair-play dans les messages</div>
           </div>
-          <a href="https://discord.gg/U7sf6vSM2M" target="_blank" class="text-xs font-extrabold px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500 hover:text-white transition">
-            Discord
-          </a>
+          <span class="px-2 py-0.5 rounded-md bg-white/20 text-[10px] font-extrabold uppercase">Ultra HD</span>
+        </button>
+
+        <button id="srcBtn2" onclick="switchSource(2)" class="group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-white/5 border-fuchsia-500/20 hover:bg-fuchsia-500/10 text-gray-300">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-bolt text-yellow-400 text-sm"></i>
+            <div class="text-left">
+              <div>Serveur 2</div>
+              <div class="text-[10px] text-gray-400 font-normal">Secours Rapide 720p</div>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded-md bg-white/10 text-[10px] font-extrabold uppercase">Fast</span>
+        </button>
+
+        <button id="srcBtn3" onclick="switchSource(3)" class="group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-white/5 border-fuchsia-500/20 hover:bg-fuchsia-500/10 text-gray-300">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-wifi text-fuchsia-400 text-sm"></i>
+            <div class="text-left">
+              <div>Serveur 3</div>
+              <div class="text-[10px] text-gray-400 font-normal">Basse Latence (Mobile)</div>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded-md bg-white/10 text-[10px] font-extrabold uppercase">Low-Ping</span>
+        </button>
+
+      </div>
+
+      <!-- MATCH INFO BANNER -->
+      <div class="glass-panel rounded-2xl p-5 border border-fuchsia-500/20 flex items-center justify-between gap-5">
+        
+        <!-- TEAMS METADATA -->
+        <div class="flex items-center gap-4">
+          <div class="flex items-center -space-x-3">
+            <img class="w-12 h-12 object-contain bg-[#120a24] p-1.5 rounded-full border border-fuchsia-500/40 z-10 shadow-lg" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/psg.png" alt="PSG">
+            <img class="w-12 h-12 object-contain bg-[#120a24] p-1.5 rounded-full border border-fuchsia-500/40 shadow-lg" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/olympique-lyonnais.png" alt="OL">
+          </div>
+
+          <div>
+            <div class="text-xs font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 uppercase tracking-wider">Ligue 1 McDonald's • Choc de la journée</div>
+            <div class="text-xl font-black text-white">Paris Saint-Germain vs Olympique Lyonnais</div>
+            <div class="text-xs text-gray-400 font-semibold mt-0.5 flex items-center gap-2">
+              <span><i class="fa-solid fa-location-dot text-fuchsia-400 mr-1"></i> Parc des Princes</span>
+              <span>•</span>
+              <span class="text-emerald-400"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Diffusion active</span>
+            </div>
+          </div>
         </div>
 
-        <div class="flex-grow w-full h-[500px] lg:h-full">
-          <iframe id="chatFrame" class="w-full h-full border-0 bg-transparent" src="about:blank"></iframe>
-        </div>
-      </aside>
+      </div>
 
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="border-t border-cyan-500/10 bg-[#060913]/60 py-6 text-center text-xs text-gray-500 mt-12">
-    <p>© HUNI STREAM — Tous droits réservés.</p>
+  <footer class="border-t border-fuchsia-500/10 bg-[#070510]/95 py-6 text-center text-xs text-gray-500 mt-8 backdrop-blur-md">
+    <p>© 2026 <strong class="text-fuchsia-400">HUNI STREAM</strong> — Expérience Direct Premium Pure.</p>
   </footer>
 
-  <!-- SCRIPT -->
+  <!-- CORE JAVASCRIPT -->
   <script>
+    // 3 STREAM SOURCES CONFIGURATION
     const SOURCES = {
       1: "https://stech.sellbase.gg/e/hunisport",
-      2: "https://stech.sellbase.gg/e/hunisport"
+      2: "https://stech.sellbase.gg/e/hunisport",
+      3: "https://stech.sellbase.gg/e/hunisport"
     };
 
-    document.getElementById("chatFrame").src = "https://discord.com/widget?id=1000000000000000000&theme=dark";
+    let activeSourceId = 1;
+    let isPlaying = false;
 
-    function setActive(id) {
-      [1, 2].forEach(n => {
-        const btn = document.getElementById("btn" + n);
-        if (btn) {
-          btn.className = (n === id) ? "source-btn active" : "source-btn inactive";
+    // START STREAM PLAYBACK
+    function startStream(sourceId = 1) {
+      const cover = document.getElementById("playerCover");
+      const loader = document.getElementById("playerLoader");
+      const target = document.getElementById("videoTarget");
+
+      if (cover) cover.style.opacity = "0";
+      setTimeout(() => { if (cover) cover.style.display = "none"; }, 400);
+
+      if (loader) loader.classList.remove("hidden");
+
+      isPlaying = true;
+      activeSourceId = sourceId;
+      updateSourceButtonsUI(sourceId);
+
+      setTimeout(() => {
+        if (loader) loader.classList.add("hidden");
+        const url = SOURCES[sourceId];
+
+        if (!url || url === "#") {
+          target.innerHTML = `
+            <div class="text-center p-6">
+              <i class="fa-solid fa-triangle-exclamation text-4xl text-yellow-400 mb-3"></i>
+              <div class="text-lg font-black text-white">Flux momentanément indisponible</div>
+              <p class="text-xs text-gray-400 mt-1">Veuillez sélectionner un autre serveur ci-dessous.</p>
+            </div>
+          `;
+          return;
+        }
+
+        target.innerHTML = `
+          <iframe 
+            id="streamIframe"
+            src="${url}" 
+            allow="autoplay; fullscreen; picture-in-picture" 
+            allowfullscreen 
+            webkitallowfullscreen
+            mozallowfullscreen
+            referrerpolicy="origin" 
+            class="w-full h-full border-0">
+          </iframe>
+        `;
+
+        showToast("Serveur " + sourceId + " connecté avec succès", "success");
+      }, 500);
+    }
+
+    // SWITCH STREAM SOURCE
+    function switchSource(id) {
+      startStream(id);
+    }
+
+    // UPDATE UI BUTTONS FOR 3 SOURCES
+    function updateSourceButtonsUI(activeId) {
+      [1, 2, 3].forEach(id => {
+        const btn = document.getElementById("srcBtn" + id);
+        if (!btn) return;
+
+        if (id === activeId) {
+          btn.className = "group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white border-fuchsia-300 shadow-lg shadow-purple-600/30 scale-[1.02]";
+        } else {
+          btn.className = "group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-white/5 border-fuchsia-500/20 hover:bg-fuchsia-500/10 text-gray-300";
         }
       });
     }
 
-    function loadVideo(id) {
-      const cover = document.getElementById("cover");
-      if (cover) {
-        cover.style.display = "none";
+    // RELOAD STREAM
+    function reloadStream() {
+      if (isPlaying) {
+        switchSource(activeSourceId);
+        showToast("Flux vidéo rafraîchi", "info");
+      } else {
+        startStream(1);
       }
-
-      setActive(id);
-
-      const target = document.getElementById("videoTarget");
-      const url = SOURCES[id];
-
-      if (!url || url === "#") {
-        target.innerHTML = `
-          <div class="w-full h-full grid place-items-center text-lg font-bold text-gray-400">
-            Le stream arrive bientôt 😉
-          </div>
-        `;
-        return;
-      }
-
-      target.innerHTML = `
-        <iframe src="${url}" allow="autoplay; fullscreen" allowfullscreen referrerpolicy="origin" class="w-full h-full border-0"></iframe>
-      `;
     }
+
+    // RELIABLE NATIVE FULLSCREEN TOGGLE
+    function toggleFullscreen() {
+      const playerBox = document.getElementById("playerBox");
+      if (!playerBox) return;
+      
+      const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+
+      if (!isFull) {
+        if (playerBox.requestFullscreen) {
+          playerBox.requestFullscreen();
+        } else if (playerBox.webkitRequestFullscreen) {
+          playerBox.webkitRequestFullscreen();
+        } else if (playerBox.mozRequestFullScreen) {
+          playerBox.mozRequestFullScreen();
+        } else if (playerBox.msRequestFullscreen) {
+          playerBox.msRequestFullscreen();
+        }
+        showToast("Mode Plein écran activé", "info");
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+        showToast("Plein écran quitté", "info");
+      }
+    }
+
+    // LIGHTS OFF TOGGLE MODE
+    function toggleLightsOff() {
+      document.body.classList.toggle("lights-off");
+      const isOff = document.body.classList.contains("lights-off");
+      showToast(isOff ? "Mode Cinéma activé" : "Lumières rallumées", "info");
+    }
+
+    // TOAST SYSTEM
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      let border = "border-fuchsia-500/40 text-fuchsia-300";
+      if (type === "success") border = "border-emerald-500/40 text-emerald-300";
+
+      toast.className = `px-4 py-2.5 rounded-xl border bg-[#120a24]/90 ${border} backdrop-blur-xl text-xs font-bold shadow-2xl transition-all duration-300 flex items-center gap-2 transform translate-x-8 opacity-0 pointer-events-auto`;
+      toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${message}`;
+
+      container.appendChild(toast);
+
+      setTimeout(() => toast.classList.remove("translate-x-8", "opacity-0"), 40);
+      setTimeout(() => {
+        toast.classList.add("translate-x-8", "opacity-0");
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+
+    // RANDOM SPECTATOR COUNTER VARIATION
+    setInterval(() => {
+      const el = document.getElementById("spectatorsCount");
+      if (el) {
+        const current = parseInt(el.innerText.replace(/,/g, ''));
+        const variation = Math.floor(Math.random() * 25) - 12;
+        el.innerText = (current + variation).toLocaleString();
+      }
+    }, 4000);
   </script>
 </body>
 </html>
-
