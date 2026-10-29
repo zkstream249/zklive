@@ -182,21 +182,11 @@ a, button, input { cursor: none; }
   aspect-ratio: 16 / 10;
   border-radius: 14px;
   overflow: hidden;
-  background: #d8dce3;
-  background-image:
-    linear-gradient(135deg, rgba(255,255,255,.55) 25%, transparent 25%),
-    linear-gradient(225deg, rgba(255,255,255,.55) 25%, transparent 25%),
-    linear-gradient(45deg, rgba(255,255,255,.35) 25%, transparent 25%),
-    linear-gradient(315deg, rgba(255,255,255,.35) 25%, transparent 25%);
-  background-size: 28px 28px;
-  background-position: 0 0, 14px 0, 14px -14px, 0 14px;
+  background-color: #121218;
+  background-size: cover;
+  background-position: center;
   box-shadow: 0 10px 28px rgba(0,0,0,.4);
   transition: box-shadow .35s ease;
-}
-.match-thumb.has-banner {
-  background-color: #111;
-  background-size: cover !important;
-  background-position: center !important;
 }
 .match-thumb::before {
   content: '';
@@ -658,7 +648,7 @@ function getMatchStatus(m) {
   const matchTime = new Date();
   matchTime.setHours(hours, minutes, 0, 0);
 
-  const diffMs = matchTime - now; // Différence en millisecondes
+  const diffMs = matchTime - now;
 
   // Si l'heure du match est passée (ou dans les 2 heures suivantes), le match passe direct en LIVE
   if (diffMs <= 0 && diffMs > -7200000) {
@@ -675,7 +665,6 @@ function getMatchStatus(m) {
     return { isLive: false, label: `⏱️ ${timeStr}` };
   }
 
-  // Sinon, c'est prévu plus tard dans la journée
   return { isLive: false, label: m.time };
 }
 
@@ -687,13 +676,11 @@ function cardHTML(m, i) {
     ? `<span class="match-badge live"><span class="dot"></span> LIVE</span>`
     : `<span class="match-badge soon">${status.label}</span>`;
 
-  const thumbStyle = m.banner
-    ? `style="background-image:url('${m.banner}');background-size:cover;background-position:center;"`
-    : '';
+  const bannerStyle = m.banner ? `background-image: url('${m.banner}');` : '';
 
   return `
   <a href="${m.href}" class="match-card interactive reveal" style="animation-delay:${delay}s">
-    <div class="match-thumb ${m.banner ? 'has-banner' : ''}" ${thumbStyle}>
+    <div class="match-thumb" style="${bannerStyle}">
       ${statusBadge}
       <span class="match-comp">${m.competition || 'FOOTBALL'}</span>
     </div>
@@ -715,7 +702,6 @@ function renderMatches(query = '') {
     return;
   }
 
-  // Calcul dynamique du tri : Si l'heure du match est arrivée, il est basculé automatiquement dans le bloc LIVE
   const liveList = [];
   const todayList = [];
   const tomorrowList = [];
@@ -757,7 +743,6 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
   renderMatches(document.getElementById('searchInput')?.value || '');
 });
 
-// Lancement initial + Actualisation automatique du timer/flux toutes les secondes
 renderMatches();
 setInterval(() => {
   renderMatches(document.getElementById('searchInput')?.value || '');
@@ -765,3 +750,4 @@ setInterval(() => {
 </script>
 </body>
 </html>
+
