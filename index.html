@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="fr" class="dark">
 <head>
 <meta charset="UTF-8">
@@ -99,6 +98,7 @@ a, button, input { cursor: none; }
   position: absolute; inset: 0; width: 100%; height: 100%;
 }
 
+/* Scanlines / vignette */
 .vignette {
   position: absolute; inset: 0;
   background:
@@ -106,6 +106,7 @@ a, button, input { cursor: none; }
     repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 3px);
 }
 
+/* Glass */
 .glass {
   background: rgba(14,14,20,.55);
   backdrop-filter: blur(18px);
@@ -119,6 +120,7 @@ a, button, input { cursor: none; }
   border: 1px solid rgba(255,255,255,.1);
 }
 
+/* Live pulse */
 @keyframes pulse-dot {
   0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(16,185,129,.7); }
   50% { transform: scale(1.25); opacity: .7; box-shadow: 0 0 0 8px rgba(16,185,129,0); }
@@ -168,6 +170,7 @@ a, button, input { cursor: none; }
   inherits: false;
 }
 
+/* Match cards — style pro type streaming */
 .match-card {
   display: block;
   text-decoration: none;
@@ -182,11 +185,21 @@ a, button, input { cursor: none; }
   aspect-ratio: 16 / 10;
   border-radius: 14px;
   overflow: hidden;
-  background-color: #121218;
-  background-size: cover;
-  background-position: center;
+  background: #d8dce3;
+  background-image:
+    linear-gradient(135deg, rgba(255,255,255,.55) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(255,255,255,.55) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(255,255,255,.35) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(255,255,255,.35) 25%, transparent 25%);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 0, 14px -14px, 0 14px;
   box-shadow: 0 10px 28px rgba(0,0,0,.4);
   transition: box-shadow .35s ease;
+}
+.match-thumb.has-banner {
+  background-color: #111;
+  background-size: cover !important;
+  background-position: center !important;
 }
 .match-thumb::before {
   content: '';
@@ -266,6 +279,7 @@ header.scrolled {
   box-shadow: none;
 }
 
+/* Gate */
 .gate-overlay {
   position: fixed; inset: 0; z-index: 9999;
   background: rgba(0,0,0,.82);
@@ -287,6 +301,12 @@ header.scrolled {
   z-index: -1; opacity: .7;
 }
 
+/* Skeleton / empty */
+.empty-state {
+  animation: fadeUp .6s ease both;
+}
+
+/* Section title — style DIRECT */
 .section-title {
   display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
 }
@@ -309,23 +329,27 @@ header.scrolled {
   to { transform: scaleX(1); opacity: 1; }
 }
 
+/* Floating badge */
 @keyframes floatY {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
 .float-y { animation: floatY 3.5s ease-in-out infinite; }
 
+/* Noise texture */
 .noise::after {
   content: '';
   position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* Search focus glow */
 .search-wrap:focus-within {
   border-color: rgba(168,85,247,.55) !important;
   box-shadow: 0 0 0 4px rgba(168,85,247,.12), 0 0 40px rgba(168,85,247,.15);
 }
 
+/* Logo letter stagger on load */
 .logo-word span {
   display: inline-block;
   animation: letterPop .6s cubic-bezier(.16,1,.3,1) both;
@@ -335,6 +359,7 @@ header.scrolled {
   to { opacity: 1; transform: none; }
 }
 
+/* Progress bar mini */
 #nbar {
   position: fixed; top: 0; left: 0; height: 2px; width: 0;
   background: linear-gradient(90deg, #a855f7, #6366f1, #10b981);
@@ -618,13 +643,15 @@ header.scrolled {
   });
 })();
 
-/* ── Matches avec configuration de l'heure (HH:MM) ── */
+/* ── Matches ── */
 const MATCHES = [
   {
-    title: "Nom de l'équipe 1 vs Équipe 2",
-    time: "21:00",       // Heure du match (Format 24h : "HH:MM")
-    isToday: true,      // true = Aujourd'hui, false = Demain
-    competition: "Carabao Cup",
+    id: "#",
+    title: "",
+    time: "21:00",
+    isToday: true,
+    live: true,
+    competition: "Carabao cup",
     banner: "https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/32287356/canal-ouah_50009/STD169/Presentation1-8Z4U",
     href: "A-C.html"
   }
@@ -637,50 +664,18 @@ function emptyHTML(msg) {
   </div>`;
 }
 
-// Fonction pour calculer le statut ou le compte à rebours en temps réel
-function getMatchStatus(m) {
-  if (!m.isToday) {
-    return { isLive: false, label: m.time };
-  }
-
-  const [hours, minutes] = m.time.split(':').map(Number);
-  const now = new Date();
-  const matchTime = new Date();
-  matchTime.setHours(hours, minutes, 0, 0);
-
-  const diffMs = matchTime - now;
-
-  // Si l'heure du match est passée (ou dans les 2 heures suivantes), le match passe direct en LIVE
-  if (diffMs <= 0 && diffMs > -7200000) {
-    return { isLive: true, label: 'LIVE' };
-  }
-  
-  // Si le match commence dans moins de 2 heures, on affiche un compte à rebours interactif
-  if (diffMs > 0 && diffMs <= 7200000) {
-    const totalSecs = Math.floor(diffMs / 1000);
-    const h = Math.floor(totalSecs / 3600);
-    const mLeft = Math.floor((totalSecs % 3600) / 60);
-    const s = totalSecs % 60;
-    const timeStr = h > 0 ? `${h}h ${mLeft}m` : `${mLeft}m ${s}s`;
-    return { isLive: false, label: `⏱️ ${timeStr}` };
-  }
-
-  return { isLive: false, label: m.time };
-}
-
 function cardHTML(m, i) {
   const delay = Math.min(i * 0.08, 0.4);
-  const status = getMatchStatus(m);
-  
-  const statusBadge = status.isLive
+  const statusBadge = m.live
     ? `<span class="match-badge live"><span class="dot"></span> LIVE</span>`
-    : `<span class="match-badge soon">${status.label}</span>`;
-
-  const bannerStyle = m.banner ? `background-image: url('${m.banner}');` : '';
+    : `<span class="match-badge soon">${m.time}</span>`;
+  const thumbStyle = m.banner
+    ? `style="background-image:url('${m.banner}');background-size:cover;background-position:center;"`
+    : '';
 
   return `
   <a href="${m.href}" class="match-card interactive reveal" style="animation-delay:${delay}s">
-    <div class="match-thumb" style="${bannerStyle}">
+    <div class="match-thumb ${m.banner ? 'has-banner' : ''}" ${thumbStyle}>
       ${statusBadge}
       <span class="match-comp">${m.competition || 'FOOTBALL'}</span>
     </div>
@@ -692,7 +687,6 @@ function renderMatches(query = '') {
   const liveContainer = document.getElementById('liveMatches');
   const todayContainer = document.getElementById('todayMatches');
   const tomContainer = document.getElementById('tomorrowMatches');
-  
   const filtered = MATCHES.filter(m => m.title.toLowerCase().includes(query.toLowerCase()));
 
   if (filtered.length === 0) {
@@ -702,31 +696,18 @@ function renderMatches(query = '') {
     return;
   }
 
-  const liveList = [];
-  const todayList = [];
-  const tomorrowList = [];
+  const live = filtered.filter(m => m.live);
+  const today = filtered.filter(m => m.isToday && !m.live);
+  const tomorrow = filtered.filter(m => !m.isToday && !m.live);
 
-  filtered.forEach(m => {
-    const status = getMatchStatus(m);
-    if (status.isLive) {
-      liveList.push(m);
-    } else if (m.isToday) {
-      todayList.push(m);
-    } else {
-      tomorrowList.push(m);
-    }
-  });
-
-  liveContainer.innerHTML = liveList.length
-    ? liveList.map((m, i) => cardHTML(m, i)).join('')
+  liveContainer.innerHTML = live.length
+    ? live.map((m, i) => cardHTML(m, i)).join('')
     : emptyHTML('Aucun match en direct pour l\'instant.');
-    
-  todayContainer.innerHTML = todayList.length
-    ? todayList.map((m, i) => cardHTML(m, i)).join('')
+  todayContainer.innerHTML = today.length
+    ? today.map((m, i) => cardHTML(m, i)).join('')
     : emptyHTML('Aucun match programmé.');
-    
-  tomContainer.innerHTML = tomorrowList.length
-    ? tomorrowList.map((m, i) => cardHTML(m, i)).join('')
+  tomContainer.innerHTML = tomorrow.length
+    ? tomorrow.map((m, i) => cardHTML(m, i)).join('')
     : emptyHTML('Aucune diffusion programmée demain.');
 
   document.querySelectorAll('.interactive').forEach(el => {
@@ -744,10 +725,6 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
 });
 
 renderMatches();
-setInterval(() => {
-  renderMatches(document.getElementById('searchInput')?.value || '');
-}, 1000);
 </script>
 </body>
 </html>
-
