@@ -520,9 +520,18 @@ header.scrolled {
 <script>
 /* ── Configuration des matchs avec leur date (Format "YYYY-MM-DD") et leur heure ("HH:MM") ── */
 const MATCHES = [
+    {
+    id: "match1",
+    title: "",
+    date: "2026-10-30", // Date exacte du match (Modifie ici)
+    time: "21:00",     // Heure de début : 21h00 pile le match passe en direct
+    competition: "Ligue 1",
+    banner: "https://www.footenfrance.fr/photo/art/default/79160390-57370847.jpg?v=1711538160",
+    href: "C-D.html"
+  },
   {
     id: "match1",
-    title: "Olympique de Marseille vs Sturm Graz",
+    title: "",
     date: "2026-10-30", // Date exacte du match (Modifie ici)
     time: "19:00",     // Heure de début : 19h00 pile le match passe en direct
     competition: "Ligue 1",
@@ -531,12 +540,12 @@ const MATCHES = [
   },
   {
     id: "match2",
-    title: "Real Madrid vs FC Barcelone",
+    title: "",
     date: "2026-10-31", // Prévu pour demain (passe dans "Aujourd'hui" demain, puis en "Direct" à l'heure prévue)
     time: "21:00",
     competition: "Liga",
-    banner: "https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/32287356/canal-ouah_50009/STD169/Presentation1-8Z4U",
-    href: "A-C.html"
+    banner: "https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1322384/106/1322384_106-6d4e7270-ace6-40c2-b57e-71758de63c21.jpg",
+    href: "C-A.html"
   }
 ];
 
