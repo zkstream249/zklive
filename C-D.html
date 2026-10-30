@@ -1,553 +1,335 @@
 <!doctype html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NOXA STREAM</title>
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0" />
-
-  <title>HUNI - Lille vs Galatasaray</title>
-
-  <!-- TAILWIND -->
-
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- FONT -->
-
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap"
-        rel="stylesheet">
-
-  <!-- ICONS -->
-
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Font & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
-
-    html,
-    body{
-      margin:0;
-      height:100%;
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    body{
-      font-family:'Outfit',sans-serif;
-      color:white;
-      overflow-x:hidden;
-
-      background:
-      linear-gradient(
-        135deg,
-        rgba(10,10,12,.92) 0%,
-        rgba(10,10,12,.88) 40%,
-        rgba(10,10,12,.92) 100%
-      ),
-      url("https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321224/137/1321224_137-47c11a86-3d88-4ead-a692-25c274c47687.jpg")
-      center/cover no-repeat fixed;
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #160e29;
+      font-family: 'Outfit', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
     }
 
-    /* GLASS */
-
-    .glass{
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
-      backdrop-filter:blur(14px);
-      box-shadow:0 30px 120px rgba(0,0,0,.75);
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1200px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 16px;
+      justify-content: center;
     }
 
-    /* PLAYER */
-
-    .player-box{
-      position:relative;
-      overflow:hidden;
-      border-radius:22px;
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 22px;
+      border-radius: 99px;
+      background: #2a194d;
+      border: 2px solid #8b5cf6;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      width: fit-content;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
 
-    iframe{
-      width:100%;
-      height:100%;
-      border:none;
-      display:block;
-      background:black;
+    .back-btn:hover, .back-btn:active {
+      background: #8b5cf6;
+      color: #ffffff;
+      transform: translateY(-2px);
     }
 
-    /* COVER */
-
-    .cover{
-      position:absolute;
-      inset:0;
-      z-index:20;
-      cursor:pointer;
-
-      background:
-      linear-gradient(
-        180deg,
-        rgba(0,0,0,.15) 0%,
-        rgba(0,0,0,.45) 55%,
-        rgba(0,0,0,.82) 100%
-      ),
-      url("https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321224/137/1321224_137-47c11a86-3d88-4ead-a692-25c274c47687.jpg")
-      center/cover no-repeat;
+    .player-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000000;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid #8b5cf6;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
     }
 
-    .pill{
-      position:absolute;
-      top:18px;
-      right:18px;
-
-      padding:8px 14px;
-
-      border-radius:999px;
-
-      background:rgba(0,0,0,.55);
-
-      border:1px solid rgba(255,255,255,.12);
-
-      display:flex;
-      align-items:center;
-      gap:8px;
-
-      font-size:12px;
-      font-weight:900;
-
-      backdrop-filter:blur(12px);
+    .cover {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.85) 100%),
+                  url("https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/32320860/canal-ouah_50001/STD169/myCANAL_16x9_sport_1920x1080.jpg80-otzd") center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 20px;
     }
 
-    .dot{
-      width:8px;
-      height:8px;
-      border-radius:999px;
-      background:#f59e0b;
-      box-shadow:0 0 0 4px rgba(245,158,11,.15);
+    /* Style du compte à rebours */
+    .timer-container {
+      display: flex;
+      gap: 12px;
+      background: rgba(22, 14, 41, 0.85);
+      padding: 16px 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
     }
 
-    .cover-strip{
-      position:absolute;
-
-      left:18px;
-      right:18px;
-      bottom:18px;
-
-      height:85px;
-
-      border-radius:18px;
-
-      background:rgba(0,0,0,.42);
-
-      border:1px solid rgba(255,255,255,.12);
-
-      backdrop-filter:blur(18px);
-
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-
-      padding:0 20px;
+    .timer-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 55px;
     }
 
-    .strip-title{
-      font-size:18px;
-      font-weight:900;
+    .timer-val {
+      font-size: 28px;
+      font-weight: 900;
+      color: #a78bfa;
+      line-height: 1;
     }
 
-    .strip-sub{
-      margin-top:5px;
-      font-size:14px;
-      opacity:.82;
-      font-style:italic;
-      font-weight:700;
+    .timer-lbl {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #ddd6fe;
+      margin-top: 4px;
     }
 
-    .strip-play{
-      width:50px;
-      height:50px;
-
-      border-radius:999px;
-
-      display:grid;
-      place-items:center;
-
-      background:rgba(255,255,255,.14);
-
-      border:1px solid rgba(255,255,255,.16);
-
-      transition:.2s;
+    .play-btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #8b5cf6;
+      border: 3px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 26px;
+      box-shadow: 0 0 25px rgba(139, 92, 246, 0.8);
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
-    .strip-play:hover{
-      transform:scale(1.08);
+    .play-btn:hover {
+      transform: scale(1.1);
+      background: #7c3aed;
     }
 
-    /* BUTTONS */
-
-    .source-btn{
-      height:42px;
-      padding:0 24px;
-
-      border-radius:12px;
-
-      font-weight:900;
-      font-size:13px;
-
-      transition:.2s;
+    .source-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
     }
 
-    .source-btn.active{
-      background:white;
-      color:black;
+    .source-btn {
+      flex: 1;
+      max-width: 200px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 15px;
+      text-align: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
     }
 
-    .source-btn.inactive{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
-      color:white;
+    .source-btn.active {
+      background: #8b5cf6;
+      color: #ffffff;
+      border: 2px solid #a78bfa;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5);
     }
 
-    /* WATCH BAR */
-
-    .watch-bar{
-      border-radius:18px;
-
-      padding:14px 18px;
-
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
+    .source-btn.inactive {
+      background: #2a194d;
+      color: #ddd6fe;
+      border: 2px solid #4c1d95;
     }
 
-    .watch-text .small{
-      font-size:13px;
-      opacity:.75;
-      font-weight:700;
+    .source-btn.inactive:hover {
+      background: #3b216b;
+      color: #ffffff;
     }
-
-    .watch-text .big{
-      font-size:16px;
-      font-weight:900;
-      margin:3px 0;
-    }
-
-    .channel-logo{
-      width:95px;
-      object-fit:contain;
-    }
-
-    /* CHAT */
-
-    .chat-box{
-      border-radius:22px;
-      overflow:hidden;
-
-      min-height:520px;
-
-      background:#0e0e10;
-
-      border:1px solid rgba(255,255,255,.08);
-
-      box-shadow:0 30px 120px rgba(0,0,0,.75);
-    }
-
-    .chat-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-
-      padding:14px 16px;
-
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .chat-head .title{
-      font-weight:900;
-    }
-
-    .chat-head .sub{
-      font-size:12px;
-      opacity:.7;
-      margin-top:2px;
-      font-weight:700;
-    }
-
-    #chatFrame{
-      position:relative;
-      z-index:9999;
-      width:100%;
-      height:100%;
-      border:none;
-      background:#0e0e10;
-    }
-
-    @media(max-width:1024px){
-
-      .chat-box{
-        min-height:420px;
-      }
-
-    }
-
   </style>
 </head>
-
 <body>
 
-  <!-- NAVBAR -->
+  <div class="app-container">
+    
+    <!-- BOUTON RETOUR -->
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
+    </a>
 
-  <nav class="sticky top-0 z-50 bg-black/30 backdrop-blur-xl border-b border-white/10">
+    <!-- LECTEUR VIDEO -->
+    <div class="player-wrapper">
+      
+      <!-- COUVERTURE AVEC TIMER -->
+      <div id="cover" class="cover">
+        <div id="statusText" class="text-lg font-bold text-violet-200 tracking-wide uppercase">
+          Le stream commence dans :
+        </div>
 
-    <div class="max-w-screen-2xl mx-auto px-6 py-3 flex items-center justify-between">
+        <div id="timerContainer" class="timer-container">
+          <div class="timer-box">
+            <span id="days" class="timer-val">00</span>
+            <span class="timer-lbl">Jours</span>
+          </div>
+          <div class="timer-val">:</div>
+          <div class="timer-box">
+            <span id="hours" class="timer-val">00</span>
+            <span class="timer-lbl">Heures</span>
+          </div>
+          <div class="timer-val">:</div>
+          <div class="timer-box">
+            <span id="minutes" class="timer-val">00</span>
+            <span class="timer-lbl">Min</span>
+          </div>
+          <div class="timer-val">:</div>
+          <div class="timer-box">
+            <span id="seconds" class="timer-val">00</span>
+            <span class="timer-lbl">Sec</span>
+          </div>
+        </div>
 
-      <div class="text-2xl md:text-3xl font-extrabold tracking-tight">
-      VØRTEX
-        
+        <!-- BOUTON MANUEL AU CAS OÙ -->
+        <button id="manualPlayBtn" class="play-btn hidden" onclick="startStreamDirectly()" title="Lancer maintenant">
+          <i class="fa-solid fa-play pl-1"></i>
+        </button>
       </div>
 
-      <a href="index.html"
-         class="inline-flex items-center gap-2 px-4 h-10 rounded-full bg-white/10 border border-white/10 hover:bg-white/15 transition">
-
-        <i class="fa-solid fa-arrow-left"></i>
-
-        Retour
-
-      </a>
+      <!-- EMPLACEMENT DU STREAM -->
+      <div id="videoTarget" class="w-full h-full"></div>
 
     </div>
 
-  </nav>
+    <!-- SÉLECTION DE SOURCE -->
+    <div class="source-bar">
+      <button id="btn1" onclick="switchSource(1)" class="source-btn active">
+        <i class="fa-solid fa-server mr-2"></i>Source 1
+      </button>
 
-  <!-- MAIN -->
+      <button id="btn2" onclick="switchSource(2)" class="source-btn inactive">
+        <i class="fa-solid fa-bolt mr-2"></i>Source 2 HD
+      </button>
+    </div>
 
-  <main class="max-w-screen-2xl mx-auto px-6 py-8">
-
-    <section class="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-6">
-
-      <!-- PLAYER -->
-
-      <div>
-
-        <div class="player-box glass aspect-video">
-
-          <!-- COVER -->
-
-          <div id="cover"
-               class="cover"
-               onclick="loadVideo(1)">
-
-            <div class="pill">
-              <span class="dot"></span>
-              LIVE 18h45
-            </div>
-
-            <div class="cover-strip">
-
-              <div>
-
-                <div class="strip-title">
-                  Regarder Gratuitement
-                </div>
-
-                <div class="strip-sub">
-                  Lille vs Galatasaray
-                  
-                </div>
-
-              </div>
-
-              <div class="strip-play">
-                <i class="fa-solid fa-play"></i>
-              </div>
-
-            </div>
-
-          </div>
-
-          <!-- VIDEO -->
-
-          <div id="videoTarget"
-               class="w-full h-full"></div>
-
-        </div>
-
-        <!-- BUTTONS -->
-
-        <div class="mt-4 flex flex-wrap gap-3">
-
-          <button id="btn1"
-                  onclick="loadVideo(1)"
-                  class="source-btn active">
-
-            Source 1
-
-          </button>
-
-          <button id="btn2"
-                  onclick="loadVideo(2)"
-                  class="source-btn inactive">
-
-            Source 2 HD
-
-          </button>
-
-        </div>
-
-        <!-- WATCH BAR -->
-
-        <div class="mt-5 watch-bar glass">
-
-          <div class="watch-text">
-
-            <div class="small">
-              Vous regardez
-            </div>
-
-            <div class="big">
-              Lille vs Galatasaray
-            </div>
-
-            <div class="small">
-              Football · Ligue des champions
-            </div>
-
-          </div>
-
-          <img class="channel-logo"
-               src="#">
-
-        </div>
-
-      </div>
-
-      <!-- CHAT -->
-
-      <aside class="chat-box">
-
-        <div class="chat-head">
-
-          <div>
-
-            <div class="title">
-              Chat en direct
-            </div>
-
-            <div class="sub">
-              Respectez les autres dans le chat
-            </div>
-
-          </div>
-
-          <a href="https://www.twitch.tv/legamer_34500"
-             target="_blank"
-             class="text-xs font-extrabold px-3 h-9 inline-flex items-center rounded-full bg-white/10 border border-white/10 hover:bg-white/15">
-
-            Ouvrir
-
-          </a>
-
-        </div>
-
-        <div style="height:calc(100% - 60px);min-height:520px">
-
-          <iframe id="chatFrame"></iframe>
-
-        </div>
-
-      </aside>
-
-    </section>
-
-  </main>
-
-  <!-- SCRIPT -->
+  </div>
 
   <script>
+    // ------------------------------------------------------------------------
+    // REGLAGE DE L'HEURE DU STREAM (Format: AAAA-MM-JJTHH:MM:SS)
+    // ------------------------------------------------------------------------
+    const TARGET_DATE = new Date("2026-10-31T21:00:00").getTime(); // Modifier ici la date et heure cibles
 
     const SOURCES = {
-
-      1:"https://jack07eo.mpanrc4imind.my/fr/football/uefa-champions-league-4487817/losc-lille-vs-galatasaray.html?icg=RlI&ilang=fr",
-
-      2:"https://jack07eo.mpanrc4imind.my/fr/football/uefa-champions-league-4487817/losc-lille-vs-galatasaray.html?icg=RlI&ilang=fr",
-
+      1: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr",
+      2: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr"
     };
 
-    // TWITCH CHAT
+    let currentSourceId = 1;
+    let timerInterval = null;
+    let isStreamStarted = false;
 
-    (function(){
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = TARGET_DATE - now;
 
-      const domain = window.location.hostname;
+      if (distance <= 0) {
+        // Le timer est terminé
+        clearInterval(timerInterval);
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        
+        startStreamDirectly();
+        return;
+      }
 
-      document.getElementById("chatFrame").src =
-      "" + domain;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    })();
-
-    // ACTIVE BUTTON
-
-    function setActive(id){
-
-      [1,2,3].forEach(function(n){
-
-        const btn = document.getElementById("btn" + n);
-
-        if(btn){
-
-          btn.className =
-          (n === id)
-          ? "source-btn active"
-          : "source-btn inactive";
-
-        }
-
-      });
-
+      document.getElementById("days").innerText = String(days).padStart(2, '0');
+      document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+      document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+      document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
     }
 
-    // LOAD VIDEO
+    function setActive(id) {
+      [1, 2].forEach(n => {
+        const btn = document.getElementById("btn" + n);
+        if (btn) {
+          btn.className = (n === id) ? "source-btn active" : "source-btn inactive";
+        }
+      });
+    }
 
-    function loadVideo(id){
+    function switchSource(id) {
+      currentSourceId = id;
+      setActive(id);
+      if (isStreamStarted) {
+        loadVideo(id);
+      }
+    }
 
+    function startStreamDirectly() {
+      isStreamStarted = true;
       const cover = document.getElementById("cover");
-
-      if(cover){
+      if (cover) {
         cover.style.display = "none";
       }
+      loadVideo(currentSourceId);
+    }
 
-      setActive(id);
-
+    function loadVideo(id) {
       const target = document.getElementById("videoTarget");
-
       const url = SOURCES[id];
 
-      // NO STREAM
-
-      if(!url || url === "#"){
-
+      if (!url || url === "#") {
         target.innerHTML = `
-
-          <div style="
-            width:100%;
-            height:100%;
-            display:grid;
-            place-items:center;
-            font-size:24px;
-            font-weight:900;
-            color:rgba(255,255,255,.7);
-          ">
-
-            Le stream arrive bientôt 😉
-
+          <div class="w-full h-full flex items-center justify-center text-lg font-bold text-violet-200">
+            Le stream arrive bientôt...
           </div>
-
         `;
-
         return;
-
       }
 
-      // LOAD STREAM
-
       target.innerHTML = `
-
         <iframe
           src="${url}"
           allowfullscreen
@@ -558,11 +340,12 @@
           sandbox="allow-forms allow-scripts allow-same-origin allow-presentation"
           style="width:100%;height:100%;border:0">
         </iframe>
-
       `;
-
     }
 
+    // Initialisation
+    timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
   </script>
 
 </body>
