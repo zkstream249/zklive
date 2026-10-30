@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HUNI - Lecteur Video</title>
+  <title>HUNI - Lecteur Grand Format</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,30 +16,34 @@
     html, body {
       margin: 0;
       padding: 0;
+      width: 100%;
       height: 100%;
       background-color: #0b0714;
       font-family: 'Outfit', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
     }
 
-    .player-container {
-      width: 100%;
-      max-width: 1100px;
+    .wrapper {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 16px;
+      box-sizing: border-box;
     }
 
     .aspect-video-box {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      max-width: 1600px;
+      height: calc(100vh - 90px);
       background: #130c24;
       border-radius: 20px;
       overflow: hidden;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 50px rgba(139, 92, 246, 0.2);
     }
 
     .cover {
@@ -56,16 +60,16 @@
     }
 
     .play-btn {
-      width: 80px;
-      height: 80px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       background: #8b5cf6;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 28px;
-      box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+      font-size: 32px;
+      box-shadow: 0 0 35px rgba(139, 92, 246, 0.7);
       transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
@@ -75,7 +79,7 @@
     }
 
     .source-btn {
-      padding: 10px 20px;
+      padding: 10px 24px;
       border-radius: 12px;
       font-weight: 700;
       font-size: 14px;
@@ -102,25 +106,25 @@
 </head>
 <body>
 
-  <div class="player-container">
+  <div class="wrapper">
     
-    <!-- LECTEUR VIDEO -->
+    <!-- LECTEUR VIDEO EN GRAND -->
     <div class="aspect-video-box">
       
-      <!-- COVER / APERÇU -->
+      <!-- COVER -->
       <div id="cover" class="cover" onclick="loadVideo(1)">
         <div class="play-btn">
           <i class="fa-solid fa-play pl-1"></i>
         </div>
       </div>
 
-      <!-- EMPLACEMENT DE L'IFRAME -->
+      <!-- IFRAME VIDEO -->
       <div id="videoTarget" class="w-full h-full"></div>
 
     </div>
 
-    <!-- BOUTONS DE SOURCE -->
-    <div class="mt-4 flex items-center justify-center gap-3">
+    <!-- BOUTONS SOURCE -->
+    <div class="mt-3 flex items-center justify-center gap-3">
       <button id="btn1" onclick="loadVideo(1)" class="source-btn active">
         <i class="fa-solid fa-server mr-2"></i>Source 1
       </button>
