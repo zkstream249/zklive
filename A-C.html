@@ -24,6 +24,7 @@
     }
 
     .wrapper {
+      position: relative;
       width: 100vw;
       height: 100vh;
       display: flex;
@@ -34,11 +35,38 @@
       box-sizing: border-box;
     }
 
+    /* BOUTON RETOUR */
+    .back-btn {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(139, 92, 246, 0.25);
+      border-color: rgba(139, 92, 246, 0.6);
+      transform: translateY(-2px);
+    }
+
     .aspect-video-box {
       position: relative;
       width: 100%;
       max-width: 1600px;
-      height: calc(100vh - 90px);
+      height: calc(100vh - 100px);
       background: #130c24;
       border-radius: 20px;
       overflow: hidden;
@@ -108,6 +136,12 @@
 
   <div class="wrapper">
     
+    <!-- BOUTON RETOUR -->
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
+    </a>
+
     <!-- LECTEUR VIDEO EN GRAND -->
     <div class="aspect-video-box">
       
