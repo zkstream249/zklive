@@ -39,31 +39,7 @@ body {
   background: var(--bg);
   color: #fff;
   overflow-x: hidden;
-  cursor: none;
-}
-a, button, input { cursor: none; }
-
-/* Custom cursor */
-.cursor-dot, .cursor-ring {
-  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000;
-  border-radius: 50%; transform: translate(-50%, -50%);
-  transition: width .2s, height .2s, background .2s, border-color .2s;
-}
-.cursor-dot {
-  width: 8px; height: 8px; background: var(--brand); box-shadow: 0 0 16px var(--brand);
-}
-.cursor-ring {
-  width: 36px; height: 36px; border: 1.5px solid rgba(168,85,247,.55);
-  transition: width .25s, height .25s, border-color .25s, background .25s;
-}
-.cursor-ring.hover {
-  width: 56px; height: 56px;
-  border-color: rgba(168,85,247,.9);
-  background: rgba(168,85,247,.08);
-}
-@media (pointer: coarse) {
-  .cursor-dot, .cursor-ring { display: none !important; }
-  body, a, button, input { cursor: auto; }
+  /* Curseur PC par défaut rétabli */
 }
 
 /* Ambient scene */
@@ -171,7 +147,7 @@ a, button, input { cursor: none; }
   inherits: false;
 }
 
-/* Match cards — style pro type streaming */
+/* Match cards */
 .match-card {
   display: block;
   text-decoration: none;
@@ -302,7 +278,7 @@ header.scrolled {
   z-index: -1; opacity: .7;
 }
 
-/* Section title — style DIRECT */
+/* Section title */
 .section-title {
   display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
 }
@@ -367,8 +343,6 @@ header.scrolled {
 <body class="noise min-h-screen flex flex-col">
 
 <div id="nbar"></div>
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- Ambient -->
 <div class="scene" aria-hidden="true">
@@ -397,10 +371,10 @@ header.scrolled {
         Suivez-nous sur X pour ne rater aucun lien de match !
       </p>
       <a href="https://x.com/lerato_matsose" target="_blank" rel="noopener noreferrer"
-        class="btn-magnetic block w-full py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg mb-3 relative z-10 interactive">
+        class="btn-magnetic block w-full py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg mb-3 relative z-10">
         REJOINDRE LE X / TWITTER
       </a>
-      <button id="gateSkip" class="text-xs text-gray-400 underline hover:text-white transition-colors relative z-10 interactive">
+      <button id="gateSkip" class="text-xs text-gray-400 underline hover:text-white transition-colors relative z-10">
         J'ai déjà suivi
       </button>
     </div>
@@ -430,7 +404,7 @@ header.scrolled {
 <!-- NAV -->
 <header id="navbar" class="sticky top-0 z-40 bg-transparent border-b border-transparent transition-all duration-500">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 grid grid-cols-3 items-center">
-    <a href="index.html" class="justify-self-start flex items-center group interactive logo-word">
+    <a href="index.html" class="justify-self-start flex items-center group logo-word">
       <span class="text-2xl sm:text-3xl font-black tracking-wider text-white group-hover:text-purple-300 transition-colors">
         <span style="animation-delay:.05s">N</span><span style="animation-delay:.08s">O</span><span style="animation-delay:.11s">X</span><span style="animation-delay:.14s">A</span>
         <span class="text-brand">
@@ -440,13 +414,13 @@ header.scrolled {
     </a>
 
     <nav class="hidden md:flex items-center justify-center gap-8 text-sm font-semibold tracking-wide justify-self-center">
-      <a href="index.html" class="nav-link active text-purple-300 interactive">ACCUEIL</a>
-      <a href="tv.html" class="nav-link text-gray-300 hover:text-white interactive">CHAÎNES TV</a>
-      <a href="/shop.html" class="nav-link text-gray-300 hover:text-white interactive">OFFRE IPTV</a>
+      <a href="index.html" class="nav-link active text-purple-300">ACCUEIL</a>
+      <a href="tv.html" class="nav-link text-gray-300 hover:text-white">CHAÎNES TV</a>
+      <a href="/shop.html" class="nav-link text-gray-300 hover:text-white">OFFRE IPTV</a>
     </nav>
 
     <div class="justify-self-end flex items-center">
-      <a href="https://discord.gg/CxnescfBYc" target="_blank" class="hidden sm:flex p-2.5 rounded-xl glass text-gray-300 hover:text-white hover:border-purple-500/40 transition-all interactive">
+      <a href="https://discord.gg/CxnescfBYc" target="_blank" class="hidden sm:flex p-2.5 rounded-xl glass text-gray-300 hover:text-white hover:border-purple-500/40 transition-all">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028ZM8.02 15.332c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.955 2.419-2.157 2.419Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.946 2.419-2.157 2.419Z"/></svg>
       </a>
     </div>
@@ -472,9 +446,9 @@ header.scrolled {
     <div class="relative w-full">
       <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></svg>
       <input type="text" id="searchInput" placeholder="Rechercher un club, un match..."
-        class="w-full bg-black/45 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500/60 transition-colors interactive">
+        class="w-full bg-black/45 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500/60 transition-colors">
     </div>
-    <button id="refreshBtn" class="btn-magnetic w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-extrabold tracking-wide uppercase rounded-xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 interactive">
+    <button id="refreshBtn" class="btn-magnetic w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-extrabold tracking-wide uppercase rounded-xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2">
       <span id="refreshIcon" class="inline-block transition-transform duration-500">↻</span> ACTUALISER
     </button>
   </div>
@@ -518,13 +492,12 @@ header.scrolled {
 </div>
 
 <script>
-/* ── Configuration des matchs avec leur date (Format "YYYY-MM-DD") et leur heure ("HH:MM") ── */
 const MATCHES = [
-    {
+  {
     id: "match1",
     title: "",
-    date: "2026-10-30", // Date exacte du match (Modifie ici)
-    time: "21:00",     // Heure de début : 21h00 pile le match passe en direct
+    date: "2026-10-30",
+    time: "21:00",
     competition: "Ligue 1",
     banner: "https://www.footenfrance.fr/photo/art/default/79160390-57370847.jpg?v=1711538160",
     href: "C-A.html"
@@ -532,8 +505,8 @@ const MATCHES = [
   {
     id: "match1",
     title: "",
-    date: "2026-10-30", // Date exacte du match (Modifie ici)
-    time: "19:00",     // Heure de début : 19h00 pile le match passe en direct
+    date: "2026-10-30",
+    time: "19:00",
     competition: "Ligue 1",
     banner: "https://cms-images.acc.indazn.com/di/library/DAZN_News/65/c7/psg-le-havre_1u67jjlmorcrczii51uwxll24.png?t=607088783&quality=80",
     href: "A-C.html"
@@ -541,7 +514,7 @@ const MATCHES = [
   {
     id: "match2",
     title: "",
-    date: "2026-10-31", // Prévu pour demain (passe dans "Aujourd'hui" demain, puis en "Direct" à l'heure prévue)
+    date: "2026-10-31",
     time: "21:00",
     competition: "Liga",
     banner: "https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1322384/106/1322384_106-6d4e7270-ace6-40c2-b57e-71758de63c21.jpg",
@@ -566,7 +539,7 @@ function cardHTML(m, i, status) {
     : '';
 
   return `
-  <a href="${m.href}" class="match-card interactive reveal" style="animation-delay:${delay}s">
+  <a href="${m.href}" class="match-card reveal" style="animation-delay:${delay}s">
     <div class="match-thumb ${m.banner ? 'has-banner' : ''}" ${thumbStyle}>
       ${statusBadge}
       <span class="match-comp">${m.competition || 'FOOTBALL'}</span>
@@ -575,17 +548,13 @@ function cardHTML(m, i, status) {
   </a>`;
 }
 
-/* ── Fonction de tri automatique (Demain ➔ Aujourd'hui ➔ Direct) ── */
 function getMatchCategory(match) {
   const now = new Date();
-  
-  // Formatage de la date du jour en YYYY-MM-DD
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
   const todayStr = `${year}-${month}-${day}`;
 
-  // Calcul de la date de demain en YYYY-MM-DD
   const tomorrow = new Date();
   tomorrow.setDate(now.getDate() + 1);
   const tYear = tomorrow.getFullYear();
@@ -593,28 +562,22 @@ function getMatchCategory(match) {
   const tDay = String(tomorrow.getDate()).padStart(2, '0');
   const tomorrowStr = `${tYear}-${tMonth}-${tDay}`;
 
-  // Si le match est prévu pour un autre jour que aujourd'hui ou demain
   if (match.date > todayStr && match.date !== tomorrowStr) {
     return 'later';
   }
 
-  // Si le match est programmé pour demain
   if (match.date === tomorrowStr) {
     return 'tomorrow';
   }
 
-  // Si on est le jour du match, on vérifie l'heure
   if (match.date === todayStr) {
     const [matchHours, matchMinutes] = match.time.split(':').map(Number);
     const matchTimeMinutes = matchHours * 60 + matchMinutes;
-    
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
-    // Si l'heure actuelle a atteint ou dépassé l'heure du match ➔ DIRECT
     if (currentMinutes >= matchTimeMinutes) {
       return 'live';
     } else {
-      // Sinon, il est prévu pour plus tard dans la journée ➔ AUJOURD'HUI
       return 'today';
     }
   }
@@ -651,11 +614,6 @@ function renderMatches(query = '') {
   tomContainer.innerHTML = tomorrow.length
     ? tomorrow.map((m, i) => cardHTML(m, i, 'tomorrow')).join('')
     : emptyHTML('Aucune diffusion programmée demain.');
-
-  document.querySelectorAll('.interactive').forEach(el => {
-    el.addEventListener('mouseenter', () => document.getElementById('cursorRing')?.classList.add('hover'));
-    el.addEventListener('mouseleave', () => document.getElementById('cursorRing')?.classList.remove('hover'));
-  });
 }
 
 document.getElementById('searchInput')?.addEventListener('input', (e) => renderMatches(e.target.value));
@@ -666,10 +624,8 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
   renderMatches(document.getElementById('searchInput')?.value || '');
 });
 
-// Lancement initial
 renderMatches();
 
-// Actualisation automatique toutes les 30 secondes pour détecter le passage "Demain ➔ Aujourd'hui" et "Aujourd'hui ➔ Direct"
 setInterval(() => {
   renderMatches(document.getElementById('searchInput')?.value || '');
 }, 30000);
