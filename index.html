@@ -302,11 +302,6 @@ header.scrolled {
   z-index: -1; opacity: .7;
 }
 
-/* Skeleton / empty */
-.empty-state {
-  animation: fadeUp .6s ease both;
-}
-
 /* Section title — style DIRECT */
 .section-title {
   display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
@@ -350,7 +345,6 @@ header.scrolled {
   box-shadow: 0 0 0 4px rgba(168,85,247,.12), 0 0 40px rgba(168,85,247,.15);
 }
 
-/* Logo letter stagger on load */
 .logo-word span {
   display: inline-block;
   animation: letterPop .6s cubic-bezier(.16,1,.3,1) both;
@@ -360,7 +354,6 @@ header.scrolled {
   to { opacity: 1; transform: none; }
 }
 
-/* Progress bar mini */
 #nbar {
   position: fixed; top: 0; left: 0; height: 2px; width: 0;
   background: linear-gradient(90deg, #a855f7, #6366f1, #10b981);
@@ -644,14 +637,14 @@ header.scrolled {
   });
 })();
 
-/* ── Matches ── */
+/* ── Matches configurés avec l'heure (format "HH:MM") ── */
 const MATCHES = [
   {
-    id: "#",
-    title: "",
-    time: "21:00",
+    id: "match1",
+    title: "Équipe A vs Équipe B", // Mets le titre de ton match ici
+    time: "21:00", // Heure exacte de début du match
     isToday: true,
-    live: true,
+    live: false, // Ne mets pas true ici, le script gérera le passage auto
     competition: "Carabao cup",
     banner: "https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/32287356/canal-ouah_50009/STD169/Presentation1-8Z4U",
     href: "A-C.html"
@@ -684,7 +677,29 @@ function cardHTML(m, i) {
   </a>`;
 }
 
+/* ── Fonction de mise à jour automatique selon l'heure ── */
+function updateMatchTimes() {
+  const now = new Date();
+  const currentHours = now.getHours();
+  const currentMinutes = now.getMinutes();
+  const currentTimeMinutes = currentHours * 60 + currentMinutes;
+
+  MATCHES.forEach(m => {
+    if (m.isToday && m.time) {
+      const [matchHours, matchMinutes] = m.time.split(':').map(Number);
+      const matchTimeMinutes = matchHours * 60 + matchMinutes;
+
+      // Si l'heure actuelle est supérieure ou égale à l'heure du match, on le passe en LIVE
+      if (currentTimeMinutes >= matchTimeMinutes) {
+        m.live = true;
+      }
+    }
+  });
+}
+
 function renderMatches(query = '') {
+  updateMatchTimes(); // Vérifie et met à jour l'état du match avant l'affichage
+
   const liveContainer = document.getElementById('liveMatches');
   const todayContainer = document.getElementById('todayMatches');
   const tomContainer = document.getElementById('tomorrowMatches');
@@ -725,7 +740,13 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
   renderMatches(document.getElementById('searchInput')?.value || '');
 });
 
+// Lancement initial
 renderMatches();
+
+// Vérification automatique toutes les 30 secondes pour faire basculer le match pile à l'heure
+setInterval(() => {
+  renderMatches(document.getElementById('searchInput')?.value || '');
+}, 30000);
 </script>
 </body>
 </html>
