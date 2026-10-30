@@ -1,509 +1,186 @@
 <!doctype html>
-<html lang="fr" class="dark scroll-smooth">
-
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#070510" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HUNI - Lecteur Video</title>
 
-  <title>NOXA STREAM — Liverpool vs Chelsea</title>
-
-  <!-- TAILWIND CSS -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              dark: '#070510',
-              card: '#120a24',
-              purple: '#9333ea',
-              violet: '#7c3aed',
-              magenta: '#d946ef',
-              neon: '#a855f7'
-            }
-          },
-          animation: {
-            'pulse-glow': 'pulseGlow 3s infinite ease-in-out'
-          },
-          keyframes: {
-            pulseGlow: {
-              '0%, 100%': { opacity: '0.35', transform: 'scale(1)' },
-              '50%': { opacity: '0.65', transform: 'scale(1.02)' }
-            }
-          }
-        }
-      }
-    }
-  </script>
 
-  <!-- FONTS & ICONS -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Font & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
-    * {
-      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-      box-sizing: border-box;
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #0b0714;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    body {
-      background-color: #070510;
-      color: #f3f4f6;
-      overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(147, 51, 234, 0.22) 0%, transparent 50%),
-        radial-gradient(circle at 85% 60%, rgba(217, 70, 239, 0.15) 0%, transparent 45%),
-        radial-gradient(circle at 15% 80%, rgba(124, 58, 237, 0.18) 0%, transparent 45%);
-      background-attachment: fixed;
+    .player-container {
+      width: 100%;
+      max-width: 1100px;
+      padding: 16px;
     }
 
-    /* GLASSMORPHISM CARDS */
-    .glass-panel {
-      background: rgba(18, 10, 36, 0.7);
-      border: 1px solid rgba(168, 85, 247, 0.22);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(168, 85, 247, 0.1);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .glass-panel:hover {
-      border-color: rgba(217, 70, 239, 0.4);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(168, 85, 247, 0.25);
-    }
-
-    /* LIGHTS OFF / CINEMA MODE DIMMER */
-    #lightsOffOverlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 1, 8, 0.96);
-      z-index: 35;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    body.lights-off #lightsOffOverlay {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    body.lights-off .player-box-wrapper {
-      z-index: 40 !important;
+    .aspect-video-box {
       position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #130c24;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 92, 246, 0.15);
     }
 
-    /* PLAYER COVER BACKGROUND */
-    .player-cover-bg {
-      background: linear-gradient(180deg, rgba(7,5,16,0.3) 0%, rgba(7,5,16,0.7) 60%, rgba(7,5,16,0.95) 100%),
-                  url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    .cover {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      cursor: pointer;
+      background: linear-gradient(180deg, rgba(11, 7, 20, 0.2) 0%, rgba(11, 7, 20, 0.85) 100%),
+                  url("https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321229/120/1321229_120-2b87522c-1092-4034-a072-04c46ff1931e.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
     }
 
-    /* FULLSCREEN CSS OVERRIDES FOR PLAYER BOX */
-    .player-box:fullscreen,
-    .player-box:-webkit-full-screen,
-    .player-box:-moz-full-screen,
-    .player-box:-ms-fullscreen {
-      width: 100vw !important;
-      height: 100vh !important;
-      max-width: none !important;
-      max-height: none !important;
-      border-radius: 0 !important;
-      border: none !important;
-      background: #000 !important;
+    .play-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #8b5cf6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
-    .player-box:fullscreen iframe,
-    .player-box:-webkit-full-screen iframe,
-    .player-box:-moz-full-screen iframe,
-    .player-box:-ms-fullscreen iframe {
-      width: 100vw !important;
-      height: 100vh !important;
+    .cover:hover .play-btn {
+      transform: scale(1.1);
+      background: #7c3aed;
+    }
+
+    .source-btn {
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .source-btn.active {
+      background: #8b5cf6;
+      color: white;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+    }
+
+    .source-btn.inactive {
+      background: rgba(255, 255, 255, 0.05);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .source-btn.inactive:hover {
+      background: rgba(139, 92, 246, 0.15);
+      color: white;
     }
   </style>
 </head>
+<body>
 
-<body class="min-h-screen flex flex-col justify-between selection:bg-fuchsia-500 selection:text-white transition-colors duration-300">
-
-  <!-- LIGHTS OFF OVERLAY DIMMER -->
-  <div id="lightsOffOverlay" onclick="toggleLightsOff()"></div>
-
-  <!-- TOAST NOTIFICATIONS -->
-  <div id="toastContainer" class="fixed top-24 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
-  <!-- NAVBAR -->
-  <header class="sticky top-0 z-40 bg-[#070510]/85 backdrop-blur-2xl border-b border-fuchsia-500/20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-      
-      <!-- LOGO -->
-      <a href="#" class="flex items-center gap-3.5 group">
-        <div class="relative flex items-center justify-center">
-          <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-500 blur-md opacity-75 group-hover:opacity-100 transition duration-300"></div>
-          <div class="relative w-11 h-11 rounded-2xl bg-[#120a24] border border-fuchsia-400/40 flex items-center justify-center font-black text-2xl text-transparent bg-clip-text bg-gradient-to-tr from-purple-400 via-fuchsia-300 to-white shadow-xl">
-            H
-          </div>
-        </div>
-        <div>
-          <span class="text-2xl font-black tracking-wider text-white">
-            NOXA <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-pink-400">STREAM</span>
-          </span>
-          <div class="text-[10px] font-extrabold text-fuchsia-400/90 tracking-widest uppercase -mt-1 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> DIRECT ULTRA HD
-          </div>
-        </div>
-      </a>
-
-      <!-- NAVBAR RIGHT CONTROLS -->
-      <div class="flex items-center gap-3">
-        <!-- LIGHTS TOGGLE BUTTON -->
-        <button onclick="toggleLightsOff()" id="btnLights" title="Mode Cinéma" class="px-3.5 py-2 rounded-xl bg-white/5 border border-fuchsia-500/20 hover:bg-fuchsia-500/20 hover:border-fuchsia-400 text-gray-300 hover:text-fuchsia-200 transition text-xs font-bold flex items-center gap-2">
-          <i class="fa-solid fa-moon"></i>
-          <span class="hidden sm:inline">Cinéma</span>
-        </button>
-
-        <!-- DISCORD LINK -->
-        <a href="https://discord.gg/CxnescfBYc" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-purple-600/30 transition hover:scale-105 flex items-center gap-2">
-          <i class="fa-brands fa-discord text-sm"></i>
-          <span class="hidden sm:inline">Discord</span>
-        </a>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- MAIN WRAPPER -->
-  <main id="mainContainer" class="max-w-6xl mx-auto px-4 sm:px-6 py-6 w-full flex-grow flex flex-col justify-center transition-all duration-300">
+  <div class="player-container">
     
-    <div class="space-y-5 w-full">
-
-      <!-- PLAYER CONTAINER WITH AMBIENT GLOW -->
-      <div class="player-box-wrapper relative group">
-        
-        <!-- DYNAMIC AMBIENT BACKLIGHT GLOW -->
-        <div id="ambientGlow" class="absolute -inset-3 bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 rounded-3xl opacity-35 blur-2xl transition-all duration-700 pointer-events-none animate-pulse-glow"></div>
-
-        <!-- MAIN PLAYER BOX -->
-        <div id="playerBox" class="player-box relative w-full aspect-video rounded-2xl glass-panel overflow-hidden z-10 bg-black border border-fuchsia-500/30">
-          
-          <!-- OVERLAY FULLSCREEN BUTTON (VISIBLE ON HOVER / STREAM) -->
-          <button onclick="toggleFullscreen()" title="Plein écran" class="absolute top-4 right-4 z-20 px-3 py-2 rounded-xl bg-black/60 hover:bg-fuchsia-600/80 border border-fuchsia-500/30 backdrop-blur-md text-white text-xs font-bold transition shadow-lg flex items-center gap-1.5 opacity-80 hover:opacity-100">
-            <i class="fa-solid fa-expand text-sm"></i>
-          </button>
-
-          <!-- COVER PREVIEW BEFORE PLAYING -->
-          <div id="playerCover" class="absolute inset-0 z-30 player-cover-bg flex flex-col justify-between p-6 transition-all duration-500">
-            
-            <!-- HEADER BADGES -->
-            <div class="flex items-center justify-between">
-              <span class="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-black text-xs tracking-wider uppercase backdrop-blur-md flex items-center gap-2 shadow-lg">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> EN DIRECT 1080p60
-              </span>
-            </div>
-
-            <!-- CENTRAL PLAY ACTION -->
-            <div class="self-center text-center cursor-pointer my-auto group/play" onclick="startStream(1)">
-              <div class="relative inline-block">
-                <div class="absolute -inset-6 rounded-full bg-fuchsia-500/50 blur-2xl group-hover/play:bg-fuchsia-400/80 transition duration-300"></div>
-                <div class="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-purple-600 via-fuchsia-500 to-pink-500 flex items-center justify-center text-white text-3xl font-black shadow-2xl transform group-hover/play:scale-110 transition duration-300 border border-white/20">
-                  <i class="fa-solid fa-play ml-1"></i>
-                </div>
-              </div>
-              <div class="mt-4 text-xl md:text-2xl font-black tracking-wide text-white drop-shadow-lg">
-                LANCER LE DIRECT
-              </div>
-              <div class="text-xs text-fuchsia-300 font-semibold mt-1">
-                Haute qualité • Flux vidéo sans interruption
-              </div>
-            </div>
-
-            <!-- MATCH SUMMARY BANNER ON COVER -->
-            <div class="glass-panel p-3.5 rounded-xl flex items-center justify-between border border-fuchsia-500/30 bg-black/80 backdrop-blur-2xl">
-              <div class="flex items-center gap-3">
-                <img class="w-9 h-9 object-contain drop-shadow" src="https://assets-fr.imgfoot.com/media/cache/150x150/liverpool.png" alt="Liverpool">
-                <div>
-                  <div class="font-black text-sm text-white">Liverpool</div>
-                  <div class="text-[10px] text-gray-400">Domicile</div>
-                </div>
-              </div>
-
-              <div class="text-center px-4">
-                <div class="text-xs font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-fuchsia-300 uppercase tracking-widest">Carabeo Cup</div>
-                <div class="text-xs text-fuchsia-400/80 font-bold mt-0.5">Anfield</div>
-              </div>
-
-              <div class="flex items-center gap-3 text-right">
-                <div>
-                  <div class="font-black text-sm text-white">Chelsea</div>
-                  <div class="text-[10px] text-gray-400">Extérieur</div>
-                </div>
-                <img class="w-9 h-9 object-contain drop-shadow" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/chelsea-fc.png" alt="Chelsea">
-              </div>
-            </div>
-
-          </div>
-
-          <!-- LOADER SPINNER -->
-          <div id="playerLoader" class="hidden absolute inset-0 z-20 bg-black/90 flex flex-col items-center justify-center gap-4">
-            <div class="w-12 h-12 border-4 border-fuchsia-500 border-t-transparent rounded-full animate-spin"></div>
-            <div class="text-sm font-bold text-fuchsia-300">Connexion au serveur haute performance...</div>
-          </div>
-
-          <!-- IFRAME CONTAINER -->
-          <div id="videoTarget" class="w-full h-full bg-black flex items-center justify-center"></div>
-
+    <!-- LECTEUR VIDEO -->
+    <div class="aspect-video-box">
+      
+      <!-- COVER / APERÇU -->
+      <div id="cover" class="cover" onclick="loadVideo(1)">
+        <div class="play-btn">
+          <i class="fa-solid fa-play pl-1"></i>
         </div>
-
-        <!-- PLAYER TOOLBAR CONTROL STRIP UNDER VIDEO -->
-        <div class="mt-3 flex items-center justify-between gap-2 px-1">
-          <div class="flex items-center gap-2">
-            <!-- FULLSCREEN BUTTON -->
-            <button onclick="toggleFullscreen()" title="Plein écran" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:brightness-110 border border-fuchsia-400/40 text-xs font-bold text-white shadow-md transition flex items-center gap-1.5">
-              <i class="fa-solid fa-expand text-white"></i>
-              <span>Plein écran</span>
-            </button>
-
-            <!-- RELOAD BUTTON -->
-            <button onclick="reloadStream()" title="Rafraîchir la vidéo" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-fuchsia-500/20 border border-fuchsia-500/20 text-xs font-bold text-gray-300 hover:text-white transition flex items-center gap-1.5">
-              <i class="fa-solid fa-arrows-rotate text-fuchsia-400"></i>
-              <span class="hidden sm:inline">Rafraîchir</span>
-            </button>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <span class="text-[11px] font-semibold text-gray-400 flex items-center gap-1.5">
-              <i class="fa-solid fa-microphone text-fuchsia-400"></i> Commentaires Fr
-            </span>
-          </div>
-        </div>
-
       </div>
 
-      <!-- 3 SERVERS SELECTION BUTTONS -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        
-        <button id="srcBtn1" onclick="switchSource(1)" class="group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white border-fuchsia-300 shadow-lg shadow-purple-600/30 scale-[1.02]">
-          <div class="flex items-center gap-2.5">
-            <i class="fa-solid fa-server text-sm"></i>
-            <div class="text-left">
-              <div>Serveur 1</div>
-              <div class="text-[10px] text-fuchsia-200 font-normal">Flux Principal 1080p60</div>
-            </div>
-          </div>
-          <span class="px-2 py-0.5 rounded-md bg-white/20 text-[10px] font-extrabold uppercase">Ultra HD</span>
-        </button>
-
-        <button id="srcBtn2" onclick="switchSource(2)" class="group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-white/5 border-fuchsia-500/20 hover:bg-fuchsia-500/10 text-gray-300">
-          <div class="flex items-center gap-2.5">
-            <i class="fa-solid fa-bolt text-yellow-400 text-sm"></i>
-            <div class="text-left">
-              <div>Serveur 2</div>
-              <div class="text-[10px] text-gray-400 font-normal">Secours Rapide 720p</div>
-            </div>
-          </div>
-          <span class="px-2 py-0.5 rounded-md bg-white/10 text-[10px] font-extrabold uppercase">Fast</span>
-        </button>
-
-        <button id="srcBtn3" onclick="switchSource(3)" class="group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-white/5 border-fuchsia-500/20 hover:bg-fuchsia-500/10 text-gray-300">
-          <div class="flex items-center gap-2.5">
-            <i class="fa-solid fa-wifi text-fuchsia-400 text-sm"></i>
-            <div class="text-left">
-              <div>Serveur 3</div>
-              <div class="text-[10px] text-gray-400 font-normal">Basse Latence (Mobile)</div>
-            </div>
-          </div>
-          <span class="px-2 py-0.5 rounded-md bg-white/10 text-[10px] font-extrabold uppercase">Low-Ping</span>
-        </button>
-
-      </div>
-
-      <!-- MATCH INFO BANNER -->
-      <div class="glass-panel rounded-2xl p-5 border border-fuchsia-500/20 flex items-center justify-between gap-5">
-        
-        <!-- TEAMS METADATA -->
-        <div class="flex items-center gap-4">
-          <div class="flex items-center -space-x-3">
-            <img class="w-12 h-12 object-contain bg-[#120a24] p-1.5 rounded-full border border-fuchsia-500/40 z-10 shadow-lg" src="https://assets-fr.imgfoot.com/media/cache/150x150/liverpool.png"alt="Liverpool">
-            <img class="w-12 h-12 object-contain bg-[#120a24] p-1.5 rounded-full border border-fuchsia-500/40 shadow-lg" src="https://assets-fr.imgfoot.com/media/cache/150x150/club/chelsea-fc.png" alt="Chelsea">
-          </div>
-
-          <div>
-            <div class="text-xs font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 uppercase tracking-wider">Carabeo cup • Choc de la journée</div>
-            <div class="text-xl font-black text-white">Liverpool vs Chelsea</div>
-            <div class="text-xs text-gray-400 font-semibold mt-0.5 flex items-center gap-2">
-              <span><i class="fa-solid fa-location-dot text-fuchsia-400 mr-1"></i>Anfield</span>
-              <span>•</span>
-              <span class="text-emerald-400"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Diffusion active</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <!-- EMPLACEMENT DE L'IFRAME -->
+      <div id="videoTarget" class="w-full h-full"></div>
 
     </div>
-  </main>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-fuchsia-500/10 bg-[#070510]/95 py-6 text-center text-xs text-gray-500 mt-8 backdrop-blur-md">
-    <p>© 2026 <strong class="text-fuchsia-400">NOXA STREAM</strong> — Expérience Direct Premium Pure.</p>
-  </footer>
+    <!-- BOUTONS DE SOURCE -->
+    <div class="mt-4 flex items-center justify-center gap-3">
+      <button id="btn1" onclick="loadVideo(1)" class="source-btn active">
+        <i class="fa-solid fa-server mr-2"></i>Source 1
+      </button>
 
-  <!-- CORE JAVASCRIPT -->
+      <button id="btn2" onclick="loadVideo(2)" class="source-btn inactive">
+        <i class="fa-solid fa-bolt mr-2"></i>Source 2 HD
+      </button>
+    </div>
+
+  </div>
+
   <script>
-    // 3 STREAM SOURCES CONFIGURATION
     const SOURCES = {
-      1: "https://stech.sellbase.gg/e/hunisport",
-      2: "https://stech.sellbase.gg/e/hunisport",
-      3: "https://stech.sellbase.gg/e/hunisport",
+      1: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr",
+      2: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr"
     };
 
-    let activeSourceId = 1;
-    let isPlaying = false;
-
-    // START STREAM PLAYBACK
-    function startStream(sourceId = 1) {
-      const cover = document.getElementById("playerCover");
-      const loader = document.getElementById("playerLoader");
-      const target = document.getElementById("videoTarget");
-
-      if (cover) cover.style.opacity = "0";
-      setTimeout(() => { if (cover) cover.style.display = "none"; }, 400);
-
-      if (loader) loader.classList.remove("hidden");
-
-      isPlaying = true;
-      activeSourceId = sourceId;
-      updateSourceButtonsUI(sourceId);
-
-      setTimeout(() => {
-        if (loader) loader.classList.add("hidden");
-        const url = SOURCES[sourceId];
-
-        if (!url || url === "#") {
-          target.innerHTML = `
-            <div class="text-center p-6">
-              <i class="fa-solid fa-triangle-exclamation text-4xl text-yellow-400 mb-3"></i>
-              <div class="text-lg font-black text-white">Flux momentanément indisponible</div>
-              <p class="text-xs text-gray-400 mt-1">Veuillez sélectionner un autre serveur ci-dessous.</p>
-            </div>
-          `;
-          return;
-        }
-
-        target.innerHTML = `
-          <iframe 
-            id="streamIframe"
-            src="${url}" 
-            allow="autoplay; fullscreen; picture-in-picture" 
-            allowfullscreen 
-            webkitallowfullscreen
-            mozallowfullscreen
-            referrerpolicy="origin" 
-            class="w-full h-full border-0">
-          </iframe>
-        `;
-
-        showToast("Serveur " + sourceId + " connecté avec succès", "success");
-      }, 500);
-    }
-
-    // SWITCH STREAM SOURCE
-    function switchSource(id) {
-      startStream(id);
-    }
-
-    // UPDATE UI BUTTONS FOR 3 SOURCES
-    function updateSourceButtonsUI(activeId) {
-      [1, 2, 3].forEach(id => {
-        const btn = document.getElementById("srcBtn" + id);
-        if (!btn) return;
-
-        if (id === activeId) {
-          btn.className = "group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white border-fuchsia-300 shadow-lg shadow-purple-600/30 scale-[1.02]";
-        } else {
-          btn.className = "group relative px-4 py-3.5 rounded-xl text-xs font-black transition flex items-center justify-between border bg-white/5 border-fuchsia-500/20 hover:bg-fuchsia-500/10 text-gray-300";
+    function setActive(id) {
+      [1, 2].forEach(n => {
+        const btn = document.getElementById("btn" + n);
+        if (btn) {
+          btn.className = (n === id) ? "source-btn active" : "source-btn inactive";
         }
       });
     }
 
-    // RELOAD STREAM
-    function reloadStream() {
-      if (isPlaying) {
-        switchSource(activeSourceId);
-        showToast("Flux vidéo rafraîchi", "info");
-      } else {
-        startStream(1);
+    function loadVideo(id) {
+      const cover = document.getElementById("cover");
+      if (cover) {
+        cover.style.display = "none";
       }
-    }
 
-    // RELIABLE NATIVE FULLSCREEN TOGGLE
-    function toggleFullscreen() {
-      const playerBox = document.getElementById("playerBox");
-      if (!playerBox) return;
-      
-      const isFull = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+      setActive(id);
 
-      if (!isFull) {
-        if (playerBox.requestFullscreen) {
-          playerBox.requestFullscreen();
-        } else if (playerBox.webkitRequestFullscreen) {
-          playerBox.webkitRequestFullscreen();
-        } else if (playerBox.mozRequestFullScreen) {
-          playerBox.mozRequestFullScreen();
-        } else if (playerBox.msRequestFullscreen) {
-          playerBox.msRequestFullscreen();
-        }
-        showToast("Mode Plein écran activé", "info");
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-          document.webkitExitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-          document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-          document.msExitFullscreen();
-        }
-        showToast("Plein écran quitté", "info");
+      const target = document.getElementById("videoTarget");
+      const url = SOURCES[id];
+
+      if (!url || url === "#") {
+        target.innerHTML = `
+          <div class="w-full h-full flex items-center justify-center text-xl font-bold text-violet-300">
+            Le stream arrive bientôt...
+          </div>
+        `;
+        return;
       }
+
+      target.innerHTML = `
+        <iframe
+          src="${url}"
+          allowfullscreen
+          scrolling="no"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          referrerpolicy="no-referrer-when-downgrade"
+          sandbox="allow-forms allow-scripts allow-same-origin allow-presentation"
+          style="width:100%;height:100%;border:0">
+        </iframe>
+      `;
     }
-
-    // LIGHTS OFF TOGGLE MODE
-    function toggleLightsOff() {
-      document.body.classList.toggle("lights-off");
-      const isOff = document.body.classList.contains("lights-off");
-      showToast(isOff ? "Mode Cinéma activé" : "Lumières rallumées", "info");
-    }
-
-    // TOAST SYSTEM
-    function showToast(message, type = "info") {
-      const container = document.getElementById("toastContainer");
-      if (!container) return;
-
-      const toast = document.createElement("div");
-      let border = "border-fuchsia-500/40 text-fuchsia-300";
-      if (type === "success") border = "border-emerald-500/40 text-emerald-300";
-
-      toast.className = `px-4 py-2.5 rounded-xl border bg-[#120a24]/90 ${border} backdrop-blur-xl text-xs font-bold shadow-2xl transition-all duration-300 flex items-center gap-2 transform translate-x-8 opacity-0 pointer-events-auto`;
-      toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${message}`;
-
-      container.appendChild(toast);
-
-      setTimeout(() => toast.classList.remove("translate-x-8", "opacity-0"), 40);
-      setTimeout(() => {
-        toast.classList.add("translate-x-8", "opacity-0");
-        setTimeout(() => toast.remove(), 300);
-      }, 2500);
-    }
-
-    // RANDOM SPECTATOR COUNTER VARIATION
-    setInterval(() => {
-      const el = document.getElementById("spectatorsCount");
-      if (el) {
-        const current = parseInt(el.innerText.replace(/,/g, ''));
-        const variation = Math.floor(Math.random() * 25) - 12;
-        el.innerText = (current + variation).toLocaleString();
-      }
-    }, 4000);
   </script>
+
 </body>
 </html>
