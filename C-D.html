@@ -22,48 +22,50 @@
       margin: 0;
       padding: 0;
       width: 100%;
-      height: 100%;
+      min-height: 100vh;
       background-color: #160e29;
       font-family: 'Outfit', sans-serif;
       color: #ffffff;
       overflow-x: hidden;
     }
 
+    /* Conteneur global centré et propre sur tous les écrans */
     .app-container {
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 1200px;
-      min-height: 100vh;
+      max-width: 1050px;
       margin: 0 auto;
-      padding: 16px;
+      padding: 20px 16px;
+      min-height: 100vh;
       justify-content: center;
     }
 
+    /* Bouton Retour minimaliste et élégant */
     .back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 22px;
+      gap: 8px;
+      padding: 8px 18px;
       border-radius: 99px;
-      background: #2a194d;
-      border: 2px solid #8b5cf6;
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 700;
+      background: #21153d;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 600;
       text-decoration: none;
       transition: all 0.2s ease;
       width: fit-content;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      margin-bottom: 12px;
     }
 
-    .back-btn:hover, .back-btn:active {
+    .back-btn:hover {
       background: #8b5cf6;
       color: #ffffff;
-      transform: translateY(-2px);
+      border-color: #8b5cf6;
     }
 
+    /* Cadre vidéo responsive et propre */
     .player-wrapper {
       position: relative;
       width: 100%;
@@ -71,94 +73,83 @@
       background: #000000;
       border-radius: 16px;
       overflow: hidden;
-      border: 2px solid #8b5cf6;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
     }
 
+    /* Couverture de fond */
     .cover {
       position: absolute;
       inset: 0;
       z-index: 10;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.85) 100%),
+      background: linear-gradient(180deg, rgba(15, 8, 30, 0.4) 0%, rgba(15, 8, 30, 0.9) 100%),
                   url("https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/32320860/canal-ouah_50001/STD169/myCANAL_16x9_sport_1920x1080.jpg80-otzd") center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 16px;
-      padding: 20px;
+      padding: 16px;
+      text-align: center;
     }
 
-    /* Style du compte à rebours */
+    /* Timer propre et compact */
     .timer-container {
       display: flex;
-      gap: 12px;
-      background: rgba(22, 14, 41, 0.85);
-      padding: 16px 24px;
-      border-radius: 16px;
-      border: 1px solid rgba(139, 92, 246, 0.5);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      align-items: center;
+      gap: 8px;
+      background: rgba(18, 10, 35, 0.85);
+      padding: 12px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      backdrop-filter: blur(10px);
     }
 
     .timer-box {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 55px;
+      min-width: 45px;
     }
 
     .timer-val {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 900;
-      color: #a78bfa;
+      color: #c4b5fd;
       line-height: 1;
     }
 
     .timer-lbl {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
       font-weight: 600;
-      color: #ddd6fe;
+      color: #94a3b8;
       margin-top: 4px;
     }
 
-    .play-btn {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: #8b5cf6;
-      border: 3px solid #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-size: 26px;
-      box-shadow: 0 0 25px rgba(139, 92, 246, 0.8);
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.2s ease;
+    .timer-separator {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7c3aed;
+      margin-bottom: 14px;
     }
 
-    .play-btn:hover {
-      transform: scale(1.1);
-      background: #7c3aed;
-    }
-
+    /* Barre de sélection de source épurée */
     .source-bar {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      margin-top: 16px;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     .source-btn {
       flex: 1;
-      max-width: 200px;
-      padding: 14px 20px;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 15px;
+      max-width: 180px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
       text-align: center;
       transition: all 0.2s ease;
       cursor: pointer;
@@ -167,19 +158,36 @@
     .source-btn.active {
       background: #8b5cf6;
       color: #ffffff;
-      border: 2px solid #a78bfa;
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5);
+      border: 1px solid #c4b5fd;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
     }
 
     .source-btn.inactive {
-      background: #2a194d;
-      color: #ddd6fe;
-      border: 2px solid #4c1d95;
+      background: #21153d;
+      color: #cbd5e1;
+      border: 1px solid rgba(139, 92, 246, 0.2);
     }
 
     .source-btn.inactive:hover {
-      background: #3b216b;
+      background: #2e1d57;
       color: #ffffff;
+    }
+
+    /* Adaptation mobile fine */
+    @media (max-width: 480px) {
+      .app-container {
+        padding: 10px;
+      }
+      .timer-container {
+        padding: 10px 14px;
+        gap: 6px;
+      }
+      .timer-val {
+        font-size: 20px;
+      }
+      .timer-separator {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -198,7 +206,7 @@
       
       <!-- COUVERTURE AVEC TIMER -->
       <div id="cover" class="cover">
-        <div id="statusText" class="text-lg font-bold text-violet-200 tracking-wide uppercase">
+        <div id="statusText" class="text-sm md:text-base font-semibold text-purple-200 tracking-wide uppercase">
           Le stream commence dans :
         </div>
 
@@ -207,27 +215,22 @@
             <span id="days" class="timer-val">00</span>
             <span class="timer-lbl">Jours</span>
           </div>
-          <div class="timer-val">:</div>
+          <div class="timer-separator">:</div>
           <div class="timer-box">
             <span id="hours" class="timer-val">00</span>
             <span class="timer-lbl">Heures</span>
           </div>
-          <div class="timer-val">:</div>
+          <div class="timer-separator">:</div>
           <div class="timer-box">
             <span id="minutes" class="timer-val">00</span>
             <span class="timer-lbl">Min</span>
           </div>
-          <div class="timer-val">:</div>
+          <div class="timer-separator">:</div>
           <div class="timer-box">
             <span id="seconds" class="timer-val">00</span>
             <span class="timer-lbl">Sec</span>
           </div>
         </div>
-
-        <!-- BOUTON MANUEL AU CAS OÙ -->
-        <button id="manualPlayBtn" class="play-btn hidden" onclick="startStreamDirectly()" title="Lancer maintenant">
-          <i class="fa-solid fa-play pl-1"></i>
-        </button>
       </div>
 
       <!-- EMPLACEMENT DU STREAM -->
@@ -249,14 +252,12 @@
   </div>
 
   <script>
-    // ------------------------------------------------------------------------
-    // REGLAGE DE L'HEURE DU STREAM (Format: AAAA-MM-JJTHH:MM:SS)
-    // ------------------------------------------------------------------------
-    const TARGET_DATE = new Date("2026-10-31T21:00:00").getTime(); // Modifier ici la date et heure cibles
+    // Réglage de l'heure du stream (Format: AAAA-MM-JJTHH:MM:SS)
+    const TARGET_DATE = new Date("2026-10-31T21:00:00").getTime();
 
     const SOURCES = {
-      1: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr",
-      2: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr"
+      1: "#",
+      2: "#"
     };
 
     let currentSourceId = 1;
@@ -268,13 +269,7 @@
       const distance = TARGET_DATE - now;
 
       if (distance <= 0) {
-        // Le timer est terminé
         clearInterval(timerInterval);
-        document.getElementById("days").innerText = "00";
-        document.getElementById("hours").innerText = "00";
-        document.getElementById("minutes").innerText = "00";
-        document.getElementById("seconds").innerText = "00";
-        
         startStreamDirectly();
         return;
       }
@@ -343,7 +338,7 @@
       `;
     }
 
-    // Initialisation
+    // Initialisation du timer
     timerInterval = setInterval(updateTimer, 1000);
     updateTimer();
   </script>
