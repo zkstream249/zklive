@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HUNI - Lecteur Grand Format</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>HUNI Stream</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,73 +13,90 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      background-color: #0b0714;
+      background-color: #090510;
       font-family: 'Outfit', sans-serif;
-      overflow: hidden;
+      color: white;
+      overflow-x: hidden;
     }
 
-    .wrapper {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
+    /* Container global adaptatif */
+    .app-container {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      box-sizing: border-box;
+      width: 100%;
+      max-width: 1400px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 12px;
     }
 
-    /* BOUTON RETOUR */
+    @media (min-width: 768px) {
+      .app-container {
+        padding: 24px;
+        justify-content: center;
+      }
+    }
+
+    /* Bouton Retour propre */
     .back-btn {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      z-index: 50;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(139, 92, 246, 0.25);
       color: white;
       font-size: 14px;
       font-weight: 700;
       text-decoration: none;
       backdrop-filter: blur(12px);
       transition: all 0.2s ease;
+      width: fit-content;
+      margin-bottom: 12px;
     }
 
-    .back-btn:hover {
+    .back-btn:hover, .back-btn:active {
       background: rgba(139, 92, 246, 0.25);
       border-color: rgba(139, 92, 246, 0.6);
       transform: translateY(-2px);
     }
 
-    .aspect-video-box {
+    /* Cadre vidéo responsive (16:9) */
+    .player-wrapper {
       position: relative;
       width: 100%;
-      max-width: 1600px;
-      height: calc(100vh - 100px);
-      background: #130c24;
-      border-radius: 20px;
+      aspect-ratio: 16 / 9;
+      background: #110a1f;
+      border-radius: 18px;
       overflow: hidden;
       border: 1px solid rgba(139, 92, 246, 0.25);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 50px rgba(139, 92, 246, 0.2);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(139, 92, 246, 0.15);
     }
 
+    @media (min-width: 768px) {
+      .player-wrapper {
+        border-radius: 24px;
+      }
+    }
+
+    /* Couverture / Play */
     .cover {
       position: absolute;
       inset: 0;
       z-index: 10;
       cursor: pointer;
-      background: linear-gradient(180deg, rgba(11, 7, 20, 0.2) 0%, rgba(11, 7, 20, 0.85) 100%),
+      background: linear-gradient(180deg, rgba(9, 5, 16, 0.3) 0%, rgba(9, 5, 16, 0.85) 100%),
                   url("https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321229/120/1321229_120-2b87522c-1092-4034-a072-04c46ff1931e.jpg") center/cover no-repeat;
       display: flex;
       align-items: center;
@@ -88,137 +105,17 @@
     }
 
     .play-btn {
-      width: 90px;
-      height: 90px;
+      width: 65px;
+      height: 65px;
       border-radius: 50%;
       background: #8b5cf6;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 32px;
-      box-shadow: 0 0 35px rgba(139, 92, 246, 0.7);
+      font-size: 24px;
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
       transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
-    .cover:hover .play-btn {
-      transform: scale(1.1);
-      background: #7c3aed;
-    }
-
-    .source-btn {
-      padding: 10px 24px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .source-btn.active {
-      background: #8b5cf6;
-      color: white;
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-    }
-
-    .source-btn.inactive {
-      background: rgba(255, 255, 255, 0.05);
-      color: #a78bfa;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-    }
-
-    .source-btn.inactive:hover {
-      background: rgba(139, 92, 246, 0.15);
-      color: white;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="wrapper">
-    
-    <!-- BOUTON RETOUR -->
-    <a href="index.html" class="back-btn">
-      <i class="fa-solid fa-arrow-left"></i>
-      <span>Retour</span>
-    </a>
-
-    <!-- LECTEUR VIDEO EN GRAND -->
-    <div class="aspect-video-box">
-      
-      <!-- COVER -->
-      <div id="cover" class="cover" onclick="loadVideo(1)">
-        <div class="play-btn">
-          <i class="fa-solid fa-play pl-1"></i>
-        </div>
-      </div>
-
-      <!-- IFRAME VIDEO -->
-      <div id="videoTarget" class="w-full h-full"></div>
-
-    </div>
-
-    <!-- BOUTONS SOURCE -->
-    <div class="mt-3 flex items-center justify-center gap-3">
-      <button id="btn1" onclick="loadVideo(1)" class="source-btn active">
-        <i class="fa-solid fa-server mr-2"></i>Source 1
-      </button>
-
-      <button id="btn2" onclick="loadVideo(2)" class="source-btn inactive">
-        <i class="fa-solid fa-bolt mr-2"></i>Source 2 HD
-      </button>
-    </div>
-
-  </div>
-
-  <script>
-    const SOURCES = {
-      1: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr",
-      2: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr"
-    };
-
-    function setActive(id) {
-      [1, 2].forEach(n => {
-        const btn = document.getElementById("btn" + n);
-        if (btn) {
-          btn.className = (n === id) ? "source-btn active" : "source-btn inactive";
-        }
-      });
-    }
-
-    function loadVideo(id) {
-      const cover = document.getElementById("cover");
-      if (cover) {
-        cover.style.display = "none";
-      }
-
-      setActive(id);
-
-      const target = document.getElementById("videoTarget");
-      const url = SOURCES[id];
-
-      if (!url || url === "#") {
-        target.innerHTML = `
-          <div class="w-full h-full flex items-center justify-center text-xl font-bold text-violet-300">
-            Le stream arrive bientôt...
-          </div>
-        `;
-        return;
-      }
-
-      target.innerHTML = `
-        <iframe
-          src="${url}"
-          allowfullscreen
-          scrolling="no"
-          frameborder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          referrerpolicy="no-referrer-when-downgrade"
-          sandbox="allow-forms allow-scripts allow-same-origin allow-presentation"
-          style="width:100%;height:100%;border:0">
-        </iframe>
-      `;
-    }
-  </script>
-
-</body>
-</html>
+    @media
