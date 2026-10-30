@@ -2,130 +2,249 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HUNI - Lecteur Video</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NOXA STREAM</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Font & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      background-color: #0b0714;
-      font-family: 'Outfit', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .player-container {
       width: 100%;
-      max-width: 1100px;
-      padding: 16px;
+      min-height: 100vh;
+      background-color: #160e29;
+      font-family: 'Outfit', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
     }
 
-    .aspect-video-box {
+    /* Conteneur global centré et propre sur tous les écrans */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      min-height: 100vh;
+      justify-content: center;
+    }
+
+    /* Bouton Retour minimaliste et élégant */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 99px;
+      background: #21153d;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+
+    .back-btn:hover {
+      background: #8b5cf6;
+      color: #ffffff;
+      border-color: #8b5cf6;
+    }
+
+    /* Cadre vidéo responsive et propre */
+    .player-wrapper {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      background: #130c24;
-      border-radius: 20px;
+      background: #000000;
+      border-radius: 16px;
       overflow: hidden;
-      border: 1px solid rgba(139, 92, 246, 0.2);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
     }
 
+    /* Couverture de fond */
     .cover {
       position: absolute;
       inset: 0;
       z-index: 10;
-      cursor: pointer;
-      background: linear-gradient(180deg, rgba(11, 7, 20, 0.2) 0%, rgba(11, 7, 20, 0.85) 100%),
-                  url("https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321229/120/1321229_120-2b87522c-1092-4034-a072-04c46ff1931e.jpg") center/cover no-repeat;
+      background: linear-gradient(180deg, rgba(15, 8, 30, 0.4) 0%, rgba(15, 8, 30, 0.9) 100%),
+                  url("https://www.footenfrance.fr/photo/art/default/79160390-57370847.jpg?v=1711538160") center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    /* Timer propre et compact */
+    .timer-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(18, 10, 35, 0.85);
+      padding: 12px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .timer-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 45px;
+    }
+
+    .timer-val {
+      font-size: 24px;
+      font-weight: 900;
+      color: #c4b5fd;
+      line-height: 1;
+    }
+
+    .timer-lbl {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .timer-separator {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7c3aed;
+      margin-bottom: 14px;
+    }
+
+    /* Barre de sélection de source épurée */
+    .source-bar {
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.3s ease;
-    }
-
-    .play-btn {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #8b5cf6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 28px;
-      box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-
-    .cover:hover .play-btn {
-      transform: scale(1.1);
-      background: #7c3aed;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     .source-btn {
-      padding: 10px 20px;
-      border-radius: 12px;
+      flex: 1;
+      max-width: 180px;
+      padding: 12px 16px;
+      border-radius: 10px;
       font-weight: 700;
       font-size: 14px;
+      text-align: center;
       transition: all 0.2s ease;
+      cursor: pointer;
     }
 
     .source-btn.active {
       background: #8b5cf6;
-      color: white;
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+      color: #ffffff;
+      border: 1px solid #c4b5fd;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
     }
 
     .source-btn.inactive {
-      background: rgba(255, 255, 255, 0.05);
-      color: #a78bfa;
+      background: #21153d;
+      color: #cbd5e1;
       border: 1px solid rgba(139, 92, 246, 0.2);
     }
 
     .source-btn.inactive:hover {
-      background: rgba(139, 92, 246, 0.15);
-      color: white;
+      background: #2e1d57;
+      color: #ffffff;
+    }
+
+    /* Adaptation mobile fine */
+    @media (max-width: 480px) {
+      .app-container {
+        padding: 10px;
+      }
+      .timer-container {
+        padding: 10px 14px;
+        gap: 6px;
+      }
+      .timer-val {
+        font-size: 20px;
+      }
+      .timer-separator {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="player-container">
+  <div class="app-container">
     
+    <!-- BOUTON RETOUR -->
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
+    </a>
+
     <!-- LECTEUR VIDEO -->
-    <div class="aspect-video-box">
+    <div class="player-wrapper">
       
-      <!-- COVER / APERÇU -->
-      <div id="cover" class="cover" onclick="loadVideo(1)">
-        <div class="play-btn">
-          <i class="fa-solid fa-play pl-1"></i>
+      <!-- COUVERTURE AVEC TIMER -->
+      <div id="cover" class="cover">
+        <div id="statusText" class="text-sm md:text-base font-semibold text-purple-200 tracking-wide uppercase">
+          Le stream commence dans :
+        </div>
+
+        <div id="timerContainer" class="timer-container">
+          <div class="timer-box">
+            <span id="days" class="timer-val">00</span>
+            <span class="timer-lbl">Jours</span>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="hours" class="timer-val">00</span>
+            <span class="timer-lbl">Heures</span>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="minutes" class="timer-val">00</span>
+            <span class="timer-lbl">Min</span>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="seconds" class="timer-val">00</span>
+            <span class="timer-lbl">Sec</span>
+          </div>
         </div>
       </div>
 
-      <!-- EMPLACEMENT DE L'IFRAME -->
+      <!-- EMPLACEMENT DU STREAM -->
       <div id="videoTarget" class="w-full h-full"></div>
 
     </div>
 
-    <!-- BOUTONS DE SOURCE -->
-    <div class="mt-4 flex items-center justify-center gap-3">
-      <button id="btn1" onclick="loadVideo(1)" class="source-btn active">
+    <!-- SÉLECTION DE SOURCE -->
+    <div class="source-bar">
+      <button id="btn1" onclick="switchSource(1)" class="source-btn active">
         <i class="fa-solid fa-server mr-2"></i>Source 1
       </button>
 
-      <button id="btn2" onclick="loadVideo(2)" class="source-btn inactive">
+      <button id="btn2" onclick="switchSource(2)" class="source-btn inactive">
         <i class="fa-solid fa-bolt mr-2"></i>Source 2 HD
       </button>
     </div>
@@ -133,10 +252,38 @@
   </div>
 
   <script>
+    // Réglage de l'heure du stream (Format: AAAA-MM-JJTHH:MM:SS)
+    const TARGET_DATE = new Date("2026-10-30T21:00:00").getTime();
+
     const SOURCES = {
-      1: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr",
-      2: "https://jack09eo.mpanrc4imind.my/fr/football/uefa-europa-league-4506704/sturm-graz-vs-marseille.html?icg=RlI&ilang=fr"
+      1: "#",
+      2: "#"
     };
+
+    let currentSourceId = 1;
+    let timerInterval = null;
+    let isStreamStarted = false;
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = TARGET_DATE - now;
+
+      if (distance <= 0) {
+        clearInterval(timerInterval);
+        startStreamDirectly();
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = String(days).padStart(2, '0');
+      document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+      document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+      document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+    }
 
     function setActive(id) {
       [1, 2].forEach(n => {
@@ -147,20 +294,30 @@
       });
     }
 
-    function loadVideo(id) {
+    function switchSource(id) {
+      currentSourceId = id;
+      setActive(id);
+      if (isStreamStarted) {
+        loadVideo(id);
+      }
+    }
+
+    function startStreamDirectly() {
+      isStreamStarted = true;
       const cover = document.getElementById("cover");
       if (cover) {
         cover.style.display = "none";
       }
+      loadVideo(currentSourceId);
+    }
 
-      setActive(id);
-
+    function loadVideo(id) {
       const target = document.getElementById("videoTarget");
       const url = SOURCES[id];
 
       if (!url || url === "#") {
         target.innerHTML = `
-          <div class="w-full h-full flex items-center justify-center text-xl font-bold text-violet-300">
+          <div class="w-full h-full flex items-center justify-center text-lg font-bold text-violet-200">
             Le stream arrive bientôt...
           </div>
         `;
@@ -180,6 +337,10 @@
         </iframe>
       `;
     }
+
+    // Initialisation du timer
+    timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
   </script>
 
 </body>
