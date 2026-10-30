@@ -417,16 +417,8 @@ header.scrolled {
       <span>Ligue 1 · Champions League · Premier League · Liga · Serie A</span>
       <span>Sans inscription · Liens mis à jour en continu</span>
       <span>Rejoins le Discord &amp; le X pour les alertes match</span>
-      <span><span class="text-emerald-400">● LIVE</span> Plateforme HD 24/7</span>
-      <span>Ligue 1 · Champions League · Premier League · Liga · Serie A</span>
-      <span>Sans inscription · Liens mis à jour en continu</span>
-      <span>Rejoins le Discord &amp; le X pour les alertes match</span>
     </div>
     <div class="flex gap-10 px-6 whitespace-nowrap" aria-hidden="true">
-      <span><span class="text-emerald-400">● LIVE</span> Plateforme HD 24/7</span>
-      <span>Ligue 1 · Champions League · Premier League · Liga · Serie A</span>
-      <span>Sans inscription · Liens mis à jour en continu</span>
-      <span>Rejoins le Discord &amp; le X pour les alertes match</span>
       <span><span class="text-emerald-400">● LIVE</span> Plateforme HD 24/7</span>
       <span>Ligue 1 · Champions League · Premier League · Liga · Serie A</span>
       <span>Sans inscription · Liens mis à jour en continu</span>
@@ -486,12 +478,6 @@ header.scrolled {
       <span id="refreshIcon" class="inline-block transition-transform duration-500">↻</span> ACTUALISER
     </button>
   </div>
-
-  <div class="reveal d5 mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500 font-medium">
-    <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> HD / Full HD</span>
-    <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Multi-compétitions</span>
-    <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Accès libre</span>
-  </div>
 </section>
 
 <!-- MAIN -->
@@ -527,126 +513,29 @@ header.scrolled {
   <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-3">
     <p class="text-sm font-bold tracking-wide text-gray-300">NOXA <span class="text-brand">STREAM</span></p>
     <p>© NOXA STREAM — Tous droits réservés.</p>
-    <p class="max-w-xl mx-auto text-[11px] text-gray-600">NOXA STREAM n'héberge aucune vidéo sur ses serveurs. Le contenu est diffusé par des tiers indépendants.</p>
   </div>
 </footer>
 </div>
 
 <script>
-/* ── Progress bar ── */
-(function () {
-  const bar = document.getElementById('nbar');
-  let p = 0;
-  const tick = () => {
-    p = Math.min(p + Math.random() * 18, 92);
-    bar.style.width = p + '%';
-    if (p < 92) requestAnimationFrame(() => setTimeout(tick, 80));
-  };
-  tick();
-  window.addEventListener('load', () => {
-    bar.style.width = '100%';
-    setTimeout(() => { bar.style.opacity = '0'; }, 350);
-  });
-})();
-
-/* ── Custom cursor ── */
-(function () {
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  if (!window.matchMedia('(pointer:fine)').matches) return;
-  let x = 0, y = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', (e) => {
-    x = e.clientX; y = e.clientY;
-    dot.style.left = x + 'px';
-    dot.style.top = y + 'px';
-  });
-  (function follow() {
-    rx += (x - rx) * 0.18;
-    ry += (y - ry) * 0.18;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(follow);
-  })();
-  document.querySelectorAll('.interactive').forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-  });
-})();
-
-/* ── Particles ── */
-(function () {
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  let w, h, parts = [];
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-  function spawn() {
-    parts = Array.from({ length: Math.min(70, Math.floor(w / 22)) }, () => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 1.8 + 0.4,
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: -Math.random() * 0.4 - 0.1,
-      a: Math.random() * 0.45 + 0.1,
-      hue: Math.random() > 0.7 ? 160 : 270
-    }));
-  }
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    for (const p of parts) {
-      p.x += p.vx; p.y += p.vy;
-      if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
-      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
-      ctx.beginPath();
-      ctx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.a})`;
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = `hsla(${p.hue}, 80%, 60%, .6)`;
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-  resize(); spawn(); draw();
-  window.addEventListener('resize', () => { resize(); spawn(); });
-})();
-
-/* ── Navbar scroll ── */
-(function () {
-  const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 24);
-  }, { passive: true });
-})();
-
-/* ── Gate ── */
-(function () {
-  const key = 'huni_gate_v1';
-  const gate = document.getElementById('gate');
-  const skip = document.getElementById('gateSkip');
-  if (!localStorage.getItem(key)) gate.style.display = 'grid';
-  skip?.addEventListener('click', () => {
-    gate.style.animation = 'none';
-    gate.style.opacity = '0';
-    gate.style.transition = 'opacity .4s';
-    setTimeout(() => {
-      gate.style.display = 'none';
-      localStorage.setItem(key, '1');
-    }, 400);
-  });
-})();
-
-/* ── Matches configurés avec l'heure (format "HH:MM") ── */
+/* ── Configuration des matchs avec leur date (Format "YYYY-MM-DD") et leur heure ("HH:MM") ── */
 const MATCHES = [
   {
     id: "match1",
-    title: "", // Mets le titre de ton match ici
-    time: "19:00", // Heure exacte de début du match
-    isToday: true,
-    live: false, // Ne mets pas true ici, le script gérera le passage auto
+    title: "Olympique de Marseille vs Sturm Graz",
+    date: "2026-10-30", // Date exacte du match (Modifie ici)
+    time: "19:00",     // Heure de début : 19h00 pile le match passe en direct
     competition: "Ligue 1",
     banner: "https://cms-images.acc.indazn.com/di/library/DAZN_News/65/c7/psg-le-havre_1u67jjlmorcrczii51uwxll24.png?t=607088783&quality=80",
+    href: "A-C.html"
+  },
+  {
+    id: "match2",
+    title: "Real Madrid vs FC Barcelone",
+    date: "2026-10-31", // Prévu pour demain (passe dans "Aujourd'hui" demain, puis en "Direct" à l'heure prévue)
+    time: "21:00",
+    competition: "Liga",
+    banner: "https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/32287356/canal-ouah_50009/STD169/Presentation1-8Z4U",
     href: "A-C.html"
   }
 ];
@@ -658,9 +547,9 @@ function emptyHTML(msg) {
   </div>`;
 }
 
-function cardHTML(m, i) {
+function cardHTML(m, i, status) {
   const delay = Math.min(i * 0.08, 0.4);
-  const statusBadge = m.live
+  const statusBadge = status === 'live'
     ? `<span class="match-badge live"><span class="dot"></span> LIVE</span>`
     : `<span class="match-badge soon">${m.time}</span>`;
   const thumbStyle = m.banner
@@ -677,53 +566,81 @@ function cardHTML(m, i) {
   </a>`;
 }
 
-/* ── Fonction de mise à jour automatique selon l'heure ── */
-function updateMatchTimes() {
+/* ── Fonction de tri automatique (Demain ➔ Aujourd'hui ➔ Direct) ── */
+function getMatchCategory(match) {
   const now = new Date();
-  const currentHours = now.getHours();
-  const currentMinutes = now.getMinutes();
-  const currentTimeMinutes = currentHours * 60 + currentMinutes;
+  
+  // Formatage de la date du jour en YYYY-MM-DD
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const todayStr = `${year}-${month}-${day}`;
 
-  MATCHES.forEach(m => {
-    if (m.isToday && m.time) {
-      const [matchHours, matchMinutes] = m.time.split(':').map(Number);
-      const matchTimeMinutes = matchHours * 60 + matchMinutes;
+  // Calcul de la date de demain en YYYY-MM-DD
+  const tomorrow = new Date();
+  tomorrow.setDate(now.getDate() + 1);
+  const tYear = tomorrow.getFullYear();
+  const tMonth = String(tomorrow.getMonth() + 1).padStart(2, '0');
+  const tDay = String(tomorrow.getDate()).padStart(2, '0');
+  const tomorrowStr = `${tYear}-${tMonth}-${tDay}`;
 
-      // Si l'heure actuelle est supérieure ou égale à l'heure du match, on le passe en LIVE
-      if (currentTimeMinutes >= matchTimeMinutes) {
-        m.live = true;
-      }
+  // Si le match est prévu pour un autre jour que aujourd'hui ou demain
+  if (match.date > todayStr && match.date !== tomorrowStr) {
+    return 'later';
+  }
+
+  // Si le match est programmé pour demain
+  if (match.date === tomorrowStr) {
+    return 'tomorrow';
+  }
+
+  // Si on est le jour du match, on vérifie l'heure
+  if (match.date === todayStr) {
+    const [matchHours, matchMinutes] = match.time.split(':').map(Number);
+    const matchTimeMinutes = matchHours * 60 + matchMinutes;
+    
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    // Si l'heure actuelle a atteint ou dépassé l'heure du match ➔ DIRECT
+    if (currentMinutes >= matchTimeMinutes) {
+      return 'live';
+    } else {
+      // Sinon, il est prévu pour plus tard dans la journée ➔ AUJOURD'HUI
+      return 'today';
     }
-  });
+  }
+
+  return 'later';
 }
 
 function renderMatches(query = '') {
-  updateMatchTimes(); // Vérifie et met à jour l'état du match avant l'affichage
-
   const liveContainer = document.getElementById('liveMatches');
   const todayContainer = document.getElementById('todayMatches');
   const tomContainer = document.getElementById('tomorrowMatches');
+  
   const filtered = MATCHES.filter(m => m.title.toLowerCase().includes(query.toLowerCase()));
 
-  if (filtered.length === 0) {
-    liveContainer.innerHTML = emptyHTML('Aucune diffusion trouvée pour le moment.');
-    todayContainer.innerHTML = emptyHTML('Aucun match programmé.');
-    tomContainer.innerHTML = emptyHTML('Aucune diffusion demain.');
-    return;
-  }
+  const live = [];
+  const today = [];
+  const tomorrow = [];
 
-  const live = filtered.filter(m => m.live);
-  const today = filtered.filter(m => m.isToday && !m.live);
-  const tomorrow = filtered.filter(m => !m.isToday && !m.live);
+  filtered.forEach(m => {
+    const category = getMatchCategory(m);
+    if (category === 'live') live.push(m);
+    else if (category === 'today') today.push(m);
+    else if (category === 'tomorrow') tomorrow.push(m);
+  });
 
   liveContainer.innerHTML = live.length
-    ? live.map((m, i) => cardHTML(m, i)).join('')
+    ? live.map((m, i) => cardHTML(m, i, 'live')).join('')
     : emptyHTML('Aucun match en direct pour l\'instant.');
+    
   todayContainer.innerHTML = today.length
-    ? today.map((m, i) => cardHTML(m, i)).join('')
-    : emptyHTML('Aucun match programmé.');
+    ? today.map((m, i) => cardHTML(m, i, 'today')).join('')
+    : emptyHTML('Aucun match programmé aujourd\'hui.');
+    
   tomContainer.innerHTML = tomorrow.length
-    ? tomorrow.map((m, i) => cardHTML(m, i)).join('')
+    ? tomorrow.map((m, i) => cardHTML(m, i, 'tomorrow')).join('')
     : emptyHTML('Aucune diffusion programmée demain.');
 
   document.querySelectorAll('.interactive').forEach(el => {
@@ -743,10 +660,11 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
 // Lancement initial
 renderMatches();
 
-// Vérification automatique toutes les 30 secondes pour faire basculer le match pile à l'heure
+// Actualisation automatique toutes les 30 secondes pour détecter le passage "Demain ➔ Aujourd'hui" et "Aujourd'hui ➔ Direct"
 setInterval(() => {
   renderMatches(document.getElementById('searchInput')?.value || '');
 }, 30000);
 </script>
 </body>
 </html>
+
