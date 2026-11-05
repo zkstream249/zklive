@@ -39,7 +39,31 @@ body {
   background: var(--bg);
   color: #fff;
   overflow-x: hidden;
-  /* Curseur PC par défaut rétabli */
+  cursor: none;
+}
+a, button, input { cursor: none; }
+
+/* Custom cursor */
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10000;
+  border-radius: 50%; transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, background .2s, border-color .2s;
+}
+.cursor-dot {
+  width: 8px; height: 8px; background: var(--brand); box-shadow: 0 0 16px var(--brand);
+}
+.cursor-ring {
+  width: 36px; height: 36px; border: 1.5px solid rgba(168,85,247,.55);
+  transition: width .25s, height .25s, border-color .25s, background .25s;
+}
+.cursor-ring.hover {
+  width: 56px; height: 56px;
+  border-color: rgba(168,85,247,.9);
+  background: rgba(168,85,247,.08);
+}
+@media (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+  body, a, button, input { cursor: auto; }
 }
 
 /* Ambient scene */
@@ -147,7 +171,7 @@ body {
   inherits: false;
 }
 
-/* Match cards */
+/* Match cards — style pro type streaming */
 .match-card {
   display: block;
   text-decoration: none;
@@ -278,7 +302,12 @@ header.scrolled {
   z-index: -1; opacity: .7;
 }
 
-/* Section title */
+/* Skeleton / empty */
+.empty-state {
+  animation: fadeUp .6s ease both;
+}
+
+/* Section title — style DIRECT */
 .section-title {
   display: flex; align-items: center; gap: 14px; margin-bottom: 22px;
 }
@@ -321,6 +350,7 @@ header.scrolled {
   box-shadow: 0 0 0 4px rgba(168,85,247,.12), 0 0 40px rgba(168,85,247,.15);
 }
 
+/* Logo letter stagger on load */
 .logo-word span {
   display: inline-block;
   animation: letterPop .6s cubic-bezier(.16,1,.3,1) both;
@@ -330,6 +360,7 @@ header.scrolled {
   to { opacity: 1; transform: none; }
 }
 
+/* Progress bar mini */
 #nbar {
   position: fixed; top: 0; left: 0; height: 2px; width: 0;
   background: linear-gradient(90deg, #a855f7, #6366f1, #10b981);
@@ -343,6 +374,8 @@ header.scrolled {
 <body class="noise min-h-screen flex flex-col">
 
 <div id="nbar"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- Ambient -->
 <div class="scene" aria-hidden="true">
@@ -371,10 +404,10 @@ header.scrolled {
         Suivez-nous sur X pour ne rater aucun lien de match !
       </p>
       <a href="https://x.com/lerato_matsose" target="_blank" rel="noopener noreferrer"
-        class="btn-magnetic block w-full py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg mb-3 relative z-10">
+        class="btn-magnetic block w-full py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg mb-3 relative z-10 interactive">
         REJOINDRE LE X / TWITTER
       </a>
-      <button id="gateSkip" class="text-xs text-gray-400 underline hover:text-white transition-colors relative z-10">
+      <button id="gateSkip" class="text-xs text-gray-400 underline hover:text-white transition-colors relative z-10 interactive">
         J'ai déjà suivi
       </button>
     </div>
@@ -391,8 +424,16 @@ header.scrolled {
       <span>Ligue 1 · Champions League · Premier League · Liga · Serie A</span>
       <span>Sans inscription · Liens mis à jour en continu</span>
       <span>Rejoins le Discord &amp; le X pour les alertes match</span>
+      <span><span class="text-emerald-400">● LIVE</span> Plateforme HD 24/7</span>
+      <span>Ligue 1 · Champions League · Premier League · Liga · Serie A</span>
+      <span>Sans inscription · Liens mis à jour en continu</span>
+      <span>Rejoins le Discord &amp; le X pour les alertes match</span>
     </div>
     <div class="flex gap-10 px-6 whitespace-nowrap" aria-hidden="true">
+      <span><span class="text-emerald-400">● LIVE</span> Plateforme HD 24/7</span>
+      <span>Ligue 1 · Champions League · Premier League · Liga · Serie A</span>
+      <span>Sans inscription · Liens mis à jour en continu</span>
+      <span>Rejoins le Discord &amp; le X pour les alertes match</span>
       <span><span class="text-emerald-400">● LIVE</span> Plateforme HD 24/7</span>
       <span>Ligue 1 · Champions League · Premier League · Liga · Serie A</span>
       <span>Sans inscription · Liens mis à jour en continu</span>
@@ -404,7 +445,7 @@ header.scrolled {
 <!-- NAV -->
 <header id="navbar" class="sticky top-0 z-40 bg-transparent border-b border-transparent transition-all duration-500">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 grid grid-cols-3 items-center">
-    <a href="index.html" class="justify-self-start flex items-center group logo-word">
+    <a href="index.html" class="justify-self-start flex items-center group interactive logo-word">
       <span class="text-2xl sm:text-3xl font-black tracking-wider text-white group-hover:text-purple-300 transition-colors">
         <span style="animation-delay:.05s">N</span><span style="animation-delay:.08s">O</span><span style="animation-delay:.11s">X</span><span style="animation-delay:.14s">A</span>
         <span class="text-brand">
@@ -414,13 +455,13 @@ header.scrolled {
     </a>
 
     <nav class="hidden md:flex items-center justify-center gap-8 text-sm font-semibold tracking-wide justify-self-center">
-      <a href="index.html" class="nav-link active text-purple-300">ACCUEIL</a>
-      <a href="tv.html" class="nav-link text-gray-300 hover:text-white">CHAÎNES TV</a>
-      <a href="/shop.html" class="nav-link text-gray-300 hover:text-white">OFFRE IPTV</a>
+      <a href="index.html" class="nav-link active text-purple-300 interactive">ACCUEIL</a>
+      <a href="tv.html" class="nav-link text-gray-300 hover:text-white interactive">CHAÎNES TV</a>
+      <a href="/shop.html" class="nav-link text-gray-300 hover:text-white interactive">OFFRE IPTV</a>
     </nav>
 
     <div class="justify-self-end flex items-center">
-      <a href="https://discord.gg/CxnescfBYc" target="_blank" class="hidden sm:flex p-2.5 rounded-xl glass text-gray-300 hover:text-white hover:border-purple-500/40 transition-all">
+      <a href="https://discord.gg/CxnescfBYc" target="_blank" class="hidden sm:flex p-2.5 rounded-xl glass text-gray-300 hover:text-white hover:border-purple-500/40 transition-all interactive">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.249.077.077 0 0 0-.079-.037 19.736 19.791 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.083.083 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.04.078.078 0 0 0 .084-.027c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.01c.12.099.246.197.372.291a.077.077 0 0 1-.006.128c-.599.35-1.228.65-1.873.892a.076.076 0 0 0-.04.106c.36.699.772 1.364 1.225 1.994a.076.076 0 0 0 .084.027 19.86 19.86 0 0 0 6.002-3.04.077.077 0 0 0 .03-.056c.5-5.177-.838-9.673-3.548-13.66a.06.06 0 0 0-.031-.028ZM8.02 15.332c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.955 2.419-2.157 2.419Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.21 0 2.176 1.095 2.157 2.418 0 1.334-.946 2.419-2.157 2.419Z"/></svg>
       </a>
     </div>
@@ -446,11 +487,17 @@ header.scrolled {
     <div class="relative w-full">
       <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></svg>
       <input type="text" id="searchInput" placeholder="Rechercher un club, un match..."
-        class="w-full bg-black/45 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500/60 transition-colors">
+        class="w-full bg-black/45 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500/60 transition-colors interactive">
     </div>
-    <button id="refreshBtn" class="btn-magnetic w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-extrabold tracking-wide uppercase rounded-xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2">
+    <button id="refreshBtn" class="btn-magnetic w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-extrabold tracking-wide uppercase rounded-xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 interactive">
       <span id="refreshIcon" class="inline-block transition-transform duration-500">↻</span> ACTUALISER
     </button>
+  </div>
+
+  <div class="reveal d5 mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500 font-medium">
+    <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> HD / Full HD</span>
+    <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Multi-compétitions</span>
+    <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Accès libre</span>
   </div>
 </section>
 
@@ -487,21 +534,128 @@ header.scrolled {
   <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 space-y-3">
     <p class="text-sm font-bold tracking-wide text-gray-300">NOXA <span class="text-brand">STREAM</span></p>
     <p>© NOXA STREAM — Tous droits réservés.</p>
+    <p class="max-w-xl mx-auto text-[11px] text-gray-600">NOXA STREAM n'héberge aucune vidéo sur ses serveurs. Le contenu est diffusé par des tiers indépendants.</p>
   </div>
 </footer>
 </div>
 
 <script>
+/* ── Progress bar ── */
+(function () {
+  const bar = document.getElementById('nbar');
+  let p = 0;
+  const tick = () => {
+    p = Math.min(p + Math.random() * 18, 92);
+    bar.style.width = p + '%';
+    if (p < 92) requestAnimationFrame(() => setTimeout(tick, 80));
+  };
+  tick();
+  window.addEventListener('load', () => {
+    bar.style.width = '100%';
+    setTimeout(() => { bar.style.opacity = '0'; }, 350);
+  });
+})();
+
+/* ── Custom cursor ── */
+(function () {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!window.matchMedia('(pointer:fine)').matches) return;
+  let x = 0, y = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', (e) => {
+    x = e.clientX; y = e.clientY;
+    dot.style.left = x + 'px';
+    dot.style.top = y + 'px';
+  });
+  (function follow() {
+    rx += (x - rx) * 0.18;
+    ry += (y - ry) * 0.18;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(follow);
+  })();
+  document.querySelectorAll('.interactive').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+})();
+
+/* ── Particles ── */
+(function () {
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let w, h, parts = [];
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  function spawn() {
+    parts = Array.from({ length: Math.min(70, Math.floor(w / 22)) }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.8 + 0.4,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: -Math.random() * 0.4 - 0.1,
+      a: Math.random() * 0.45 + 0.1,
+      hue: Math.random() > 0.7 ? 160 : 270
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of parts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue}, 80%, 70%, ${p.a})`;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = `hsla(${p.hue}, 80%, 60%, .6)`;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  resize(); spawn(); draw();
+  window.addEventListener('resize', () => { resize(); spawn(); });
+})();
+
+/* ── Navbar scroll ── */
+(function () {
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 24);
+  }, { passive: true });
+})();
+
+/* ── Gate ── */
+(function () {
+  const key = 'huni_gate_v1';
+  const gate = document.getElementById('gate');
+  const skip = document.getElementById('gateSkip');
+  if (!localStorage.getItem(key)) gate.style.display = 'grid';
+  skip?.addEventListener('click', () => {
+    gate.style.animation = 'none';
+    gate.style.opacity = '0';
+    gate.style.transition = 'opacity .4s';
+    setTimeout(() => {
+      gate.style.display = 'none';
+      localStorage.setItem(key, '1');
+    }, 400);
+  });
+})();
+
+/* ── Matches ── */
 const MATCHES = [
   {
-    id: "match1",
+    id: "#",
     title: "",
-    date: "2026-11-05",
     time: "21:00",
-    competition: "Ligue Europa",
-    banner: "https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321229/151/1321229_151-02fa6986-d7e5-4042-aee7-423e28d073cc.jpg",
+    isToday: true,
+    live: true,
+    competition: "Carabao cup",
+    banner: "https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/canalplus-cdn.canal-plus.io/p1/unit/32287356/canal-ouah_50009/STD169/Presentation1-8Z4U",
     href: "A-C.html"
-  },
+  }
 ];
 
 function emptyHTML(msg) {
@@ -511,9 +665,9 @@ function emptyHTML(msg) {
   </div>`;
 }
 
-function cardHTML(m, i, status) {
+function cardHTML(m, i) {
   const delay = Math.min(i * 0.08, 0.4);
-  const statusBadge = status === 'live'
+  const statusBadge = m.live
     ? `<span class="match-badge live"><span class="dot"></span> LIVE</span>`
     : `<span class="match-badge soon">${m.time}</span>`;
   const thumbStyle = m.banner
@@ -521,7 +675,7 @@ function cardHTML(m, i, status) {
     : '';
 
   return `
-  <a href="${m.href}" class="match-card reveal" style="animation-delay:${delay}s">
+  <a href="${m.href}" class="match-card interactive reveal" style="animation-delay:${delay}s">
     <div class="match-thumb ${m.banner ? 'has-banner' : ''}" ${thumbStyle}>
       ${statusBadge}
       <span class="match-comp">${m.competition || 'FOOTBALL'}</span>
@@ -530,72 +684,37 @@ function cardHTML(m, i, status) {
   </a>`;
 }
 
-function getMatchCategory(match) {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const todayStr = `${year}-${month}-${day}`;
-
-  const tomorrow = new Date();
-  tomorrow.setDate(now.getDate() + 1);
-  const tYear = tomorrow.getFullYear();
-  const tMonth = String(tomorrow.getMonth() + 1).padStart(2, '0');
-  const tDay = String(tomorrow.getDate()).padStart(2, '0');
-  const tomorrowStr = `${tYear}-${tMonth}-${tDay}`;
-
-  if (match.date > todayStr && match.date !== tomorrowStr) {
-    return 'later';
-  }
-
-  if (match.date === tomorrowStr) {
-    return 'tomorrow';
-  }
-
-  if (match.date === todayStr) {
-    const [matchHours, matchMinutes] = match.time.split(':').map(Number);
-    const matchTimeMinutes = matchHours * 60 + matchMinutes;
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-    if (currentMinutes >= matchTimeMinutes) {
-      return 'live';
-    } else {
-      return 'today';
-    }
-  }
-
-  return 'later';
-}
-
 function renderMatches(query = '') {
   const liveContainer = document.getElementById('liveMatches');
   const todayContainer = document.getElementById('todayMatches');
   const tomContainer = document.getElementById('tomorrowMatches');
-  
   const filtered = MATCHES.filter(m => m.title.toLowerCase().includes(query.toLowerCase()));
 
-  const live = [];
-  const today = [];
-  const tomorrow = [];
+  if (filtered.length === 0) {
+    liveContainer.innerHTML = emptyHTML('Aucune diffusion trouvée pour le moment.');
+    todayContainer.innerHTML = emptyHTML('Aucun match programmé.');
+    tomContainer.innerHTML = emptyHTML('Aucune diffusion demain.');
+    return;
+  }
 
-  filtered.forEach(m => {
-    const category = getMatchCategory(m);
-    if (category === 'live') live.push(m);
-    else if (category === 'today') today.push(m);
-    else if (category === 'tomorrow') tomorrow.push(m);
-  });
+  const live = filtered.filter(m => m.live);
+  const today = filtered.filter(m => m.isToday && !m.live);
+  const tomorrow = filtered.filter(m => !m.isToday && !m.live);
 
   liveContainer.innerHTML = live.length
-    ? live.map((m, i) => cardHTML(m, i, 'live')).join('')
+    ? live.map((m, i) => cardHTML(m, i)).join('')
     : emptyHTML('Aucun match en direct pour l\'instant.');
-    
   todayContainer.innerHTML = today.length
-    ? today.map((m, i) => cardHTML(m, i, 'today')).join('')
-    : emptyHTML('Aucun match programmé aujourd\'hui.');
-    
+    ? today.map((m, i) => cardHTML(m, i)).join('')
+    : emptyHTML('Aucun match programmé.');
   tomContainer.innerHTML = tomorrow.length
-    ? tomorrow.map((m, i) => cardHTML(m, i, 'tomorrow')).join('')
+    ? tomorrow.map((m, i) => cardHTML(m, i)).join('')
     : emptyHTML('Aucune diffusion programmée demain.');
+
+  document.querySelectorAll('.interactive').forEach(el => {
+    el.addEventListener('mouseenter', () => document.getElementById('cursorRing')?.classList.add('hover'));
+    el.addEventListener('mouseleave', () => document.getElementById('cursorRing')?.classList.remove('hover'));
+  });
 }
 
 document.getElementById('searchInput')?.addEventListener('input', (e) => renderMatches(e.target.value));
@@ -607,11 +726,6 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
 });
 
 renderMatches();
-
-setInterval(() => {
-  renderMatches(document.getElementById('searchInput')?.value || '');
-}, 30000);
 </script>
 </body>
 </html>
-
