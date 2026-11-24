@@ -2,313 +2,268 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>NOXA STREAM</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts : Outfit -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome 6 -->
+  <!-- Font & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Outfit', 'sans-serif'],
-          },
-          colors: {
-            noxa: {
-              bg: '#160e29',
-              card: '#21153d',
-              cardHover: '#2b1c4f',
-              accent: '#8b5cf6',
-              accentLight: '#a78bfa',
-              dark: '#0f081e',
-            }
-          }
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      background-color: #160e29;
+      font-family: 'Outfit', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Conteneur global centré et propre sur tous les écrans */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      min-height: 100vh;
+      justify-content: center;
+    }
+
+    /* Bouton Retour minimaliste et élégant */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 99px;
+      background: #21153d;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      width: fit-content;
+      margin-bottom: 12px;
+    }
+
+    .back-btn:hover {
+      background: #8b5cf6;
+      color: #ffffff;
+      border-color: #8b5cf6;
+    }
+
+    /* Cadre vidéo responsive et propre */
+    .player-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000000;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Couverture de fond */
+    .cover {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: linear-gradient(180deg, rgba(15, 8, 30, 0.4) 0%, rgba(15, 8, 30, 0.9) 100%),
+                  url("https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321224/170/1321224_170-001d2228-f125-4e92-945e-97f766f5f5ec.jpg") center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    /* Timer propre et compact */
+    .timer-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(18, 10, 35, 0.85);
+      padding: 12px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .timer-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 45px;
+    }
+
+    .timer-val {
+      font-size: 24px;
+      font-weight: 900;
+      color: #c4b5fd;
+      line-height: 1;
+    }
+
+    .timer-lbl {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .timer-separator {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7c3aed;
+      margin-bottom: 14px;
+    }
+
+    /* Barre de sélection de source épurée */
+    .source-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .source-btn {
+      flex: 1;
+      max-width: 180px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .source-btn.active {
+      background: #8b5cf6;
+      color: #ffffff;
+      border: 1px solid #c4b5fd;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .source-btn.inactive {
+      background: #21153d;
+      color: #cbd5e1;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .source-btn.inactive:hover {
+      background: #2e1d57;
+      color: #ffffff;
+    }
+
+    /* Adaptation mobile fine */
+    @media (max-width: 480px) {
+      .app-container {
+        padding: 10px;
+      }
+      .timer-container {
+        padding: 10px 14px;
+        gap: 6px;
+      }
+      .timer-val {
+        font-size: 20px;
+      }
+      .timer-separator {
+        font-size: 16px;
       }
     }
-  </script>
+  </style>
 </head>
-<body class="bg-[#160e29] text-white font-sans antialiased min-h-screen flex flex-col selection:bg-violet-500 selection:text-white overflow-x-hidden">
+<body>
 
-  <!-- Effet de lueur ambiante en arrière-plan -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] sm:w-[900px] h-[350px] bg-violet-600/20 blur-[120px] rounded-full"></div>
-  </div>
-
-  <!-- BARRE DE NAVIGATION / EN-TÊTE -->
-  <header class="relative z-20 w-full border-b border-violet-500/20 bg-[#160e29]/80 backdrop-blur-md sticky top-0">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
-      
-      <!-- Bouton Retour -->
-      <a href="index.html" class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#21153d] hover:bg-[#8b5cf6] border border-violet-500/30 hover:border-violet-400 text-slate-200 hover:text-white text-sm font-semibold transition-all duration-200 active:scale-95">
-        <i class="fa-solid fa-arrow-left text-xs"></i>
-        <span>Retour</span>
-      </a>
-
-      <!-- Logo Marque -->
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-600/30">
-          <i class="fa-solid fa-play text-xs text-white ml-0.5"></i>
-        </div>
-        <span class="font-black tracking-wider text-base sm:text-lg bg-clip-text text-transparent bg-gradient-to-r from-white to-violet-300">
-          NOXA STREAM
-        </span>
-      </div>
-
-      <!-- Badge Statut Dynamique (EN DIRECT / BIENTÔT) -->
-      <div id="liveBadge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold tracking-wide uppercase">
-        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-        <span id="liveBadgeText">Bientôt</span>
-      </div>
-
-    </div>
-  </header>
-
-  <!-- CONTENU PRINCIPAL -->
-  <main id="mainWrapper" class="relative z-10 flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-5 sm:py-8 transition-all duration-300">
+  <div class="app-container">
     
-    <!-- EN-TÊTE DU MATCH -->
-    <div class="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-      <div>
-        <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-violet-400 mb-1.5">
-          <i class="fa-solid fa-futbol"></i>
-          <span>Ligue Des Champions • Affiche du soir</span>
-        </div>
-        <h1 class="text-xl sm:text-3xl font-black tracking-tight text-white leading-tight">
-          RC Lens <span class="text-violet-400 font-extrabold mx-1">vs</span> Olympique de Marseille
-        </h1>
-      </div>
+    <!-- BOUTON RETOUR -->
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
+    </a>
 
-      <!-- Actions rapides PC / Mobile (Mode Cinéma & Recharger) -->
-      <div class="flex items-center gap-2 self-start sm:self-end">
-        <button onclick="reloadPlayer()" title="Recharger le lecteur en cas de bug" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#21153d] hover:bg-[#2b1c4f] border border-violet-500/25 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold transition-all active:scale-95">
-          <i id="reloadIcon" class="fa-solid fa-rotate-right text-violet-400"></i>
-          <span>Recharger</span>
-        </button>
-
-        <button id="cinemaBtn" onclick="toggleCinemaMode()" title="Élargir le lecteur sur ordinateur" class="hidden md:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#21153d] hover:bg-[#2b1c4f] border border-violet-500/25 text-slate-200 hover:text-white text-sm font-semibold transition-all active:scale-95">
-          <i id="cinemaIcon" class="fa-solid fa-expand text-violet-400"></i>
-          <span id="cinemaText">Mode Cinéma</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- LECTEUR VIDÉO 16:9 -->
-    <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden border border-violet-500/40 shadow-[0_16px_50px_rgba(0,0,0,0.75)] ring-1 ring-white/5">
+    <!-- LECTEUR VIDEO -->
+    <div class="player-wrapper">
       
-      <!-- COUVERTURE AVEC COMPTE À REBOURS -->
-      <div id="cover" class="absolute inset-0 z-10 flex flex-col items-center justify-center p-4 sm:p-8 text-center bg-cover bg-center transition-opacity duration-500"
-           style="background-image: linear-gradient(180deg, rgba(15, 8, 30, 0.55) 0%, rgba(15, 8, 30, 0.94) 100%), url('https://thumb.canalplus.pro/http/unsafe/2880x1620/filters:quality(80)/mht.images.prod.siec.canal.aws.io-cplus.net/program/1321224/170/1321224_170-001d2228-f125-4e92-945e-97f766f5f5ec.jpg');">
-        
-        <!-- Pastille info couverture -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-violet-600/30 border border-violet-400/40 backdrop-blur-md text-violet-200 text-xs font-bold uppercase tracking-wider mb-3">
-          <i class="fa-regular fa-clock"></i>
-          <span>Coup d'envoi à 21h00</span>
+      <!-- COUVERTURE AVEC TIMER -->
+      <div id="cover" class="cover">
+        <div id="statusText" class="text-sm md:text-base font-semibold text-purple-200 tracking-wide uppercase">
+          Le stream commence dans :
         </div>
 
-        <p id="statusText" class="text-sm sm:text-lg font-bold text-white tracking-wide mb-4 drop-shadow">
-          Le direct démarre automatiquement dans :
-        </p>
-
-        <!-- Compteur dynamique -->
-        <div id="timerContainer" class="flex items-center gap-2 sm:gap-3.5 bg-[#120a23]/90 px-4 py-3 sm:px-7 sm:py-4 rounded-2xl border border-violet-500/35 backdrop-blur-xl shadow-2xl">
-          <div class="flex flex-col items-center min-w-[44px] sm:min-w-[60px]">
-            <span id="days" class="text-2xl sm:text-4xl font-black text-violet-300 leading-none tabular-nums">00</span>
-            <span class="text-[10px] sm:text-xs uppercase font-bold text-slate-400 mt-1.5 tracking-wider">Jours</span>
+        <div id="timerContainer" class="timer-container">
+          <div class="timer-box">
+            <span id="days" class="timer-val">00</span>
+            <span class="timer-lbl">Jours</span>
           </div>
-          <span class="text-xl sm:text-3xl font-bold text-violet-500 mb-4">:</span>
-          <div class="flex flex-col items-center min-w-[44px] sm:min-w-[60px]">
-            <span id="hours" class="text-2xl sm:text-4xl font-black text-violet-300 leading-none tabular-nums">00</span>
-            <span class="text-[10px] sm:text-xs uppercase font-bold text-slate-400 mt-1.5 tracking-wider">Heures</span>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="hours" class="timer-val">00</span>
+            <span class="timer-lbl">Heures</span>
           </div>
-          <span class="text-xl sm:text-3xl font-bold text-violet-500 mb-4">:</span>
-          <div class="flex flex-col items-center min-w-[44px] sm:min-w-[60px]">
-            <span id="minutes" class="text-2xl sm:text-4xl font-black text-violet-300 leading-none tabular-nums">00</span>
-            <span class="text-[10px] sm:text-xs uppercase font-bold text-slate-400 mt-1.5 tracking-wider">Min</span>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="minutes" class="timer-val">00</span>
+            <span class="timer-lbl">Min</span>
           </div>
-          <span class="text-xl sm:text-3xl font-bold text-violet-500 mb-4">:</span>
-          <div class="flex flex-col items-center min-w-[44px] sm:min-w-[60px]">
-            <span id="seconds" class="text-2xl sm:text-4xl font-black text-white leading-none tabular-nums">00</span>
-            <span class="text-[10px] sm:text-xs uppercase font-bold text-slate-400 mt-1.5 tracking-wider">Sec</span>
-          </div>
-        </div>
-
-        <!-- Bouton de test / lancement manuel -->
-        <button onclick="startStreamDirectly()" class="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-violet-600 border border-white/20 hover:border-violet-400 text-xs sm:text-sm font-semibold text-white transition-all backdrop-blur-md active:scale-95">
-          <i class="fa-solid fa-play text-xs"></i>
-          <span>Tester / Lancer le lecteur maintenant</span>
-        </button>
-      </div>
-
-      <!-- CIBLE DE L'IFRAME VIDÉO -->
-      <div id="videoTarget" class="w-full h-full bg-black"></div>
-
-      <!-- Notification Toast interne au lecteur -->
-      <div id="playerToast" class="pointer-events-none opacity-0 transition-opacity duration-300 absolute top-4 right-4 z-30 bg-[#160e29]/95 border border-violet-400/40 text-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-lg flex items-center gap-2 backdrop-blur-md">
-        <i class="fa-solid fa-circle-check text-emerald-400"></i>
-        <span id="playerToastText">Source chargée</span>
-      </div>
-    </div>
-
-    <!-- SÉLECTEUR DE SOURCES -->
-    <div class="mt-4 sm:mt-5 bg-[#21153d]/70 border border-violet-500/20 rounded-2xl p-3 sm:p-4 backdrop-blur-sm">
-      <div class="flex items-center justify-between mb-2.5 px-1">
-        <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-          <i class="fa-solid fa-satellite-dish text-violet-400"></i>
-          Choix du serveur vidéo
-        </span>
-        <span id="activeSourceLabel" class="text-xs font-semibold text-violet-300">
-          Actif : Source 1 (1080p)
-        </span>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-        <!-- Source 1 -->
-        <button id="btn1" onclick="switchSource(1)" class="source-btn group flex items-center justify-between px-4 py-3 rounded-xl font-bold text-sm transition-all duration-200 bg-[#8b5cf6] text-white border border-violet-300/60 shadow-lg shadow-violet-600/25">
-          <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-server"></i>
-            <span>Source 1</span>
-          </span>
-          <span class="inline-flex items-center gap-1.5 text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-black/25 text-emerald-300">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            HD 1080p
-          </span>
-        </button>
-
-        <!-- Source 2 -->
-        <button id="btn2" onclick="switchSource(2)" class="source-btn group flex items-center justify-between px-4 py-3 rounded-xl font-bold text-sm transition-all duration-200 bg-[#21153d] hover:bg-[#2b1c4f] text-slate-200 border border-violet-500/25">
-          <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-bolt text-violet-400 group-hover:text-white"></i>
-            <span>Source 2 HD</span>
-          </span>
-          <span class="inline-flex items-center gap-1.5 text-[11px] font-bold px-2 py-0.5 rounded-md bg-violet-950/80 text-violet-300">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            Rapide
-          </span>
-        </button>
-
-        <!-- Source 3 Backup -->
-        <button id="btn3" onclick="switchSource(3)" class="source-btn group flex items-center justify-between px-4 py-3 rounded-xl font-bold text-sm transition-all duration-200 bg-[#21153d] hover:bg-[#2b1c4f] text-slate-200 border border-violet-500/25">
-          <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-shield-halved text-violet-400 group-hover:text-white"></i>
-            <span>Source 3 Backup</span>
-          </span>
-          <span class="inline-flex items-center gap-1.5 text-[11px] font-bold px-2 py-0.5 rounded-md bg-violet-950/80 text-slate-300">
-            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-            Secours
-          </span>
-        </button>
-      </div>
-    </div>
-
-    <!-- ENCART D'INFORMATIONS RAPIDES & CONSEILS -->
-    <div class="mt-4 sm:mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-      
-      <!-- Fiche Rencontre -->
-      <div class="bg-[#21153d]/60 border border-violet-500/20 rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
-        <h2 class="text-sm font-extrabold uppercase tracking-wider text-violet-300 mb-3 flex items-center gap-2">
-          <i class="fa-solid fa-circle-info"></i>
-          Informations de diffusion
-        </h2>
-        <div class="space-y-2.5 text-sm">
-          <div class="flex items-center justify-between py-1.5 border-b border-violet-500/10">
-            <span class="text-slate-400">Compétition</span>
-            <span class="font-semibold text-white">Ligue 1 McDonald's</span>
-          </div>
-          <div class="flex items-center justify-between py-1.5 border-b border-violet-500/10">
-            <span class="text-slate-400">Stade</span>
-            <span class="font-semibold text-white">Stade Bollaert-Delelis</span>
-          </div>
-          <div class="flex items-center justify-between py-1.5">
-            <span class="text-slate-400">Langue des commentaires</span>
-            <span class="inline-flex items-center gap-1.5 font-semibold text-white">
-              <span>🇫🇷 Français</span>
-            </span>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="seconds" class="timer-val">00</span>
+            <span class="timer-lbl">Sec</span>
           </div>
         </div>
       </div>
 
-      <!-- Conseils Qualité & Anti-pub -->
-      <div class="bg-[#21153d]/60 border border-violet-500/20 rounded-2xl p-4 sm:p-5">
-        <h2 class="text-sm font-extrabold uppercase tracking-wider text-violet-300 mb-3 flex items-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles"></i>
-          Conseils de visionnage optimal
-        </h2>
-        <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
-          <li class="flex items-start gap-2.5">
-            <i class="fa-solid fa-shield-cat text-violet-400 mt-1"></i>
-            <span>Utilisez un bloqueur de publicités (ex: <strong>uBlock Origin</strong> ou navigateur <strong>Brave</strong>) pour fermer instantanément les fenêtres pop-up du lecteur.</span>
-          </li>
-          <li class="flex items-start gap-2.5">
-            <i class="fa-solid fa-arrows-rotate text-violet-400 mt-1"></i>
-            <span>Si l'image se fige, cliquez sur <strong>Recharger</strong> ou basculez vers la <strong>Source 2 HD</strong> ou <strong>Source 3 Backup</strong>.</span>
-          </li>
-        </ul>
-      </div>
+      <!-- EMPLACEMENT DU STREAM -->
+      <div id="videoTarget" class="w-full h-full"></div>
 
     </div>
 
-  </main>
+    <!-- SÉLECTION DE SOURCE -->
+    <div class="source-bar">
+      <button id="btn1" onclick="switchSource(1)" class="source-btn active">
+        <i class="fa-solid fa-server mr-2"></i>Source 1
+      </button>
 
-  <!-- PIED DE PAGE DISCRET -->
-  <footer class="relative z-10 w-full border-t border-violet-500/15 py-4 px-4 text-center text-xs text-slate-400">
-    <p>NOXA STREAM • Lecteur sportif multi-sources adaptatif Mobile & Desktop</p>
-  </footer>
+      <button id="btn2" onclick="switchSource(2)" class="source-btn inactive">
+        <i class="fa-solid fa-bolt mr-2"></i>Source 2 HD
+      </button>
+    </div>
+
+  </div>
 
   <script>
     // Réglage de l'heure du stream (Format: AAAA-MM-JJTHH:MM:SS)
-    const TARGET_DATE = new Date("2026-11-08T20:45:00").getTime();
+    const TARGET_DATE = new Date("2026-11-24T21:00:00").getTime();
 
-    // Configuration des sources vidéo
     const SOURCES = {
-      1: {
-        name: "Source 1 (1080p)",
-        url: "https://jack07eo.mpaver6fuiwild.my/fr/football/french-ligue-1-4430830/rc-lens-vs-marseille.html?icg=RlI&ilang=fr"
-      },
-      2: {
-        name: "Source 2 HD",
-        url: "https://jack07eo.mpaver6fuiwild.my/fr/football/french-ligue-1-4430830/rc-lens-vs-marseille.html?icg=RlI&ilang=fr"
-      },
-      3: {
-        name: "Source 3 Backup",
-        url: "https://jack07eo.mpaver6fuiwild.my/fr/football/french-ligue-1-4430830/rc-lens-vs-marseille.html?icg=RlI&ilang=fr"
-      }
+      1: "https://jack11eo.mpaver6fuiwild.my/fr/football/uefa-champions-league-4502461/real-madrid-vs-psv-eindhoven.html?icg=RlI&ilang=fr",
+      2: "https://jack11eo.mpaver6fuiwild.my/fr/football/uefa-champions-league-4502461/real-madrid-vs-psv-eindhoven.html?icg=RlI&ilang=fr",
     };
 
     let currentSourceId = 1;
     let timerInterval = null;
     let isStreamStarted = false;
-    let isCinemaMode = false;
-    let toastTimeout = null;
 
-    // Affiche une petite notification discrète dans le coin du lecteur
-    function showPlayerToast(message) {
-      const toast = document.getElementById("playerToast");
-      const text = document.getElementById("playerToastText");
-      if (!toast || !text) return;
-
-      text.innerText = message;
-      toast.classList.remove("opacity-0");
-      toast.classList.add("opacity-100");
-
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove("opacity-100");
-        toast.classList.add("opacity-0");
-      }, 2500);
-    }
-
-    // Mise à jour du compte à rebours
     function updateTimer() {
       const now = new Date().getTime();
       const distance = TARGET_DATE - now;
@@ -330,70 +285,40 @@
       document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
     }
 
-    // Met à jour l'apparence des boutons de source
-    function setActiveSourceUI(id) {
-      [1, 2, 3].forEach(n => {
+    function setActive(id) {
+      [1, 2].forEach(n => {
         const btn = document.getElementById("btn" + n);
-        if (!btn) return;
-        if (n === id) {
-          btn.className = "source-btn group flex items-center justify-between px-4 py-3 rounded-xl font-bold text-sm transition-all duration-200 bg-[#8b5cf6] text-white border border-violet-300/60 shadow-lg shadow-violet-600/25";
-        } else {
-          btn.className = "source-btn group flex items-center justify-between px-4 py-3 rounded-xl font-bold text-sm transition-all duration-200 bg-[#21153d] hover:bg-[#2b1c4f] text-slate-200 border border-violet-500/25";
+        if (btn) {
+          btn.className = (n === id) ? "source-btn active" : "source-btn inactive";
         }
       });
-
-      const label = document.getElementById("activeSourceLabel");
-      if (label && SOURCES[id]) {
-        label.innerText = "Actif : " + SOURCES[id].name;
-      }
     }
 
-    // Changement de source
     function switchSource(id) {
       currentSourceId = id;
-      setActiveSourceUI(id);
+      setActive(id);
       if (isStreamStarted) {
         loadVideo(id);
-        showPlayerToast("Basculé sur " + SOURCES[id].name);
-      } else {
-        showPlayerToast(SOURCES[id].name + " présélectionnée");
       }
     }
 
-    // Démarre le flux vidéo et passe le badge en EN DIRECT
     function startStreamDirectly() {
       isStreamStarted = true;
-      clearInterval(timerInterval);
-
       const cover = document.getElementById("cover");
       if (cover) {
-        cover.style.opacity = "0";
-        setTimeout(() => {
-          cover.style.display = "none";
-        }, 400);
+        cover.style.display = "none";
       }
-
-      // Mise à jour du badge dans l'en-tête vers EN DIRECT
-      const liveBadge = document.getElementById("liveBadge");
-      const liveBadgeText = document.getElementById("liveBadgeText");
-      if (liveBadge && liveBadgeText) {
-        liveBadge.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-400 text-xs font-extrabold tracking-wider uppercase shadow-sm shadow-rose-500/20";
-        liveBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span><span>En Direct</span>`;
-      }
-
       loadVideo(currentSourceId);
     }
 
-    // Injection de l'iframe vidéo
     function loadVideo(id) {
       const target = document.getElementById("videoTarget");
-      const sourceObj = SOURCES[id];
+      const url = SOURCES[id];
 
-      if (!sourceObj || !sourceObj.url || sourceObj.url === "#") {
+      if (!url || url === "#") {
         target.innerHTML = `
-          <div class="w-full h-full flex flex-col items-center justify-center gap-3 text-center p-6 bg-[#0f081e]">
-            <i class="fa-solid fa-satellite-dish text-3xl text-violet-400 animate-bounce"></i>
-            <p class="text-base sm:text-lg font-bold text-violet-200">Le flux arrive bientôt sur cette source...</p>
+          <div class="w-full h-full flex items-center justify-center text-lg font-bold text-violet-200">
+            Le stream arrive bientôt...
           </div>
         `;
         return;
@@ -401,73 +326,21 @@
 
       target.innerHTML = `
         <iframe
-          src="${sourceObj.url}"
+          src="${url}"
           allowfullscreen
           scrolling="no"
           frameborder="0"
           allow="autoplay; fullscreen; picture-in-picture"
           referrerpolicy="no-referrer-when-downgrade"
           sandbox="allow-forms allow-scripts allow-same-origin allow-presentation"
-          class="w-full h-full border-0">
+          style="width:100%;height:100%;border:0">
         </iframe>
       `;
     }
 
-    // Recharger le lecteur en cas de gel ou bug
-    function reloadPlayer() {
-      const icon = document.getElementById("reloadIcon");
-      if (icon) {
-        icon.classList.add("animate-spin");
-        setTimeout(() => icon.classList.remove("animate-spin"), 600);
-      }
-
-      if (!isStreamStarted) {
-        startStreamDirectly();
-        showPlayerToast("Lecteur démarré");
-        return;
-      }
-
-      const target = document.getElementById("videoTarget");
-      target.innerHTML = `
-        <div class="w-full h-full flex items-center justify-center bg-black text-violet-300 text-sm font-semibold gap-2">
-          <i class="fa-solid fa-circle-notch animate-spin"></i>
-          <span>Rechargement du flux...</span>
-        </div>
-      `;
-      setTimeout(() => {
-        loadVideo(currentSourceId);
-        showPlayerToast("Lecteur rechargé");
-      }, 300);
-    }
-
-    // Mode Cinéma pour PC (élargit la largeur maximale du conteneur)
-    function toggleCinemaMode() {
-      const mainWrapper = document.getElementById("mainWrapper");
-      const cinemaText = document.getElementById("cinemaText");
-      const cinemaIcon = document.getElementById("cinemaIcon");
-
-      isCinemaMode = !isCinemaMode;
-
-      if (isCinemaMode) {
-        mainWrapper.classList.remove("max-w-5xl");
-        mainWrapper.classList.add("max-w-7xl");
-        cinemaText.innerText = "Vue Standard";
-        cinemaIcon.className = "fa-solid fa-compress text-violet-400";
-        showPlayerToast("Mode Cinéma activé");
-      } else {
-        mainWrapper.classList.remove("max-w-7xl");
-        mainWrapper.classList.add("max-w-5xl");
-        cinemaText.innerText = "Mode Cinéma";
-        cinemaIcon.className = "fa-solid fa-expand text-violet-400";
-        showPlayerToast("Vue standard rétablie");
-      }
-    }
-
-    // Initialisation au chargement de la page
-    window.addEventListener("DOMContentLoaded", () => {
-      timerInterval = setInterval(updateTimer, 1000);
-      updateTimer();
-    });
+    // Initialisation du timer
+    timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
   </script>
 
 </body>
